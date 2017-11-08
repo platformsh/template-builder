@@ -2,10 +2,10 @@
 
 all: update platformify branch push
 
-reset:
+clean:
 	rm -rf template
 
-init: reset
+init: clean
 	git clone git@github.com:platformsh/template-drupal8.git template
 	cd template && git remote add upstream https://github.com/drupal-composer/drupal-project.git
 

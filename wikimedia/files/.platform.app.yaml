@@ -1,0 +1,61 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.1
+build:
+    flavor: none
+hooks:
+    build: |
+      cd web
+      composer install --no-dev
+    deploy: |
+      if [ ! -f /app/install/install.log ]; then
+        php web/maintenance/install.php  --dbname=main --dbserver="database.internal" --installdbuser=user --installdbpass= --dbuser=user --dbpass= --scriptpath=/ --lang=en --pass=changeme "Platform.sh wikimedia example" "admin" >/app/install/install.log
+        echo "Please change the admin password"
+      fi
+      cd web
+      php maintenance/update.php --quick
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: 'mysqldb:mysql'
+    cache: "memcached:memcached"
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    # Storage for Craft-writeable files.
+    "/images": "shared:files/storage"
+    "/cache": "shared:files/cache"
+    "/install": "shared:files/install"
+# The configuration of app when it is exposed to the web.
+web:
+    locations:
+        "/wiki":
+            # The public directory of the app, relative to its root.
+            root: "web"
+            # The front-controller script to send non-static requests to.
+            passthru: "/index.php"
+            index:
+              - index.php
+            allow: true
+        # Allow uploaded files to be served, but do not run scripts.
+        # Missing files get mapped to the front controller above.
+        '/web/cache':
+            root: 'web/cache'
+            scripts: false
+            allow: true
+        '/web/images':
+            root: 'web/images'
+            scripts: false
+            allow: true

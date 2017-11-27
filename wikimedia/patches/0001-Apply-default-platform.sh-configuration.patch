@@ -1,0 +1,32 @@
+From 3fde3e28531dcd23efe036d57c790d37ec80cc8a Mon Sep 17 00:00:00 2001
+From: Ori Pekelman <ori@platform.sh>
+Date: Fri, 24 Nov 2017 14:41:00 +0100
+Subject: [PATCH] Apply default platform.sh configuration
+
+--- .gitignore
++++ (clipboard)
+@@ -22,7 +22,6 @@
+ sftp-config.json
+ 
+ # MediaWiki install & usage
+-/cache
+ /images
+ /cache
+ /docs/js
+@@ -47,7 +46,10 @@
+ /tests/phpunit/phpunit.phar
+ 
+ # Composer
+-/vendor
++/composer.lock
++/composer.json
++/composer.local.json
++
+ # MediaWiki UI documentation
+ /docs/kss/static
+ 
+@@ -70,4 +72,3 @@
+ /.htpasswd
+ /tests/phan/issues
+ *.rej
+-

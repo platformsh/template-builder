@@ -1,0 +1,22 @@
+{ 
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/wikimedia/mediawiki-skins-Material"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/wikimedia/mediawiki-skins-Vector"
+    },
+    {
+      "type": "pear",
+      "url": "https://pear.php.net"
+    }
+  ],
+  "require": {
+    "mediawiki/vector-skin": "dev-master",
+    "pear/mail": "*",
+    "pear/Net_SMTP": "*"
+  }
+}

@@ -1,0 +1,25 @@
+From 0a997ea2ddc7ec6d0cd8eca1680d50330a15c3cf Mon Sep 17 00:00:00 2001
+From: Ori Pekelman <ori@platform.sh>
+Date: Fri, 24 Nov 2017 18:39:40 +0100
+Subject: [PATCH] ignore localsettings
+
+---
+ web/includes/installer/CliInstaller.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/web/includes/installer/CliInstaller.php b/web/includes/installer/CliInstaller.php
+index 661c3ec..2038cff 100644
+--- a/web/includes/installer/CliInstaller.php
++++ b/web/includes/installer/CliInstaller.php
+@@ -124,7 +124,7 @@ class CliInstaller extends Installer {
+ 	 */
+ 	public function execute() {
+ 		$vars = Installer::getExistingLocalSettings();
+-		if ( $vars ) {
++		if ( $vars  && false) {
+ 			$this->showStatusMessage(
+ 				Status::newFatal( "config-localsettings-cli-upgrade" )
+ 			);
+-- 
+2.15.0
+

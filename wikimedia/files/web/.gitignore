@@ -1,0 +1,64 @@
+# Repository management
+.svn
+
+# git-deploy status file:
+/.deploy
+
+# Editors
+*.kate-swp
+*~
+\#*#
+.#*
+.*.swp
+.project
+cscope.files
+cscope.out
+*.orig
+## NetBeans
+nbproject*
+project.index
+## Sublime
+sublime-*
+sftp-config.json
+
+# MediaWiki install & usage
+/images
+/cache
+/docs/js
+/maintenance/.mweval_history
+/maintenance/.mwsql_history
+/maintenance/dev/data
+/AdminSettings.php
+/StartProfiler.php
+
+# Building & testing
+node_modules/
+/tests/phpunit/phpunit.phar
+
+# Composer
+/vendor
+# Composer install of skins goes here not to vendor.
+/web/skins/Vector*
+
+# MediaWiki UI documentation
+/docs/kss/static
+
+# Operating systems
+## Mac OS X
+.DS_Store
+## Windows
+Thumbs.db
+
+# Misc
+.buildpath
+.classpath
+.idea
+.metadata*
+.settings
+/favicon.ico
+/static*
+/tags
+/.htaccess
+/.htpasswd
+/tests/phan/issues
+*.rej

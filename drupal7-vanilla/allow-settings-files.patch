@@ -1,0 +1,11 @@
+diff --git a/docroot/.gitignore b/docroot/.gitignore
+index baff153..329e822 100644
+--- a/docroot/.gitignore
++++ b/docroot/.gitignore
+@@ -1,5 +1,5 @@
+ # Ignore configuration files that may contain sensitive information.
+-sites/*/settings*.php
++sites/*/settings.local.php
+ 
+ # Ignore paths that contain user-generated content.
+ sites/*/files

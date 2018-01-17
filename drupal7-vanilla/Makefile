@@ -9,7 +9,7 @@ init: clean
 	git clone git@github.com:platformsh/template-drupal7-vanilla.git template
 
 update:
-	cd template && git checkout master
+	cd template && git checkout master && git pull --prune
 	wget -qO- https://ftp.drupal.org/files/projects/drupal-7.56.tar.gz | tar xzv --transform 's/^drupal-7.56/docroot/' -C template/
 
 platformify:

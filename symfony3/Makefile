@@ -19,6 +19,7 @@ platformify:
 	cd template && patch -p1 < ../parameters.patch
 
 branch:
+	cd template && git branch -D update
 	cd template && git checkout -b update
 	cd template && git add -A && git commit -m "Update to latest upstream"
 

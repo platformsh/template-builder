@@ -1,5 +1,3 @@
-from subprocess import check_output
-
 DOIT_CONFIG = {
     #"num_process": 16,
     #"par_type": "thread",
@@ -8,16 +6,12 @@ DOIT_CONFIG = {
 
 def task_drupal8():
     return {
-        'task_dep': ['drupal8_update', 'drupal8_platformify', 'drupal8_branch', 'drupal8_push'],
+        'task_dep': ['drupal8_update', 'drupal8_platformify', 'drupal8_branch',],
         'actions': []
     }
 
 def task_drupal8_cleanup():
-    return {
-        'actions': [
-            'rm -rf template'
-        ]
-    }
+    return common_cleanup()
 
 def task_drupal8_init():
     return {
@@ -53,6 +47,13 @@ def task_drupal8_push():
     return common_push()
 
 
+def common_cleanup():
+    return {
+        'actions': [
+            'rm -rf template'
+        ]
+    }
+
 def common_branch():
     return {
         'actions': [
@@ -66,6 +67,6 @@ def common_push():
     return {
         'actions': [
             'cd template && git checkout update && git push -u origin update',
-            'cd template && hub pull-request -m "Update to latest upstream" -b master -h update'
+            'cd template && hub pull-request -m "Update to latest upstream" -b origin:master -h update'
         ]
     }

@@ -18,7 +18,7 @@ def task_drupal8_init():
         'task_dep': ['drupal8_cleanup'],
         'actions': [
             'git clone git@github.com:platformsh/template-drupal8.git template',
-            'cd template && git remote add upstream https://github.com/drupal-composer/drupal-project.git'
+            'cd template && git remote add project https://github.com/drupal-composer/drupal-project.git'
         ]
     }
 
@@ -28,7 +28,7 @@ def task_drupal8_update():
         'actions': [
             'cd template && git checkout master',
             'cd template && git fetch --all --depth=2',
-            'cd template && git merge --allow-unrelated-histories -X theirs --squash upstream/8.x',
+            'cd template && git merge --allow-unrelated-histories -X theirs --squash project/8.x',
             'cd template && composer install'
         ]
     }
@@ -67,6 +67,6 @@ def common_push():
     return {
         'actions': [
             'cd template && git checkout update && git push -u origin update',
-            'cd template && hub pull-request -m "Update to latest upstream" -b origin:master -h update'
+            'cd template && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update'
         ]
     }

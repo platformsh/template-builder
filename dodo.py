@@ -71,7 +71,7 @@ def task_symfony3_init():
     return {
         'task_dep': ['symfony3_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-symfony3.git template',
+            'git clone git@github.com:platformsh/template-symfony3.git symfony3/template',
             'cd symfony3/template && git remote add project https://github.com/symfony/symfony-standard.git'
         ]
     }

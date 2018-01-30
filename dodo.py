@@ -4,6 +4,14 @@ DOIT_CONFIG = {
     "verbosity": 2,
 }
 
+# @TODO Add _push to all of the top-level tasks for one-stop shopping.
+
+def task_all():
+    return {
+        'task_dep': ['drupal8', 'drupal7', 'symfony3',],
+        'actions': []
+    }
+
 ### Drupal 8 ###
 
 def task_drupal8():
@@ -103,13 +111,14 @@ def task_drupal7_platformify():
         ]
     }
 
-def task_drupal7_cleanup():
-    return common_cleanup('drupal7')
 
 def task_drupal7_update():
     return {
         'actions': []
     }
+
+def task_drupal7_cleanup():
+    return common_cleanup('drupal7')
 
 def task_drupal7_branch():
     return common_branch('drupal7')

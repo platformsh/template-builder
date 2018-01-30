@@ -111,7 +111,6 @@ def task_drupal7_platformify():
         ]
     }
 
-
 def task_drupal7_update():
     return {
         'actions': []
@@ -125,6 +124,48 @@ def task_drupal7_branch():
 
 def task_drupal7_push():
     return common_push('drupal7')
+
+
+### Drupal 7 (Vanilla) ###
+
+def task_drupal7_vanilla():
+    return {
+        'task_dep': ['drupal7_vanilla_update', 'drupal7_vanilla_platformify', 'drupal7_vanilla_branch',],
+        'actions': []
+    }
+
+def task_drupal7_vanilla_init():
+    return {
+        'task_dep': ['drupal7_vanilla_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-drupal7.git drupal7_vanilla/template',
+        ]
+    }
+
+def task_drupal7_vanilla_platformify():
+    return {
+        'actions': [
+            'rsync -aP drupal7_vanilla/files/ drupal7_vanilla/template/',
+            'cd drupal7_vanilla/template && patch -p1 < ../allow-settings-files.patch',
+        ]
+    }
+
+def task_drupal7_vanilla_update():
+    return {
+        'actions': [
+            'cd drupal7_vanilla/template && git checkout master && git pull --prune',
+            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.56.tar.gz | tar xzv --transform 's/^drupal-7.56/docroot/' -C drupal7_vanilla/template/"
+        ]
+    }
+
+def task_drupal7_vanilla_cleanup():
+    return common_cleanup('drupal7_vanilla')
+
+def task_drupal7_vanilla_branch():
+    return common_branch('drupal7_vanilla')
+
+def task_drupal7_vanilla_push():
+    return common_push('drupal7_vanilla')
 
 
 

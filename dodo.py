@@ -79,6 +79,46 @@ def task_symfony3_push():
     return common_push('symfony3')
 
 
+
+### Drupal 7 (Drush Make) ###
+
+def task_drupal7():
+    return {
+        'task_dep': ['drupal7_update', 'drupal7_platformify', 'drupal7_branch',],
+        'actions': []
+    }
+
+def task_drupal7_init():
+    return {
+        'task_dep': ['drupal7_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-drupal7.git drupal7/template',
+        ]
+    }
+
+def task_drupal7_platformify():
+    return {
+        'actions': [
+            'rsync -aP drupal7/files/ drupal7/template/'
+        ]
+    }
+
+def task_drupal7_cleanup():
+    return common_cleanup('drupal7')
+
+def task_drupal7_update():
+    return {
+        'actions': []
+    }
+
+def task_drupal7_branch():
+    return common_branch('drupal7')
+
+def task_drupal7_push():
+    return common_push('drupal7')
+
+
+
 ### Common command templates ###
 
 def common_cleanup(root):

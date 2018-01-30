@@ -4,14 +4,13 @@ DOIT_CONFIG = {
     "verbosity": 2,
 }
 
+### Drupal 8 ###
+
 def task_drupal8():
     return {
         'task_dep': ['drupal8_update', 'drupal8_platformify', 'drupal8_branch',],
         'actions': []
     }
-
-def task_drupal8_cleanup():
-    return common_cleanup('drupal8')
 
 def task_drupal8_init():
     return {
@@ -22,16 +21,18 @@ def task_drupal8_init():
         ]
     }
 
-
-def task_drupal8_update():
-    return common_update('drupal8', '8.x')
-
 def task_drupal8_platformify():
     return {
         'actions': [
             'rsync -aP drupal8/files/ drupal8/template/'
         ]
     }
+
+def task_drupal8_cleanup():
+    return common_cleanup('drupal8')
+
+def task_drupal8_update():
+    return common_update('drupal8', '8.x')
 
 def task_drupal8_branch():
     return common_branch('drupal8')
@@ -40,14 +41,13 @@ def task_drupal8_push():
     return common_push('drupal8')
 
 
+### Symfony 3 ###
+
 def task_symfony3():
     return {
         'task_dep': ['symfony3_update', 'symfony3_platformify', 'symfony3_branch',],
         'actions': []
     }
-
-def task_symfony3_cleanup():
-    return common_cleanup('symfony3')
 
 def task_symfony3_init():
     return {
@@ -58,9 +58,6 @@ def task_symfony3_init():
         ]
     }
 
-def task_symfony3_update():
-    return common_update('symfony3', '3.4')
-
 def task_symfony3_platformify():
     return {
         'actions': [
@@ -69,6 +66,12 @@ def task_symfony3_platformify():
         ]
     }
 
+def task_symfony3_cleanup():
+    return common_cleanup('symfony3')
+
+def task_symfony3_update():
+    return common_update('symfony3', '3.4')
+
 def task_symfony3_branch():
     return common_branch('symfony3')
 
@@ -76,6 +79,7 @@ def task_symfony3_push():
     return common_push('symfony3')
 
 
+### Common command templates ###
 
 def common_cleanup(root):
     return {

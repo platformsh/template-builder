@@ -8,7 +8,7 @@ DOIT_CONFIG = {
 
 def task_all():
     return {
-        'task_dep': ['drupal8', 'drupal7', 'symfony3',],
+        'task_dep': ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4',],
         'actions': []
     }
 
@@ -86,6 +86,42 @@ def task_symfony3_branch():
 def task_symfony3_push():
     return common_push('symfony3')
 
+### Symfony 3 ###
+
+def task_symfony4():
+    return {
+        'task_dep': ['symfony3_update', 'symfony3_platformify', 'symfony3_branch',],
+        'actions': []
+    }
+
+def task_symfony4_init():
+    return {
+        'task_dep': ['symfony4_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-symfony4.git symfony4/template',
+            'cd symfony4/template && git remote add project https://github.com/symfony/skeleton.git'
+        ]
+    }
+
+def task_symfony4_platformify():
+    return {
+        'actions': [
+            'rsync -aP symfony3/files/ symfony3/template/',
+            'cd symfony3/template && composer require platformsh/symfonyflex-bridge'
+        ]
+    }
+
+def task_symfony4_cleanup():
+    return common_cleanup('symfony4')
+
+def task_symfony4_update():
+    return common_update('symfony4', '4.0')
+
+def task_symfony4_branch():
+    return common_branch('symfony4')
+
+def task_symfony4_push():
+    return common_push('symfony4')
 
 
 ### Drupal 7 (Drush Make) ###

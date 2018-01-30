@@ -96,11 +96,11 @@ def task_symfony3_branch():
 def task_symfony3_push():
     return common_push('symfony3')
 
-### Symfony 3 ###
+### Symfony 4 ###
 
 def task_symfony4():
     return {
-        'task_dep': ['symfony3_update', 'symfony3_platformify', 'symfony3_branch',],
+        'task_dep': ['symfony4_update', 'symfony4_platformify', 'symfony4_branch',],
         'actions': []
     }
 
@@ -116,8 +116,8 @@ def task_symfony4_init():
 def task_symfony4_platformify():
     return {
         'actions': [
-            'rsync -aP symfony3/files/ symfony3/template/',
-            'cd symfony3/template && composer require platformsh/symfonyflex-bridge'
+            'rsync -aP symfony4/files/ symfony4/template/',
+            'cd symfony4/template && composer require platformsh/symfonyflex-bridge'
         ]
     }
 

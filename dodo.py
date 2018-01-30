@@ -6,11 +6,21 @@ DOIT_CONFIG = {
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
 
+ALL_PROJECTS = ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4']
+
 def task_all():
     return {
-        'task_dep': ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4',],
+        'task_dep': ALL_PROJECTS,
         'actions': []
     }
+
+def task_all_init():
+
+    return {
+        'task_dep': [s + '_init' for s in ALL_PROJECTS],
+        'actions': []
+    }
+
 
 ### Drupal 8 ###
 

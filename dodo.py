@@ -6,7 +6,7 @@ DOIT_CONFIG = {
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
 
-ALL_PROJECTS = ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4']
+ALL_PROJECTS = ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4', 'wordpress']
 
 def task_all():
     return {
@@ -212,6 +212,45 @@ def task_drupal7_vanilla_branch():
 
 def task_drupal7_vanilla_push():
     return common_push('drupal7_vanilla')
+
+
+### Wordpress (Composer) ###
+
+def task_wordpress():
+    return {
+        'task_dep': ['wordpress_update', 'wordpress_platformify', 'wordpress_branch',],
+        'actions': []
+    }
+
+def task_wordpress_init():
+    return {
+        'task_dep': ['wordpress_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-wordpress.git wordpress/template',
+            'cd wordpress/template && git remote add project https://github.com/johnpbloch/wordpress.git'
+        ]
+    }
+
+def task_wordpress_platformify():
+    # @TODO Still need to port over more composer changes. What's the best way to modify composer.json
+    # from here?
+    return {
+        'actions': [
+            'rsync -aP wordpress/files/ wordpress/template/',
+        ]
+    }
+
+def task_wordpress_cleanup():
+    return common_cleanup('wordpress')
+
+def task_wordpress_update():
+    return common_update('wordpress', '4.9')
+
+def task_wordpress_branch():
+    return common_branch('wordpress')
+
+def task_wordpress_push():
+    return common_push('wordpress')
 
 
 

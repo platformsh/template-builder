@@ -184,7 +184,7 @@ def task_drupal7_vanilla_init():
     return {
         'task_dep': ['drupal7_vanilla_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-drupal7.git drupal7_vanilla/template',
+            'git clone git@github.com:platformsh/template-drupal7-vanilla.git drupal7_vanilla/template',
         ]
     }
 
@@ -200,7 +200,7 @@ def task_drupal7_vanilla_update():
     return {
         'actions': [
             'cd drupal7_vanilla/template && git checkout master && git pull --prune',
-            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.56.tar.gz | tar xzv --transform 's/^drupal-7.56/docroot/' -C drupal7_vanilla/template/"
+            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.58.tar.gz | tar xzv --transform 's/^drupal-7.58/docroot/' -C drupal7_vanilla/template/"
         ]
     }
 

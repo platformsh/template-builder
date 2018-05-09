@@ -1,6 +1,6 @@
 # Symfony 4 Flex project template for Platform.sh
 
-This project provides a starter kit for Symfony 3 projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Symfony 3.
+This project provides a starter kit for Symfony 4 projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Symfony 4.
 
 ## Starting a new project
 

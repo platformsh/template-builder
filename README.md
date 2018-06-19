@@ -1,11 +1,11 @@
-Utility scripts to manage the Platform.sh Template projects.
+# Utility scripts to manage the Platform.sh Template projects.
 
-Dependencies:
+## Dependencies:
 [hub command-line wrapper](https://hub.github.com/)
 [doit](http://pydoit.org/install.html)
 Public ssh key in github account
 
-How to run:
+## How to run:
 ```
 $ cd template-builder
 # init all projects

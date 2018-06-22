@@ -12,8 +12,7 @@ To start a new Symfony 4 project on Platform.sh, you have 2 options:
 
 ## Using as a reference
 
-You can use this repository as a reference for your own Symfony projects, and
-borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+You can use this repository as a reference for your own projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
 
 You also will need the [platformsh/symfonyflex-bridge](https://github.com/platformsh/symfonyflex-bridge) composer library.  It can be installed like any other composer library:
 

@@ -6,7 +6,15 @@ DOIT_CONFIG = {
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
 
-ALL_PROJECTS = ['drupal8', 'drupal7', 'symfony3', 'drupal7_vanilla', 'symfony4', 'wordpress']
+ALL_PROJECTS = [
+    'drupal8',
+    'drupal7',
+    'symfony3',
+    'drupal7_vanilla',
+    'symfony4',
+    'wordpress',
+    'laravel',
+]
 
 def task_all():
     return {
@@ -15,7 +23,6 @@ def task_all():
     }
 
 def task_all_init():
-
     return {
         'task_dep': [s + '_init' for s in ALL_PROJECTS],
         'actions': []
@@ -132,6 +139,43 @@ def task_symfony4_branch():
 
 def task_symfony4_push():
     return common_push('symfony4')
+
+### Laravel ###
+
+def task_laravel():
+    return {
+        'task_dep': ['laravel_update', 'laravel_platformify', 'laravel_branch',],
+        'actions': []
+    }
+
+def task_laravel_init():
+    return {
+        'task_dep': ['laravel_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-laravel.git laravel/template',
+            'cd laravel/template && git remote add project https://github.com/laravel/laravel.git'
+        ]
+    }
+
+def task_laravel_platformify():
+    return {
+        'actions': [
+            'rsync -aP laravel/files/ laravel/template/',
+            'cd laravel/template && composer require platformsh/laravel-bridge'
+        ]
+    }
+
+def task_laravel_cleanup():
+    return common_cleanup('laravel')
+
+def task_laravel_update():
+    return common_update('laravel', '5.5')
+
+def task_laravel_branch():
+    return common_branch('laravel')
+
+def task_laravel_push():
+    return common_push('laravel')
 
 
 ### Drupal 7 (Drush Make) ###

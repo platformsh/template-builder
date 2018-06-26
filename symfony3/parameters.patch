@@ -5,10 +5,10 @@ index ed744a3..b231be4 100644
 @@ -1,5 +1,6 @@
  imports:
      - { resource: parameters.yml }
-+    - { resource: parameters_patformsh.php }
++    - { resource: parameters_platformsh.php }
      - { resource: security.yml }
      - { resource: services.yml }
- 
+
 @@ -46,6 +47,7 @@ doctrine:
          user: '%database_user%'
          password: '%database_password%'

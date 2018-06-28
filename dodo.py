@@ -325,7 +325,7 @@ def common_branch(root):
 def common_push(root):
     return {
         'actions': [
-            'cd %s/template && git checkout -B update && git push -u origin update' % root,
+            'cd %s/template && git checkout update && git push -u origin update' % root,
             'cd %s/template && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
         ]
     }

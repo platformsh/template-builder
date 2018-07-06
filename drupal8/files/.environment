@@ -1,6 +1,8 @@
 # Statements in this file will be executed (sourced) by the shell in SSH
 # sessions, in deploy hooks, in cron jobs, and in the application's runtime
-# environment.
+# environment. This file must be placed in the root of the application, not
+# necessarily the git repository's root. In case of multiple applications,
+# each application can have its own .environment file.
 
 # Allow executable app dependencies from Composer to be run from the path.
 if [ -n "$PLATFORM_APP_DIR" -a -f "$PLATFORM_APP_DIR"/composer.json ] ; then

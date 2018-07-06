@@ -7,7 +7,7 @@
 name: 'app'
 
 # The runtime the application uses.
-type: 'php:7.1'
+type: 'php:7.2'
 
 # The relationships of the application with services or other applications.
 #
@@ -40,6 +40,8 @@ build:
 hooks:
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
+      set -e
+      ./drush/platformsh_generate_drush_yml.php
       cd web
       drush -y cache-rebuild
       drush -y updatedb
@@ -82,6 +84,12 @@ web:
                     allow: true
                 '^/sitemap\.xml$':
                     allow: true
+
+                # Deny direct access to configuration files.
+                '^/sites/sites\.php$':
+                    scripts: false
+                '^/sites/[^/]+/settings.*?\.php$':
+                    scripts: false
 
         '/sites/default/files':
             # Allow access to all files in the public files directory.

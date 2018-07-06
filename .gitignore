@@ -1,2 +1,4 @@
 /*/template
 .doit.db
+*.pyc
+*.DS_Store

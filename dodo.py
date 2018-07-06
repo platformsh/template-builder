@@ -14,6 +14,7 @@ ALL_PROJECTS = [
     'symfony4',
     'wordpress',
     'laravel',
+    'flask',
 ]
 
 def task_all():
@@ -297,6 +298,46 @@ def task_wordpress_push():
     return common_push('wordpress')
 
 
+### Flask ###
+
+def task_flask():
+    return {
+        'task_dep': ['flask_update', 'flask_platformify', 'flask_branch',],
+        'actions': []
+    }
+
+def task_flask_init():
+    return {
+        'task_dep': ['flask_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-flask.git flask/template',
+        ]
+    }
+
+def task_flask_platformify():
+    return {
+        'actions': [
+            'rsync -aP flask/files/ flask/template/',
+        ]
+    }
+
+def task_flask_cleanup():
+    return common_cleanup('flask')
+
+def task_flask_update():
+    return {
+        'actions': [
+            'cd flask/template && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_flask_branch():
+    return common_branch('flask')
+
+def task_flask_push():
+    return common_push('flask')
+
+
 
 ### Common command templates ###
 
@@ -313,7 +354,7 @@ def common_update(root, branch):
             'cd %s/template && git checkout master' % root,
             'cd %s/template && git fetch --all --depth=2' % root,
             'cd %s/template && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/template && composer install --no-interaction' % root
+            'cd %s/template && composer update --no-interaction' % root
         ]
     }
 

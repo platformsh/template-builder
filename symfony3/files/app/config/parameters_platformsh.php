@@ -6,9 +6,9 @@
  */
 
 // Configure the database.
-if (isset($_ENV['PLATFORM_RELATIONSHIPS'])) {
+if (getenv('PLATFORM_RELATIONSHIPS')) {
     $dbRelationshipName = 'database';
-    $relationships = json_decode(base64_decode($_ENV['PLATFORM_RELATIONSHIPS']), true);
+    $relationships = json_decode(base64_decode(getenv('PLATFORM_RELATIONSHIPS')), true);
     foreach ($relationships[$dbRelationshipName] as $endpoint) {
         if (!empty($endpoint['query']['is_master'])) {
             $container->setParameter('database_driver', 'pdo_'.$endpoint['scheme']);
@@ -24,6 +24,6 @@ if (isset($_ENV['PLATFORM_RELATIONSHIPS'])) {
 }
 
 // Set a default unique secret, based on a project-specific entropy value.
-if (isset($_ENV['PLATFORM_PROJECT_ENTROPY'])) {
-    $container->setParameter('kernel.secret', $_ENV['PLATFORM_PROJECT_ENTROPY']);
+if (getenv('PLATFORM_PROJECT_ENTROPY')) {
+    $container->setParameter('kernel.secret', getenv('PLATFORM_PROJECT_ENTROPY'));
 }

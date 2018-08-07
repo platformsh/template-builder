@@ -133,7 +133,7 @@ def task_symfony4_cleanup():
     return common_cleanup('symfony4')
 
 def task_symfony4_update():
-    return common_update('symfony4', '4.0')
+    return common_update('symfony4', '4.1')
 
 def task_symfony4_branch():
     return common_branch('symfony4')

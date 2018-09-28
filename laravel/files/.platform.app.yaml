@@ -16,6 +16,7 @@ runtime:
 # The hooks that will be performed when the package is deployed.
 hooks:
   deploy: |
+    set -e
     php artisan migrate --force
 
 # The relationships of the application with services or other applications.

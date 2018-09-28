@@ -17,9 +17,11 @@ variables:
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
+        set -e
         rm web/app_dev.php
         bin/console --env=prod assets:install --no-debug
     deploy: |
+        set -e
         bin/console --env=prod cache:clear
 
 # The relationships of the application with services or other applications.

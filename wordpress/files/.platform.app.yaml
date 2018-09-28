@@ -48,6 +48,7 @@ mounts:
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
+      set -e
       mkdir -p wp/wp-content/themes
       mkdir -p wp/wp-content/plugins
       mkdir -p wp/wp-content/languages

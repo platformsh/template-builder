@@ -31,6 +31,7 @@ mounts:
     '/private': 'shared:files/private'
     '/.drush': 'shared:files/.drush'
     '/drush-backups': 'shared:files/drush-backups'
+    '/.console': 'shared:files/console'
 
 # Configuration of the build of this application.
 build:
@@ -40,13 +41,13 @@ build:
 hooks:
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
-      set -e
-      ./drush/platformsh_generate_drush_yml.php
-      cd web
-      drush -y cache-rebuild
-      drush -y updatedb
-      drush -y config-import
-      drush -y entup
+        set -e
+        ./drush/platformsh_generate_drush_yml.php
+        cd web
+        drush -y cache-rebuild
+        drush -y updatedb
+        drush -y config-import
+        drush -y entup
 
 # The configuration of app when it is exposed to the web.
 web:

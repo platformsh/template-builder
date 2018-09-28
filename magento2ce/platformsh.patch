@@ -1,0 +1,121 @@
+diff --git a/lib/internal/Magento/Framework/App/DeploymentConfig/Writer.php b/lib/internal/Magento/Framework/App/DeploymentConfig/Writer.php
+index 3ff7a0c9539be701431636a7d7290a5d639ed87b..1aa0e6345236eedb8cb31e1f7e96de96f9be4bd8 100644
+--- a/lib/internal/Magento/Framework/App/DeploymentConfig/Writer.php
++++ b/lib/internal/Magento/Framework/App/DeploymentConfig/Writer.php
+@@ -141,7 +141,11 @@ class Writer
+                 $contents = $this->formatter->format($config, $comments);
+                 try {
+                     $writeFilePath = $paths[$fileKey];
+-                    $this->filesystem->getDirectoryWrite(DirectoryList::CONFIG)->writeFile($writeFilePath, $contents);
++                    $fullPath = implode(
++                        DIRECTORY_SEPARATOR,
++                        [DirectoryList::APP, DirectoryList::CONFIG, $writeFilePath]
++                    );
++                    file_put_contents($fullPath, $contents);
+                 } catch (FileSystemException $e) {
+                     throw new FileSystemException(
+                         new Phrase('Deployment config file %1 is not writable.', [$paths[$fileKey]])
+diff --git a/setup/src/Magento/Setup/Console/Command/AdminUserCreateCommand.php b/setup/src/Magento/Setup/Console/Command/AdminUserCreateCommand.php
+index 00fa272e749620b2b737d2fbe67113411e18217d..fd89c02ddb911ac7ea057a46b189e2ba0ff676f9 100644
+--- a/setup/src/Magento/Setup/Console/Command/AdminUserCreateCommand.php
++++ b/setup/src/Magento/Setup/Console/Command/AdminUserCreateCommand.php
+@@ -170,20 +170,20 @@ class AdminUserCreateCommand extends AbstractSetupCommand
+     public function getOptionsList()
+     {
+         return [
+-            new InputOption(AdminAccount::KEY_USER, null, InputOption::VALUE_REQUIRED, '(Required) Admin user'),
+-            new InputOption(AdminAccount::KEY_PASSWORD, null, InputOption::VALUE_REQUIRED, '(Required) Admin password'),
+-            new InputOption(AdminAccount::KEY_EMAIL, null, InputOption::VALUE_REQUIRED, '(Required) Admin email'),
++            new InputOption(AdminAccount::KEY_USER, null, InputOption::VALUE_OPTIONAL, 'Admin user'),
++            new InputOption(AdminAccount::KEY_PASSWORD, null, InputOption::VALUE_OPTIONAL, 'Admin password'),
++            new InputOption(AdminAccount::KEY_EMAIL, null, InputOption::VALUE_OPTIONAL, 'Admin email'),
+             new InputOption(
+                 AdminAccount::KEY_FIRST_NAME,
+                 null,
+-                InputOption::VALUE_REQUIRED,
+-                '(Required) Admin first name'
++                InputOption::VALUE_OPTIONAL,
++                'Admin first name'
+             ),
+             new InputOption(
+                 AdminAccount::KEY_LAST_NAME,
+                 null,
+-                InputOption::VALUE_REQUIRED,
+-                '(Required) Admin last name'
++                InputOption::VALUE_OPTIONAL,
++                'Admin last name'
+             ),
+         ];
+     }
+@@ -196,6 +196,7 @@ class AdminUserCreateCommand extends AbstractSetupCommand
+      */
+     public function validate(InputInterface $input)
+     {
++        return [];
+         $errors = [];
+         $user = new \Magento\Framework\DataObject();
+         $user->setFirstname($input->getOption(AdminAccount::KEY_FIRST_NAME))
+diff --git a/setup/src/Magento/Setup/Model/ConfigModel.php b/setup/src/Magento/Setup/Model/ConfigModel.php
+index b1fe7eb238d75c5d4b6d9ecf9ce8f85cdfc52e91..7983633e3d7ce60d3892709cac723e4b27860ebb 100644
+--- a/setup/src/Magento/Setup/Model/ConfigModel.php
++++ b/setup/src/Magento/Setup/Model/ConfigModel.php
+@@ -90,8 +90,6 @@ class ConfigModel
+      */
+     public function process($inputOptions)
+     {
+-        $this->checkInstallationFilePermissions();
+-
+         $options = $this->collector->collectOptionsLists();
+
+         foreach ($options as $moduleName => $option) {
+@@ -151,19 +149,4 @@ class ConfigModel
+
+         return $errors;
+     }
+-
+-    /**
+-     * Check permissions of directories that are expected to be writable for installation
+-     *
+-     * @return void
+-     * @throws \Exception
+-     */
+-    private function checkInstallationFilePermissions()
+-    {
+-        $results = $this->filePermissions->getMissingWritablePathsForInstallation();
+-        if ($results) {
+-            $errorMsg = "Missing write permissions to the following paths:" . PHP_EOL . implode(PHP_EOL, $results);
+-            throw new \Exception($errorMsg);
+-        }
+-    }
+ }
+diff --git a/setup/src/Magento/Setup/Model/Installer.php b/setup/src/Magento/Setup/Model/Installer.php
+index ba85081f9e169d06664f57fc55216ec440b5deb5..f7eeddf0f5790841ee4deed1011c1ffc2417eba7 100644
+--- a/setup/src/Magento/Setup/Model/Installer.php
++++ b/setup/src/Magento/Setup/Model/Installer.php
+@@ -316,7 +316,9 @@ class Installer
+                 [$request[InstallCommand::INPUT_KEY_SALES_ORDER_INCREMENT_PREFIX]],
+             ];
+         }
+-        $script[] = ['Installing admin user...', 'installAdminUser', [$request]];
++        if (isset($request['admin-email'])) {
++            $script[] = ['Installing admin user...', 'installAdminUser', [$request]];
++        }
+         $script[] = ['Caches clearing:', 'cleanCaches', []];
+         $script[] = ['Disabling Maintenance Mode:', 'setMaintenanceMode', [0]];
+         $script[] = ['Post installation file permissions check...', 'checkApplicationFilePermissions', []];
+@@ -450,6 +452,7 @@ class Installer
+      */
+     public function checkInstallationFilePermissions()
+     {
++        return;
+         $this->throwExceptionForNotWritablePaths(
+             $this->filePermissions->getMissingWritablePathsForInstallation()
+         );
+@@ -791,6 +794,7 @@ class Installer
+      */
+     public function checkFilePermissionsForDbUpgrade()
+     {
++        return;
+         $this->throwExceptionForNotWritablePaths(
+             $this->filePermissions->getMissingWritableDirectoriesForDbUpgrade()
+         );

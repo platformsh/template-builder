@@ -11,12 +11,12 @@ type: 'php:7.0'
 
 # Configuration of the build of this application.
 build:
-    flavor: drupal
+  flavor: drupal
 
 # The build-time dependencies of the app.
 dependencies:
-    php:
-        "drush/drush": "^8.0"
+  php:
+    "drush/drush": "^8.0"
 
 # The relationships of the application with services or other applications.
 #

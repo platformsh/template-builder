@@ -237,7 +237,6 @@ def task_drupal7_vanilla_platformify():
     return {
         'actions': [
             'rsync -aP drupal7_vanilla/files/ drupal7_vanilla/template/',
-            'cd drupal7_vanilla/template && patch -p1 < ../allow-settings-files.patch',
         ]
     }
 

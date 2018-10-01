@@ -12,7 +12,7 @@ To start a new project based on this template, follow these 3 simple steps:
 
 3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
 
-That's it!  Now visit your site in 2 separate browser windows and enter a chat name.  You'll be able to enter a message on one window and have the message immediately appear in the other.
+That's it!
 
 ## Using as a reference
 

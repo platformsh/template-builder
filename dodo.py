@@ -390,7 +390,7 @@ def common_update(root, branch):
             'cd %s/template && git checkout master' % root,
             'cd %s/template && git fetch --all --depth=2' % root,
             'cd %s/template && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/template && composer update --no-interaction' % root
+            'cd %s/template && composer update --ignore-platform-reqs --no-interaction' % root
         ]
     }
 

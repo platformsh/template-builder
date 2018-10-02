@@ -23,4 +23,4 @@ If you have an existing Magento 2 CE site you need to prepare for running on Pla
 * The [`app/etc/local.xml`](/.app/etc/local.xml) file.
 * The [`pub/static-versioned.php`](/pub/static-version.php) file, which provides an alternative front-controller for static files.
 
-There is also a [patch file](https://github.com/platformsh/template-builder/blob/master/magento2ce/platformsh.patch) needed to make the installer run correctly.  It may not be necessary if your site is already setup and you're just migrating it.
+There is also a [patch file](https://github.com/platformsh/template-builder/blob/master/magento2ce/platformsh.patch) needed to make the installer run correctly.

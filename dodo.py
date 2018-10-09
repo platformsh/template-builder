@@ -141,6 +141,43 @@ def task_symfony4_branch():
 def task_symfony4_push():
     return common_push('symfony4')
 
+### Magento 2 CE ###
+
+def task_magento2ce():
+    return {
+        'task_dep': ['magento2ce_update', 'magento2ce_platformify', 'magento2ce_branch',],
+        'actions': []
+    }
+
+def task_magento2ce_init():
+    return {
+        'task_dep': ['magento2ce_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-magento2ce.git magento2ce/template',
+            'cd magento2ce/template && git remote add project https://github.com/magento/magento2.git'
+        ]
+    }
+
+def task_magento2ce_platformify():
+    return {
+        'actions': [
+            'rsync -aP magento2ce/files/ magento2ce/template/',
+            'cd magento2ce/template && patch -p1 < ../platformsh.patch',
+        ]
+    }
+
+def task_magento2ce_cleanup():
+    return common_cleanup('magento2ce')
+
+def task_magento2ce_update():
+    return common_update('magento2ce', '2.2')
+
+def task_magento2ce_branch():
+    return common_branch('magento2ce')
+
+def task_magento2ce_push():
+    return common_push('magento2ce')
+
 ### Laravel ###
 
 def task_laravel():
@@ -353,7 +390,7 @@ def common_update(root, branch):
             'cd %s/template && git checkout master' % root,
             'cd %s/template && git fetch --all --depth=2' % root,
             'cd %s/template && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/template && composer update --no-interaction' % root
+            'cd %s/template && composer update --ignore-platform-reqs --no-interaction' % root
         ]
     }
 

@@ -29,6 +29,12 @@ def task_all_init():
         'actions': []
     }
 
+def task_all_cleanup():
+    return {
+        'task_dep': [s + '_cleanup' for s in ALL_PROJECTS],
+        'actions': []
+    }
+
 
 ### Drupal 8 ###
 

@@ -381,6 +381,46 @@ def task_flask_push():
     return common_push('flask')
 
 
+### Golang ###
+
+def task_golang():
+    return {
+        'task_dep': ['golang_update', 'golang_platformify', 'golang_branch',],
+        'actions': []
+    }
+
+def task_golang_init():
+    return {
+        'task_dep': ['golang_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-golang.git golang/build',
+        ]
+    }
+
+def task_golang_platformify():
+    return {
+        'actions': [
+            'rsync -aP golang/files/ golang/build/',
+        ]
+    }
+
+def task_golang_cleanup():
+    return common_cleanup('golang')
+
+def task_golang_update():
+    return {
+        'actions': [
+            'cd golang/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_golang_branch():
+    return common_branch('golang')
+
+def task_golang_push():
+    return common_push('golang')
+
+
 
 ### Common command templates ###
 

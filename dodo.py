@@ -321,15 +321,16 @@ def task_wordpress_init():
     }
 
 def task_wordpress_platformify():
-    # @TODO Still need to port over more composer changes. What's the best way to modify composer.json
-    # from here?
     return {
         'actions': [
+            # The initial composer update put files in the wrong place, so clean that up.
+            'rm -rf wordpress/build/wordpress',
             'rsync -aP wordpress/files/ wordpress/build/',
             'cd wordpress/build && composer config extra.wordpress-install-dir web/wp',
             'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/plugins/{$name}\' "type:wordpress-plugin"',
             'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/themes/{$name}\' "type:wordpress-theme"',
             'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/mu-plugins/{$name}\' "type:wordpress-muplugin"',
+            'cd wordpress/build && composer update',
         ]
     }
 
@@ -442,7 +443,7 @@ def common_update(root, branch):
             'cd %s/build && git checkout master' % root,
             'cd %s/build && git fetch --all --depth=2' % root,
             'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/build && composer update --ignore-platform-reqs --no-interaction' % root
+            'cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root
         ]
     }
 

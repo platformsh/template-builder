@@ -15,6 +15,7 @@ ALL_PROJECTS = [
     'wordpress',
     'laravel',
     'flask',
+    'magento2ce'
 ]
 
 def task_all():

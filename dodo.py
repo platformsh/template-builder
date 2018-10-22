@@ -15,6 +15,7 @@ ALL_PROJECTS = [
     'wordpress',
     'laravel',
     'flask',
+    'magento2ce'
 ]
 
 def task_all():
@@ -26,6 +27,12 @@ def task_all():
 def task_all_init():
     return {
         'task_dep': [s + '_init' for s in ALL_PROJECTS],
+        'actions': []
+    }
+
+def task_all_cleanup():
+    return {
+        'task_dep': [s + '_cleanup' for s in ALL_PROJECTS],
         'actions': []
     }
 
@@ -42,15 +49,15 @@ def task_drupal8_init():
     return {
         'task_dep': ['drupal8_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-drupal8.git drupal8/template',
-            'cd drupal8/template && git remote add project https://github.com/drupal-composer/drupal-project.git'
+            'git clone git@github.com:platformsh/template-drupal8.git drupal8/build',
+            'cd drupal8/build && git remote add project https://github.com/drupal-composer/drupal-project.git'
         ]
     }
 
 def task_drupal8_platformify():
     return {
         'actions': [
-            'rsync -aP drupal8/files/ drupal8/template/'
+            'rsync -aP drupal8/files/ drupal8/build/'
         ]
     }
 
@@ -79,16 +86,16 @@ def task_symfony3_init():
     return {
         'task_dep': ['symfony3_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-symfony3.git symfony3/template',
-            'cd symfony3/template && git remote add project https://github.com/symfony/symfony-standard.git'
+            'git clone git@github.com:platformsh/template-symfony3.git symfony3/build',
+            'cd symfony3/build && git remote add project https://github.com/symfony/symfony-standard.git'
         ]
     }
 
 def task_symfony3_platformify():
     return {
         'actions': [
-            'rsync -aP symfony3/files/ symfony3/template/',
-            'cd symfony3/template && patch -p1 < ../parameters.patch'
+            'rsync -aP symfony3/files/ symfony3/build/',
+            'cd symfony3/build && patch -p1 < ../parameters.patch'
         ]
     }
 
@@ -116,16 +123,16 @@ def task_symfony4_init():
     return {
         'task_dep': ['symfony4_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-symfony4.git symfony4/template',
-            'cd symfony4/template && git remote add project https://github.com/symfony/skeleton.git'
+            'git clone git@github.com:platformsh/template-symfony4.git symfony4/build',
+            'cd symfony4/build && git remote add project https://github.com/symfony/skeleton.git'
         ]
     }
 
 def task_symfony4_platformify():
     return {
         'actions': [
-            'rsync -aP symfony4/files/ symfony4/template/',
-            'cd symfony4/template && composer require platformsh/symfonyflex-bridge'
+            'rsync -aP symfony4/files/ symfony4/build/',
+            'cd symfony4/build && composer require platformsh/symfonyflex-bridge'
         ]
     }
 
@@ -153,16 +160,16 @@ def task_magento2ce_init():
     return {
         'task_dep': ['magento2ce_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-magento2ce.git magento2ce/template',
-            'cd magento2ce/template && git remote add project https://github.com/magento/magento2.git'
+            'git clone git@github.com:platformsh/template-magento2ce.git magento2ce/build',
+            'cd magento2ce/build && git remote add project https://github.com/magento/magento2.git'
         ]
     }
 
 def task_magento2ce_platformify():
     return {
         'actions': [
-            'rsync -aP magento2ce/files/ magento2ce/template/',
-            'cd magento2ce/template && patch -p1 < ../platformsh.patch',
+            'rsync -aP magento2ce/files/ magento2ce/build/',
+            'cd magento2ce/build && patch -p1 < ../platformsh.patch',
         ]
     }
 
@@ -190,16 +197,16 @@ def task_laravel_init():
     return {
         'task_dep': ['laravel_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-laravel.git laravel/template',
-            'cd laravel/template && git remote add project https://github.com/laravel/laravel.git'
+            'git clone git@github.com:platformsh/template-laravel.git laravel/build',
+            'cd laravel/build && git remote add project https://github.com/laravel/laravel.git'
         ]
     }
 
 def task_laravel_platformify():
     return {
         'actions': [
-            'rsync -aP laravel/files/ laravel/template/',
-            'cd laravel/template && composer require platformsh/laravel-bridge'
+            'rsync -aP laravel/files/ laravel/build/',
+            'cd laravel/build && composer require platformsh/laravel-bridge'
         ]
     }
 
@@ -228,14 +235,14 @@ def task_drupal7_init():
     return {
         'task_dep': ['drupal7_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-drupal7.git drupal7/template',
+            'git clone git@github.com:platformsh/template-drupal7.git drupal7/build',
         ]
     }
 
 def task_drupal7_platformify():
     return {
         'actions': [
-            'rsync -aP drupal7/files/ drupal7/template/'
+            'rsync -aP drupal7/files/ drupal7/build/'
         ]
     }
 
@@ -266,22 +273,22 @@ def task_drupal7_vanilla_init():
     return {
         'task_dep': ['drupal7_vanilla_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-drupal7-vanilla.git drupal7_vanilla/template',
+            'git clone git@github.com:platformsh/template-drupal7-vanilla.git drupal7_vanilla/build',
         ]
     }
 
 def task_drupal7_vanilla_platformify():
     return {
         'actions': [
-            'rsync -aP drupal7_vanilla/files/ drupal7_vanilla/template/',
+            'rsync -aP drupal7_vanilla/files/ drupal7_vanilla/build/',
         ]
     }
 
 def task_drupal7_vanilla_update():
     return {
         'actions': [
-            'cd drupal7_vanilla/template && git checkout master && git pull --prune',
-            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.59.tar.gz | tar xzv --transform 's/^drupal-7.59/docroot/' -C drupal7_vanilla/template/"
+            'cd drupal7_vanilla/build && git checkout master && git pull --prune',
+            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.59.tar.gz | tar xzv --transform 's/^drupal-7.59/docroot/' -C drupal7_vanilla/build/"
         ]
     }
 
@@ -307,8 +314,8 @@ def task_wordpress_init():
     return {
         'task_dep': ['wordpress_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-wordpress.git wordpress/template',
-            'cd wordpress/template && git remote add project https://github.com/johnpbloch/wordpress.git'
+            'git clone git@github.com:platformsh/template-wordpress.git wordpress/build',
+            'cd wordpress/build && git remote add project https://github.com/johnpbloch/wordpress.git'
         ]
     }
 
@@ -317,7 +324,7 @@ def task_wordpress_platformify():
     # from here?
     return {
         'actions': [
-            'rsync -aP wordpress/files/ wordpress/template/',
+            'rsync -aP wordpress/files/ wordpress/build/',
         ]
     }
 
@@ -346,14 +353,14 @@ def task_flask_init():
     return {
         'task_dep': ['flask_cleanup'],
         'actions': [
-            'git clone git@github.com:platformsh/template-flask.git flask/template',
+            'git clone git@github.com:platformsh/template-flask.git flask/build',
         ]
     }
 
 def task_flask_platformify():
     return {
         'actions': [
-            'rsync -aP flask/files/ flask/template/',
+            'rsync -aP flask/files/ flask/build/',
         ]
     }
 
@@ -363,7 +370,7 @@ def task_flask_cleanup():
 def task_flask_update():
     return {
         'actions': [
-            'cd flask/template && git checkout master && git pull --prune'
+            'cd flask/build && git checkout master && git pull --prune'
         ]
     }
 
@@ -380,33 +387,33 @@ def task_flask_push():
 def common_cleanup(root):
     return {
         'actions': [
-            'rm -rf %s/template' % root
+            'rm -rf %s/build' % root
         ]
     }
 
 def common_update(root, branch):
     return {
         'actions': [
-            'cd %s/template && git checkout master' % root,
-            'cd %s/template && git fetch --all --depth=2' % root,
-            'cd %s/template && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/template && composer update --ignore-platform-reqs --no-interaction' % root
+            'cd %s/build && git checkout master' % root,
+            'cd %s/build && git fetch --all --depth=2' % root,
+            'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
+            'cd %s/build && composer update --ignore-platform-reqs --no-interaction' % root
         ]
     }
 
 def common_branch(root):
     return {
         'actions': [
-            'cd %s/template && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;' % root,
-            'cd %s/template && git checkout -b update' % root,
-            'cd %s/template && git add -A && git commit -m "Update to latest upstream"' % root
+            'cd %s/build && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;' % root,
+            'cd %s/build && git checkout -b update' % root,
+            'cd %s/build && git add -A && git commit -m "Update to latest upstream"' % root
         ]
     }
 
 def common_push(root):
     return {
         'actions': [
-            'cd %s/template && git checkout update && git push -u origin update' % root,
-            'cd %s/template && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
+            'cd %s/build && git checkout update && git push -u origin update' % root,
+            'cd %s/build && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
         ]
     }

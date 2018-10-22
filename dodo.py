@@ -326,6 +326,10 @@ def task_wordpress_platformify():
     return {
         'actions': [
             'rsync -aP wordpress/files/ wordpress/build/',
+            'cd wordpress/build && composer config extra.wordpress-install-dir web/wp',
+            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/plugins/{$name}\' "type:wordpress-plugin"',
+            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/themes/{$name}\' "type:wordpress-theme"',
+            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/mu-plugins/{$name}\' "type:wordpress-muplugin"',
         ]
     }
 

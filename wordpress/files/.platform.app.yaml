@@ -42,8 +42,8 @@ dependencies:
     psy/psysh: "^0.8.4"
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "/wp/wp-content/uploads": "shared:files/uploads"
-    "/wp/wp-content/cache": "shared:files/cache"
+    "/web/wp-content/uploads": "shared:files/uploads"
+    "/web/wp-content/cache": "shared:files/cache"
 
 # The hooks that will be performed when the package is deployed.
 hooks:
@@ -51,4 +51,5 @@ hooks:
         set -e
         cp -R web/wp/wp-content/plugins/* web/wp-content/plugins/
         cp -R web/wp/wp-content/themes/* web/wp-content/themes/
-        cp -R web/wp/wp-content/languages/* web/wp-content/languages/
+        # Uncomment this line when you start adding extra language packs.
+        #cp -R web/wp/wp-content/languages/* web/wp-content/languages/

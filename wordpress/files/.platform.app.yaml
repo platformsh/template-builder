@@ -49,7 +49,6 @@ mounts:
 hooks:
     build: |
         set -e
-        mkdir -p web/wp-content/plugins/
-        mkdir -p web/wp-content/themes/
         cp -R web/wp/wp-content/plugins/* web/wp-content/plugins/
         cp -R web/wp/wp-content/themes/* web/wp-content/themes/
+        cp -R web/wp/wp-content/languages/* web/wp-content/languages/

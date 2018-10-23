@@ -55,16 +55,17 @@ if (getenv('PLATFORM_RELATIONSHIPS')) {
 
     // Set all of the necessary keys to unique values, based on the Platform.sh
     // entropy value.
-    if (isset($_ENV['PLATFORM_PROJECT_ENTROPY'])) {
+    if (getenv('PLATFORM_PROJECT_ENTROPY')) {
         $keys = [
             'AUTH_KEY', 'SECURE_AUTH_KEY',
             'LOGGED_IN_KEY', 'LOGGED_IN_SALT',
             'NONCE_KEY', 'NONCE_SALT',
             'AUTH_SALT', 'SECURE_AUTH_SALT',
         ];
+        $entropy = getenv('PLATFORM_PROJECT_ENTROPY');
         foreach ($keys as $key) {
             if (!defined($key)) {
-                define($key, $_ENV['PLATFORM_PROJECT_ENTROPY'] . $key);
+                define($key, $entropy . $key);
             }
         }
     }

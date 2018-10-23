@@ -1,0 +1,30 @@
+name: app
+
+type: golang:1.11
+
+hooks:
+    build: |
+        # Modify this line if you want to build differently or use an alternate name for your executable.
+        go build -o bin/app
+
+relationships:
+    mysql: "mysqldb:mysql"
+
+web:
+    upstream:
+        socket_family: tcp
+        protocol: http
+
+    commands:
+        # If you change the build output in the build hook above, update this line as well.
+        start: ./bin/app
+
+    locations:
+        /:
+            # Route all requests to the Go app, unconditionally.
+            # If you want some files served directly by the web server without hitting Go, see
+            # https://docs.platform.sh/configuration/app/web.html
+            allow: false
+            passthru: true
+
+disk: 1024

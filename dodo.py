@@ -460,6 +460,6 @@ def common_push(root):
     return {
         'actions': [
             'cd %s/build && git checkout update && git push -u origin update' % root,
-            'cd %s/build && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
+            #'cd %s/build && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
         ]
     }

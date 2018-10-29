@@ -5,7 +5,7 @@
 name: app
 
 # The runtime the application uses.
-type: "php:7.0"
+type: "php:7.2"
 
 # Configuration of the build of the application.
 build:
@@ -23,7 +23,7 @@ web:
     locations:
         "/":
             # The public directory of the app, relative to its root.
-            root: "wp"
+            root: "web/wp"
             # The front-controller script to send non-static requests to.
             passthru: "/index.php"
             # Wordpress has multiple roots (wp-admin) so the following is required
@@ -42,16 +42,14 @@ dependencies:
     psy/psysh: "^0.8.4"
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "/wp/wp-content/uploads": "shared:files/uploads"
-    "/wp/wp-content/cache": "shared:files/cache"
+    "/web/wp-content/uploads": "shared:files/uploads"
+    "/web/wp-content/cache": "shared:files/cache"
 
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
-      set -e
-      mkdir -p wp/wp-content/themes
-      mkdir -p wp/wp-content/plugins
-      mkdir -p wp/wp-content/languages
-      cp -r plugins/* wp/wp-content/plugins/
-      cp -r themes/* wp/wp-content/themes/
-      cp -r languages/* wp/wp-content/languages/
+        set -e
+        cp -R web/wp/wp-content/plugins/* web/wp-content/plugins/
+        cp -R web/wp/wp-content/themes/* web/wp-content/themes/
+        # Uncomment this line when you start adding extra language packs.
+        #cp -R web/wp/wp-content/languages/* web/wp-content/languages/

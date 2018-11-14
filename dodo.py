@@ -1,3 +1,6 @@
+import json
+from collections import OrderedDict
+
 DOIT_CONFIG = {
     #"num_process": 16,
     #"par_type": "thread",
@@ -321,15 +324,29 @@ def task_wordpress_init():
     }
 
 def task_wordpress_platformify():
+
+    def wp_add_installer_paths():
+        with open('wordpress/build/composer.json', 'r') as f:
+            composer = json.load(f, object_pairs_hook=OrderedDict)
+
+        composer['extra'] = {
+            'wordpress-install-dir': 'web/wp',
+            'installer-paths': {
+                r'web/wp-content/plugins/{$name}': ['type:wordpress-plugin'],
+                r'web/wp-content/themes/{$name}': ['type:wordpress-theme'],
+                r'web/wp-content/mu-plugins/{$name}': ['type:wordpress-muplugin'],
+            }
+        }
+
+        with open('wordpress/build/composer.json', 'w') as out:
+            json.dump(composer, out, indent=2)
+
     return {
         'actions': [
             # The initial composer update put files in the wrong place, so clean that up.
             'rm -rf wordpress/build/wordpress',
             'rsync -aP wordpress/files/ wordpress/build/',
-            'cd wordpress/build && composer config extra.wordpress-install-dir web/wp',
-            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/plugins/{$name}\' "type:wordpress-plugin"',
-            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/themes/{$name}\' "type:wordpress-theme"',
-            'cd wordpress/build && composer config extra.installer-paths.\'web/wp-content/mu-plugins/{$name}\' "type:wordpress-muplugin"',
+            (wp_add_installer_paths, []),
             'cd wordpress/build && composer update',
         ]
     }

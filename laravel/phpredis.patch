@@ -1,0 +1,13 @@
+diff --git a/config/database.php b/config/database.php
+index 22347a41..12e6a8ac 100644
+--- a/config/database.php
++++ b/config/database.php
+@@ -110,7 +110,7 @@ return [
+ 
+     'redis' => [
+ 
+-        'client' => 'predis',
++        'client' => 'phpredis',
+ 
+         'default' => [
+             'host' => env('REDIS_HOST', '127.0.0.1'),

@@ -3,4 +3,4 @@ mysqldb:
   disk: 2048
 
 redis:
-    type: redis:3.2
+    type: redis:5.0

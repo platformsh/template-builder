@@ -210,6 +210,7 @@ def task_laravel_platformify():
     return {
         'actions': [
             'rsync -aP laravel/files/ laravel/build/',
+            'cd laravel/build && patch -p1 < ../phpredis.patch',
             'cd laravel/build && composer require platformsh/laravel-bridge'
         ]
     }
@@ -218,7 +219,7 @@ def task_laravel_cleanup():
     return common_cleanup('laravel')
 
 def task_laravel_update():
-    return common_update('laravel', '5.5')
+    return common_update('laravel', '5.7')
 
 def task_laravel_branch():
     return common_branch('laravel')

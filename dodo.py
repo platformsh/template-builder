@@ -18,6 +18,7 @@ ALL_PROJECTS = [
     'wordpress',
     'laravel',
     'flask',
+    'django2',
     'magento2ce',
     'golang'
 ]
@@ -403,6 +404,46 @@ def task_flask_branch():
 
 def task_flask_push():
     return common_push('flask')
+
+
+### Django 2 ###
+
+def task_django2():
+    return {
+        'task_dep': ['django2_update', 'django2_platformify', 'django2_branch',],
+        'actions': []
+    }
+
+def task_django2_init():
+    return {
+        'task_dep': ['django2_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-django2.git django2/build',
+        ]
+    }
+
+def task_django2_platformify():
+    return {
+        'actions': [
+            'rsync -aP django2/files/ django2/build/',
+        ]
+    }
+
+def task_django2_cleanup():
+    return common_cleanup('django2')
+
+def task_django2_update():
+    return {
+        'actions': [
+            'cd django2/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_django2_branch():
+    return common_branch('django2')
+
+def task_django2_push():
+    return common_push('django2')
 
 
 ### Golang ###

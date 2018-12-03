@@ -1,0 +1,10 @@
+# The services of the project.
+#
+# Each service listed will be deployed in its own container as part of your
+# Platform.sh project.
+#
+# See https://docs.platform.sh/user_guide/reference/services-yaml.html
+
+postgresqldb:
+    type: postgresql:9.6
+    disk: 1024

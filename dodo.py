@@ -358,7 +358,7 @@ def task_wordpress_cleanup():
     return common_cleanup('wordpress')
 
 def task_wordpress_update():
-    return common_update('wordpress', '4.9')
+    return common_update('wordpress', '5.0')
 
 def task_wordpress_branch():
     return common_branch('wordpress')

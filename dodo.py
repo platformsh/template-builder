@@ -7,21 +7,31 @@ DOIT_CONFIG = {
     "verbosity": 2,
 }
 
+UPSTREAM_VERSIONS = {
+    'drupal7_vanilla': '7.61',
+    'drupal8': '8.x',
+    'laravel': '5.7',
+    'magento2ce': '2.2',
+    'symfony3': '3.4',
+    'symfony4': '4.2',
+    'wordpress': '5.0',
+}
+
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
 
 ALL_PROJECTS = [
-    'drupal8',
-    'drupal7',
-    'symfony3',
-    'drupal7_vanilla',
-    'symfony4',
-    'wordpress',
-    'laravel',
-    'flask',
     'django1',
     'django2',
+    'drupal7',
+    'drupal7_vanilla',
+    'drupal8',
+    'flask',
+    'golang',
+    'laravel',
     'magento2ce',
-    'golang'
+    'symfony3',
+    'symfony4',
+    'wordpress',
 ]
 
 def task_all():
@@ -71,7 +81,7 @@ def task_drupal8_cleanup():
     return common_cleanup('drupal8')
 
 def task_drupal8_update():
-    return common_update('drupal8', '8.x')
+    return common_update('drupal8', UPSTREAM_VERSIONS['drupal8'])
 
 def task_drupal8_branch():
     return common_branch('drupal8')
@@ -109,7 +119,7 @@ def task_symfony3_cleanup():
     return common_cleanup('symfony3')
 
 def task_symfony3_update():
-    return common_update('symfony3', '3.4')
+    return common_update('symfony3', UPSTREAM_VERSIONS['symfony3'])
 
 def task_symfony3_branch():
     return common_branch('symfony3')
@@ -146,7 +156,7 @@ def task_symfony4_cleanup():
     return common_cleanup('symfony4')
 
 def task_symfony4_update():
-    return common_update('symfony4', '4.1')
+    return common_update('symfony4', UPSTREAM_VERSIONS['symfony4'])
 
 def task_symfony4_branch():
     return common_branch('symfony4')
@@ -183,7 +193,7 @@ def task_magento2ce_cleanup():
     return common_cleanup('magento2ce')
 
 def task_magento2ce_update():
-    return common_update('magento2ce', '2.2')
+    return common_update('magento2ce', UPSTREAM_VERSIONS['magento2ce'])
 
 def task_magento2ce_branch():
     return common_branch('magento2ce')
@@ -221,7 +231,7 @@ def task_laravel_cleanup():
     return common_cleanup('laravel')
 
 def task_laravel_update():
-    return common_update('laravel', '5.7')
+    return common_update('laravel', UPSTREAM_VERSIONS['laravel'])
 
 def task_laravel_branch():
     return common_branch('laravel')
@@ -295,7 +305,7 @@ def task_drupal7_vanilla_update():
     return {
         'actions': [
             'cd drupal7_vanilla/build && git checkout master && git pull --prune',
-            "wget -qO- https://ftp.drupal.org/files/projects/drupal-7.59.tar.gz | tar xzv --transform 's/^drupal-7.59/docroot/' -C drupal7_vanilla/build/"
+            "wget -qO- https://ftp.drupal.org/files/projects/drupal-" + UPSTREAM_VERSIONS['drupal7_vanilla'] + ".tar.gz | tar xzv --transform 's/^drupal-" + UPSTREAM_VERSIONS['drupal7_vanilla'] + "/docroot/' -C drupal7_vanilla/build/"
         ]
     }
 
@@ -358,7 +368,7 @@ def task_wordpress_cleanup():
     return common_cleanup('wordpress')
 
 def task_wordpress_update():
-    return common_update('wordpress', '5.0')
+    return common_update('wordpress', UPSTREAM_VERSIONS['wordpress'])
 
 def task_wordpress_branch():
     return common_branch('wordpress')

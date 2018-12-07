@@ -25,7 +25,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.2<br/>Redis 4.0.6"
+      content: "PHP 7.2<br/>MySQL 10.2"
     - heading: "Requirements"
 
 
@@ -39,3 +39,4 @@ initialize:
   repository: git://github.com/platformsh/template-wordpress.git@master
   config: null
   files: []
+  profile: Wordpress

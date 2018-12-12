@@ -13,7 +13,7 @@ info:
   # The human-readable name of the template.
   name: Flask
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Flask is a micro web framework written in Python.
+  description: Flask is a web microframework written in Python.
   # A list of tags associated with the template.
   tags:
   - Python

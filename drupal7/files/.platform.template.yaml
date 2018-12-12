@@ -13,7 +13,7 @@ info:
   # The human-readable name of the template.
   name: Drupal 7
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Drupal is a free software package that allows you to easily organize, manage and publish your content, with an endless variety of customization.
+  description: Drupal is a highly-customizable free software PHP CMS that allows you to easily organize, manage and publish your content.
   # A list of tags associated with the template.
   tags:
   - PHP

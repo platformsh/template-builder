@@ -13,7 +13,7 @@ info:
   # The human-readable name of the template.
   name: Django 2
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Django is a Python-based free and open-source web framework
+  description: Django is a Python-based free and open-source web framework.
   # A list of tags associated with the template.
   tags:
   - Python

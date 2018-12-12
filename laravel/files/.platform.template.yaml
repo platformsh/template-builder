@@ -13,7 +13,7 @@ info:
   # The human-readable name of the template.
   name: Laravel
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Laravel is a free, open-source PHP web framework, following the model–view–controller (MVC) architectural pattern and based on Symfony.
+  description: Laravel is a free, open-source PHP web framework.
   # A list of tags associated with the template.
   tags:
   - PHP

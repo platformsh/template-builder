@@ -547,12 +547,13 @@ def common_cleanup(root):
         ]
     }
 
-def common_update(root, branch):
+def common_update(root, tag):
     return {
         'actions': [
             'cd %s/build && git checkout master' % root,
             'cd %s/build && git fetch --all --depth=2' % root,
-            'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
+            'cd %s/build && git fetch --all --tags' % root,
+            'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash %s' % (root, tag),
             'cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root
         ]
     }

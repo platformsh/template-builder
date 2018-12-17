@@ -14,7 +14,7 @@ UPSTREAM_VERSIONS = {
     'magento2ce': '2.2',
     'symfony3': '3.4',
     'symfony4': '4.2',
-    'wordpress': '5.0',
+    'wordpress': '5.0.1',
 }
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.

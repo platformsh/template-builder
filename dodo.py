@@ -10,7 +10,7 @@ DOIT_CONFIG = {
 UPSTREAM_VERSIONS = {
     'drupal7_vanilla': '7.61',
     'drupal8': '8.x',
-    'laravel': '5.7',
+    'laravel': 'v5.7.15',
     'magento2ce': '2.2',
     'symfony3': '3.4',
     'symfony4': '4.2',
@@ -81,7 +81,7 @@ def task_drupal8_cleanup():
     return common_cleanup('drupal8')
 
 def task_drupal8_update():
-    return common_update('drupal8', UPSTREAM_VERSIONS['drupal8'])
+    return common_update('drupal8', branch=UPSTREAM_VERSIONS['drupal8'])
 
 def task_drupal8_branch():
     return common_branch('drupal8')
@@ -231,7 +231,7 @@ def task_laravel_cleanup():
     return common_cleanup('laravel')
 
 def task_laravel_update():
-    return common_update('laravel', UPSTREAM_VERSIONS['laravel'])
+    return common_update('laravel', tag=UPSTREAM_VERSIONS['laravel'])
 
 def task_laravel_branch():
     return common_branch('laravel')
@@ -547,15 +547,25 @@ def common_cleanup(root):
         ]
     }
 
-def common_update(root, tag):
+def common_update(root, tag='', branch=''):
+
+    actions = [
+        'cd %s/build && git checkout master' % root,
+        'cd %s/build && git fetch --all --depth=2' % root,
+        'cd %s/build && git fetch --all --tags' % root,
+    ]
+
+    if tag:
+        actions.append('cd %s/build && git merge --allow-unrelated-histories -X theirs --squash %s' % (root, tag))
+    elif branch:
+        actions.append('cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch))
+    else:
+        raise Exception('Either a tag or branch must be specified.')
+
+    actions.append('cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root)
+
     return {
-        'actions': [
-            'cd %s/build && git checkout master' % root,
-            'cd %s/build && git fetch --all --depth=2' % root,
-            'cd %s/build && git fetch --all --tags' % root,
-            'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash %s' % (root, tag),
-            'cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root
-        ]
+        'actions': actions
     }
 
 def common_branch(root):

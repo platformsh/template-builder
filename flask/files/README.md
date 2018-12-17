@@ -1,4 +1,4 @@
-# Platform.sh Python 2.7 Flask minimal example
+# Platform.sh Python 3.7 Flask minimal example
 
 This project provides a starter kit for minimal Python 2.7 Flask projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
 

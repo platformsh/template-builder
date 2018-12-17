@@ -7,7 +7,7 @@ import sys
 
 import flask
 import flask.json
-import gevent.wsgi
+import gevent.pywsgi
 import pymysql
 import redis
 
@@ -64,12 +64,12 @@ def test_redis(instance):
         db=0,
     )
     key_name = "foo-%s" + str(uuid.uuid4())
-    value = "bar"
+    value = b"bar"
 
     r.set(key_name, "bar")
     assert value == r.get(key_name)
 
 
 if __name__ == "__main__":
-    http_server = gevent.wsgi.WSGIServer(('127.0.0.1', int(os.environ["PORT"])), app)
+    http_server = gevent.pywsgi.WSGIServer(('127.0.0.1', int(os.environ["PORT"])), app)
     http_server.serve_forever()

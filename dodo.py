@@ -119,7 +119,7 @@ def task_symfony3_cleanup():
     return common_cleanup('symfony3')
 
 def task_symfony3_update():
-    return common_update('symfony3', UPSTREAM_VERSIONS['symfony3'])
+    return common_update('symfony3', branch=UPSTREAM_VERSIONS['symfony3'])
 
 def task_symfony3_branch():
     return common_branch('symfony3')
@@ -156,7 +156,7 @@ def task_symfony4_cleanup():
     return common_cleanup('symfony4')
 
 def task_symfony4_update():
-    return common_update('symfony4', UPSTREAM_VERSIONS['symfony4'])
+    return common_update('symfony4', branch=UPSTREAM_VERSIONS['symfony4'])
 
 def task_symfony4_branch():
     return common_branch('symfony4')
@@ -193,7 +193,7 @@ def task_magento2ce_cleanup():
     return common_cleanup('magento2ce')
 
 def task_magento2ce_update():
-    return common_update('magento2ce', UPSTREAM_VERSIONS['magento2ce'])
+    return common_update('magento2ce', branch=UPSTREAM_VERSIONS['magento2ce'])
 
 def task_magento2ce_branch():
     return common_branch('magento2ce')
@@ -368,7 +368,7 @@ def task_wordpress_cleanup():
     return common_cleanup('wordpress')
 
 def task_wordpress_update():
-    return common_update('wordpress', UPSTREAM_VERSIONS['wordpress'])
+    return common_update('wordpress', tag=UPSTREAM_VERSIONS['wordpress'])
 
 def task_wordpress_branch():
     return common_branch('wordpress')

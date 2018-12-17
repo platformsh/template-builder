@@ -10,11 +10,11 @@ DOIT_CONFIG = {
 UPSTREAM_VERSIONS = {
     'drupal7_vanilla': '7.61',
     'drupal8': '8.x',
-    'laravel': '5.7',
+    'laravel': 'v5.7.15',
     'magento2ce': '2.2',
     'symfony3': '3.4',
     'symfony4': '4.2',
-    'wordpress': '5.0',
+    'wordpress': '5.0.1',
 }
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
@@ -81,7 +81,7 @@ def task_drupal8_cleanup():
     return common_cleanup('drupal8')
 
 def task_drupal8_update():
-    return common_update('drupal8', UPSTREAM_VERSIONS['drupal8'])
+    return common_update('drupal8', branch=UPSTREAM_VERSIONS['drupal8'])
 
 def task_drupal8_branch():
     return common_branch('drupal8')
@@ -119,7 +119,7 @@ def task_symfony3_cleanup():
     return common_cleanup('symfony3')
 
 def task_symfony3_update():
-    return common_update('symfony3', UPSTREAM_VERSIONS['symfony3'])
+    return common_update('symfony3', branch=UPSTREAM_VERSIONS['symfony3'])
 
 def task_symfony3_branch():
     return common_branch('symfony3')
@@ -156,7 +156,7 @@ def task_symfony4_cleanup():
     return common_cleanup('symfony4')
 
 def task_symfony4_update():
-    return common_update('symfony4', UPSTREAM_VERSIONS['symfony4'])
+    return common_update('symfony4', branch=UPSTREAM_VERSIONS['symfony4'])
 
 def task_symfony4_branch():
     return common_branch('symfony4')
@@ -193,7 +193,7 @@ def task_magento2ce_cleanup():
     return common_cleanup('magento2ce')
 
 def task_magento2ce_update():
-    return common_update('magento2ce', UPSTREAM_VERSIONS['magento2ce'])
+    return common_update('magento2ce', branch=UPSTREAM_VERSIONS['magento2ce'])
 
 def task_magento2ce_branch():
     return common_branch('magento2ce')
@@ -231,7 +231,7 @@ def task_laravel_cleanup():
     return common_cleanup('laravel')
 
 def task_laravel_update():
-    return common_update('laravel', UPSTREAM_VERSIONS['laravel'])
+    return common_update('laravel', tag=UPSTREAM_VERSIONS['laravel'])
 
 def task_laravel_branch():
     return common_branch('laravel')
@@ -368,7 +368,7 @@ def task_wordpress_cleanup():
     return common_cleanup('wordpress')
 
 def task_wordpress_update():
-    return common_update('wordpress', UPSTREAM_VERSIONS['wordpress'])
+    return common_update('wordpress', tag=UPSTREAM_VERSIONS['wordpress'])
 
 def task_wordpress_branch():
     return common_branch('wordpress')
@@ -547,14 +547,25 @@ def common_cleanup(root):
         ]
     }
 
-def common_update(root, branch):
+def common_update(root, tag='', branch=''):
+
+    actions = [
+        'cd %s/build && git checkout master' % root,
+        'cd %s/build && git fetch --all --depth=2' % root,
+        'cd %s/build && git fetch --all --tags' % root,
+    ]
+
+    if tag:
+        actions.append('cd %s/build && git merge --allow-unrelated-histories -X theirs --squash %s' % (root, tag))
+    elif branch:
+        actions.append('cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch))
+    else:
+        raise Exception('Either a tag or branch must be specified.')
+
+    actions.append('cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root)
+
     return {
-        'actions': [
-            'cd %s/build && git checkout master' % root,
-            'cd %s/build && git fetch --all --depth=2' % root,
-            'cd %s/build && git merge --allow-unrelated-histories -X theirs --squash project/%s' % (root, branch),
-            'cd %s/build && composer update --prefer-dist --ignore-platform-reqs --no-interaction' % root
-        ]
+        'actions': actions
     }
 
 def common_branch(root):
@@ -569,7 +580,6 @@ def common_branch(root):
 def common_push(root):
     return {
         'actions': [
-            'cd %s/build && git checkout update && git push -u origin update' % root,
-            #'cd %s/build && hub pull-request -m "Update to latest upstream" -b platformsh:master -h update' % root
+            'cd %s/build && git checkout update && git push --force -u origin update' % root,
         ]
     }

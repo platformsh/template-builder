@@ -29,6 +29,8 @@ ALL_PROJECTS = [
     'golang',
     'laravel',
     'magento2ce',
+    'python2',
+    'python3',
     'symfony3',
     'symfony4',
     'wordpress',
@@ -495,6 +497,86 @@ def task_django2_branch():
 
 def task_django2_push():
     return common_push('django2')
+
+
+### Python 3 ###
+
+def task_python3():
+    return {
+        'task_dep': ['python3_update', 'python3_platformify', 'python3_branch',],
+        'actions': []
+    }
+
+def task_python3_init():
+    return {
+        'task_dep': ['python3_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-python3.git python3/build',
+        ]
+    }
+
+def task_python3_platformify():
+    return {
+        'actions': [
+            'rsync -aP python3/files/ python3/build/',
+        ]
+    }
+
+def task_python3_cleanup():
+    return common_cleanup('python3')
+
+def task_python3_update():
+    return {
+        'actions': [
+            'cd python3/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_python3_branch():
+    return common_branch('python3')
+
+def task_python3_push():
+    return common_push('python3')
+
+
+### Python 2 ###
+
+def task_python2():
+    return {
+        'task_dep': ['python2_update', 'python2_platformify', 'python2_branch',],
+        'actions': []
+    }
+
+def task_python2_init():
+    return {
+        'task_dep': ['python2_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-python2.git python2/build',
+        ]
+    }
+
+def task_python2_platformify():
+    return {
+        'actions': [
+            'rsync -aP python2/files/ python2/build/',
+        ]
+    }
+
+def task_python2_cleanup():
+    return common_cleanup('python2')
+
+def task_python2_update():
+    return {
+        'actions': [
+            'cd python2/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_python2_branch():
+    return common_branch('python2')
+
+def task_python2_push():
+    return common_push('python2')
 
 
 ### Golang ###

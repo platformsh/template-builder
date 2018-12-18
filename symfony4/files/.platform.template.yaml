@@ -1,0 +1,52 @@
+# Platform.sh Project Initialization Template
+#
+# This files defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+#
+# Once provisioned this file has no effects on the running project.  You
+# are free to remove it.
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
+info:
+  # Unique machine name, prefaced by a vendor or organization identifier
+  id: platformsh/symfony4
+  # The human-readable name of the template.
+  name: Symfony 4
+  # Human-readable descriptive text for the template. Supports limited HTML.
+  description: Symfony is a loosely coupled PHP web application framework.
+  # A list of tags associated with the template.
+  tags:
+  - PHP
+  - Symfony
+  - Framework
+  # An image URI (either base64-encoded or a URL) representing the template.
+  image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAA0CAYAAAAqunDVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4MTMxNkY3QTZEODNFMjExODg4ODgzRjkxQUVEMEE5RSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5ODQyOTlFQTMwQUIxMUU0ODU4RkE3M0FFMzcxMDdGOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5ODQyOTlFOTMwQUIxMUU0ODU4RkE3M0FFMzcxMDdGOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE3MTU4RUY3NTYyMTY4MTFCMURCRjJDNzU0NUI1Q0YzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjgxMzE2RjdBNkQ4M0UyMTE4ODg4ODNGOTFBRUQwQTlFIi8+IDwvcmRmOkRlc2NyaXB0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
+  # Additional notes displayed in the template's detail view.
+  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+  notes:
+    - heading: "Apps & Services"
+      content: "PHP 7.2<br/>MySQL 10.2"
+    - heading: "Requirements"
+
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exitss now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+  repository: git://github.com/platformsh/template-symfony4.git@master
+  config: null
+  files: []
+  profile: Symfony 4

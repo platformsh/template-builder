@@ -19,9 +19,9 @@ version: 1
 # Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
   # Unique machine name, prefaced by a vendor or organization identifier
-  id: platformsh/python3
+  id: platformsh/python3_uwsgi
   # The human-readable name of the template.
-  name: Basic Python 3 worker
+  name: Python 3 running UWSGI
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Python is a highly flexible and easy to use scripting language.
   # A list of tags associated with the template.
@@ -34,7 +34,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Python 3<br/>MySQL 10.2<br />Redis 5"
+      content: "Python 3"
     - heading: "Requirements"
 
 
@@ -45,7 +45,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-python3.git@master
+  repository: git://github.com/platformsh/template-python3-uwsgi.git@master
   config: null
   files: []
-  profile: Python
+  profile: PHP

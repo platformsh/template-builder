@@ -499,6 +499,46 @@ def task_django2_push():
     return common_push('django2')
 
 
+### Python 3 (UWSGI) ###
+
+def task_python3_uwsgi():
+    return {
+        'task_dep': ['python3_uwsgi_update', 'python3_uwsgi_platformify', 'python3_uwsgi_branch',],
+        'actions': []
+    }
+
+def task_python3_uwsgi_init():
+    return {
+        'task_dep': ['python3_uwsgi_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-python3-uwsgi.git python3_uwsgi/build',
+        ]
+    }
+
+def task_python3_uwsgi_platformify():
+    return {
+        'actions': [
+            'rsync -aP python3_uwsgi/files/ python3_uwsgi/build/',
+        ]
+    }
+
+def task_python3_uwsgi_cleanup():
+    return common_cleanup('python3_uwsgi')
+
+def task_python3_uwsgi_update():
+    return {
+        'actions': [
+            'cd python3_uwsgi/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_python3_uwsgi_branch():
+    return common_branch('python3_uwsgi')
+
+def task_python3_uwsgi_push():
+    return common_push('python3_uwsgi')
+
+
 ### Python 3 ###
 
 def task_python3():

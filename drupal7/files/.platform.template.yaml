@@ -1,7 +1,17 @@
-## Project behavior schema
-
-# Allows products and project creation to define
-# various settings and workflow modifications
+# Platform.sh Project Initialization Template
+#
+# This files defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+#
+# Once provisioned this file has no effects on the running project.  You
+# are free to remove it.
 
 # The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1

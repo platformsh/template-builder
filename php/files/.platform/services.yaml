@@ -1,0 +1,5 @@
+# This file defines services you want available to your application.
+
+#mysqldb:
+#    type: mysql:10.2
+#    disk: 2048

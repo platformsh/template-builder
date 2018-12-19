@@ -29,6 +29,7 @@ ALL_PROJECTS = [
     'golang',
     'laravel',
     'magento2ce',
+    'php',
     'python2',
     'python3',
     'symfony3',
@@ -657,6 +658,45 @@ def task_golang_branch():
 
 def task_golang_push():
     return common_push('golang')
+
+### PHP (Generic) ###
+
+def task_php():
+    return {
+        'task_dep': ['php_update', 'php_platformify', 'php_branch',],
+        'actions': []
+    }
+
+def task_php_init():
+    return {
+        'task_dep': ['php_cleanup'],
+        'actions': [
+            'git clone git@github.com:platformsh/template-php.git php/build',
+        ]
+    }
+
+def task_php_platformify():
+    return {
+        'actions': [
+            'rsync -aP php/files/ php/build/',
+        ]
+    }
+
+def task_php_cleanup():
+    return common_cleanup('php')
+
+def task_php_update():
+    return {
+        'actions': [
+            'cd php/build && git checkout master && git pull --prune'
+        ]
+    }
+
+def task_php_branch():
+    return common_branch('php')
+
+def task_php_push():
+    return common_push('php')
 
 
 

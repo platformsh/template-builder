@@ -1,5 +1,13 @@
 # This file defines services you want available to your application.
 
-#mysqldb:
-#    type: mysql:10.2
-#    disk: 2048
+mysql:
+    type: mysql:10.2
+    disk: 256
+solr:
+    type: solr:6.6
+    disk: 256
+redis:
+    type: redis:5.0
+elasticsearch:
+    type: elasticsearch:5.4
+    disk: 256

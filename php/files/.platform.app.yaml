@@ -9,6 +9,18 @@ type: php:7.3
 build:
     flavor: composer
 
+relationships:
+    database: 'mysql:mysql'
+    solr: 'solr:solr'
+    redis: 'redis:redis'
+    elasticsearch: 'elasticsearch:elasticsearch'
+
+# See https://docs.platform.sh/languages/php/ini.html for a list of
+# PECL extensions that can be enabled.
+runtime:
+    extensions:
+        - redis
+
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
@@ -25,7 +37,7 @@ hooks:
 #    database: "mysqldb:mysql"
 
 # The size of the persistent disk of the application (in MB).
-disk: 2048
+disk: 128
 
 # The mounts that will be performed when the package is deployed.
 mounts:
@@ -44,6 +56,6 @@ web:
     locations:
         "/":
             # The public directory of the app, relative to its root.
-            root: "public"
+            root: "web"
             # The front-controller script to send non-static requests to.
             passthru: "/index.php"

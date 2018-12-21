@@ -56,7 +56,7 @@ function capture_output(callable $callable) {
 
 $files = glob("../examples/*.php");
 foreach ($files as $filename) {
-    $name = basename($filename);
+    $name = pathinfo($filename)['filename'];
     $source = highlight_file($filename, true);
     $output = capture_output(function() use ($filename) {
         include $filename;

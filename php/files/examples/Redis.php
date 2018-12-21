@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Platformsh\ConfigReader\Config;
 
 // Create a new config object to ease reading the Platform.sh environment variables.

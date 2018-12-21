@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Platformsh\ConfigReader\Config;
 
 // Create a new config object to ease reading the Platform.sh environment variables.
@@ -53,7 +55,7 @@ try {
 <tbody>
 TABLE;
         foreach ($result as $record) {
-            printf("<tr><td>%s</td><td>%s</td></tr>", $record->name, $record->city);
+            printf("<tr><td>%s</td><td>%s</td></tr>\n", $record->name, $record->city);
         }
         print "</tbody>\n</table>\n";
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Messages;
 
 require __DIR__.'/../vendor/autoload.php';
@@ -78,4 +80,3 @@ END;
 
 </body>
 </html>
-

@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/php
   # The human-readable name of the template.
-  name: Plain PHP
+  name: PHP Examples
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: PHP is the world's fastest, most widely used server-side web language.
   # A list of tags associated with the template.

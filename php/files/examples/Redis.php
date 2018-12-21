@@ -1,0 +1,34 @@
+<?php
+
+use Platformsh\ConfigReader\Config;
+
+// Create a new config object to ease reading the Platform.sh environment variables.
+// You can alternatively use getenv() yourself.
+$config = new Config();
+
+// Get the credentials to connect to the Redis service.
+$credentials = $config->relationships['redis'][0];
+
+print "<pre>\n";
+print_r($credentials);
+print "</pre>\n";
+
+try {
+    // Connecting to Redis server.
+    $redis = new Redis();
+    $redis->connect($credentials['host'], $credentials['port']);
+
+    $key = "Deploy day";
+    $value = "Friday";
+
+    // Set a value.
+    $redis->set($key, $value);
+
+    // Read it back.
+    $test = $redis->get($key);
+
+    printf('Found value <strong>%s</strong> for key <strong>%s</strong>.', $test, $key);
+
+} catch (Exception $e) {
+    print $e->getMessage();
+}

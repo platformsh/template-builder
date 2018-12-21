@@ -11,6 +11,7 @@ build:
 
 relationships:
     database: 'mysql:mysql'
+    postgresql: 'postgresql:postgresql'
     solr: 'solr:solr'
     redis: 'redis:redis'
     elasticsearch: 'elasticsearch:elasticsearch'
@@ -20,6 +21,7 @@ relationships:
 runtime:
     extensions:
         - redis
+        - pdo_pgsql
 
 # The hooks that will be performed when the package is deployed.
 hooks:

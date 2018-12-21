@@ -3,6 +3,9 @@
 mysql:
     type: mysql:10.2
     disk: 256
+postgresql:
+    type: postgresql:11
+    disk: 256
 solr:
     type: solr:6.6
     disk: 256

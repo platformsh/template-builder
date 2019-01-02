@@ -14,3 +14,6 @@ redis:
 elasticsearch:
     type: elasticsearch:5.4
     disk: 256
+mongodb:
+    type: mongodb:3.6
+    disk: 256

@@ -15,6 +15,7 @@ relationships:
     solr: 'solr:solr'
     redis: 'redis:redis'
     elasticsearch: 'elasticsearch:elasticsearch'
+    mongodb: 'mongodb:mongodb'
 
 # See https://docs.platform.sh/languages/php/ini.html for a list of
 # PECL extensions that can be enabled.
@@ -22,6 +23,7 @@ runtime:
     extensions:
         - redis
         - pdo_pgsql
+        - mongodb
 
 # The hooks that will be performed when the package is deployed.
 hooks:

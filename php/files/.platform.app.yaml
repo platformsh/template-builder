@@ -18,6 +18,7 @@ relationships:
     mongodb: 'mongodb:mongodb'
     rabbitmq: 'rabbitmq:rabbitmq'
     influxdb: 'influxdb:influxdb'
+    memcached: 'memcached:memcached'
 
 # See https://docs.platform.sh/languages/php/ini.html for a list of
 # PECL extensions that can be enabled.
@@ -26,6 +27,7 @@ runtime:
         - redis
         - pdo_pgsql
         - mongodb
+        - memcached
 
 # The hooks that will be performed when the package is deployed.
 hooks:

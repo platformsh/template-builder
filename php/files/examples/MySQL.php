@@ -10,17 +10,17 @@ $config = new Config();
 
 // The 'database' relationship is generally the name of primary SQL database of an application.
 // That's not required, but much of our default automation code assumes it.
-$database = $config->relationships['database'][0];
+$credentials = $config->relationships['database'][0];
 
 print "<pre>\n";
-print_r($database);
+print_r($credentials);
 print "</pre>\n";
 
 try {
     // Connect to the database using PDO.  If using some other abstraction layer you would
     // inject the values from $database into whatever your abstraction layer asks for.
-    $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s', $database['host'], $database['port'], $database['path']);
-    $conn = new \PDO($dsn, $database['username'], $database['password'], [
+    $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s', $credentials['host'], $credentials['port'], $credentials['path']);
+    $conn = new \PDO($dsn, $credentials['username'], $credentials['password'], [
         // Always use Exception error mode with PDO, as it's more reliable.
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         // So we don't have to mess around with cursors and unbuffered queries by default.

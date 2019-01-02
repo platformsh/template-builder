@@ -9,7 +9,8 @@
         "solarium/solarium": "^4.2",
         "monolog/monolog": "^1.24",
         "elasticsearch/elasticsearch": "^6.0",
-        "mongodb/mongodb": "^1.4"
+        "mongodb/mongodb": "^1.4",
+        "php-amqplib/php-amqplib": "^2.8"
     },
     "autoload": {
         "psr-4": {

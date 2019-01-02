@@ -16,4 +16,7 @@ elasticsearch:
     disk: 256
 mongodb:
     type: mongodb:3.6
+    disk: 512
+rabbitmq:
+    type: rabbitmq:3.5
     disk: 256

@@ -1,25 +1,25 @@
 # This file defines services you want available to your application.
 
+elasticsearch:
+    type: elasticsearch:5.4
+    disk: 256
+influxdb:
+    type: influxdb:1.3
+    disk: 256
+mongodb:
+    type: mongodb:3.6
+    disk: 512
 mysql:
     type: mysql:10.2
     disk: 256
 postgresql:
     type: postgresql:11
     disk: 256
-solr:
-    type: solr:6.6
-    disk: 256
 redis:
     type: redis:5.0
-elasticsearch:
-    type: elasticsearch:5.4
-    disk: 256
-mongodb:
-    type: mongodb:3.6
-    disk: 512
 rabbitmq:
     type: rabbitmq:3.5
     disk: 256
-influxdb:
-    type: influxdb:1.3
+solr:
+    type: solr:6.6
     disk: 256

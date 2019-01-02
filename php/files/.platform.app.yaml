@@ -17,6 +17,7 @@ relationships:
     elasticsearch: 'elasticsearch:elasticsearch'
     mongodb: 'mongodb:mongodb'
     rabbitmq: 'rabbitmq:rabbitmq'
+    influxdb: 'influxdb:influxdb'
 
 # See https://docs.platform.sh/languages/php/ini.html for a list of
 # PECL extensions that can be enabled.

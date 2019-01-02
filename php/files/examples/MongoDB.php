@@ -25,8 +25,8 @@ try {
         $credentials['password'],
         $credentials['host'],
         $credentials['port'],
-        $credentials['path'],
-        );
+        $credentials['path']
+    );
 
     $client = new Client($server);
     $collection = $client->main->starwars;

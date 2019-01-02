@@ -33,6 +33,10 @@ require __DIR__.'/../vendor/autoload.php';
             margin-bottom: .5em;
         }
 
+        table, table td, table th {
+            border: 1px solid black;
+        }
+
     </style>
 </head>
 <body>

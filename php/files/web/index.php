@@ -41,14 +41,9 @@ require __DIR__.'/../vendor/autoload.php';
 </head>
 <body>
 
-
+<h1>Service examples for PHP</h1>
 
 <?php
-
-$messages = new Messages();
-
-printf("<h1>%s</h1>\n", $messages->title());
-printf("<p>%s</p>\n", $messages->message());
 
 function capture_output(callable $callable) {
     ob_start();

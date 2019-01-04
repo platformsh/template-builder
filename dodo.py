@@ -91,10 +91,10 @@ def task_push():
         }
 
 
-def task_workflow():
+def task_rebuild():
     for project in ALL_PROJECTS:
         yield {
-            'basename': project.name,
+            'name': project.name,
             'task_dep': ["{0}:{1}".format(action, project.name)
                          for action in ['update', 'platformify', 'branch']
                          ],

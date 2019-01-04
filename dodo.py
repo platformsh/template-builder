@@ -1,3 +1,10 @@
+'''
+DoIt (http://pydoit.org/) main Python module. Tasks are automatically generated for all projects from
+ALL_PROJECTS list. Template directory is scanned for the templates. When adding new template, no
+changes to this file are needed in case BaseProject implementations of all tasks are satisfying.
+In case the actions of some tasks need to be customized, the new BaseProject subclass must be imported.
+'''
+
 import os
 
 from project import BaseProject, TEMPLATEDIR
@@ -13,6 +20,14 @@ DOIT_CONFIG = {
 
 
 def project_factory(name):
+    '''Instantiate a project object, class selection is based on the following naming convention:
+    Project class matches template directory name with the first letter capitalized.
+      laravel -> Laravel,
+      drupal7_vanilla -> Drupal7_vanilla.
+
+    Base project class is used by default (class with the matching name is not imported)
+    '''
+
     targetclass = name.capitalize()
     try:
         return globals()[targetclass](name)

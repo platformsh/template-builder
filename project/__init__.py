@@ -6,6 +6,7 @@ TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
 
 class BaseProject(object):
+    '''Base class storing task actions.'''
 
     def __init__(self, name):
         self.name = name

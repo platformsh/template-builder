@@ -15,5 +15,5 @@ class Drupal7_vanilla(BaseProject):
 
 
 class Drupal8(RemoteProject):
-    update_branch = '8.x'
+    upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'

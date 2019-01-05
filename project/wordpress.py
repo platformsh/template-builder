@@ -5,7 +5,7 @@ from .remote import RemoteProject
 
 
 class Wordpress(RemoteProject):
-    tag = '5.0.1'
+    upstream_tag = '5.0.1'
     remote = 'https://github.com/johnpbloch/wordpress.git'
 
     @property

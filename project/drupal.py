@@ -3,7 +3,6 @@ from .remote import RemoteProject
 
 
 class Drupal7_vanilla(BaseProject):
-    github_name = 'drupal7-vanilla'
     version = '7.61'
 
     @property

@@ -21,7 +21,7 @@ class BaseProject(object):
         if hasattr(self, 'github_name'):
             name = self.github_name
         else:
-            name = self.name
+            name = self.name.replace('_', '-')
         return ['git clone git@github.com:platformsh/template-{0}.git {1}'.format(
             name, self.builddir)
         ]

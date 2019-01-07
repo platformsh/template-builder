@@ -11,7 +11,13 @@ class Wordpress(RemoteProject):
     @property
     def platformify(self):
         def wp_add_installer_paths():
+            """
+            Wordpress requires more Composer modification than can be done
+            with the Composer command line.  This function modifies the composer.json
+            file as raw JSON instead.
+            """
             with open('{0}/composer.json'.format(self.builddir), 'r') as f:
+                # The OrderedDict means that the property orders in composer.json will be preserved.
                 composer = json.load(f, object_pairs_hook=OrderedDict)
 
             composer['extra'] = {
@@ -26,7 +32,8 @@ class Wordpress(RemoteProject):
             with open('{0}/composer.json'.format(self.builddir), 'w') as out:
                 json.dump(composer, out, indent=2)
 
-        return [  # The initial composer update put files in the wrong place, so clean that up.
+        return [
+             # The initial composer update put files in the wrong place, so clean that up.
             'rm -rf {0}/wordpress'.format(self.builddir)
         ] + super(Wordpress, self).platformify + [
             (wp_add_installer_paths, []),

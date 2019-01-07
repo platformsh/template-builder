@@ -31,6 +31,8 @@ Only the `files` directory and patches are checked into Git.  The `build` direct
 
 The `files` directory contains all the files that should be added wholesale to the upstream source of `spiffy`.  The patches will be applied to the the source to modify it.  Patches are optional and `files` could be as simple as just the Platform.sh configuration files, or it could be the entire repository with no upstream at all.
 
+Additionally, each project has a Python class defined in the `project` directory that controls its build process.  In most cases it only needs to specify an upstream source and possibly some custom build steps.  See the `BaseProject` and `RemoteProject` classes for further details.
+
 ### Build tasks
 
 Each project has a series of build tasks, suffixed with the project. A particular task is run across all projects in case the project is not specified.
@@ -46,7 +48,7 @@ Each project has a series of build tasks, suffixed with the project. A particula
 
 In most cases, rebuilding a new update to a project is a matter of running:
 
-`doit init:spiffy spiffy push:spiffy`
+`doit init:spiffy rebuild:spiffy push:spiffy`
 
 And poof, you are ready to make a PR with the updates.
 

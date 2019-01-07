@@ -18,14 +18,16 @@ DOIT_CONFIG = {
     "verbosity": 2,
 }
 
+# Blacklist of projects to ignore.
+IGNORED = []
 
 def project_factory(name):
-    '''Instantiate a project object, class selection is based on the following naming convention:
+    '''Instantiate a project object.  Class selection is based on the following naming convention:
     Project class matches template directory name with the first letter capitalized.
       laravel -> Laravel,
       drupal7_vanilla -> Drupal7_vanilla.
 
-    Base project class is used by default (class with the matching name is not imported)
+    The BaseProject class is used by default (class with the matching name is not imported)
     '''
 
     targetclass = name.capitalize()
@@ -34,15 +36,17 @@ def project_factory(name):
     except KeyError:
         return BaseProject(name)
 
-
-IGNORED = []
 ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
                 if f.is_dir() and f.name not in IGNORED]
 
 # @TODO Add _push to all of the top-level tasks for one-stop shopping.
 
-
 def task_cleanup():
+    """
+    DoIt Task: Removes all generated files for a project.
+
+    Usage: doit cleanup:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
@@ -51,6 +55,11 @@ def task_cleanup():
 
 
 def task_init():
+    """
+    DoIt Task: Initializes a project directory so it can be built.
+
+    Usage: doit init:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
@@ -59,15 +68,12 @@ def task_init():
         }
 
 
-def task_platformify():
-    for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.platformify,
-        }
-
-
 def task_update():
+    """
+    DoIt Task: Updates the build repository from upstream sources.
+
+    Usage: doit update:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
@@ -75,7 +81,26 @@ def task_update():
         }
 
 
+def task_platformify():
+    """
+    DoIt Task: Applies necessary changes to a project,
+    such as adding configuration files, applying patches, etc.
+
+    Usage: doit platformify:<project>
+    """
+    for project in ALL_PROJECTS:
+        yield {
+            'name': project.name,
+            'actions': project.platformify,
+        }
+
+
 def task_branch():
+    """
+    DoIt Task: Creates a new Git branch for pushing updates to the template repo.
+
+    Usage: doit branch:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
@@ -84,6 +109,11 @@ def task_branch():
 
 
 def task_push():
+    """
+    DoIt Task: Pushes a prepared branch to GitHub.
+
+    Usage: doit push:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
@@ -92,6 +122,11 @@ def task_push():
 
 
 def task_rebuild():
+    """
+    DoIt Task: Aggregates the update, platformify, and branch tasks for one-stop shopping..
+
+    Usage: doit rebuild:<project>
+    """
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,

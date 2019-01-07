@@ -2,9 +2,20 @@ from . import BaseProject
 
 
 class RemoteProject(BaseProject):
-    '''Base class synchronizing code with remote source tree, each
-    subclass must contain aither `upstream_tag` or `upstream_branch`
-    class attribute.
+    '''
+    Base class for projects that need to synchronize code with an upstream source.
+
+    Projects that are based on a remote source that we then modify should use this
+    base class instead.
+
+    Projects extending this class MUST define the following class attributes:
+    - `remote`, which is a Git URL to the upstream source.
+    - either `upstream_tag` or `upstream_branch`, which specifies the tag or branch
+        in the `remote` repository from which to pull. (If both are defined, `upstream_tag`
+        take precedence.)
+
+    Note that if using a tag, that means the project class will need to be updated
+    every time there's a new upstream release.  C'est la vie.
     '''
 
     @property

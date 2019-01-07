@@ -6,7 +6,13 @@ TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
 
 class BaseProject(object):
-    '''Base class storing task actions.'''
+    '''
+    Base class storing task actions.
+
+    Each @property method corresponds to a DoIt task of the same name.
+    In practice, platformify is usually the only one that most projects will need
+    to override.
+    '''
 
     def __init__(self, name):
         self.name = name
@@ -27,7 +33,21 @@ class BaseProject(object):
         ]
 
     @property
+    def update(self):
+        return ['cd {0} && git checkout master && git pull --prune'.format(
+            self.builddir)
+        ]
+
+    @property
     def platformify(self):
+        """
+        The default implementation of this method will
+        1) Copy the contents of the files/ directory in the project over the
+           application, replacing what's there.
+        2) Apply any *.patch files found in the project directory, in alphabetical order.
+
+        Individual projects may expand on these tasks as needed.
+        """
         actions = ['rsync -aP {0} {1}'.format(
             os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
         )]
@@ -39,18 +59,6 @@ class BaseProject(object):
         return actions
 
     @property
-    def update(self):
-        return ['cd {0} && git checkout master && git pull --prune'.format(
-            self.builddir)
-        ]
-
-    @property
-    def push(self):
-        return ['cd {0} && git checkout update && git push --force -u origin update'.format(
-            self.builddir)
-        ]
-
-    @property
     def branch(self):
         return [
             'cd {0} && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;'.format(
@@ -58,4 +66,10 @@ class BaseProject(object):
             'cd {0} && git checkout -b update'.format(self.builddir),
             'cd {0} && git add -A && git commit -m "Update to latest upstream"'.format(
                 self.builddir),
+        ]
+
+    @property
+    def push(self):
+        return ['cd {0} && git checkout update && git push --force -u origin update'.format(
+            self.builddir)
         ]

@@ -29,7 +29,7 @@ class BaseProject(object):
     @property
     def platformify(self):
         actions = ['rsync -aP {0} {1}'.format(
-            os.path.join(TEMPLATEDIR, self.name, 'files'),  self.builddir
+            os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
         )]
         patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
         for patch in patches:

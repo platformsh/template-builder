@@ -31,21 +31,24 @@ Only the `files` directory and patches are checked into Git.  The `build` direct
 
 The `files` directory contains all the files that should be added wholesale to the upstream source of `spiffy`.  The patches will be applied to the the source to modify it.  Patches are optional and `files` could be as simple as just the Platform.sh configuration files, or it could be the entire repository with no upstream at all.
 
+Additionally, each project has a Python class defined in the `project` directory that controls its build process.  In most cases it only needs to specify an upstream source and possibly some custom build steps.  See the `BaseProject` and `RemoteProject` classes for further details.
+
 ### Build tasks
 
-Each project has a series of build tasks, prefixed with the project.  A few commands also have an `all` option to run across all projects.
+Each project has a series of build tasks, suffixed with the project. A particular task is run across all projects in case the project is not specified.
 
-* `spiffy_cleanup` - Deletes the build directory for `spiffy` to start from a clean slate.
-* `spiffy_init` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `spiffy_cleanup`.
-* `spiffy` - Implies `spiffy_update`, `spiffy_platformify`, and `spiffy_branch`.
-* `spiffy_update` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.
-* `spiffy_platformify` - Copies the `files` directory over the build directory to add the Platform.sh files, applies any patches, and potentially takes other actions as needed.  (Adding composer libraries, for instance.)  This may vary widely with the application.
-* `spiffy_branch` - Prepares a branch named `update` with the changes just made by `update` and `platformify`, with all changes committed.
-* `spiffy_push` - Pushes a branch to GitHub, which displays a link to create a Pull Request out of it.
+* `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
+* `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `spiffy_cleanup`.
+* `update:spiffy` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.
+* `platformify:spiffy` - Copies the `files` directory over the build directory to add the Platform.sh files, applies any patches, and potentially takes other actions as needed.  (Adding composer libraries, for instance.)  This may vary widely with the application.
+* `branch:spiffy` - Prepares a branch named `update` with the changes just made by `update` and `platformify`, with all changes committed.
+* `rebuild:spiffy` - Implies `update:spiffy`, `platformify:spiffy`, and `branch:spiffy`.
+* `push:spiffy` - Pushes a branch to GitHub, which displays a link to create a Pull Request out of it.
+* `init` - Runs init task for all the projects.
 
 In most cases, rebuilding a new update to a project is a matter of running:
 
-`doit spiffy_init spiffy spiffy_push`
+`doit init:spiffy rebuild:spiffy push:spiffy`
 
 And poof, you are ready to make a PR with the updates.
 

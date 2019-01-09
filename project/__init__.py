@@ -72,6 +72,6 @@ class BaseProject(object):
 
     @property
     def push(self):
-        return ['cd {0} && git checkout update && git push --force -u origin update'.format(
+        return ['cd {0} && if [ `git rev-parse update` != `git rev-parse master` ] ; then git checkout update && git push --force -u origin update; fi'.format(
             self.builddir)
         ]

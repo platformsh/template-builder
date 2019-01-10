@@ -30,7 +30,7 @@ class RemoteProject(BaseProject):
         actions = [
             'cd {0} && git checkout master'.format(self.builddir),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
-            'cd {0} & git fetch --all --tags'.format(self.builddir),
+            'cd {0} && git fetch --all --tags'.format(self.builddir),
         ]
 
         if hasattr(self, 'upstream_tag'):

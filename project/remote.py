@@ -44,6 +44,7 @@ class RemoteProject(BaseProject):
         else:
             raise AttributeError(
                 'Each RemoteProject subclass must contain either a upstream_tag or upstream_branch class attribute.')
-        actions.append('cd {0} & & composer update - -prefer-dist - -ignore-platform-reqs --no-interaction'.format(
+        actions.append('cd {0} && composer update --prefer-dist --ignore-platform-reqs --no-interaction'.format(
             self.builddir)
         )
+        return actions

@@ -6,5 +6,5 @@
 # See https://docs.platform.sh/user_guide/reference/services-yaml.html
 
 postgresqldb:
-    type: postgresql:9.6
+    type: postgresql:10
     disk: 1024

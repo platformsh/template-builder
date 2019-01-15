@@ -2,3 +2,4 @@
 .doit.db
 *.pyc
 *.DS_Store
+.doit.db.db

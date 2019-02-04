@@ -96,6 +96,6 @@ class BaseProject(object):
         """
         actions = []
         for file, command in self.updateCommands.items():
-            actions.append('cd {0} && [ -f {1} ] && {2}'.format(self.builddir, file, command))
+            actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(self.builddir, file, command))
 
         return actions

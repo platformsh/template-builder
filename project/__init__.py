@@ -20,6 +20,8 @@ class BaseProject(object):
     updateCommands = {
         'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction',
         'Pipfile': 'pipenv update',
+        'Gemfile': 'bundle update',
+        'package.json': 'npm update',
     }
 
     def __init__(self, name):

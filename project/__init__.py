@@ -19,6 +19,7 @@ class BaseProject(object):
     # project build directory to update the corresponding lock file.
     updateCommands = {
         'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction',
+        'Pipfile': 'pipenv update',
     }
 
     def __init__(self, name):

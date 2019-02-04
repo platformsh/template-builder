@@ -68,6 +68,12 @@ class BaseProject(object):
             actions.append('cd {0} && patch -p1 < {1}'.format(
                 self.builddir, patch)
             )
+
+        # In some cases the package updater needs to be run after we've platform-ified the
+        # template, so run it a second time. Worst case it's a bit slower to build but doesn't
+        # hurt anything.
+        actions.extend(self.packageUpdateActions())
+
         return actions
 
     @property

@@ -14,6 +14,16 @@ class BaseProject(object):
     to override.
     '''
 
+    # A dictionary of conditional commands to run for package updaters.
+    # The key is a file name. If that file exists, then its value will be run in the
+    # project build directory to update the corresponding lock file.
+    updateCommands = {
+        'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction',
+        'Pipfile': 'pipenv update',
+        'Gemfile': 'bundle update',
+        'package.json': 'npm update',
+    }
+
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
@@ -34,9 +44,13 @@ class BaseProject(object):
 
     @property
     def update(self):
-        return ['cd {0} && git checkout master && git pull --prune'.format(
-            self.builddir)
+        actions = [
+            'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
         ]
+
+        actions.extend(self.packageUpdateActions())
+
+        return actions
 
     @property
     def platformify(self):
@@ -56,6 +70,12 @@ class BaseProject(object):
             actions.append('cd {0} && patch -p1 < {1}'.format(
                 self.builddir, patch)
             )
+
+        # In some cases the package updater needs to be run after we've platform-ified the
+        # template, so run it a second time. Worst case it's a bit slower to build but doesn't
+        # hurt anything.
+        actions.extend(self.packageUpdateActions())
+
         return actions
 
     @property
@@ -75,3 +95,16 @@ class BaseProject(object):
         return ['cd {0} && if [ `git rev-parse update` != `git rev-parse master` ] ; then git checkout update && git push --force -u origin update; fi'.format(
             self.builddir)
         ]
+
+
+    def packageUpdateActions(self):
+        """
+        Generates a list of package updater commands based on the updateCommands property.
+
+        :return: List of package update commands to include.
+        """
+        actions = []
+        for file, command in self.updateCommands.items():
+            actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(self.builddir, file, command))
+
+        return actions

@@ -1,0 +1,43 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "d342d785cec950c368194e4023dd9bed1fc4426018a456ccb19cd60f89c6e5c0"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "cloudpickle": {
+            "hashes": [
+                "sha256:18d3a5dfc82f752b9f4c844cceb663213e26e130f4a2894a18ad1f11d57a30bc",
+                "sha256:b4a1889434c99c2425adad8ab294e6327740b9c38a9a19ec1bd1ae6d5e298fd6"
+            ],
+            "version": "==0.8.0"
+        },
+        "doit": {
+            "hashes": [
+                "sha256:52b7ad1c0095425bd719c2fc9fb27af94fb0ee478762c50abf385faaf786d010",
+                "sha256:bad01949effd537cade3aea286cc2cde074bdb7a4f442015557b1228dd46f5ea"
+            ],
+            "index": "pypi",
+            "version": "==0.31.1"
+        },
+        "macfsevents": {
+            "hashes": [
+                "sha256:1324b66b356051de662ba87d84f73ada062acd42b047ed1246e60a449f833e10"
+            ],
+            "markers": "sys_platform == 'darwin'",
+            "version": "==0.8.1"
+        }
+    },
+    "develop": {}
+}

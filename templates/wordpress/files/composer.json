@@ -1,0 +1,22 @@
+{
+    "name": "platform/platform-wordpress",
+    "description": "WordPress for Platform.sh",
+    "license": "GPL-2.0+",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "johnpbloch/wordpress": "~5.1"
+    },
+    "extra": {
+        "wordpress-install-dir": "web/wp",
+        "installer-paths": {
+            "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
+            "web/wp-content/themes/{$name}": ["type:wordpress-theme"],
+            "web/wp-content/mu-plugins/{$name}": ["type:wordpress-muplugin"]
+        }
+    }
+}

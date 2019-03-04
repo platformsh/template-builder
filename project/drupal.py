@@ -16,3 +16,7 @@ class Drupal7_vanilla(BaseProject):
 class Drupal8(RemoteProject):
     upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'
+
+class Govcms8(RemoteProject):
+    upstream_branch = '8.x'
+    remote = 'https://github.com/drupal-composer/drupal-project.git'

@@ -47,7 +47,6 @@ hooks:
         drush -y cache-rebuild
         drush -y updatedb
         drush -y config-import
-        drush -y entup
 
 # The configuration of app when it is exposed to the web.
 web:

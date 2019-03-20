@@ -19,6 +19,7 @@ class Drupal8(RemoteProject):
     upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'
 
+
 class Govcms8(RemoteProject):
     upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'
@@ -43,6 +44,6 @@ class Govcms8(RemoteProject):
                 json.dump(composer, out, indent=2)
 
         return super(Govcms8, self).platformify + [
-            (govcms8_add_installer_paths(), []),
+            (govcms8_add_installer_paths, []),
             'cd {0} && composer require govcms/govcms'.format(self.builddir)
         ]

@@ -8,7 +8,7 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 import os
 
 from project import BaseProject, TEMPLATEDIR
-from project.drupal import Drupal7_vanilla, Drupal8
+from project.drupal import Drupal7_vanilla, Drupal8, Govcms8
 from project.laravel import Laravel
 from project.magento import Magento2ce
 from project.symfony import Symfony3, Symfony4

@@ -42,7 +42,7 @@ hooks:
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
         set -e
-        ./drush/platformsh_generate_drush_yml.php
+        php ./drush/platformsh_generate_drush_yml.php
         cd web
         drush -y cache-rebuild
         drush -y updatedb

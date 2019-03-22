@@ -39,8 +39,6 @@ def project_factory(name):
 ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
                 if f.is_dir() and f.name not in IGNORED]
 
-# @TODO Add _push to all of the top-level tasks for one-stop shopping.
-
 def task_cleanup():
     """
     DoIt Task: Removes all generated files for a project.

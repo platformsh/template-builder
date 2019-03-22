@@ -2,7 +2,7 @@ from .remote import RemoteProject
 
 
 class Laravel(RemoteProject):
-    upstream_tag = 'v5.7.19'
+    upstream_tag = 'v5.8.3'
     remote = 'https://github.com/laravel/laravel.git'
 
     @property

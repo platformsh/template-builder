@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 
 class Drupal7_vanilla(BaseProject):
-    version = '7.61'
+    version = '7.65'
 
     @property
     def update(self):

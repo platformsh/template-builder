@@ -123,7 +123,7 @@ def task_push():
 
 def task_rebuild():
     """
-    DoIt Task: Aggregates the update, platformify, and branch tasks for one-stop shopping..
+    DoIt Task: Aggregates the update, platformify, and branch tasks for one-stop shopping.
 
     Usage: doit rebuild:<project>
     """
@@ -132,6 +132,22 @@ def task_rebuild():
             'name': project.name,
             'task_dep': ["{0}:{1}".format(action, project.name)
                          for action in ['update', 'platformify', 'branch']
+                         ],
+            'actions': [],
+        }
+
+
+def task_full():
+    """
+    DoIt Task: Aggregates the init, rebuild, and push tasks for one-stop shopping.
+
+    Usage: doit full:<project>
+    """
+    for project in ALL_PROJECTS:
+        yield {
+            'name': project.name,
+            'task_dep': ["{0}:{1}".format(action, project.name)
+                         for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push']
                          ],
             'actions': [],
         }

@@ -13,6 +13,8 @@ class RemoteProject(BaseProject):
     - `major_version`, which is the prefix of legal tags that can be merged from.
         So "5" will always to the most recent 5.y.z tag, "v3.4" will update to the latest
         "v.3.4.z" tag, etc.
+    - OR `upstream_branch`, which specifies the tag or branch in the `remote` repository
+        from which to pull. (If both are defined, `major_version` take precedence.)
     '''
 
     @property

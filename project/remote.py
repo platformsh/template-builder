@@ -38,17 +38,13 @@ class RemoteProject(BaseProject):
                 subprocess.check_output('cd {0} && git merge --allow-unrelated-histories -X theirs --squash {1}'.format(
                 self.builddir, latest_tag), shell=True)
             actions.append(merge_from_upstream_tag)
-        elif hasattr(self, 'upstream_tag'):
-            actions.append(
-                'cd {0} && git merge --allow-unrelated-histories -X theirs --squash {1}'.format(
-                    self.builddir, self.upstream_tag))
         elif hasattr(self, 'upstream_branch'):
             actions.append(
                 'cd {0} && git merge --allow-unrelated-histories -X theirs --squash project/{1}'.format(
                     self.builddir, self.upstream_branch))
         else:
             raise AttributeError(
-                'Each RemoteProject subclass must contain either a upstream_tag or upstream_branch class attribute.')
+                'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
 
         # Do this last so it picks up all changes from above.
         actions.extend(self.packageUpdateActions())

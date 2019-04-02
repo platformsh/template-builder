@@ -2,7 +2,7 @@ from .remote import RemoteProject
 
 
 class Symfony3(RemoteProject):
-    major_version = '3.4'
+    major_version = 'v3.4'
     remote = 'https://github.com/symfony/symfony-standard.git'
 
     @property
@@ -18,7 +18,7 @@ class Symfony3(RemoteProject):
 
 
 class Symfony4(RemoteProject):
-    major_version = '4'
+    major_version = 'v4'
     remote = 'https://github.com/symfony/skeleton.git'
 
     @property

@@ -9,7 +9,3 @@ mysqldb:
 
 rediscache:
     type: redis:5.0
-
-#solrsearch:
-#    type: solr:6.6
-#    disk: 1024

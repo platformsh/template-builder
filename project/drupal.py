@@ -22,7 +22,7 @@ class Drupal8(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} /build && composer require platformsh/config-reader'.format(
+            'cd {0} /build && composer require platformsh/config-reader drupal/redis'.format(
                 self.builddir)
         ]
 

@@ -1,6 +1,6 @@
 # Platform.sh Project Initialization Template
 #
-# This files defines settings and workflow modifications that allow a git
+# This file defines settings and workflow modifications that allow a git
 # repository to be deployed to Platform.sh and its white-label partners. A
 # project template can be a fully functioning ready-made application or a
 # quick-start point for custom development work.

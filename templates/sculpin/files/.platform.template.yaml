@@ -37,7 +37,6 @@ info:
   notes:
     - heading: "Apps & Services"
       content: "PHP 7.3"
-    - heading: "Requirements"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

@@ -35,7 +35,6 @@ info:
   notes:
     - heading: "Apps & Services"
       content: "PHP 7.3<br/>MySQL 10.2"
-    - heading: "Requirements"
 
 
 # This key describes the initialization call made to the master environment at

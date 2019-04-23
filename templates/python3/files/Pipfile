@@ -8,6 +8,7 @@ redis = "*"
 pymysql = "*"
 flask = "*"
 gevent = "*"
+platformshconfig = "~=2.0"
 
 [requires]
 python_version = "3.7"

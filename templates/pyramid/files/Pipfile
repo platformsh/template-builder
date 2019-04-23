@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 pyramid = "*"
-platformshconfig = "*"
+platformshconfig = "~=2.0"
 redis = "*"
 pymysql = "*"
 

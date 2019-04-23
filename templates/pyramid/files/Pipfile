@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 pyramid = "*"
+platformshconfig = "*"
+redis = "*"
+pymysql = "*"
 
 [dev-packages]
 

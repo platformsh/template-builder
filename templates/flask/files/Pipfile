@@ -8,6 +8,7 @@ flask = "*"
 redis = "*"
 pymysql = "*"
 gevent = "*"
+platformshconfig = "~=2.0"
 
 [dev-packages]
 

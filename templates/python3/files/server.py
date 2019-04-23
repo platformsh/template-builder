@@ -1,6 +1,3 @@
-import base64
-import json
-import os
 import traceback
 import uuid
 import sys
@@ -10,18 +7,20 @@ import gevent.pywsgi
 import pymysql
 import redis
 
+from platformshconfig import Config
+
 
 app = flask.Flask(__name__)
 
-relationships = json.loads(
-    base64.b64decode(os.environ["PLATFORM_RELATIONSHIPS"]))
+config = Config()
 
 
 @app.route('/')
 def root():
-    tests = {}
-    tests["mysql"] = wrap_test(test_mysql, relationships["mysql"][0])
-    tests["redis"] = wrap_test(test_redis, relationships["redis"][0])
+    tests = {
+        "database": wrap_test(test_mysql, config.credentials("database")),
+        "redis": wrap_test(test_redis, config.credentials("redis"))
+    }
     return flask.json.jsonify(tests)
 
 
@@ -73,5 +72,5 @@ def test_redis(instance):
 
 if __name__ == "__main__":
     http_server = gevent.pywsgi.WSGIServer(
-        ('127.0.0.1', int(os.environ["PORT"])), app)
+        ('127.0.0.1', int(config.port)), app)
     http_server.serve_forever()

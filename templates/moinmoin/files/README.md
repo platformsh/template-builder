@@ -29,3 +29,5 @@ That's it!  You now have a working MoinMoin wiki project you can build on. Creat
 ## Using as a reference
 
 You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+
+http://static.moinmo.in/files/moin-1.9.10.tar.gz

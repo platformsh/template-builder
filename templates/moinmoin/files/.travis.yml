@@ -1,0 +1,15 @@
+language: python
+python: 2.7
+sudo: false
+os: linux
+dist: xenial
+
+virtualenv:
+  system_site_packages: true
+
+addons:
+  apt:
+    packages:
+      - python-xapian
+
+script: ./pytest MoinMoin/ --ignore MoinMoin/support/

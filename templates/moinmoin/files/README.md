@@ -4,7 +4,7 @@ This project provides a starter kit for hosting a MoinMoin wiki on Platform.sh. 
 
 MoinMoin is a wiki engine written for Python 2.7. This project is a fork of [MoinMoin 1.9](https://github.com/moinwiki/moin-1.9/tree/master/wiki) configured to run on Platform.sh. You can find more information about the MoinMoin project on [Github](https://github.com/moinwiki/moin-1.9/tree/master/wiki) or on their [website](https://moinmo.in/).
 
-All configuration files and page content are initialized here in `wiki`, but they are moved to the mounted directory `mywiki` during deployment so that the wiki engine is writable. 
+All configuration files and page content are initialized here in `wiki`, but they are moved to the mounted directory `mywiki` during deployment so you can modify the wiki's content. 
 
 ## Starting a new project
 

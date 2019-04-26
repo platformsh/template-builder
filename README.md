@@ -41,7 +41,7 @@ Additionally, each project has a Python class defined in the `project` directory
 Each project has a series of build tasks, suffixed with the project.
 
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
-* `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `spiffy_cleanup`.
+* `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.
 * `update:spiffy` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.
 * `platformify:spiffy` - Copies the `files` directory over the build directory to add the Platform.sh files, applies any patches, and potentially takes other actions as needed.  (Adding composer libraries, for instance.)  This may vary widely with the application.
 * `branch:spiffy` - Prepares a branch named `update` with the changes just made by `update` and `platformify`, with all changes committed.

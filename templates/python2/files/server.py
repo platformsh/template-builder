@@ -45,6 +45,7 @@ class myHandler(BaseHTTPRequestHandler):
   def test_mysql(instance):
       connection = pymysql.connect(
           host=instance["host"],
+          port=instance["port"],
           user=instance["username"],
           password=instance["password"],
           db=instance["path"],

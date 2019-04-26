@@ -13,18 +13,21 @@ This project is built using the Python DoIt library, which is required.  It cons
 
 ### Organization
 
-Each project is its own directory, which corresponds to a `template-*` GitHub repository of the same name in the `platformsh` organization.  We'll use a fictional application called `spiffy` for this example.  The basic outline looks like this:
+Each project is its own directory under `templates`, which corresponds to a `template-*` GitHub repository of the same name in the `platformsh` organization.  We'll use a fictional application called `spiffy` for this example.  The basic outline looks like this:
 
 ```text
 /
-  spiffy/
-    files/
-      .platform/
-      .platform.app.yaml
-      ...
-    fix1.patch
-    fix2.patch
-    build/
+  project/
+    spiffy.py
+  templates/
+    spiffy/
+      files/
+        .platform/
+        .platform.app.yaml
+        ...
+      fix1.patch
+      fix2.patch
+      build/
 ```
 
 Only the `files` directory and patches are checked into Git.  The `build` directory is an artifact and excluded.
@@ -35,20 +38,25 @@ Additionally, each project has a Python class defined in the `project` directory
 
 ### Build tasks
 
-Each project has a series of build tasks, suffixed with the project. A particular task is run across all projects in case the project is not specified.
+Each project has a series of build tasks, suffixed with the project.
 
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `spiffy_cleanup`.
 * `update:spiffy` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.
 * `platformify:spiffy` - Copies the `files` directory over the build directory to add the Platform.sh files, applies any patches, and potentially takes other actions as needed.  (Adding composer libraries, for instance.)  This may vary widely with the application.
 * `branch:spiffy` - Prepares a branch named `update` with the changes just made by `update` and `platformify`, with all changes committed.
-* `rebuild:spiffy` - Implies `update:spiffy`, `platformify:spiffy`, and `branch:spiffy`.
 * `push:spiffy` - Pushes a branch to GitHub, which displays a link to create a Pull Request out of it.
+
+* `rebuild:spiffy` - Implies `update:spiffy`, `platformify:spiffy`, and `branch:spiffy`.
+* `full:spiffy` - Runs `cleanup:spiffy`, `init:spiffy`, `update:spiffy`, `platformify:spiffy`, `branch:spiffy`, `push:spiffy`.
+
+A particular task is run across all projects in case the project is not specified.  That is, the following will clean-and-initialize all projects:
+
 * `init` - Runs init task for all the projects.
 
 In most cases, rebuilding a new update to a project is a matter of running:
 
-`doit init:spiffy rebuild:spiffy push:spiffy`
+`doit full:spiffy`
 
 And poof, you are ready to make a PR with the updates.
 

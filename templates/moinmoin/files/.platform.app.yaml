@@ -24,7 +24,7 @@ hooks:
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
-# Set a local R/W mount for logs
+# Set local R/W mounts for wiki files
 mounts:
     'wiki/data/user':
         source: local

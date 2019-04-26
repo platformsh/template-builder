@@ -17,19 +17,28 @@ dependencies:
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
-        ./moin/scripts/build.sh
+        ./setup/build.sh
     deploy: |
-        ./moin/scripts/deploy.sh
+        ./setup/deploy.sh
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
 # Set a local R/W mount for logs
 mounts:
-    'mywiki/data':
+    'wiki/data/user':
         source: local
-        source_path: data
-    'mywiki/underlay':
+        source_path: user
+    'wiki/data/pages':
+        source: local
+        source_path: pages
+    'wiki/data/cache':
+        source: local
+        source_path: cache
+    'wiki/data/logging':
+        source: local
+        source_path: logging
+    'wiki/underlay':
         source: local
         source_path: underlay
 

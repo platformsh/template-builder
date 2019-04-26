@@ -8,8 +8,6 @@ python_version = "2.7"
 
 [packages]
 redis = "*"
-flask = "*"
-gevent = "*"
 pymysql = "*"
 
 [dev-packages]

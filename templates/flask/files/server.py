@@ -40,6 +40,7 @@ def wrap_test(callback, *args, **kwargs):
 def test_mysql(instance):
     connection = pymysql.connect(
         host=instance["host"],
+        port=instance["port"],
         user=instance["username"],
         password=instance["password"],
         db=instance["path"],

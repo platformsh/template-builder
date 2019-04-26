@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/golang
   # The human-readable name of the template.
-  name: Golang
+  name: Basic Go
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Go (often referred to as Golang) is a statically typed, compiled language in the tradition of C.
   # A list of tags associated with the template.

@@ -1,12 +1,12 @@
 [[source]]
-verify_ssl = true
 url = "https://pypi.org/simple"
 name = "pypi"
+verify_ssl = true
 
 [packages]
-django = ">=2.1.6,<3.0"
-"psycopg2-binary" = "*"
-gunicorn = "*"
+redis = "*"
+pymysql = "*"
+uwsgi = "*"
 platformshconfig = "~=2.0"
 
 [requires]

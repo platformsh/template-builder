@@ -15,9 +15,10 @@ import json
 import base64
 from urllib.parse import urlparse
 
+from platformshconfig import Config
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -125,13 +126,12 @@ STATIC_URL = '/static/'
 
 # Import some Platform.sh settings from the environment.
 
-app_dir = os.getenv('PLATFORM_APP_DIR')
-if app_dir:
-    STATIC_ROOT = os.path.join(app_dir, 'static')
+config = Config()
 
-entropy = os.getenv('PLATFORM_PROJECT_ENTROPY')
-if entropy:
-    SECRET_KEY = entropy
+if config.appDir:
+    STATIC_ROOT = os.path.join(config.appDir, 'static')
+if config.projectEntropy:
+    SECRET_KEY = config.projectEntropy
 
 routes = os.getenv('PLATFORM_ROUTES')
 if routes:

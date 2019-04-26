@@ -37,7 +37,6 @@ info:
     - heading: "Apps & Services"
       content: "Python 2<br/>PostgreSQL 10"
 
-
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which
 # places project schema/options selection early in the creation process, rather

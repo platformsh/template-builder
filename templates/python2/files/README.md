@@ -1,10 +1,9 @@
 # Platform.sh Python 2 minimal example
 
-This project provides a starter kit for minimal Python 3 projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This project provides a starter kit for minimal Python 2 projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
 
 Notice specifically the `server.py` where we read some of the environment variables and configure the App
 to connect to the correct database and to a redis instance.
-
 
 In this example we are not running any application server but the python script directly, you can check-out other examples to see it run with application servers such as Gunicorn.
 

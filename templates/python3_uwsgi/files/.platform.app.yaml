@@ -12,7 +12,21 @@ type: 'python:3.7'
 # The build-time dependencies of the app.
 dependencies:
     python3:
-       uwsgi: '*'
+       pipenv: "2018.10.13"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+   build: |
+       pipenv install --system --deploy
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "mysqldb:mysql"
+    redis: "redis:redis"
 
 # The configuration of app when it is exposed to the web.
 web:

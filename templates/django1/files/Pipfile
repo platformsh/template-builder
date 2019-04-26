@@ -12,3 +12,5 @@ python_version = "2.7"
 django = ">=1.11.19,<2.0"
 "psycopg2-binary" = "*"
 gunicorn = "*"
+platformshconfig = "~=2.0"
+

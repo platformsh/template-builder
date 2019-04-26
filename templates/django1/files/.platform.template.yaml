@@ -36,6 +36,7 @@ info:
   notes:
     - heading: "Apps & Services"
       content: "Python 2<br/>PostgreSQL 10"
+    - heading: "Requirements"
 
 
 # This key describes the initialization call made to the master environment at

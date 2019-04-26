@@ -1,6 +1,6 @@
-# Platform.sh Python 3 minimal example
+# Platform.sh Python # minimal example
 
-This project provides a starter kit for minimal Python 3 projects hosted on Platform.sh. Multiple Python 3 [versions](https://docs.platform.sh/languages/python.html#supported-versions) are supported. It is primarily an example, although could be used as the starting point for a real project.
+This project provides a starter kit for minimal Python # projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
 
 Notice specifically the `server.py` where we read some of the environment variables and configure the App
 to connect to the correct database and to a redis instance.

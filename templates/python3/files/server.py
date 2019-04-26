@@ -2,75 +2,80 @@ import traceback
 import uuid
 import sys
 
-import flask
-import gevent.pywsgi
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import pymysql
 import redis
 
 from platformshconfig import Config
 
 
-app = flask.Flask(__name__)
-
 config = Config()
 
 
-@app.route('/')
-def root():
-    tests = {
-        "database": wrap_test(test_mysql, config.credentials("database")),
-        "redis": wrap_test(test_redis, config.credentials("redis"))
-    }
-    return flask.json.jsonify(tests)
+class myHandler(BaseHTTPRequestHandler):
 
+    def do_GET(self):
 
-def wrap_test(callback, *args, **kwargs):
-    try:
-        result = callback(*args, **kwargs)
-        return {
-            "status": "OK",
-            "return": result,
-        }
-    except Exception:
-        return {
-            "status": "ERROR",
-            "error": traceback.format_exception(*sys.exc_info())
+        tests = {
+            "mysql": self.wrap_test(self.test_mysql, config.credentials("database")),
+            "redis": self.wrap_test(self.test_redis, config.credentials("redis"))
         }
 
+        self.send_response(200)
+        self.send_header('Content-type','text/html')
+        self.end_headers()
 
-def test_mysql(instance):
-    connection = pymysql.connect(
-        host=instance["host"],
-        user=instance["username"],
-        password=instance["password"],
-        db=instance["path"],
-        charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor,
-    )
+        self.wfile.write(bytes(str(tests), "utf8"))
+        return
 
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT 1")
-            cursor.fetchone()
+    @staticmethod
+    def wrap_test(callback, *args, **kwargs):
+      try:
+          result = callback(*args, **kwargs)
+          return {
+              "status": "OK",
+              "return": result,
+          }
+      except Exception:
+          return {
+              "status": "ERROR",
+              "error": traceback.format_exception(*sys.exc_info())
+          }
 
-    finally:
-        connection.close()
+    @staticmethod
+    def test_mysql(instance):
+      connection = pymysql.connect(
+          host=instance["host"],
+          user=instance["username"],
+          password=instance["password"],
+          db=instance["path"],
+          charset='utf8mb4',
+          cursorclass=pymysql.cursors.DictCursor,
+      )
 
+      try:
+          with connection.cursor() as cursor:
+              cursor.execute("SELECT 1")
+              cursor.fetchone()
 
-def test_redis(instance):
-    r = redis.StrictRedis(
-        host=instance["host"],
-        port=instance["port"],
-        db=0,
-    )
-    key_name = "foo-%s" + str(uuid.uuid4())
-    value = b"bar"
+      finally:
+          connection.close()
 
-    r.set(key_name, "bar")
-    assert value == r.get(key_name)
+    @staticmethod
+    def test_redis(instance):
+      r = redis.StrictRedis(
+          host=instance["host"],
+          port=instance["port"],
+          db=0,
+      )
+      key_name = "foo-%s" + str(uuid.uuid4())
+      value = b"bar"
+
+      r.set(key_name, "bar")
+      assert value == r.get(key_name)
 
 
 if __name__ == "__main__":
-    http_server = gevent.pywsgi.WSGIServer(
-        ('127.0.0.1', int(config.port)), app)
-    http_server.serve_forever()
+    server_address = ('127.0.0.1', int(config.port))
+    httpd = HTTPServer(server_address, myHandler)
+    httpd.serve_forever()

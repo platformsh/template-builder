@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/python3
   # The human-readable name of the template.
-  name: Basic Python 3 worker
+  name: Basic Python 3
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Python is a highly flexible and easy to use scripting language.
   # A list of tags associated with the template.
@@ -39,7 +39,7 @@ info:
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which
 # places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
+# than later as it exits now. To allow this schema to be backwards-compatible,
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:

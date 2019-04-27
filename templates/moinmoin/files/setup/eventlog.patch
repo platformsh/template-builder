@@ -1,0 +1,11 @@
+--- MoinMoin/logfile/eventlog.py	2019-04-27 11:19:50.000000000 -0400
++++ MoinMoin/logfile/eventlog_patched.py	2019-04-26 18:06:07.000000000 -0400
+@@ -21,7 +21,7 @@
+                 from MoinMoin.Page import Page
+                 filename = Page(request, rootpagename).getPagePath('event-log', isfile=1)
+             else:
+-                filename = request.rootpage.getPagePath('event-log', isfile=1)
++                filename = request.rootpage.getPagePath('logging/event-log', isfile=1)
+         LogFile.__init__(self, filename, buffer_size)
+ 
+     def add(self, request, eventtype, values=None, add_http_info=1,

@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
+MOINVERSION=1.9.10
+
 # Download MoinMoin
-curl -O http://static.moinmo.in/files/moin-1.9.10.tar.gz
-tar xvzf moin-1.9.10.tar.gz
+curl -o moin-install.tar.gz http://static.moinmo.in/files/moin-$MOINVERSION.tar.gz
+tar xvzf moin-install.tar.gz
+mv moin-$MOINVERSION moin-install
 
-# Stage MoinMoin log files
-mv ~/setup/editlog.py moin-1.9.10/MoinMoin/logfile
-mv ~/setup/eventlog.py moin-1.9.10/MoinMoin/logfile
+# Apply patches
+patch moin-install/MoinMoin/logfile/editlog.py ~/setup/editlog.patch
+patch moin-install/MoinMoin/logfile/eventlog.py ~/setup/eventlog.patch
 
-# Move the app directory
-cp -a ~/moin-1.9.10/* /app/
+# Move install to app_dir
+cp -a ~/moin-install/* /app/
 
 # Remove the install
-rm -rf ~/moin-1.9.10
-rm ~/moin-1.9.10.tar.gz
+rm -rf ~/moin-install
+rm ~/moin-install.tar.gz
 
 # Stage files that will go to mounts on deploy
 mkdir ~/setup/temp

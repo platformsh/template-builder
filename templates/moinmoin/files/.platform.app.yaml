@@ -26,23 +26,23 @@ disk: 1024
 
 # Set local R/W mounts for wiki files
 mounts:
-    'wiki/data/user':
+    'moinmoin/wiki/data/user':
         source: local
         source_path: user
-    'wiki/data/pages':
+    'moinmoin/wiki/data/pages':
         source: local
         source_path: pages
-    'wiki/data/cache':
+    'moinmoin/wiki/data/cache':
         source: local
         source_path: cache
-    'wiki/data/logging':
+    'moinmoin/wiki/data/logging':
         source: local
         source_path: logging
-    'wiki/underlay':
+    'moinmoin/wiki/underlay':
         source: local
         source_path: underlay
 
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start: python wikiserver.py
+        start: python moinmoin/wikiserver.py

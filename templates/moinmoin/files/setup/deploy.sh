@@ -2,7 +2,7 @@
 
 if [ ! -f wiki/underlay/moin.installed ]; then
 
-    # Copy staged files to mounts
+    # Copy staged files to mounts.
     cp -a ~/setup/temp/pages/* ~/wiki/data/pages
     cp -a ~/setup/temp/cache/* ~/wiki/data/cache
     cp -a ~/setup/temp/underlay/* ~/wiki/underlay

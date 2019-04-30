@@ -1,0 +1,11 @@
+--- MoinMoin/logfile/editlog.py	2019-04-27 11:20:03.000000000 -0400
++++ MoinMoin/logfile/editlog_patched.py	2019-04-26 18:06:02.000000000 -0400
+@@ -154,7 +154,7 @@
+             if rootpagename:
+                 filename = Page(request, rootpagename).getPagePath('edit-log', isfile=1)
+             else:
+-                filename = request.rootpage.getPagePath('edit-log', isfile=1)
++                filename = request.rootpage.getPagePath('logging/edit-log', isfile=1)
+         LogFile.__init__(self, filename, buffer_size)
+         self._NUM_FIELDS = 9
+         self._usercache = {}

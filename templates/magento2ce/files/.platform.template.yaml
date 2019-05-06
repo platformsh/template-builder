@@ -23,7 +23,7 @@ info:
   # The human-readable name of the template.
   name: Magento 2 Community Edition
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Magento is an open-source e-commerce platform written in PHP.
+  description: A bare-bones Magento 2.x template
   # A list of tags associated with the template.
   tags:
   - PHP

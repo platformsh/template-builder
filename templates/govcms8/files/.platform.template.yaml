@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/govcms8
   # The human-readable name of the template.
-  name: GovCMS 8
+  name: Drupal GovCMS 8
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: The GovCMS distribution combines Drupal Core and Drupal modules to enable the quick creation of Australian government websites.
   # A list of tags associated with the template.

@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/sculpin
   # The human-readable name of the template.
-  name: Pelican
+  name: Sculpin
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Sculpin is a PHP-based static site generator.
   # A list of tags associated with the template.
@@ -45,7 +45,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-pelican.git@master
+  repository: git://github.com/platformsh/template-sculpin.git@master
   config: null
   files: []
-  profile: Pelican
+  profile: Sculpin

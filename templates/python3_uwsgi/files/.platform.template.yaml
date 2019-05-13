@@ -46,4 +46,4 @@ initialize:
   repository: git://github.com/platformsh/template-python3-uwsgi.git@master
   config: null
   files: []
-  profile: PHP
+  profile: Python

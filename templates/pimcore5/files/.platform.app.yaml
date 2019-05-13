@@ -1,0 +1,100 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+
+
+# The runtime the application uses.
+name: pimcore
+type: php:7.3
+
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  database: "pimcore_mysqldb:pimcore_admin"   
+  redis: 'rediscache:redis'
+
+# Add additional PHP extensions.
+build:
+  flavor: none
+
+runtime:
+  extensions:
+    - redis
+    - iconv
+    - dom
+    - simplexml
+    - exif
+    - opcache
+    - imagick
+    - fileinfo
+
+variables:
+  env:
+    PIMCORE_INSTALL_ADMIN_USERNAME: "admin"
+    PIMCORE_INSTALL_ADMIN_PASSWORD: "admin"
+  php:
+      memory_limit: 512M
+
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
+# directory paths, relative to the application root. The values are strings such as
+# 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
+mounts:
+    "/var": "shared:files/var"
+    "/web/var": "shared:files/web-var"
+    "/pimcore": "shared:files/pimcore"
+    "/web/pimcore": "shared:files/web-pimcore"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+    '/':
+      root: web
+      passthru: "/app.php"
+      allow: true
+      rules:
+        ^/videos/(?<resource>.*)$:
+          passthru: "/var/assets/videos/$resource"
+        ^/img/(?<resource>.*)$:
+          passthru: "/var/assets/img/$resource"
+        ^/static/(?<resource>.*)$:
+          passthru: "/web/static/$resource"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+  build: |
+    set -e
+    composer install --no-ansi --no-progress --prefer-dist --no-scripts
+  deploy: |
+    if [ ! -f web/var/.platform.installed ]; then
+        bin/console doctrine:query:sql "ALTER DATABASE  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+        if [ $? -eq 0 ]; then
+          echo "Database updated to utf8mb4_unicode_ci"
+        else
+           exit 1
+        fi
+        vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
+        if [ $? -eq 0 ]; then
+          touch web/var/.platform.installed
+        else
+          exit 1
+        fi
+    fi
+    # Clear env cached
+    ./bin/console cache:clear
+
+# The configuration of scheduled execution.
+crons:
+    pimcore_cron:
+        spec: "*/5 * * * *"
+        cmd: "bin/console maintenance"

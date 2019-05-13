@@ -14,6 +14,7 @@ from project.magento import Magento2ce
 from project.sculpin import Sculpin
 from project.symfony import Symfony3, Symfony4
 from project.wordpress import Wordpress
+from project.pimcore import Pimcore5
 
 DOIT_CONFIG = {
     "verbosity": 2,

@@ -1,0 +1,12 @@
+# app/config/installer.yml
+imports:
+    - { resource: parameters_platformsh.php }
+
+pimcore_install:
+    parameters:
+        database_credentials:
+            user: '%database_user%'
+            password: '%database_password%'
+            dbname: '%database_name%'
+            host: '%database_host%'
+            port: '%database_port%'

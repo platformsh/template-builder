@@ -7,7 +7,7 @@
 
 
 # The runtime the application uses.
-name: pimcore
+name: app
 type: php:7.3
 
 
@@ -17,13 +17,13 @@ type: php:7.3
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "pimcore_mysqldb:pimcore_admin"   
+  database: "mysqldb:pimcore_admin"   
   redis: 'rediscache:redis'
 
-# Add additional PHP extensions.
 build:
   flavor: none
 
+# Add additional PHP extensions.
 runtime:
   extensions:
     - redis
@@ -36,11 +36,8 @@ runtime:
     - fileinfo
 
 variables:
-  env:
-    PIMCORE_INSTALL_ADMIN_USERNAME: "admin"
-    PIMCORE_INSTALL_ADMIN_PASSWORD: "admin"
   php:
-      memory_limit: 512M
+      memory_limit: 128M
 
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
@@ -82,12 +79,6 @@ hooks:
           echo "Database updated to utf8mb4_unicode_ci"
         else
            exit 1
-        fi
-        vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
-        if [ $? -eq 0 ]; then
-          touch web/var/.platform.installed
-        else
-          exit 1
         fi
     fi
     # Clear env cached

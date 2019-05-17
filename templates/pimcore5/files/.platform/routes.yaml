@@ -5,9 +5,9 @@
 
 "https://{default}/":
     type: upstream
-    upstream: "pimcore:http"
+    upstream: "app:http"
     cache:
-      enabled: false
+      enabled: true
 
 "https://www.{default}/":
     type: redirect

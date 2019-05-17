@@ -2,17 +2,9 @@
 #
 # Each service listed will be deployed
 # to power your Platform.sh project.
-pimcore_mysqldb:
+mysqldb:
   type: mysql:10.2
   disk: 2048
-  configuration:
-    schemas:
-      - project_database
-    endpoints:
-      pimcore_admin:
-        default_schema: project_database
-        privileges:
-          project_database: admin
           
 rediscache:
     type: redis:5.0

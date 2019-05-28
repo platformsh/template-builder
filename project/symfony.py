@@ -26,6 +26,6 @@ class Symfony4(RemoteProject):
     @property
     def platformify(self):
         return super(Symfony4, self).platformify + [
-            'cd {0} && composer require platformsh/symfonyflex-bridge'.format(
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1'.format(
                 self.builddir)
         ]

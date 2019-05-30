@@ -17,14 +17,14 @@ from urllib.parse import urlparse
 
 from platformshconfig import Config
 
+# Instantiate the Platform.sh config library, which eases reading the environment.
+config = Config()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5^#15wdl(qll2ue&&(-1ixwalo7%td1a(&x7abp(roabe_mk7w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,10 +126,9 @@ STATIC_URL = '/static/'
 
 # Import some Platform.sh settings from the environment.
 
-config = Config()
-
 if config.appDir:
     STATIC_ROOT = os.path.join(config.appDir, 'static')
+
 if config.projectEntropy:
     SECRET_KEY = config.projectEntropy
 

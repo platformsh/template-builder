@@ -17,7 +17,7 @@ type: php:7.3
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "mysqldb:pimcore_admin"   
+  database: "mysqldb:mysql"   
   redis: 'rediscache:redis'
 
 build:
@@ -44,10 +44,21 @@ variables:
 # directory paths, relative to the application root. The values are strings such as
 # 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
 mounts:
-    "/var": "shared:files/var"
-    "/web/var": "shared:files/web-var"
-    "/pimcore": "shared:files/pimcore"
-    "/web/pimcore": "shared:files/web-pimcore"
+    "/var":
+      source: "local"
+      source_path: "var"
+    "/web/var": 
+      source: "local"
+      source_path: "web_var"
+    "/pimcore":
+      source: "local"
+      source_path: "pimcore"
+    "/web/pimcore":
+      source: "local"
+      source_path: "web_pimcore"
+    "/web/bundles":
+      source: "local"
+      source_path: "web_bundles"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -57,12 +68,12 @@ web:
       passthru: "/app.php"
       allow: true
       rules:
-        ^/videos/(?<resource>.*)$:
-          passthru: "/var/assets/videos/$resource"
-        ^/img/(?<resource>.*)$:
-          passthru: "/var/assets/img/$resource"
-        ^/static/(?<resource>.*)$:
-          passthru: "/web/static/$resource"
+        '^/videos/(?<resource>.*)$':
+          allow: true
+        '^/img/(?<resource>.*)$':
+          allow: true
+        '^/static/(?<resource>.*)$':
+          allow: true
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
@@ -73,14 +84,6 @@ hooks:
     set -e
     composer install --no-ansi --no-progress --prefer-dist --no-scripts
   deploy: |
-    if [ ! -f web/var/.platform.installed ]; then
-        bin/console doctrine:query:sql "ALTER DATABASE  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-        if [ $? -eq 0 ]; then
-          echo "Database updated to utf8mb4_unicode_ci"
-        else
-           exit 1
-        fi
-    fi
     # Clear env cached
     ./bin/console cache:clear
 

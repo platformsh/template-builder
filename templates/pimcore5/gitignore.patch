@@ -1,13 +1,12 @@
 diff --git a/.gitignore b/.gitignore
-index c3e9f44df4..d6b3343d73 100644
+index 0bf9e638..4247f165 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -7,3 +7,8 @@
- # NetBeans
- nbproject
+@@ -47,7 +47,6 @@
+ /composer.local.json
  
-+# composer
-+/vendor/
-+
-+# Exclude user doc
-+/doc
+ # composer
+-/composer.lock
+ /vendor/
+ 
+ # PhpStorm / IDEA

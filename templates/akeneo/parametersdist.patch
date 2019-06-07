@@ -1,8 +1,8 @@
 diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
-index 7811663..b738a57 100644
+index 7811663..c681fac 100644
 --- a/app/config/parameters.yml.dist
 +++ b/app/config/parameters.yml.dist
-@@ -1,13 +1,21 @@
+@@ -1,13 +1,18 @@
 +imports:
 +    - { resource: parameters_platform.php }
 +
@@ -30,8 +30,5 @@ index 7811663..b738a57 100644
      product_and_product_model_index_name: akeneo_pim_product_and_product_model
 -    index_hosts:                          'localhost: 9200'
 +    index_hosts: placeholder
-+    mailer_transport: smtp
 +    mailer_host: "%env(PLATFORM_SMTP_HOST)%"
-+    mailer_user: null
-+    mailer_password: null
 +    mailer_port: 587

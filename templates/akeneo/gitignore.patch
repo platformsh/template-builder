@@ -1,0 +1,13 @@
+diff --git a/.gitignore b/.gitignore
+index 367e17c..d42c56d 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -23,7 +23,7 @@ vendor
+ !/bin/docker/pim-setup.sh
+ !/bin/console
+ composer.phar
+-composer.lock
++# composer.lock
+ 
+ var/cache/*
+ var/logs/*

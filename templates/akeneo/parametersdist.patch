@@ -1,0 +1,37 @@
+diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
+index 7811663..b738a57 100644
+--- a/app/config/parameters.yml.dist
++++ b/app/config/parameters.yml.dist
+@@ -1,13 +1,21 @@
++imports:
++    - { resource: parameters_platform.php }
++
+ parameters:
+-    database_driver:                      pdo_mysql
+-    database_host:                        localhost
+-    database_port:                        ~
+-    database_name:                        akeneo_pim
+-    database_user:                        akeneo_pim
+-    database_password:                    akeneo_pim
+-    locale:                               en
+-    secret:                               ThisTokenIsNotSoSecretChangeIt
+-    product_index_name:                   akeneo_pim_product
+-    product_model_index_name:             akeneo_pim_product_model
++    database_driver: pdo_mysql
++    database_host: placeholder
++    database_port: placeholder
++    database_name: placeholder
++    database_user: placeholder
++    database_password: placeholder
++    locale: en
++    secret: ThisTokenIsNotSoSecretChangeIt
++    product_index_name: akeneo_pim_product
++    product_model_index_name: akeneo_pim_product_model
+     product_and_product_model_index_name: akeneo_pim_product_and_product_model
+-    index_hosts:                          'localhost: 9200'
++    index_hosts: placeholder
++    mailer_transport: smtp
++    mailer_host: "%env(PLATFORM_SMTP_HOST)%"
++    mailer_user: null
++    mailer_password: null
++    mailer_port: 587

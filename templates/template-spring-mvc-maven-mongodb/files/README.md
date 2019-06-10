@@ -1,6 +1,6 @@
 # Spring MVC Maven template for Platform.sh
 
-This project provides a starter kit for Spring Boot Maven with MySQL projects hosted on [Platform.sh](http://platform.sh).
+This project provides a starter kit for Spring MVC Maven with MongoDB projects hosted on [Platform.sh](http://platform.sh).
 
 We include recommended .platform.app.yaml and .platform files that should suffice for most use cases. You are free to tweak them as needed for your particular site.
 
@@ -14,6 +14,8 @@ We include recommended .platform.app.yaml and .platform files that should suffic
 
 
 * [Maven](https://maven.apache.org/)
-* [Spring-Boot](https://spring.io/projects/spring-boot) 
+* [Spring-Boot](https://spring.io/projects/spring-boot)
+* [Spring-MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) 
 * [Platform Documentation](https://docs.platform.sh/)
+* [MongoDB](https://www.mongodb.com/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

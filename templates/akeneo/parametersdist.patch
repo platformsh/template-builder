@@ -1,8 +1,8 @@
 diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
-index 7811663..c681fac 100644
+index 7811663..06bec33 100644
 --- a/app/config/parameters.yml.dist
 +++ b/app/config/parameters.yml.dist
-@@ -1,13 +1,18 @@
+@@ -1,13 +1,17 @@
 +imports:
 +    - { resource: parameters_platform.php }
 +
@@ -31,4 +31,3 @@ index 7811663..c681fac 100644
 -    index_hosts:                          'localhost: 9200'
 +    index_hosts: placeholder
 +    mailer_host: "%env(PLATFORM_SMTP_HOST)%"
-+    mailer_port: 587

@@ -71,7 +71,7 @@ hooks:
     # We run deploy hook after your application has been deployed and started.
     deploy: |
         # clear caches
-        bin/console cache:clear --no-warmup
+        bin/console cache:clear --no-warmup --env=prod
 
         # create tmp folders
         mkdir -p /tmp/pim/file_storage

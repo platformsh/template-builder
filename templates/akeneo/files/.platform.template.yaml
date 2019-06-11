@@ -50,4 +50,4 @@ initialize:
   repository: git@github.com:platformsh/template-akeneo.git@master
   config: null
   files: []
-  profile: Pimcore
+  profile: Akeneo

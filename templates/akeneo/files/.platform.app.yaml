@@ -1,7 +1,7 @@
 # This file describes an application.
 
 # The name of this app. Must be unique within a project.
-name: akeneo
+name: app
 
 # The toolstack used to build the application.
 type: php:7.2
@@ -30,11 +30,6 @@ web:
 # The size of the persistent disk of the application (in MB).
 disk: 3072
 
-# Environment and PHP variables
-variables:
-    php:
-        "date.timezone": "Europe/Paris"
-
 # The mounts that will be performed when the package is deployed.
 # Filesystem is read only by default
 mounts:
@@ -48,7 +43,7 @@ mounts:
     "web/media":                "shared:files/media-cache"
 
 hooks:
-    # We run build hooks before your application has been packaged.
+    # We run the build hook before your application has been packaged.
     build: |
         # install nvm to use newer version of node
         unset NPM_CONFIG_PREFIX
@@ -68,7 +63,7 @@ hooks:
         # remove dev file
         rm web/app_dev.php
 
-    # We run deploy hook after your application has been deployed and started.
+    # We run the deploy hook after your application has been deployed and started.
     deploy: |
         # clear caches
         bin/console cache:clear --no-warmup --env=prod

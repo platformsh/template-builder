@@ -1,33 +1,17 @@
 diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
-index 7811663..06bec33 100644
+index 7811663..f34aa15 100644
 --- a/app/config/parameters.yml.dist
 +++ b/app/config/parameters.yml.dist
-@@ -1,13 +1,17 @@
+@@ -1,3 +1,6 @@
 +imports:
 +    - { resource: parameters_platform.php }
 +
  parameters:
--    database_driver:                      pdo_mysql
--    database_host:                        localhost
--    database_port:                        ~
--    database_name:                        akeneo_pim
--    database_user:                        akeneo_pim
--    database_password:                    akeneo_pim
--    locale:                               en
--    secret:                               ThisTokenIsNotSoSecretChangeIt
--    product_index_name:                   akeneo_pim_product
--    product_model_index_name:             akeneo_pim_product_model
-+    database_driver: pdo_mysql
-+    database_host: placeholder
-+    database_port: placeholder
-+    database_name: placeholder
-+    database_user: placeholder
-+    database_password: placeholder
-+    locale: en
-+    secret: ThisTokenIsNotSoSecretChangeIt
-+    product_index_name: akeneo_pim_product
-+    product_model_index_name: akeneo_pim_product_model
+     database_driver:                      pdo_mysql
+     database_host:                        localhost
+@@ -11,3 +14,4 @@ parameters:
+     product_model_index_name:             akeneo_pim_product_model
      product_and_product_model_index_name: akeneo_pim_product_and_product_model
--    index_hosts:                          'localhost: 9200'
-+    index_hosts: placeholder
-+    mailer_host: "%env(PLATFORM_SMTP_HOST)%"
+     index_hosts:                          'localhost: 9200'
++    mailer_host:                          "%env(PLATFORM_SMTP_HOST)%"
+\ No newline at end of file

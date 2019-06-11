@@ -1,5 +1,5 @@
 diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
-index 7811663..f34aa15 100644
+index 7811663..a23d719 100644
 --- a/app/config/parameters.yml.dist
 +++ b/app/config/parameters.yml.dist
 @@ -1,3 +1,6 @@
@@ -14,4 +14,3 @@ index 7811663..f34aa15 100644
      product_and_product_model_index_name: akeneo_pim_product_and_product_model
      index_hosts:                          'localhost: 9200'
 +    mailer_host:                          "%env(PLATFORM_SMTP_HOST)%"
-\ No newline at end of file

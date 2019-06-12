@@ -41,6 +41,7 @@ mounts:
     "app/uploads/product":      "shared:files/app-uploads"
     "installer":                "shared:files/installer"
     "web/media":                "shared:files/media-cache"
+    "upgrades/schema":          "shared:files/upgrades-schema"
 
 hooks:
     # We run the build hook before your application has been packaged.
@@ -74,7 +75,7 @@ hooks:
 
         # run installer if no lockfile exists
         if [ ! -f /app/installer/LOCK_INSTALL ]; then
-            bin/console pim:installer:db
+            bin/console pim:installer:db --env=prod
             touch /app/installer/LOCK_INSTALL
         fi
 

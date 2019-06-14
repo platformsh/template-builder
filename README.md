@@ -92,4 +92,4 @@ Let's use the previous example: you have created a new application that uses the
     This will create the branch `updates` on the repository`platformsh/template-spiffy` and push your application files to it.
 10. Open a pull request for `updates` on `template-spiffy`.
 11. Commit and push `add-spiffy` to the `template-builder` repository and create a pull request for it.
-12. Paste the two PR links in the Slack `#devrel` channel and include the handle `@devrel_team so that it will be reviewed.
+12. Paste the two PR links in the Slack `#devrel` channel and include the handle `@devrel_team` so that it will be reviewed.

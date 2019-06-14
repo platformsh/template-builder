@@ -1,3 +1,4 @@
 "https://{default}/":
   type: upstream
-  upstream: "hugo:http"
+  upstream: "app:http"
+  

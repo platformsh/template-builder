@@ -1,7 +1,7 @@
 # .platform.app.yaml
 
 # The name of this application, which must be unique within a project.
-name: 'hugo'
+name: 'app'
 
 # The type key specifies the language and version for your application.
 type: 'golang:1.12'
@@ -9,8 +9,9 @@ type: 'golang:1.12'
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
-    build: |
-      ./build.sh
+    build: !include
+      type: string
+      path: build.sh
 
 # The size of the persistent disk of the application (in MB).
 disk: 5120

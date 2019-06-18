@@ -1,0 +1,20 @@
+name: "app"
+
+type: "ruby:2.6"
+disk: 1024
+
+hooks:
+    build: |
+        bundle install
+        rake assets:precompile
+    deploy: |
+        rails db:migrate
+
+mounts:
+    "/log": "shared:files/log"
+    "/tmp": "shared:files/tmp"
+    "/db": "shared:files/db"
+
+web:
+    commands:
+        start: 'rails server -p $PORT'

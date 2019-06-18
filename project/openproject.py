@@ -1,14 +1,13 @@
 from .remote import RemoteProject
 
 
-class OpenProject(RemoteProject):
+class Openproject(RemoteProject):
     upstream_branch = 'stable/8'
     remote = 'https://github.com/opf/openproject-ce.git'
-"""
+
     @property
     def platformify(self):
-        return super(Laravel, self).platformify + [
-            'cd {0} /build && composer require platformsh/laravel-bridge'.format(
+        return super(Openproject, self).platformify + [
+            'cd {0}/build && bundle install --deployment --without mysql2 sqlite development test therubyracer docker'.format(
                 self.builddir)
         ]
-"""

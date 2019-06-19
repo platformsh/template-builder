@@ -25,13 +25,13 @@ disk: 1024
 # 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
 mounts:
     "/log":
-        type: local
+        source: local
         source_path: log
     "/tmp":
-        type: local
+        source: local
         source_path: tmp
     "/db":
-        type: local
+        source: local
         source_path: db
 
 # The hooks executed at various points in the lifecycle of the application.

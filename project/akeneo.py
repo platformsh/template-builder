@@ -2,7 +2,7 @@ from .remote import RemoteProject
 
 
 class Akeneo(RemoteProject):
-    major_version = 'v1'
+    major_version = 'v3'
     remote = 'https://github.com/akeneo/pim-community-standard.git'
 
     @property

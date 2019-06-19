@@ -1,35 +1,65 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
 name: "app"
 
+# The runtime the application uses.
 type: "ruby:2.6"
 
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+database: 'postgresqldb:postgresql'
+
+# The size of the persistent disk of the application (in MB).
 disk: 1024
 
-hooks:
-  build: |
-    gem install bundler -v '2.0.2'
 
-     # install nvm to use newer version of node
-     unset NPM_CONFIG_PREFIX
-     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | dash
-     export NVM_DIR="$HOME/.nvm"
-     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-     # install node 10 (currently latest LTS)
-     nvm install 10
-     # install yarn
-     npm install -g yarn
-     # run yarn to install frontend
-     yarn install
-
-    bundle install
-    rake assets:precompile
-  deploy: |
-    rails db:migrate
-
+# The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
+# directory paths, relative to the application root. The values are strings such as
+# 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
 mounts:
-  "/log": "shared:files/log"
-  "/tmp": "shared:files/tmp"
-  "/db": "shared:files/db"
+    "/log":
+        type: local
+        source_path: log
+    "/tmp":
+        type: local
+        source_path: tmp
+    "/db":
+        type: local
+        source_path: db
 
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    # The build hook turns what is in source control into the deployable application.
+    build: |
+        gem install bundler -v '2.0.2'
+
+         # install nvm to use newer version of node
+         unset NPM_CONFIG_PREFIX
+         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | dash
+         export NVM_DIR="$HOME/.nvm"
+         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+         # install node 10 (currently latest LTS)
+         nvm install 10
+         # install yarn
+         npm install -g yarn
+         # run yarn to install frontend
+         yarn install
+
+        bundle install
+        rake assets:precompile
+    # The deploy hook runs after your application has been deployed and started.
+    deploy: |
+        rails db:migrate
+
+# The configuration of the application when running.
 web:
-  commands:
-    start: 'rails server -p $PORT'
+    commands:
+        start: 'rails server -p $PORT'

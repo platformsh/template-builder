@@ -1,0 +1,35 @@
+name: "app"
+
+type: "ruby:2.6"
+
+disk: 1024
+
+hooks:
+  build: |
+    gem install bundler -v '2.0.2'
+
+     # install nvm to use newer version of node
+     unset NPM_CONFIG_PREFIX
+     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | dash
+     export NVM_DIR="$HOME/.nvm"
+     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+     # install node 10 (currently latest LTS)
+     nvm install 10
+     # install yarn
+     npm install -g yarn
+     # run yarn to install frontend
+     yarn install
+
+    bundle install
+    rake assets:precompile
+  deploy: |
+    rails db:migrate
+
+mounts:
+  "/log": "shared:files/log"
+  "/tmp": "shared:files/tmp"
+  "/db": "shared:files/db"
+
+web:
+  commands:
+    start: 'rails server -p $PORT'

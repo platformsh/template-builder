@@ -75,10 +75,10 @@ hooks:
         mkdir -p /tmp/pim/upload_tmp_dir
 
         # run installer if no lockfile exists
-        if [ ! -f /app/installer/LOCK_INSTALL ]; then
+        if [ ! -f installer/.platform.installed ]; then
             bin/console pim:installer:db --env=prod
             bin/console pim:user:create admin admin admin@example.com John Doe en_US --admin -n --env=prod
-            touch /app/installer/LOCK_INSTALL
+            touch installer/.platform.installed
         fi
 
 crons:

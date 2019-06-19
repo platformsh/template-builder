@@ -1,0 +1,31 @@
+{{set . "title" "Revel on Platform.sh"}}
+{{template "header.html" .}}
+
+<header class="jumbotron" style="background-color:#1664ff">
+  <div class="container">
+    <div class="row">
+      <h1>Hello world!</h1>
+      <p>A simple Revel template configured for Platform.sh.</p>
+    </div>
+  </div>
+</header>
+
+<div>
+<p>
+  <ul>
+    <li><a href="https://github.com/platformsh/template-revel">Source</a></li>
+    <li><a href="https://docs.platform.sh/languages/go.html">Platform.sh Go documentation</a></li>
+    <li><a href="https://revel.github.io/">Revel</a></li>
+  </ul>
+</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+{{template "footer.html" .}}

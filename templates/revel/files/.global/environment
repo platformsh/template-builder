@@ -1,0 +1,1 @@
+export GOPATH="$PLATFORM_APP_DIR/go"

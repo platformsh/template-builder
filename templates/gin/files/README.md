@@ -1,6 +1,6 @@
-# Echo template for Platform.sh
+# Gin template for Platform.sh
 
-This project provides a template Go application using the Echo web framework on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This project provides a template for a simple application using the Gin web framework on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
 
 ## Starting a new project
 
@@ -29,4 +29,4 @@ You can also use this repository as a reference for your own projects, and borro
 ## References
 
 * [Platform.sh Go documentation](https://docs.platform.sh/languages/go.html)
-* [Echo](https://echo.labstack.com/)
+* [Gin](https://gin-gonic.com/)

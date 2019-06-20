@@ -1,0 +1,4 @@
+# Set a "null" SMTP host if on an environment where SMTP is disabled.
+if [ -z "${PLATFORM_SMTP_HOST}" ] ; then
+    export PLATFORM_SMTP_HOST="null://localhost:25/"
+fi

@@ -1,0 +1,12 @@
+diff --git a/app/config/config.yml b/app/config/config.yml
+index ee59afe..21ef244 100644
+--- a/app/config/config.yml
++++ b/app/config/config.yml
+@@ -2,6 +2,7 @@ imports:
+     - { resource: '../../vendor/akeneo/pim-community-dev/src/Akeneo/Platform/config/pim.yml' }
+     - { resource: pim_parameters.yml }
+     - { resource: parameters.yml }
++    - { resource: parameters_platform.php }
+     - { resource: security.yml }
+ 
+ framework:

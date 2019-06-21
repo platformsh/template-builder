@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	sqldsn "github.com/platformsh/config-reader-go/sqldsn"
-	psh "github.com/platformsh/config-reader-go"
+	sqldsn "github.com/platformsh/config-reader-go/v2/sqldsn"
+	psh "github.com/platformsh/config-reader-go/v2"
 	"log"
 	"net/http"
 )

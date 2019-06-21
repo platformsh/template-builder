@@ -1,14 +1,14 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+  "net/http"
+	"database/sql"
+  "github.com/labstack/echo/v4"
+  "github.com/labstack/echo/v4/middleware"
 	psh "github.com/platformsh/config-reader-go/v2"
 	sqldsn "github.com/platformsh/config-reader-go/v2/sqldsn"
-	"net/http"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -29,8 +29,8 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 
-	// Start server
-	e.Logger.Fatal(e.Start(":" + config.Port()))
+  // Start server
+  e.Logger.Fatal(e.Start(":"+config.Port()))
 }
 
 // Handler
@@ -45,13 +45,13 @@ func hello(c echo.Context) error {
 	// Accessing the database relationship Credentials struct
 	credentials, err := config.Credentials("database")
 	if err != nil {
-		panic(err)
+	panic(err)
 	}
 
 	// Using the sqldsn formatted credentials package
 	formatted, err := sqldsn.FormattedCredentials(credentials)
 	if err != nil {
-		panic(err)
+	panic(err)
 	}
 
 	db, err := sql.Open("mysql", formatted)
@@ -136,7 +136,7 @@ MySQL Tests:
 
 `, uid, username, department, created, affect)
 
-	return c.String(http.StatusOK, status)
+  return c.String(http.StatusOK, status)
 }
 
 // checkErr is a simple wrapper for panicking on error.

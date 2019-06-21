@@ -22,8 +22,8 @@ github.com/mattn/go-isatty v0.0.8 h1:HLtExJ+uU2HOZ+wI0Tt5DtUDrx8yhUqDcp7fYERX4CE
 github.com/mattn/go-isatty v0.0.8/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=
 github.com/myesui/uuid v1.0.0 h1:xCBmH4l5KuvLYc5L7AS7SZg9/jKdIFubM7OVoLqaQUI=
 github.com/myesui/uuid v1.0.0/go.mod h1:2CDfNgU0LR8mIdO8vdWd8i9gWWxLlcoIGGpSNgafq84=
-github.com/platformsh/config-reader-go/v2 v2.0.1 h1:/SfC8K3BuCdzwo2bQogwxZ2lpfbMHcWNYHOEkXizUt0=
-github.com/platformsh/config-reader-go/v2 v2.0.1/go.mod h1:b1XoU9pi4yfOL2HGUKp40BQOhhqJFMNbNXBtwousNR0=
+github.com/platformsh/config-reader-go/v2 v2.2.1 h1:JHhN1qQoTXJDWQz/CCNTEAxs2vBuW5+4YsLPZ7qWf1M=
+github.com/platformsh/config-reader-go/v2 v2.2.1/go.mod h1:b1XoU9pi4yfOL2HGUKp40BQOhhqJFMNbNXBtwousNR0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/revel/config v0.21.0 h1:Bw4iXLGAuD/Di2HEhPSOyDywrTlFIXUMbds91lXTtTU=

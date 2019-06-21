@@ -7,7 +7,7 @@ require (
 	github.com/inconshreveable/log15 v0.0.0-20180818164646-67afb5ed74ec // indirect
 	github.com/labstack/echo/v4 v4.1.6
 	github.com/myesui/uuid v1.0.0 // indirect
-	github.com/platformsh/config-reader-go/v2 v2.0.1
+	github.com/platformsh/config-reader-go/v2 v2.2.1
 	github.com/revel/config v0.21.0 // indirect
 	github.com/revel/log15 v2.11.20+incompatible // indirect
 	github.com/revel/modules v0.21.0

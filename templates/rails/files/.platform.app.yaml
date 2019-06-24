@@ -61,4 +61,4 @@ hooks:
 # The configuration of the application when running.
 web:
     commands:
-        start: 'rails server -p $PORT'
+        start: 'unicorn -l $SOCKET -E production config.ru'

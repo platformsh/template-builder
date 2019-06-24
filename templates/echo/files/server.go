@@ -11,13 +11,17 @@ import (
 	"net/http"
 )
 
-func main() {
+var config *psh.RuntimeConfig
 
-	// The Config Reader library provides Platform.sh environment information mapped to Go structs.
-	config, err := psh.NewRuntimeConfig()
+func init() {
+	var err error
+	config, err = psh.NewRuntimeConfig()
 	if err != nil {
 		panic("Not in a Platform.sh Environment.")
 	}
+}
+
+func main() {
 
 	// Echo instance
 	e := echo.New()
@@ -35,12 +39,6 @@ func main() {
 
 // Handler
 func hello(c echo.Context) error {
-
-	// The Config Reader library provides Platform.sh environment information mapped to Go structs.
-	config, err := psh.NewRuntimeConfig()
-	if err != nil {
-		panic("Not in a Platform.sh Environment.")
-	}
 
 	// Accessing the database relationship Credentials struct
 	credentials, err := config.Credentials("database")

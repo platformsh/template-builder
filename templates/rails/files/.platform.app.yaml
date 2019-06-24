@@ -34,6 +34,11 @@ mounts:
         source: local
         source_path: db
 
+variables:
+    env:
+        RAILS_ENV: production
+        RACK_ENV: production
+
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     # The build hook turns what is in source control into the deployable application.

@@ -4,49 +4,54 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	psh "github.com/platformsh/gohelper"
-	"html"
+	sqldsn "github.com/platformsh/config-reader-go/v2/sqldsn"
+	psh "github.com/platformsh/config-reader-go/v2"
 	"log"
 	"net/http"
 )
 
 func main() {
 
-	// The psh library provides Platform.sh environment information mapped to Go structs.
-	p, err := psh.NewPlatformInfo()
-
+	// The Config Reader library provides Platform.sh environment information mapped to Go structs.
+	config, err := psh.NewRuntimeConfig()
 	if err != nil {
-		// This means we're not running on Platform.sh!
-		// In practice you would want to fall back to another way to define
-		// configuration information, say for your local development environment.
-		fmt.Println(err)
 		panic("Not in a Platform.sh Environment.")
 	}
 
-	fmt.Println("Yay, found Platform.sh info")
-
 	// Set up an extremely simple web server response.
-	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
-		// Run some background SQL, just to prove we can.
-		trySql(p, w)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-		// And say hello, per tradition.
-		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+		// Name the template on front page and print hello message
+		fmt.Fprintf(w, "Hello, world! - A simple Go template for Platform.sh\n\n")
+
+		// Run some background SQL, just to prove we can.
+		trySql(config, w)
+
 	})
 
-	// The port to listen on is defined by Platform.sh.
-	log.Fatal(http.ListenAndServe(":"+p.Port, nil))
+		// The port to listen on is defined by Platform.sh.
+		log.Fatal(http.ListenAndServe(":"+config.Port(), nil))
+
 }
 
 // trySql simply connects to a MySQL server defined by Platform.sh and
 // writes and reads from it.  This is not particularly useful code,
-// but demonstrates how you can leverage the Platform.sh library.
-func trySql(pi *psh.PlatformInfo, w http.ResponseWriter) {
+// but demonstrates how you can leverage the Platform.sh Config Reader library.
+func trySql(conf *psh.RuntimeConfig, w http.ResponseWriter) {
 
-	dbString, err := pi.SqlDsn("mysql")
-	checkErr(err)
+		// Accessing the database relationship Credentials struct
+	credentials, err := conf.Credentials("database")
+	if err != nil {
+		panic(err)
+	}
 
-	db, err := sql.Open("mysql", dbString)
+	// Using the sqldsn formatted credentials package
+	formatted, err := sqldsn.FormattedCredentials(credentials)
+	if err != nil {
+		panic(err)
+	}
+
+	db, err := sql.Open("mysql", formatted)
 	checkErr(err)
 
 	// Force MySQL into modern mode.
@@ -69,7 +74,7 @@ func trySql(pi *psh.PlatformInfo, w http.ResponseWriter) {
 	stmt, err := db.Prepare("INSERT userinfo SET username=?,departname=?,created=?")
 	checkErr(err)
 
-	res, err := stmt.Exec("pierre", "研发部门", "2012-12-09")
+	res, err := stmt.Exec("platform", "Deploy Friday", "2019-06-17")
 	checkErr(err)
 
 	id, err := res.LastInsertId()
@@ -80,7 +85,7 @@ func trySql(pi *psh.PlatformInfo, w http.ResponseWriter) {
 	stmt, err = db.Prepare("update userinfo set username=? where uid=?")
 	checkErr(err)
 
-	res, err = stmt.Exec("pierreupdate", id)
+	res, err = stmt.Exec("goPlatformsh", id)
 	checkErr(err)
 
 	affect, err := res.RowsAffected()
@@ -99,10 +104,16 @@ func trySql(pi *psh.PlatformInfo, w http.ResponseWriter) {
 		var created string
 		err = rows.Scan(&uid, &username, &department, &created)
 		checkErr(err)
+		// Section for MySQL tests
+		fmt.Fprintf(w, "\nMySQL Tests:\n\n")
+		fmt.Fprintf(w, "* Connect and add row:\n")
+		fmt.Fprintf(w, "   - Row ID (1): ")
 		fmt.Fprintln(w, uid)
+		fmt.Fprintf(w, "   - Username (goPlatformsh): ")
 		fmt.Fprintln(w, username)
-		fmt.Printf(username)
+		fmt.Fprintf(w, "   - Department (Deploy Friday): ")
 		fmt.Fprintln(w, department)
+		fmt.Fprintf(w, "   - Created (2019-06-17): ")
 		fmt.Fprintln(w, created)
 	}
 
@@ -116,6 +127,8 @@ func trySql(pi *psh.PlatformInfo, w http.ResponseWriter) {
 	affect, err = res.RowsAffected()
 	checkErr(err)
 
+	fmt.Fprintf(w, "\n* Delete row:\n")
+	fmt.Fprintf(w, "   - Status (1): ")
 	fmt.Fprintln(w, affect)
 
 	db.Close()

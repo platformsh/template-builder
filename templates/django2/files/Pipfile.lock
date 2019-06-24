@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ad74bb372a143cf8837cedca19dc0fb7e9f9a743865acbc44c96e8731dcb5ac1"
+            "sha256": "b7dcc8042aec50712dbefe9df8683678e19d37ef32ae3855647a0b477cda2f2d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "django": {
             "hashes": [
-                "sha256:7c3543e4fb070d14e10926189a7fcf42ba919263b7473dceaefce34d54e8a119",
-                "sha256:a2814bffd1f007805b19194eb0b9a331933b82bd5da1c3ba3d7b7ba16e06dc4b"
+                "sha256:753d30d3eb078064d2ddadfea65083c9848074a7f93d7b4dc7fa6b1380d278f5",
+                "sha256:7cb67e8b934fab23b6daed7144da52e8a25a47eba7f360ca43d2b448506b01ad"
             ],
             "index": "pypi",
-            "version": "==2.2"
+            "version": "==2.2.2"
         },
         "gunicorn": {
             "hashes": [
@@ -34,11 +34,11 @@
         },
         "platformshconfig": {
             "hashes": [
-                "sha256:62437259baedc252aa3e75332e96c3d64722f6b7899cba56f70cae47fbc4b4a4",
-                "sha256:a6df06ed3c099bfc0a87d6633f1658dddf687cfae15283566a3e1e9791801ac6"
+                "sha256:d285702d2c1344fa1ae333356ae717fe102c7ac7cf61edd15d294e56e004839a",
+                "sha256:effa9e10ac22cd641f0f4f618eb4c02307a43caa1b7c6dda86b3344bcd246f3d"
             ],
             "index": "pypi",
-            "version": "==2.1.1"
+            "version": "==2.2.3"
         },
         "psycopg2-binary": {
             "hashes": [

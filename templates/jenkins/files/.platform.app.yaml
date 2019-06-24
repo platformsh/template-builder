@@ -1,0 +1,34 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+name: jenkins
+
+# The runtime the application uses.
+type: "java:8"
+
+disk: 4024
+
+mounts:
+    '/.jenkins':
+        source: local
+        source_path: jenkins_source
+
+    '/.m2':
+        source: local
+        source_path: maven_source
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    build: |
+      export MAVEN_OPTS='-Xmx64m' 
+      wget -q http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+
+# The configuration of app when it is exposed to the web.
+# The memory is just to a standard plan.
+web:
+    commands:
+        start: java -jar -Xmx512m jenkins.war --httpPort=$PORT
+        

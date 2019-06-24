@@ -1,29 +1,24 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
 	"database/sql"
+	"fmt"
+	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	psh "github.com/platformsh/config-reader-go/v2"
 	sqldsn "github.com/platformsh/config-reader-go/v2/sqldsn"
-	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 var db = make(map[string]string)
 
-func setupRouter() *gin.Engine {
+func setupRouter(config *psh.RuntimeConfig) *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 
 	// Hello World
 	r.GET("/", func(c *gin.Context) {
-
-		config, err := psh.NewRuntimeConfig()
-		if err != nil {
-			panic("Not in a Platform.sh Environment.")
-		}
 
 		// Accessing the database relationship Credentials struct
 		credentials, err := config.Credentials("database")
@@ -119,7 +114,6 @@ MySQL Tests:
 
 		`, uid, username, department, created, affect)
 
-
 		c.String(http.StatusOK, status)
 	})
 
@@ -127,15 +121,17 @@ MySQL Tests:
 }
 
 func main() {
-	r := setupRouter()
 
 	config, err := psh.NewRuntimeConfig()
 	if err != nil {
 		panic("Not in a Platform.sh Environment.")
 	}
 
+	// Set up the router
+	r := setupRouter(config)
+
 	// Listen and Server in the port defined by Platform.sh
-	r.Run(":"+config.Port())
+	r.Run(":" + config.Port())
 }
 
 // checkErr is a simple wrapper for panicking on error.

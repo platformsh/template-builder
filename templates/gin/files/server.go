@@ -10,18 +10,11 @@ import (
 	"net/http"
 )
 
-func main() {
+func setupRouter(config *psh.RuntimeConfig) *gin.Engine {
 
-	config, err := psh.NewRuntimeConfig()
-	if err != nil {
-		panic("Not in a Platform.sh Environment.")
-	}
-
-	// Disable Console Color
-	// gin.DisableConsoleColor()
 	r := gin.Default()
 
-	// Front Page MariaDB tests
+	// Hello World
 	r.GET("/", func(c *gin.Context) {
 
 		// Accessing the database relationship Credentials struct
@@ -120,6 +113,18 @@ MySQL Tests:
 
 		c.String(http.StatusOK, status)
 	})
+
+	return r
+}
+
+func main() {
+
+	config, err := psh.NewRuntimeConfig()
+	if err != nil {
+		panic("Not in a Platform.sh Environment.")
+	}
+
+	r := setupRouter(config)
 
 	// Listen and Server in the port defined by Platform.sh
 	r.Run(":" + config.Port())

@@ -18,7 +18,7 @@ That's it!  You now have a working "hello world" level project you can build on.
 
 This project relies on Go module support in Go 1.11 and later.  You should commit your `go.mod` and `go.sum` files to Git, but not the `vendor` directory.
 
-Access to Platform.sh environment information (the port to use, database credentials, etc.) is provided via a a [helper library](https://github.com/platformsh/gohelper) provided by Platform.sh.
+Access to Platform.sh environment information (the port to use, database credentials, etc.) is provided via a [Config Reader](https://github.com/platformsh/config-reader-go) library provided by Platform.sh.
 
 This example shows access to both the port on which to listen for incoming HTTP requests and to a MariaDB database.
 

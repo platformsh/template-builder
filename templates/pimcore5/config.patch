@@ -1,10 +1,11 @@
 diff --git a/app/config/config.yml b/app/config/config.yml
-index 09bea29ee6..d484002f4e 100644
+index 09bea29e..2adbcc75 100644
 --- a/app/config/config.yml
 +++ b/app/config/config.yml
 @@ -1,9 +1,29 @@
  imports:
-     - { resource: parameters.yml }
+-    - { resource: parameters.yml }
++#   - { resource: parameters.yml } Secret loaded fromm parameters_platformsh.php
      - { resource: security.yml }
 +    - { resource: parameters_platformsh.php }
      - { resource: services.yml }

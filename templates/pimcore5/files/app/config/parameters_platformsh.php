@@ -27,5 +27,5 @@ if ($platformsh->hasRelationship('redis')) {
 
 // Set a default unique secret, based on a project-specific entropy value.
 if ($platformsh->projectEntropy) {
-    $container->setParameter('kernel.secret', $platformsh->projectEntropy);
+    $container->setParameter('secret', $platformsh->projectEntropy);
 }

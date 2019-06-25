@@ -1,6 +1,6 @@
-# Go template for Platform.sh
+# Echo template for Platform.sh
 
-This project provides a template for a generic Go project on Platform.sh.  It is primarily an example, although could be used as the starting point for a real project.
+This project provides a template application using the Echo web framework on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
 
 ## Starting a new project
 

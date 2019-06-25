@@ -1,9 +1,0 @@
---- build/package.json	2019-06-25 12:26:23.499037747 -0500
-+++ files/package.json	2019-06-25 10:29:13.305820122 -0500
-@@ -1,5 +1,5 @@
- {
--  "name": "build",
-+  "name": "rails-platformsh",
-   "private": true,
-   "dependencies": {}
- }

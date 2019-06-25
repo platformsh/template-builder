@@ -13,6 +13,6 @@ class Rails(BaseProject):
     @property
     def platformify(self):
         return super(Rails, self).platformify + [
-            'cd {0} && bundle add pg --skip-install '.format(self.builddir)
+            'cd {0} && bundle add unicorn pg platform_sh_rails --group "production" --skip-install'.format(self.builddir),
         ]
 

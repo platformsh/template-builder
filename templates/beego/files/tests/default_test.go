@@ -6,7 +6,7 @@ import (
 	"testing"
 	"runtime"
 	"path/filepath"
-	_ "helloBee/routers"
+	_ "github.com/platformsh/template-beego/routers"
 
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
@@ -36,4 +36,3 @@ func TestMain(t *testing.T) {
 	        })
 	})
 }
-

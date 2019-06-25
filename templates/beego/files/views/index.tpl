@@ -79,6 +79,13 @@
     <div class="description">
       Beego is a simple & powerful Go web framework which is inspired by tornado and sinatra.
     </div>
+
+    <br><br>
+
+    <div class="description">
+      See the <b><a href="/test">MariaDB service tests</a></b> for Platform.sh.
+    </div>
+
   </header>
   <footer>
     <div class="author">

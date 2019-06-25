@@ -14,8 +14,11 @@ hooks:
     build: |
         # Modify this line if you want to build differently or use an alternate name for your executable.
         go build -o bin/app
-# The configuration of app when it is exposed to the web.
 
+relationships:
+    database: "mysqldb:mysql"
+
+# The configuration of app when it is exposed to the web.
 web:
     upstream:
         socket_family: tcp

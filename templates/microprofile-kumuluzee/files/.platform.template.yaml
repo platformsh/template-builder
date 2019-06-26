@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/kumuluzee-microprofile
   # The human-readable name of the template.
-  name: Eclipse MicroProfile, KumuluzEE, Maven
+  name: KumuluzEE
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Eclipse MicroProfile by KumuluzEE
   # A list of tags associated with the template.

@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/apache-tomee-microprofile
   # The human-readable name of the template.
-  name: Eclipse MicroProfile (Apache TomEE)
+  name: Apache TomEE
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: Eclipse MicroProfile by Apache TomEE
   # A list of tags associated with the template.

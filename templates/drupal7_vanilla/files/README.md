@@ -11,7 +11,7 @@ This template builds a Drupal 7 site, with the entire site committed to Git.
 
 1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
 
-2. Once Drupal is fully installed, We strongly recommend swtiching to Redis-based caching.  See [the documentation](https://docs.platform.sh/frameworks/drupal7/redis.html) for instructions on how to do so.
+2. Once Drupal is fully installed, We strongly recommend switching to Redis-based caching.  See [the documentation](https://docs.platform.sh/frameworks/drupal7/redis.html) for instructions on how to do so.
 
 ## Customizations
 

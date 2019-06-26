@@ -1,4 +1,4 @@
-# Spring Boot Maven template for Platform.sh
+# KumuluzEE template for Platform.sh
 
 This project provides a starter kit for KumuluzEE MicroProfile projects hosted on [Platform.sh](http://platform.sh).
 

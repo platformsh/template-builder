@@ -4,13 +4,13 @@ import (
   psh "github.com/platformsh/config-reader-go/v2"
 )
 
-var Config = createConfigObj()
+var PshConfig = createPshConfigObj()
 
-func createConfigObj() *psh.RuntimeConfig {
+func createPshConfigObj() *psh.RuntimeConfig {
   // The Config Reader library provides Platform.sh environment information mapped to Go structs.
   config, err := psh.NewRuntimeConfig()
   if err != nil {
-  	panic("Not in a Platform.sh Environment.")
+  	panic(err)
   }
   return config
 }

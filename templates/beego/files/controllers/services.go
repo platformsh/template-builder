@@ -15,7 +15,7 @@ type MySQLTestController struct {
 func (c *MySQLTestController) Get() {
 
   // Accessing the database relationship Credentials struct
-  credentials, err := config.Config.Credentials("database")
+  credentials, err := config.PshConfig.Credentials("database")
   if err != nil {
     panic(err)
   }
@@ -118,8 +118,6 @@ func (c *MySQLTestController) Get() {
   if err != nil {
     panic(err)
   }
-
-  // db.Close()
 
   status := fmt.Sprintf(`Hello, World! - A simple Beego web framework template for Platform.sh
 

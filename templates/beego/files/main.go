@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	beego.Run(":" + config.Config.Port())
+	beego.Run(":" + config.PshConfig.Port())
 }

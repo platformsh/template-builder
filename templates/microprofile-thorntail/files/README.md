@@ -1,4 +1,4 @@
-# Thorntail MicroProfile Maven template for Platform.sh
+# Thorntail Maven template for Platform.sh
 
 This project provides a starter kit for Thorntail MicroProfile projects hosted on [Platform.sh](http://platform.sh).
 

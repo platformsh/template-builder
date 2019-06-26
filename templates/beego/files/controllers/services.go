@@ -5,6 +5,7 @@ import (
         "database/sql"
         _ "github.com/go-sql-driver/mysql"
         sqldsn "github.com/platformsh/config-reader-go/v2/sqldsn"
+        config "github.com/platformsh/template-beego/conf"
 )
 
 type MySQLTestController struct {
@@ -14,7 +15,7 @@ type MySQLTestController struct {
 func (c *MySQLTestController) Get() {
 
   // Accessing the database relationship Credentials struct
-  credentials, err := c.Config.Credentials("database")
+  credentials, err := config.Config.Credentials("database")
   if err != nil {
     panic(err)
   }
@@ -29,6 +30,7 @@ func (c *MySQLTestController) Get() {
   if err != nil {
     panic(err)
   }
+  defer db.Close()
 
   // Force MySQL into modern mode.
   db.Exec("SET NAMES=utf8")
@@ -117,7 +119,7 @@ func (c *MySQLTestController) Get() {
     panic(err)
   }
 
-  db.Close()
+  // db.Close()
 
   status := fmt.Sprintf(`Hello, World! - A simple Beego web framework template for Platform.sh
 

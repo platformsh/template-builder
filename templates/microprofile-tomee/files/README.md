@@ -1,4 +1,4 @@
-# Spring Boot Maven template for Platform.sh
+# Apache TomEE MicroProfile template for Platform.sh
 
 This project provides a starter kit for Apache TomEE MicroProfile projects hosted on [Platform.sh](http://platform.sh).
 

@@ -1,4 +1,4 @@
-# Spring Boot Maven template for Platform.sh
+# Payara Micro Maven template for Platform.sh
 
 This project provides a starter kit for Payara Micro projects hosted on [Platform.sh](http://platform.sh).
 

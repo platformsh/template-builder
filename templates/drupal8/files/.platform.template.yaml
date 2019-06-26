@@ -23,7 +23,11 @@ info:
   # The human-readable name of the template.
   name: Drupal 8
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Drupal is a highly-customizable free software PHP CMS that allows you to easily organize, manage and publish your content.
+  description: |
+    This template builds Drupal 8 using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project)
+    for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled
+    post-install in `.platform.app.yaml`.
+
   # A list of tags associated with the template.
   tags:
   - PHP

@@ -1,50 +1,18 @@
-# Laravel example for Platform.sh
+# Laravel for Platform.sh
 
-This project provides a starter kit for Laravel projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions.
 
-## Starting a new project
+## Services
 
-To start a new project based on this template, follow these 3 simple steps:
+* PHP 7.3
+* MariaDB 10.2
+* Redis 5.0
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
+## Customizations
 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+The following changes have been made relative to a plain Laravel project.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
-
-That's it!
-
-## Using as a reference
-
-You can use this repository as a reference for your own projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
-
-You also will need the [platformsh/laravel-bridge](https://github.com/platformsh/laravel-bridge) composer library.  It can be installed like any other composer library:
-
-`composer require platformsh/laravel-bridge`
-
-## Redis
-
-Please note that this project is using the PhpRedis PHP extension via PECL. As such, the redis client in `config/database.php` file has been manually patched to `phpredis` in this repo as shown below:
-
-```
-'redis' => [
-
-    'client' => 'phpredis',
-
-    // Rest of Redis configuration...
-],
-```
-
-### Cache and Session Driver
-
-Redis has also been enabled as the default Laravel Cache and Session driver with the below relationships defined in the `.platform.app.yaml` file.
-
-```
-relationships:
-    rediscache: "redis:redis"
-    redissession: "redis:redis"
-```
-
-With `rediscache` and `redissession` defined above, the [platformsh/laravel-bridge](https://github.com/platformsh/laravel-bridge) composer library will automatically perform the necessary mappings to set redis as the default cache and session driver.
-
-That's all you need to make a Laravel application run on Platform.sh!
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Composer library, [`platformsh/laravel-bridge`](https://github.com/platformsh/laravel-bridge), has been added.  It automatically maps Platform.sh's environment variables to Laravel's environment variables where possible.  It leverages the [`platformsh/configreader`](https://github.com/platformsh/config-reader-php) library.
+* The Laravel Bridge library also automatically configures Laravel to use Redis for both caching and session storage.  That may be disabled by removing or changing the name of the `rediscache` and `redissession` relationships in `.platform.app.yaml`.

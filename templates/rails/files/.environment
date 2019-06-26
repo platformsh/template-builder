@@ -1,0 +1,11 @@
+# This gives us very good cache coverage, 96 -> 99.
+# In practice it is 1-2% perf improvement.
+export RUBY_GLOBAL_METHOD_CACHE_SIZE=131072
+
+# Stop heap doubling in size so aggressively to conserves memory.
+export RUBY_GC_HEAP_GROWTH_MAX_SLOTS=40000
+export RUBY_GC_HEAP_INIT_SLOTS=400000
+export RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=1.5
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
+export UNICORN_TIMEOUT=15

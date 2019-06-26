@@ -67,7 +67,6 @@ func (c *MySQLTestController) Get() {
     panic(err)
   }
 
-  fmt.Println(id)
   // update
   stmt, err = db.Prepare("update userinfo set username=? where uid=?")
   if err != nil {
@@ -83,8 +82,6 @@ func (c *MySQLTestController) Get() {
   if err != nil {
     panic(err)
   }
-
-  fmt.Println(affect)
 
   // query
   rows, err := db.Query("SELECT * FROM userinfo")

@@ -26,6 +26,12 @@ class Drupal8(RemoteProject):
                 self.builddir)
         ]
 
+
+class Opigno(Drupal8):
+    major_version = '2'
+    remote = 'https://bitbucket.org/opigno/opigno-composer.git'
+
+
 class Govcms8(RemoteProject):
     upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'

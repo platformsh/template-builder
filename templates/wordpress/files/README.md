@@ -20,7 +20,7 @@ You can also use this repository as a reference for your own projects, and borro
 
 ## Local settings
 
-This example looks for an optional `wp-config-local.php` alongside your `wp-config.php` file that you can use to develop locally. This file is ignored in git.
+This example looks for an optional `wp-config-local.php` in the project root that you can use to develop locally. This file is ignored in git.
 
 Example `wp-config-local.php`:
 

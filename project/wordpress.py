@@ -21,7 +21,7 @@ class Wordpress(RemoteProject):
                 composer = json.load(f, object_pairs_hook=OrderedDict)
 
             composer['extra'] = {
-                'wordpress-install-dir': 'web/wp',
+                'wordpress-install-dir': 'web',
                 'installer-paths': {
                     r'web/wp-content/plugins/{$name}': ['type:wordpress-plugin'],
                     r'web/wp-content/themes/{$name}': ['type:wordpress-theme'],

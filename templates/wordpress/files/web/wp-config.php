@@ -94,8 +94,8 @@ if ($config->hasRelationship('database')) {
 else {
   // Local configuration file should be in project root.
   if (file_exists(dirname(__FILE__, 2) . '/wp-config-local.php')) {
-		include(dirname(__FILE__, 2) . '/wp-config-local.php');
-	}
+    include(dirname(__FILE__, 2) . '/wp-config-local.php');
+  }
 }
 
 // Do not put a slash "/" at the end.
@@ -121,7 +121,7 @@ ini_set('pcre.recursion_limit', 200000);
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+  define( 'ABSPATH', dirname( __FILE__ ) . '/' );
 }
 
 /** Sets up WordPress vars and included files. */

@@ -160,11 +160,7 @@
                     "Platformsh\\ConfigReader\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Platformsh\\ConfigReader\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -175,10 +171,6 @@
                 }
             ],
             "description": "Small helper to access Platform.sh environment variables",
-            "support": {
-                "source": "https://github.com/platformsh/config-reader-php/tree/2.2.2",
-                "issues": "https://github.com/platformsh/config-reader-php/issues"
-            },
             "time": "2019-04-29T18:25:26+00:00"
         }
     ],

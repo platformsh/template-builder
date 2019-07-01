@@ -30,6 +30,14 @@
         "discard-changes": true,
         "sort-packages": true
     },
+    "scripts": {
+      "update-packages": [
+          "cp -rf wp/* web/",
+          "rm -rf wp"
+      ],
+      "post-install-cmd": "@update-packages",
+      "post-update-cmd": "@update-packages"
+    },
     "extra": {
         "wordpress-install-dir": "wp",
         "installer-paths": {

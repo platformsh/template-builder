@@ -59,4 +59,3 @@ dependencies:
 mounts:
     "web/wp-content/cache": "shared:files/cache"
     "web/wp-content/uploads": "shared:files/uploads"
-    "wp": "shared:files/wp"

@@ -1,2 +1,45 @@
+# Ignore local configuration files.
+/.env
+/wp-config-local.php
+
+# Ignore Composer packages.
 /vendor/
-/web/wp/
+
+# Temporary and build directories.
+/wp/
+/_www
+
+# Standard Wordpress files and folders:
+/web/vendor/
+/web/composer.json
+/web/index.php
+/web/license.txt
+/web/readme.html
+/web/wp-activate.php
+/web/wp-admin/
+/web/wp-blog-header.php
+/web/wp-comments-post.php
+/web/wp-config-sample.php
+/web/wp-content/index.php
+/web/wp-content/plugins/index.php
+/web/wp-content/themes/index.php
+/web/wp-cron.php
+/web/wp-includes/
+/web/wp-links-opml.php
+/web/wp-load.php
+/web/wp-login.php
+/web/wp-mail.php
+/web/wp-settings.php
+/web/wp-signup.php
+/web/wp-trackback.php
+/web/xmlrpc.php
+
+# User uploaded and system generated files.
+/web/wp-content/cache/
+/web/wp-content/uploads/
+
+# Ignore themes and plugins installed via Composer.
+/web/wp-content/plugins/*
+!/web/wp-content/plugins/README.md
+/web/wp-content/themes/*
+!/web/wp-content/themes/README.md

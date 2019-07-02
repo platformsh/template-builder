@@ -23,7 +23,10 @@ info:
   # The human-readable name of the template.
   name: GovCMS 8
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: The GovCMS distribution combines Drupal Core and Drupal modules to enable the quick creation of Australian government websites.
+  description: |
+    This template builds the Australian government's GovCMS Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project)
+    for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled
+    post-install in `.platform.app.yaml`.
   # A list of tags associated with the template.
   tags:
   - PHP
@@ -36,7 +39,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.2<br/>MySQL 10.2"
+      content: "PHP 7.2<br/>MySQL 10.2<br />Redis 5.0"
 
 
 # This key describes the initialization call made to the master environment at

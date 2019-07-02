@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Basic Go
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Go (often referred to as Golang) is a statically typed, compiled language in the tradition of C.
+  description: |
+      This template provides the most basic configuration for running a custom Go project.
   # A list of tags associated with the template.
   tags:
   - Golang

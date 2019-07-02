@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Symfony 3
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Symfony is a loosely coupled PHP web application framework.
+  description: |
+      This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
   # A list of tags associated with the template.
   tags:
   - PHP

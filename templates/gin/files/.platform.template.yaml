@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Gin
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: A simple "Hello world" application using the Gin web framework.
+  description: |
+      This template builds the Gin framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
   # A list of tags associated with the template.
   tags:
   - Golang

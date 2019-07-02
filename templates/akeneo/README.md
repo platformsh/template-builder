@@ -1,29 +1,26 @@
-Akeneo PIM Community Standard Edition template for Platform.sh
-=====================================
+# Akeneo PIM Community Edition for Platform.sh
 
-This project provides a starter kit for Akeneo projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Akeneo PIM Community Standard Edition.
+This template builds the Akeneo Product Information Management system for Platform.sh.  It requires at least a Medium plan as it uses a Worker instance for queue processing.
 
-## Starting a new project
+## Services
 
-To start a new Akeneo project on Platform.sh, you have 2 options:
+* PHP 7.2
+* MySQL 5.7
+* Elasticsearch 6.5
 
-1. Create a new project through the Platform.sh user interface and select "start new project from a template".  Then select Akeneo as the template. That will create a new project using this repository as a starting point.
+## Post-install
 
-2. Take an existing project, add the necessary Platform.sh files, and push it to a Platform.sh Git repository.
+1. The first time the site is deployed, Akeneo's command line installer will run and initialize the database.  It will not run again unless the `installer/.platform.installed` is removed.  (Do not remove that file unless you want the installer to run on the next deploy!)
 
-## Using as a reference
+2. The installer will create an administrator account with username/password `admin`/`admin`.  **You need to change this password immediately. Not doing so is a security risk**.
 
-You can use this repository as a reference for your own Akeneo projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+## Customizations
 
+The following changes have been made relative to Akeneo as it is downloaded from Akeneo.com.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-Also see:
-
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Composer library, [`platformsh/configreader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platform.php`.  That will load a PHP file rather than YAML file to specify Symfony configuration parameters.
-* [`parameters_platform.php`](/app/config/parameters_platform.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and elasticsearch connection parameters. You can add to it as needed.
-* [`parameters.yml.dist`](/app/config/parameters.yml.dist) - This file is modified so the install process can retrieve the database connection parameters, SwiftMailer can connect to the correct host and the inital data set is set to `minimal`
-
-The template is configured to install the data set automatically during the build hook. That means after the first build and deployment, you can login with user: `admin` / password: `admin`.
-
-Please note, that this project uses a worker for the Akeneo `job-queue-consumer-daemon`. That means you need to run this on a Medium plan or higher.
-
-That's all you need to make a Akeneo application run on Platform.sh!
+* [`parameters_platform.php`](/app/config/parameters_platform.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and Elasticsearch connection parameters. You can add to it as needed.
+* [`parameters.yml.dist`](/app/config/parameters.yml.dist) - This file is modified so the install process can retrieve the database connection parameters, SwiftMailer can connect to the correct host and the initial data set is set to `minimal`.

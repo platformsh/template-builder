@@ -1,32 +1,17 @@
-# Beego template for Platform.sh
+# Beego for Platform.sh
 
-This project provides a template for a simple application using the Beego web framework on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This template builds the BeeGo framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
-## Starting a new project
+## Services
 
-To start a new project based on this template, follow these 3 simple steps:
+* Go 1.12
+* MariaDB 10.2
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
+## Customizations
 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+The following files and additions make the framework work.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
-
-That's it!  You now have a working "hello world" level project you can build on.
-
-## Structure
-
-This project relies on Go module support in Go 1.12 and later.  You should commit your `go.mod` and `go.sum` files to Git, but not the `vendor` directory.
-
-Access to Platform.sh environment information (the port to use, database credentials, etc.) is provided via a [Config Reader](https://github.com/platformsh/config-reader-go) library provided by Platform.sh.
-
-This example shows access to the port on which to listen for incoming HTTP requests and to a MariaDB database.
-
-## Using as a reference
-
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.  You will also need to install the Platform.sh bridge library, `github.com/platformsh/gohelper`.
-
-## References
-
-* [Platform.sh Go documentation](https://docs.platform.sh/languages/go.html)
-* [Beego](https://beego.me/)
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Git module, [`platformsh/config-reader-go`](https://github.com/platformsh/config-reader-go), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* The `conf` directory shows one way of exposing the Config Reader to the application.  You are free to take some other approach if you prefer.

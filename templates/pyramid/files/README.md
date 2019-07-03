@@ -1,21 +1,20 @@
-# Platform.sh Python 3.7 Pyramid minimal example
+# Pyramid for Platform.sh
 
-This project provides a starter kit for minimal Python 3.7 Pyramid projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This template builds Pyramid on Platform.sh.  It includes some basic example code to demonstrate how to connect to the database.
 
-In this example we are not running any application server but the python script directly, you can check-out other examples to see it run with application servers such as Gunicorn.
+## Services
 
-## Starting a new project
+* Python 3.7
+* MariaDB 10.2
+* Redis 3.2
 
-To start a new project based on this template, follow these 3 simple steps:
+## Post-installation
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+The `app.py` file includes example controllers that demonstrate accessing services within the application.  Feel free to replace them with your own code as appropriate.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+## Customizations
 
-That's it!  You now have a working "hello world" level project you can build on.
+The following changes have been made relative to Moin Moin as it is downloaded from the Moin Moin website.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-## Using as a reference
-
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.

@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Django 1
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Django is a Python-based free and open-source web framework.
+  description: |
+    This template builds Django 1 on Platform.sh, using the gunicorn application runner.  New projects should be built using Django 2, but this project is a reference for existing migrating sites.
   # A list of tags associated with the template.
   tags:
   - Python

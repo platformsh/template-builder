@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: MoinMoin
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: MoinMoin is a wiki engine written for Python 2.7.
+  description: |
+    This template builds a Moin Moin wiki on Platform.sh.  The project doesn't include Moin Moin itself; rather, it includes build and deploy scripts that will download Moin Moin on the fly.
   # A list of tags associated with the template.
   tags:
   - Python

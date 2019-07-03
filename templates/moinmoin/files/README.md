@@ -1,21 +1,12 @@
-# Platform.sh MoinMoin (Python 2.7) minimal example
+# Moin Moin for Platform.sh
 
-This project provides a starter kit for hosting a MoinMoin wiki on Platform.sh. It is primarily an example, although it could be used as the starting point for a real project.
+This template builds a Moin Moin wiki on Platform.sh.  The project doesn't include Moin Moin itself; rather, it includes build and deploy scripts that will download Moin Moin on the fly.
 
-MoinMoin is a wiki engine written for Python 2.7. This project uses [MoinMoin 1.9.10](https://github.com/moinwiki/moin-1.9) and has been configured to run on Platform.sh. You can find more information about the MoinMoin project on [Github](https://github.com/moinwiki/moin-1.9) or on their [website](https://moinmo.in/).
+## Services
 
+* Python 2.7
 
-## Starting a new project
-
-To start a new project based on this template, follow these 3 simple steps:
-
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
-
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
-
-That's it! You now have a working MoinMoin wiki project you can build on. 
+## Post-installation
 
 By default, the front page of the wiki covers language setup, but that can be modified with an editable page by commenting out the line
 
@@ -25,8 +16,12 @@ By default, the front page of the wiki covers language setup, but that can be mo
 
 in `wikiconfig_local.py`. If you would like to change additional settings on the wiki, consult [`wikiconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiconfig.py) and [`wikiserverconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiserverconfig.py) on GitHub and include the modified lines in `wikiconfig_local.py` and `wikiserverconfig_local.py` respectively. 
 
-Create an account from the `Login` tab and start editing!
+## Customizations
 
-## Using as a reference
+The following changes have been made relative to Moin Moin as it is downloaded from the Moin Moin website.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* The `setup/build.sh` script, run during the build hook, downloads Moin Moin and applies two patches to it.  `editlog.patch` and `eventlog.patch` modify the location of log files to be in a writeable directory.  If running Moin Moin locally, use this script to download and prepare it.
+* The `wikiconfig_local.py` file provides configuration for when Moin Moin is run locally.  Modify it as needed.
+* The `wikiserverconfig_local.py` file provides configuration for when Moin Moin is run on Platform.sh.  In particular it pulls the port on which to listen from the Platform.sh environment.

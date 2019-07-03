@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Wagtail
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Wagtail is a Django content management system written in Python 3.
+  description: |
+    This template builds the Wagtail CMS on Platform.sh, using the gunicorn application runner.
   # A list of tags associated with the template.
   tags:
   - Python

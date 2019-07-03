@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Sculpin
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Sculpin is a PHP-based static site generator.
+  description: |
+      This template provides a basic Sculpin skeleton.  All files are generated at build time, so at runtime only static files need to be served.
   # A list of tags associated with the template.
   tags:
   - PHP

@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Basic Python 2
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Python is a highly flexible and easy to use scripting language.
+  description: |
+    This template provides the most basic configuration for running a custom Python 2.7 project.  It launches a Python application directly rather than using a runner.
   # A list of tags associated with the template.
   tags:
   - Python

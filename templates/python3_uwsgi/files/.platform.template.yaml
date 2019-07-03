@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Python 3 running UWSGI
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Python is a highly flexible and easy to use scripting language.
+  description: |
+    This template provides the most basic configuration for running a custom Python 2.7 project.  It launches the application using the UWSGI application runner.
   # A list of tags associated with the template.
   tags:
   - Python
@@ -34,7 +35,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Python 3"
+      content: "Python 3.7"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

@@ -23,7 +23,8 @@ info:
   # The human-readable name of the template.
   name: Wordpress
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: WordPress is the world's most widely used lightweight CMS and blogging tool.
+  description: |
+	This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.
   # A list of tags associated with the template.
   tags:
   - PHP

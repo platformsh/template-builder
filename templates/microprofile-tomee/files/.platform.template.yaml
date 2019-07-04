@@ -23,7 +23,7 @@ info:
   # The human-readable name of the template.
   name: Apache TomEE
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Eclipse MicroProfile by Apache TomEE
+  description: This project provides a starter kit for Apache TomEE Eclipse MicroProfile.
   # A list of tags associated with the template.
   tags:
   - Java

@@ -23,7 +23,7 @@ info:
   # The human-readable name of the template.
   name: Thorntail
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Eclipse MicroProfile by Thorntail
+  description: This project provides a starter kit for Thorntail Eclipse MicroProfile.
   # A list of tags associated with the template.
   tags:
   - Java

@@ -23,7 +23,7 @@ info:
   # The human-readable name of the template.
   name: Spring MVC, Maven, MongoDB
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: A Spring MVC with Maven and MongoDB
+  description: This project provides a starter kit for Spring MVC with MongoDB.
   # A list of tags associated with the template.
   tags:
   - Java

@@ -38,7 +38,7 @@ define('AUTH_SALT', 'SECURE_AUTH_SALT');
 
 ## Customizations
 
-The following changes have been made relative to Drupal 8 as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.
+The following changes have been made relative to WordPress as it is downloaded from WordPress.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * It uses the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress, which allow the site to be managed entirely with Composer.
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.

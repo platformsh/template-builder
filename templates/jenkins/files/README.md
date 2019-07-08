@@ -6,7 +6,7 @@ Jenkins is an open source automation server written in Java. Jenkins helps to au
 
 ## Customizations
 
-The following files and additions make the framework work.  If using this project as a reference for your own existing project, replicate the changes below to your project.
+The following files and additions make the Jenkins work.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * [`.platform/routes.yaml`](.platform/routes.yaml): Platform.sh allows you to define the [routes](https://docs.platform.sh/configuration/routes.html).
 * [`.platform/services.yaml`](.platform/services.yaml):  Platform.sh allows you to completely define and configure the topology and [services you want to use on your project](https://docs.platform.sh/configuration/services.html).

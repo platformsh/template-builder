@@ -24,8 +24,8 @@ info:
   name: Laravel
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database
-      and Redis for caching and sessions.
+      <p>This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions.</p>
+      <p>Laravel is an opinionated, integrated rapid-application-development framework for PHP.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

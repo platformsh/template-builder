@@ -24,7 +24,8 @@ info:
   name: Symfony 3
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
+      <p>This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.</p>
+      <p>Symfony is a high-performance loosely-coupled PHP web development framework.  Version 3 is the legacy support version.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

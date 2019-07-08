@@ -24,7 +24,8 @@ info:
   name: Sculpin
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      This template provides a basic Sculpin skeleton.  All files are generated at build time, so at runtime only static files need to be served.
+      <p>This template provides a basic Sculpin skeleton.  All files are generated at build time, so at runtime only static files need to be served.</p>
+      <p>Sculpin is a static site generator written in PHP and using the Twig templating engine.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

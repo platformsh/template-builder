@@ -24,7 +24,8 @@ info:
   name: Ruby on Rails
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template builds Ruby on Rails 5 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services.
+      <p>This template builds Ruby on Rails 5 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services.</p>
+      <p>Rails is an opinionated rapid application development framework written in Ruby.</p>
   # A list of tags associated with the template.
   tags:
   - Ruby

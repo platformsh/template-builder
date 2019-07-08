@@ -2,7 +2,7 @@
 
 This template builds a Moin Moin wiki on Platform.sh.  The project doesn't include Moin Moin itself; rather, it includes build and deploy scripts that will download Moin Moin on the fly.
 
-Moin Moin is a Python-based Wiki engine that uses flat files on disk for storage.
+Moin Moin is a Python-based Wiki system that uses flat files on disk for storage.
 
 ## Services
 

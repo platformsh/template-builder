@@ -1,6 +1,6 @@
 # Basic Python 3 with UWSGI for Platform.sh
 
-This template provides the most basic configuration for running a custom Python 2.7 project.  It launches the application using the UWSGI application runner.
+This template provides the most basic configuration for running a custom Python 3.7 project.  It launches the application using the UWSGI application runner.
 
 Python is a general purpose scripting language often used in web development.
 

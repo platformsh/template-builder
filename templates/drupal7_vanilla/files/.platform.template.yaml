@@ -24,7 +24,8 @@ info:
   name: Drupal 7 (Vanilla)
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template builds a Drupal 7 site, with the entire site committed to Git.
+    <p>This template builds a Drupal 7 site, with the entire site committed to Git.</p>
+    <p>Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

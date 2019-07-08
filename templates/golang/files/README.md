@@ -2,7 +2,7 @@
 
 This template provides the most basic configuration for running a custom Go project.
 
-Goi is a statically typed, compiled language with an emphasis on easy concurrency and network services.
+Go is a statically typed, compiled language with an emphasis on easy concurrency and network services.
 
 ## Services
 

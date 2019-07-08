@@ -24,7 +24,8 @@ info:
   name: Python 3 running UWSGI
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template provides the most basic configuration for running a custom Python 2.7 project.  It launches the application using the UWSGI application runner.
+      <p>This template provides the most basic configuration for running a custom Python 3.7 project.  It launches the application using the UWSGI application runner.</p>
+      <p>Python is a general purpose scripting language often used in web development.</p>
   # A list of tags associated with the template.
   tags:
   - Python

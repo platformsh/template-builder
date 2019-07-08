@@ -24,7 +24,8 @@ info:
   name: Basic PHP
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      This template provides the most basic configuration for running a custom PHP project.
+      <p>This template provides the most basic configuration for running a custom PHP project.</p>
+      <p>PHP is a high-performance scripting language especially well suited to web development.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

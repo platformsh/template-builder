@@ -24,7 +24,8 @@ info:
   name: Flask
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template builds a Flask project on Platform.sh, run natively without a separate runner.
+      <p>This template builds a Flask project on Platform.sh, run natively without a separate runner.</p>
+      <p>Flask is a lightweight web microframework for Python.</p>
   # A list of tags associated with the template.
   tags:
   - Python

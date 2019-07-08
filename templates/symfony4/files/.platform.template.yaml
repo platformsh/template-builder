@@ -24,8 +24,8 @@ info:
   name: Symfony 4
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      This template provides a basic Symfony 4 skeleton.  It is configured for Production mode by default so
-      the usual Symfony "welcome" page will not appear.  That can be adjusted in `.platform.app.yaml`.
+      <p>This template provides a basic Symfony 4 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.  That can be adjusted in `.platform.app.yaml`.</p>
+      <p>Symfony is a high-performance loosely-coupled PHP web development framework.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

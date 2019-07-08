@@ -24,7 +24,8 @@ info:
   name: Pyramid
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template builds Pyramid on Platform.sh.  It includes some basic example code to demonstrate how to connect to the database.
+      <p>This template builds Pyramid on Platform.sh.  It includes some basic example code to demonstrate how to connect to the database.</p>
+      <p>Pyramid is a web framework written in Python.</p>
   # A list of tags associated with the template.
   tags:
   - Python

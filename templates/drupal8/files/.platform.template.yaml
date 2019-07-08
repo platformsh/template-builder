@@ -24,9 +24,8 @@ info:
   name: Drupal 8
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    This template builds Drupal 8 using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project)
-    for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled
-    post-install in `.platform.app.yaml`.
+    <p>This template builds Drupal 8 using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.</p>
+    <p>Drupal is a flexible and extensible PHP-based CMS framework.</p>
 
   # A list of tags associated with the template.
   tags:

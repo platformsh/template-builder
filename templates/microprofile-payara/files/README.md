@@ -1,6 +1,6 @@
 # Payara Micro Maven for Platform.sh
 
-This project provides a starter kit for Payara Micro projects hosted on [Platform.sh](http://platform.sh).
+This project provides a starter kit for Payara Micro projects hosted on Platform.sh.
 
 Payara Micro is the open source, lightweight middleware platform of choice for containerized Java EE (Jakarta EE) microservices deployments.  Less than 70MB in size, Payara Micro requires no installation or configuration and no need for code rewrites  – so you can build and deploy a fully working app within minutes.
 

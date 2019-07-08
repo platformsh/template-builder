@@ -1,6 +1,6 @@
 # Jenkins for Platform.sh
 
-This project provides a starter kit for Jenkins projects hosted on [Platform.sh](http://platform.sh).
+This project provides a starter kit for Jenkins projects hosted on Platform.sh.
 
 Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery.
 

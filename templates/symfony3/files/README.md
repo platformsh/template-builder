@@ -2,6 +2,8 @@
 
 This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
 
+Symfony is a high-performance loosely-coupled PHP web development framework.  Version 3 is the legacy support version.
+
 ## Services
 
 * PHP 7.3
@@ -22,3 +24,9 @@ The following changes have been made relative to a plain Symfony 3 project.  If 
 * [`parameters_platform.php`](/app/config/parameters_platform.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and Elasticsearch connection parameters. You can add to it as needed.
 * [`parameters.yml.dist`](/app/config/parameters.yml.dist) - This file is modified so the install process can retrieve the database connection parameters, SwiftMailer can connect to the correct host and the initial data set is set to `minimal`.
 * Due to a bug in Doctrine, the database version must be specified explicitly in `parameters.yml` or this project will fail to deploy.  It is already set.  Remember to update this file if you change the database version used in `services.yaml`.
+
+## References
+
+* [Symfony](https://symfony.com/)
+* [Symfony on Platform.sh](https://docs.platform.sh/frameworks/symfony.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

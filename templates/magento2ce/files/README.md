@@ -2,6 +2,8 @@
 
 This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.
 
+Magneto is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.
+
 ## Services
 
 * PHP 7.2
@@ -21,3 +23,8 @@ The following changes have been made relative to Magento 2 as it is downloaded f
 * An additional front controller is included in `pub/static-versioned.php` to serve static files.
 * A custom deploy script, written in Python, is provided in the `deploy` file and called from the deploy hook in `.platform.app.yaml`.  The `deploy` script handles installing Magento on first run, including populating the administrator account.  It also handles Magento self-updates on normal point release updates.  Do not modify or remove this file.
 * The installer has been patched to not ask for information that is already provided by Platform.sh, such as database credentials, file paths, or the initial administrator account.  These changes should have no impact post-installation.  See the [patch file](https://github.com/platformsh/template-builder/blob/master/magento2ce/platformsh.patch) for details.
+
+## References
+
+* [Magento](https://magento.com/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

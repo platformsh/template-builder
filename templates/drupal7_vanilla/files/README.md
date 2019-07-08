@@ -2,6 +2,8 @@
 
 This template builds a Drupal 7 site, with the entire site committed to Git.
 
+Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.
+
 ## Services
 
 * PHP 7.2
@@ -21,3 +23,9 @@ The following changes have been made relative to Drupal 7 as it is downloaded fr
 * The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 * The `/docroot/sites/default/settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See [the documentation](https://docs.platform.sh/frameworks/drupal7.html) for more examples of common snippets to include here.
 * The `/docroot/sites/default/settings.php` file has been heavily customized to only define those values needed for both Platform.sh and local development.  It calls out to `settings.platformsh.php` if available.  You can add additional values as documented in `default.settings.php` as desired.  It is also setup such that when you install Drupal on Platform.sh the installer will not ask for database credentials as they will already be defined.
+
+## References
+
+* [Drupal](https://www.drupal.org/)
+* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal7.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

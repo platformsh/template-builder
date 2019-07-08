@@ -2,6 +2,8 @@
 
 This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.
 
+WordPress is a blogging and lightweight CMS written in PHP.
+
 ## Services
 
 * PHP 7.3
@@ -43,3 +45,9 @@ The following changes have been made relative to Drupal 8 as it is downloaded fr
 * The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * The `web/wp-config.php` file has been modified to use the Config Reader to configure WordPress based on Platform.sh environment variables if present.  If not, your own `wp-config-local.php` file will be loaded to configure the site for local development.
+
+## References
+
+* [WordPress](https://wordpress.org/)
+* [WordPress on Platform.sh](https://docs.platform.sh/frameworks/wordpress.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

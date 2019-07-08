@@ -2,6 +2,8 @@
 
 This template builds a Moin Moin wiki on Platform.sh.  The project doesn't include Moin Moin itself; rather, it includes build and deploy scripts that will download Moin Moin on the fly.
 
+Moin Moin is a Python-based Wiki engine that uses flat files on disk for storage.
+
 ## Services
 
 * Python 2.7
@@ -25,3 +27,8 @@ The following changes have been made relative to Moin Moin as it is downloaded f
 * The `setup/build.sh` script, run during the build hook, downloads Moin Moin and applies two patches to it.  `editlog.patch` and `eventlog.patch` modify the location of log files to be in a writeable directory.  If running Moin Moin locally, use this script to download and prepare it.
 * The `wikiconfig_local.py` file provides configuration for when Moin Moin is run locally.  Modify it as needed.
 * The `wikiserverconfig_local.py` file provides configuration for when Moin Moin is run on Platform.sh.  In particular it pulls the port on which to listen from the Platform.sh environment.
+
+## References
+
+* [Moin Moin](https://moinmo.in/)
+* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

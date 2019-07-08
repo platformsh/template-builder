@@ -2,6 +2,8 @@
 
 This template provides a basic Symfony 4 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.  That can be adjusted in `.platform.app.yaml`.
 
+Symfony is a high-performance loosely-coupled PHP web development framework.
+
 ## Services
 
 * PHP 7.3
@@ -20,3 +22,9 @@ The following changes have been made relative to a plain Symfony 4 project.  If 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 * An additional Composer library, [`platformsh/symfonyflex-bridge`](https://github.com/platformsh/symfonyflex-bridge), has been added.  It automatically maps Platform.sh's environment variables to Symfony environment variables where possible.  It leverages the [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php) library.
+
+## References
+
+* [Symfony](https://symfony.com/)
+* [Symfony on Platform.sh](https://docs.platform.sh/frameworks/symfony.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

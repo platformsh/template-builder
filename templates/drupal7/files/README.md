@@ -2,6 +2,8 @@
 
 This template builds a Drupal 7 site using Drush make.
 
+Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.
+
 ## Services
 
 * PHP 7.2
@@ -26,3 +28,9 @@ The following files are of particular importance.  If using this project as a re
 The top-level `libraries`, `modules`, and `themes` directories are optional; they are where you would put any custom or forked libraries, modules, or themes that you want to include in your project when it gets built by Drush make.  Modules or themes from Drupal.org that you want to use unmodified should be specified in the `project.make` file instead.
 
 The top-level `settings.php` and `settings.platformsh.php` files will be automatically moved to `public/sites/default` by the `drupal` build flavor, where Drupal can find them.
+
+## References
+
+* [Drupal](https://www.drupal.org/)
+* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal7.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

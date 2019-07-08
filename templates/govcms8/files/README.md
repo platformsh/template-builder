@@ -2,6 +2,8 @@
 
 This template builds the Australian government's GovCMS Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.
 
+GovCMS is a Drupal distribution built for the Australian government, and includes configuration optimized for managing government websites.
+
 ## Services
 
 * PHP 7.2
@@ -24,3 +26,10 @@ The following changes have been made relative to Drupal 8 / GovCMS as it is down
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * The `settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See the documentation for more examples of common snippets to include here.  It uses the Config Reader library.
 * The `settings.php` file has been heavily customized to only define those values needed for both Platform.sh and local development.  It calls out to `settings.platformsh.php` if available.  You can add additional values as documented in `default.settings.php` as desired.  It is also setup such that when you install Drupal on Platform.sh the installer will not ask for database credentials as they will already be defined.
+
+## References
+
+* [Drupal](https://www.drupal.org/)
+* [GovCMS](https://www.govcms.gov.au/)
+* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal8.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

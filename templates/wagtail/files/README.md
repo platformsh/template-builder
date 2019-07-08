@@ -2,6 +2,8 @@
 
 This template builds the Wagtail CMS on Platform.sh, using the gunicorn application runner.
 
+Wagtail is a web CMS built using the Django framework for Python.
+
 ## Services
 
 * Python 3.7
@@ -31,3 +33,8 @@ The following files have been added to a basic Django configuration.  If using t
 * The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 * An additional Pip library, [`platformshconfig`](https://github.com/platformsh/config-reader-python), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * A rudimentary `myapp` application is included for demonstration purposes.  In particular, the `settings.py` file is set up to configure Django to connect to the correct database, and run in Debug mode when not running the `master` branch.  You are free to change that configuration if you prefer.
+
+## References
+
+* [Wagtail](https://wagtail.io/)
+* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

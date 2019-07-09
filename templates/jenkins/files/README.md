@@ -8,6 +8,19 @@ Jenkins is an open source automation server written in Java. Jenkins helps to au
 
 * Java 8
 
+## Post-install
+
+1. After running a Jenkins instance by Platform.sh, the post-installation setup wizard begins.
+2. When you first access a new Jenkins instance, you are asked to unlock it using an automatically-generated password.
+3. Browse to the Jenkins service link and wait until the Unlock Jenkins page appears.
+4. From the Jenkins console log output, copy the automatically-generated alphanumeric password 
+5. Access the Jenkins instance with the (ssh command)[https://docs.platform.sh/development/access-site.html#accessing-the-application-with-ssh]
+6. Read the information from the file `/app/.jenkins/secrets/initialAdminPassword` with the following command:
+```shell
+cat /app/.jenkins/secrets/initialAdminPassword
+```
+7. On the Unlock Jenkins page, paste this password into the Administrator password field and click Continue.
+
 ## Customizations
 
 The following files and additions make the Jenkins work.  If using this project as a reference for your own existing project, replicate the changes below to your project.

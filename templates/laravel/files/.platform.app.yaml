@@ -39,6 +39,7 @@ mounts:
   "storage/framework/cache": "shared:files/cache"
   "storage/logs": "shared:files/logs"
   "bootstrap/cache": "shared:files/bootstrap/cache"
+  "/.config": "shared:files/config"
 
 # The configuration of app when it is exposed to the web.
 web:

@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Apache TomEE Eclipse MicroProfile projects hosted on Platform.sh.</p>
-     <p>Apache TomEE is the Eclipse MicroProfile flavor that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.</p> 
+     <p>Apache TomEE is the Eclipse MicroProfile  implementation that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.</p>
   # A list of tags associated with the template.
   tags:
   - Java

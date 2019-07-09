@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Payara Micro projects hosted on Platform.sh.</p>
-     <p>Payara Micro is an open source, lightweight middleware of choice for containerized Java EE (Jakarta EE) microservices deployments.</p> 
+     <p>Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices deployments.</p> 
   # A list of tags associated with the template.
   tags:
   - Java

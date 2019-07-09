@@ -2,7 +2,7 @@
 
 This project provides a starter kit for Spring MVC Maven with MongoDB projects hosted on Platform.sh.
 
-The Spring Framework is an application framework and inversion of control container for the Java platform. The framework's core features can be used by any Java application, but there are extensions for building web applications on top of the Jakarta EE platform. Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+The Spring Framework is an application framework and inversion of control container for the Java platform.
 
 ## Services
 

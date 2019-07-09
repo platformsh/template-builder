@@ -2,7 +2,7 @@
 
 This project provides a starter kit for Payara Micro projects hosted on Platform.sh.
 
-Payara Micro is an open source, lightweight middleware of choice for containerized Java EE (Jakarta EE) microservices deployments.
+Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices deployments.
 
 ## Services
 

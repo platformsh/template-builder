@@ -2,7 +2,7 @@
 
 This project provides a starter kit for Apache TomEE Eclipse MicroProfile projects hosted on Platform.sh.
 
-Apache TomEE is the Eclipse MicroProfile flavor that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.
+Apache TomEE is the Eclipse MicroProfile  implementation that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.
 
 ## Services
 

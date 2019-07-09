@@ -23,5 +23,4 @@ The following files and additions make the framework work.  If using this projec
 * [Maven](https://maven.apache.org/)
 * [Payara Micro](https://www.payara.fish/software/payara-server/payara-micro/)
 * [Eclipse MicroProfile](https://microprofile.io/) 
-* [Platform Documentation](https://docs.platform.sh/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

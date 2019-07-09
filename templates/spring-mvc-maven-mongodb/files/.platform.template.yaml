@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Spring MVC, Maven, MongoDB
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: This project provides a starter kit for Spring MVC with MongoDB.
+  description: |
+    <p>This project provides a starter kit for Spring MVC Maven with MongoDB projects hosted on Platform.sh.</p>
+    <p>The Spring Framework is an application framework and inversion of control container for the Java platform. The framework's core features can be used by any Java application, but there are extensions for building web applications on top of the Jakarta EE platform. Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".</p> 
   # A list of tags associated with the template.
   tags:
   - Java

@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Jenkins
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: This project provides a starter kit for Jenkins projects.
+  description: |
+     <p>This project provides a starter kit for Jenkins projects hosted on Platform.sh.</p>
+     <p>Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery.</p>
   # A list of tags associated with the template.
   tags:
   - Java

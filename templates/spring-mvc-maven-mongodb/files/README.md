@@ -24,6 +24,5 @@ The following files and additions make the framework work.  If using this projec
 * [Maven](https://maven.apache.org/)
 * [Spring-Boot](https://spring.io/projects/spring-boot)
 * [Spring-MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) 
-* [Platform Documentation](https://docs.platform.sh/)
 * [MongoDB](https://www.mongodb.com/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

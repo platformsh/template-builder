@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Payara Micro
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Eclipse MicroProfile by Payara Micro
+  description: |
+     <p>This project provides a starter kit for Payara Micro projects hosted on Platform.sh.</p>
+     <p>Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices deployments.</p> 
   # A list of tags associated with the template.
   tags:
   - Java

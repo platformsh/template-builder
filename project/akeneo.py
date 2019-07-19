@@ -8,4 +8,5 @@ class Akeneo(RemoteProject):
     @property
     def platformify(self):
         return super(Akeneo, self).platformify + [
-                'cd {0} && composer require platformsh/config-reader --no-scripts'.format(self.builddir),]
+                'cd {0} && composer require platformsh/config-reader --no-scripts --ignore-platform-reqs'.format(
+                    self.builddir),]

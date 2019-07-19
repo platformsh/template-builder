@@ -22,5 +22,5 @@ The following files and additions make the framework work.  If using this projec
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Apache TomEE](https://tomee.apache.org/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Eclipse MicroProfile](https://microprofile.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

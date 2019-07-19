@@ -18,4 +18,3 @@ class Rails(BaseProject):
             'cd {0} && mv config/database.yml config/database.yml.example'.format(self.builddir),
 
         ]
-

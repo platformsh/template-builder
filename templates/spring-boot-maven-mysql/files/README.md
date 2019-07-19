@@ -22,5 +22,5 @@ The following files and additions make the framework work.  If using this projec
 
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
-* [Spring-Boot](https://spring.io/projects/spring-boot) 
+* [Spring-Boot](https://spring.io/projects/spring-boot)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

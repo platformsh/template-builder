@@ -16,5 +16,5 @@ class Rails(BaseProject):
             'cd {0} && bundle add unicorn pg platform_sh_rails --group "production" --skip-install'.format(self.builddir),
             'cd {0} && echo config/database.yml >> .gitignore'.format(self.builddir),
             'cd {0} && mv config/database.yml config/database.yml.example'.format(self.builddir),
-
+            'cd {0} && rm .ruby-version'.format(self.builddir),
         ]

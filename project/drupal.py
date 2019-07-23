@@ -24,7 +24,7 @@ class Drupal8(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} /build && composer require platformsh/config-reader drupal/redis'.format(
+            'cd {0} /build && composer require platformsh/config-reader drupal/redis --ignore-platform-reqs'.format(
                 self.builddir)
         ]
 
@@ -59,5 +59,5 @@ class Govcms8(RemoteProject):
 
         return super(Govcms8, self).platformify + [
             (govcms8_add_installer_paths, []),
-            'cd {0} && composer require govcms/govcms'.format(self.builddir)
+            'cd {0} && composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
         ]

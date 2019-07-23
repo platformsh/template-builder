@@ -37,5 +37,5 @@ class Wordpress(RemoteProject):
             'rm -rf {0}/wordpress'.format(self.builddir)
         ] + super(Wordpress, self).platformify + [
             (wp_add_installer_paths, []),
-            'cd {0} && composer update'.format(self.builddir),
+            'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
         ]

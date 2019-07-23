@@ -10,7 +10,7 @@ class Drupal7_vanilla(BaseProject):
     @property
     def update(self):
         return super(Drupal7_vanilla, self).update + [
-            "wget -qO- https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz | tar xzv --transform 's/^drupal-{0}/docroot/' -C {1}".format(
+            "wget -qO- https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz | tar xzv --transform 's/^drupal-{0}/public/' -C {1}".format(
                 self.version, self.builddir),
         ]
 

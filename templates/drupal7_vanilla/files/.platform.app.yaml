@@ -36,7 +36,7 @@ web:
             # The folder from which to serve static assets, for this location.
             #
             # This is a filesystem path, relative to the application root.
-            root: 'docroot'
+            root: 'public'
 
             # How long to allow static assets from this location to be cached.
             #
@@ -95,11 +95,11 @@ hooks:
     # We run deploy hook after your application has been deployed and started.
     deploy: |
         set -e
-        cd docroot
+        cd public
         drush -y updatedb
 
     # The configuration of scheduled execution.
 crons:
     drupal:
         spec: '*/20 * * * *'
-        cmd: 'cd docroot ; drush core-cron'
+        cmd: 'cd public ; drush core-cron'

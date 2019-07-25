@@ -1,0 +1,20 @@
+{
+  "name": "template-express",
+  "version": "1.0.0",
+  "description": "Example ExpressJS project for Platform.sh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/platformsh/template-express.git"
+  },
+  "author": "Platform.sh",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^1.6.5",
+    "platformsh-config": "^2.0.0"
+  }
+}

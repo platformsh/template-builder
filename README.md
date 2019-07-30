@@ -27,10 +27,11 @@ Each project is its own directory under `templates`, which corresponds to a `tem
         ...
       fix1.patch
       fix2.patch
+      .platform.template.yaml
       build/
 ```
 
-Only the `files` directory and patches are checked into Git.  The `build` directory is an artifact and excluded.
+Only the `files` directory, patches, and `.platform.template.yaml` are checked into Git.  The `build` directory is an artifact and excluded.
 
 The `files` directory contains all the files that should be added wholesale to the upstream source of `spiffy`.  The patches will be applied to the the source to modify it.  Patches are optional and `files` could be as simple as just the Platform.sh configuration files, or it could be the entire repository with no upstream at all.
 
@@ -78,7 +79,7 @@ Let's use the previous example: you have created a new application that uses the
 5. Each template project is in its own directory within `templates`, which corresponds to a GitHub repository with the `template-` prefix. Create the directories `templates/spiffy` and `templates/spiffy/files/` on the `add-spiffy` branch.
 6. Add only the files for `template-spiffy` into `templates/spiffy/files`, as dependency downloads and linking to an upstream repository can be handled by the Python build process. For example, the Drupal 8 template links to its upstream [here](https://github.com/platformsh/template-builder/blob/new-template-instructions/project/drupal.py). If your application requires any patches to deploy on Platform.sh, copy them into `templates/spiffy/`.
 7. Include or update the `README.md` so that it is similar to other templates. Address any information specific to running the application on Platform.sh you think the customer should know.
-8. Each template comes with a file called `.platform.templates.yaml`, which is used to define how the template repository will appear in and initialize from the management console. Take a look at how the file is written for the [Drupal 8 template](https://github.com/platformsh/template-builder/blob/new-template-instructions/templates/drupal8/files/.platform.template.yaml) as an example.
+8. Each template comes with a file called `.platform.template.yaml`, which is used to define how the template repository will appear in and initialize from the management console. See the example in the [external templates](https://github.com/platformsh/templates-external/blob/master/template-definition.yaml) repo for instructions.
 
     > **Note:** To create the image URI representing the template, find a svg formatted logo for Spiffy, [create a data URL](https://dataurl.sveinbjorn.org/#dataurlmaker) of that image and paste the output into `image:`.
 

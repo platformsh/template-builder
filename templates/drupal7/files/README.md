@@ -1,51 +1,36 @@
-# Drupal 7.x template for Platform.sh
+# Drupal 7 for Platform.sh
 
-This project provides a starter kit for Drupal 7 projects hosted on Platform.sh.
+This template builds a Drupal 7 site using Drush make.
 
-This example is based on using the Drush Make build profile.
+Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.
 
-You can see there is not much in terms of files committed to this repository. You can learn (much) more on [Platform.sh Drupal Hosting Documentation](https://docs.platform.sh/frameworks/drupal7.html)
+## Services
 
+* PHP 7.2
+* MariaDB 10.2
 
-## Starting a new project
+## Post-install
 
-To start a new Drupal 7 project on Platform.sh, you have 2 options:
+1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
 
-1. Create a new project through the Platform.sh user interface and select "start new project from a template". Then select Drupal 7 as the template. That will create a new project using this repository as a starting point.
+2. Once Drupal is fully installed, We strongly recommend switching to Redis-based caching.  See [the documentation](https://docs.platform.sh/frameworks/drupal7/redis.html) for instructions on how to do so.
 
-2. Take an existing project, add the necessary Platform.sh files, and push it to a Platform.sh Git repository. This template includes examples of how to set up a Drupal 7 site using Drush.
+## Customizations
 
-## Using as a reference
+The following files are of particular importance.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
+* The `project.make` file is the Drush make file that controls the installation of Drupal.  Modify this file to set the version of Drupal and the modules and themes to install.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* The `settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See [the documentation](https://docs.platform.sh/frameworks/drupal7.html) for more examples of common snippets to include here.
+* The `settings.php` file has been heavily customized to only define those values needed for both Platform.sh and local development.  It calls out to `settings.platformsh.php` if available.  You can add additional values as documented in `default.settings.php` as desired.  It is also setup such that when you install Drupal on Platform.sh the installer will not ask for database credentials as they will already be defined.
 
-You can also use this repository as a reference for your own Drupal projects, and
-borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
-
-Also see:
-
-* [`settings.php`](/settings.php) - The customized `settings.php` file works for both Platform.sh and local development, setting only those values that are needed in both.  You can add additional values as documented in `default.settings.php` as desired.
-* [`settings.platformsh.php`](/settings.platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Drupal configuration.  You can add to it as needed. See [the documentation](https://docs.platform.sh/frameworks/drupal7.html) for more examples of common snippets to include here.
-
-## Repository structure
-
-This is the whole layout of the repository (it will still make for a perfectly functional web site on [Platform.sh](http://platform.sh)!):
-
-```
-.platform/
-        routes.yaml
-        services.yaml
-libraries/
-        README.txt
-modules/
-        README.txt
-themes/
-        README.txt
-.platform.app.yaml
-project.make
-```
-
-The `.platform` directory and `.platform.app.yaml` file are the Platform.sh-specific configuration.  Please see the [documentation](https://docs.platform.sh/) for more information on those.
-
-The `libraries`, `modules`, and `themes` directories are optional; they are where you would put any custom or forked libraries, modules, or themes that you want to include in your project when it gets built by Drush make.  Modules or themes from Drupal.org that you want to use unmodified should be specified in the `project.make` file instead.
+The top-level `libraries`, `modules`, and `themes` directories are optional; they are where you would put any custom or forked libraries, modules, or themes that you want to include in your project when it gets built by Drush make.  Modules or themes from Drupal.org that you want to use unmodified should be specified in the `project.make` file instead.
 
 The top-level `settings.php` and `settings.platformsh.php` files will be automatically moved to `public/sites/default` by the `drupal` build flavor, where Drupal can find them.
+
+## References
+
+* [Drupal](https://www.drupal.org/)
+* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal7.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

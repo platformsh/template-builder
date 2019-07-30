@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Drupal 7
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Drupal is a highly-customizable free software PHP CMS that allows you to easily organize, manage and publish your content.
+  description: |
+    <p>This template builds a Drupal 7 site using Drush make.</p>
+    <p>Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.</p>
   # A list of tags associated with the template.
   tags:
   - PHP
@@ -36,7 +38,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.1<br/>MySQL 10.2"
+      content: "PHP 7.2<br/>MySQL 10.2"
 
 
 # This key describes the initialization call made to the master environment at

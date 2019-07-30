@@ -14,7 +14,7 @@ class Symfony3(RemoteProject):
             # change that requirement to 7.2 and be done with it.
             'cd {0} && composer config platform.php 7.2'.format(
                 self.builddir),
-            'cd {0} && composer require platformsh/config-reader'.format(
+            'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
                 self.builddir),
         ]
 
@@ -26,6 +26,6 @@ class Symfony4(RemoteProject):
     @property
     def platformify(self):
         return super(Symfony4, self).platformify + [
-            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1'.format(
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
                 self.builddir)
         ]

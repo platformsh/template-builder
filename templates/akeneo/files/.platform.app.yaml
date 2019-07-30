@@ -6,7 +6,6 @@ name: app
 # The toolstack used to build the application.
 type: php:7.2
 
-
 # Enable non-default extensions required by Akeneo
 runtime:
     extensions:

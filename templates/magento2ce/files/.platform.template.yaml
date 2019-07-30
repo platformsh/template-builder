@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Magento 2 Community Edition
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Magento is an open-source e-commerce platform written in PHP.
+  description: |
+      <p>This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.</p>
+      <p>Magneto is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

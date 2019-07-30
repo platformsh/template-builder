@@ -10,8 +10,10 @@ class Drupal7_vanilla(BaseProject):
     @property
     def update(self):
         return super(Drupal7_vanilla, self).update + [
-            "wget -qO- https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz | tar xzv --transform 's/^drupal-{0}/docroot/' -C {1}".format(
-                self.version, self.builddir),
+            "wget https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz && tar xzvf drupal-{0}.tar.gz -C {1}".format(self.version, self.builddir),
+            "rm drupal-{0}.tar.gz".format(self.version),
+            "cp -r {0}drupal-{1}/* {0}public".format(self.builddir, self.version),
+            "rm -rf {0}drupal-{1}".format(self.builddir, self.version),
         ]
 
 
@@ -22,7 +24,7 @@ class Drupal8(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} /build && composer require platformsh/config-reader drupal/redis'.format(
+            'cd {0} /build && composer require platformsh/config-reader drupal/redis --ignore-platform-reqs'.format(
                 self.builddir)
         ]
 
@@ -57,5 +59,5 @@ class Govcms8(RemoteProject):
 
         return super(Govcms8, self).platformify + [
             (govcms8_add_installer_paths, []),
-            'cd {0} && composer require govcms/govcms'.format(self.builddir)
+            'cd {0} && composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
         ]

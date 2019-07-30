@@ -21,9 +21,11 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/akeneo
   # The human-readable name of the template.
-  name: Akeneo PIM
+  name: Akeneo PIM Community Edition
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Akeneo PIM Community Standard Edition
+  description: |
+      <p>This template builds the Akeneo PIM system for Platform.sh.  It requires at least a Medium plan as it uses a Worker instance for queue processing.</p>
+      <p>Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

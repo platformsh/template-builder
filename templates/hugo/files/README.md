@@ -1,31 +1,28 @@
-# Hugo template for Platform.sh
+# Hugo for Platform.sh
 
-This project provides a starter kit for Hugo projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This template provides a basic Hugo skeleton.  All files are generated at build time, so at runtime only static files need to be served.
 
-If you want to change the theme of the Hugo template, consult that theme's documentation and either add the theme as a git submodule:
+Hugo is a static site generator written in Go, using Go's native template packages for formatting.
 
-```sh
-git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
-```
+## Services
 
-Or you can also the theme in your `themes` folder. To enable the theme and add its default configuration, modify `config.toml` to the settings as documented.
+* Go 1.12
 
-## Starting a new project
+## Post-install
 
-To start a new project based on this template, follow these 3 simple steps:
+The `content` directory includes two pieces of sample content, provided so that the initial install has some content to show.  Replace it with your actual content as desired.
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
+You can also remove the `minimal` theme if you so desire and replace it with one you download or one you create yourself.
 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+## Customizations
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+The following changes have been made relative to Drupal 8 as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-That's it!  You now have a working "hello world" level project you can build on.
-
-## Using as a reference
-
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* The `minimal` theme has been included by default.  Feel free to remove it and replace with your own if you prefer.  Consult the Hugo documentation for instructions on how to add and enable themes.
 
 ## References
 
 * [Hugo](https://gohugo.io/)
+* [Go on Platform.sh](https://docs.platform.sh/languages/go.html)

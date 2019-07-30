@@ -1,19 +1,21 @@
-# Sculpin template for Platform.sh
+# Sculpin for Platform.sh
 
-This project provides a starter kit for Sculpin projects hosted on Platform.sh.
+This template provides a basic Sculpin skeleton.  All files are generated at build time, so at runtime only static files need to be served.
 
-## Starting a new project
+Sculpin is a static site generator written in PHP and using the Twig templating engine.
 
-To start a new project based on this template, follow these 3 simple steps:
+## Services
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+* PHP 7.3
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+## Customizations
 
-That's it!  You now have a working "hello world" level project you can build on.
+The following changes have been made relative to a plain Sculpin project.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-## Using as a reference
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+## References
+
+* [Sculpin](https://sculpin.io/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

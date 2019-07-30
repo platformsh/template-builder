@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Hugo
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: A simple Hugo static site written in Go.
+  description: |
+      <p>This template provides a basic Hugo skeleton.  All files are generated at build time, so at runtime only static files need to be served.</p>
+      <p>Hugo is a static site generator written in Go, using Go's native template packages for formatting.</p>
   # A list of tags associated with the template.
   tags:
   - Hugo

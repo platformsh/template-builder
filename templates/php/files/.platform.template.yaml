@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Basic PHP
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: PHP is the world's fastest, most widely used server-side web language.
+  description: |
+      <p>This template provides the most basic configuration for running a custom PHP project.</p>
+      <p>PHP is a high-performance scripting language especially well suited to web development.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

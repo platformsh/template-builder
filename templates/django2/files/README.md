@@ -1,25 +1,24 @@
-# Django 2 LTS template for Platform.sh
+# Django 2 for Platform.sh
 
-This project provides a starter kit for Django projects hosted on Platform.sh. It is primarily an example, although could be used as the starting point for a real project.
+This template builds Django 2 on Platform.sh, using the gunicorn application runner.
 
-Notice specifically the `settings.py` where we read some of the environment variables and configure Django
-to connect to the correct database, and run in Debug mode when not running the `master` branch.
+Django is a Python-based web application framework with a built-in ORM.
 
-In this example we are running Django with Gunicorn. You can check-out other examples to see it run with
-other application servers.
+## Services
 
-## Starting a new project
+* Python 3.7
+* PostgreSQL 10
 
-To start a new project based on this template, follow these 3 simple steps:
+## Customizations
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+The following files have been added to a basic Django configuration.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Pip library, [`platformshconfig`](https://github.com/platformsh/config-reader-python), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* A rudimentary `myapp` application is included for demonstration purposes.  In particular, the `settings.py` file is set up to configure Django to connect to the correct database, and run in Debug mode when not running the `master` branch.  You are free to change that configuration if you prefer.
 
-That's it!  You now have a working "hello world" level project you can build on.
+## References
 
-## Using as a reference
-
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+* [Django](https://www.djangoproject.com/)
+* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

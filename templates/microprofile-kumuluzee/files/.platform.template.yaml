@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: KumuluzEE
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Eclipse MicroProfile by KumuluzEE
+  description: |
+     <p>This project provides a starter kit for KumuluzEE Eclipse MicroProfile projects hosted on Platform.sh.</p>
+     <p>KumuluzEE is a lightweight framework for developing microservices using standard Java, Java EE / Jakarta EE technologies and migrating existing Java applications to microservices. KumuluzEE packages microservices as standalone JARs. KumuluzEE microservices are lightweight and optimized for size and start-up time.</p>
   # A list of tags associated with the template.
   tags:
   - Java

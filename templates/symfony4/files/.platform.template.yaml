@@ -23,7 +23,9 @@ info:
   # The human-readable name of the template.
   name: Symfony 4
   # Human-readable descriptive text for the template. Supports limited HTML.
-  description: Symfony is a loosely coupled PHP web application framework.
+  description: |
+      <p>This template provides a basic Symfony 4 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.  That can be adjusted in `.platform.app.yaml`.</p>
+      <p>Symfony is a high-performance loosely-coupled PHP web development framework.</p>
   # A list of tags associated with the template.
   tags:
   - PHP
@@ -36,7 +38,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.2<br/>MySQL 10.2"
+      content: "PHP 7.3<br/>MySQL 10.2"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

@@ -21,13 +21,8 @@ async function mariadbTest() {
 
         results[0] = `Connected to MariaDB at ${credentials.host}.`
 
-        // Add the table.
-        tableName = "userinfo";
-
-        let sql = '';
-
         // Create a table.
-        sql = `CREATE TABLE IF NOT EXISTS ${tableName} (
+        let sql = `CREATE TABLE IF NOT EXISTS userinfo (
           uid INT(10) NOT NULL AUTO_INCREMENT,
           username VARCHAR(64) NULL DEFAULT NULL,
           departname VARCHAR(128) NULL DEFAULT NULL,
@@ -37,18 +32,15 @@ async function mariadbTest() {
 
         await connection.query(sql);
 
-        results[1] = `Created table "${tableName}".`;
+        results[1] = "Created table 'userinfo'.";
 
         // Insert data.
-        values = `(username, departname, created)`;
-        newRow = `('platform', 'Deploy Friday', '2019-06-17')`;
-
-        sql = `INSERT INTO ${tableName} ${values} VALUES ${newRow};`
+        sql = "INSERT INTO userinfo (username, departname, created) VALUES ('platform', 'Deploy Friday', '2019-06-17')";
 
         await connection.query(sql);
 
         // Read the data.
-        sql = `SELECT * FROM ${tableName}`;
+        sql = "SELECT * FROM userinfo";
         let [rows] = await connection.query(sql);
 
         let output = '';
@@ -65,10 +57,8 @@ async function mariadbTest() {
         results[2] = output;
 
         // Drop the table.
-        sql = `DROP TABLE ${tableName}`;
+        sql = "DROP TABLE userinfo";
         await connection.query(sql);
-
-        results[3] = `Dropped table "${tableName}".`
 
         return results;
 
@@ -79,9 +69,7 @@ async function mariadbTest() {
 
 app.use(async function(ctx) {
 
-  var results = [];
-
-  await mariadbTest().then(function(result) { results = result;});
+  let results = await mariadbTest();
 
   outputString = `Hello, World! - A simple Koa web framework template for Platform.sh
 
@@ -96,9 +84,6 @@ MariaDB Tests:
 
 * Add row to table and verify:
 ${results[2]}
-
-* Drop table:
-  - ${results[3]}
 `;
 
   ctx.body = outputString;

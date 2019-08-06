@@ -28,28 +28,28 @@ async function mariadbTest() {
         let sql = '';
 
         // Create a table.
-        sql = `CREATE TABLE IF NOT EXISTS ${tableName} (
+        sql = `CREATE TABLE IF NOT EXISTS userinfo (
           uid INT(10) NOT NULL AUTO_INCREMENT,
           username VARCHAR(64) NULL DEFAULT NULL,
           departname VARCHAR(128) NULL DEFAULT NULL,
           created DATE NULL DEFAULT NULL,
           PRIMARY KEY (uid)
-          ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;`;
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;`;
 
         await connection.query(sql);
 
-        results[1] = `Created table "${tableName}".`;
+        results[1] = "Created table 'userinfo'.";
 
         // Insert data.
         values = `(username, departname, created)`;
         newRow = `('platform', 'Deploy Friday', '2019-06-17')`;
 
-        sql = `INSERT INTO ${tableName} ${values} VALUES ${newRow};`
+        sql = "INSERT INTO userinfo (username, departname, created) VALUES ('platform', 'Deploy Friday', '2019-06-17')"
 
         await connection.query(sql);
 
         // Read the data.
-        sql = `SELECT * FROM ${tableName}`;
+        sql = "SELECT * FROM userinfo";
         let [rows] = await connection.query(sql);
 
         let output = '';
@@ -66,10 +66,8 @@ async function mariadbTest() {
         results[2] = output;
 
         // Drop the table.
-        sql = `DROP TABLE ${tableName}`;
+        sql = "DROP TABLE userinfo";
         await connection.query(sql);
-
-        results[3] = `Dropped table "${tableName}".`
 
         return results;
 
@@ -81,11 +79,9 @@ async function mariadbTest() {
 // Define the main route.
 app.get('/', async function(req, res){
 
-  var results = [];
+  let results = await mariadbTest();
 
-  await mariadbTest().then(function(result) { results = result;});
-
-  outputString = `Hello, World! - A simple ExpressJS web framework template for Platform.sh
+  outputString = `Hello, World! - A simple Express web framework template for Platform.sh
 
 
 MariaDB Tests:
@@ -98,9 +94,6 @@ MariaDB Tests:
 
 * Add row to table and verify:
 ${results[2]}
-
-* Drop table:
-  - ${results[3]}
 `;
 
   res.set('Content-Type', 'text/plain');

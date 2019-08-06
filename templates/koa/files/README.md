@@ -2,8 +2,6 @@
 
 This template builds a Koa project on Platform.sh.
 
-Koa is a lightweight web framework for Node.js.
-
 ## Services
 
 * Node.js 10

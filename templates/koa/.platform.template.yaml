@@ -25,7 +25,6 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds a Koa project on Platform.sh.</p>
-      <p>Koa is a lightweight web microframework for Node.js.</p>
   # A list of tags associated with the template.
   tags:
   - Node.js

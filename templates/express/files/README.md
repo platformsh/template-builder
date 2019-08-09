@@ -2,6 +2,8 @@
 
 This template builds the Express framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
+Express is a minimalist web framework written in Node.js.
+
 ## Services
 
 * Node.js 10

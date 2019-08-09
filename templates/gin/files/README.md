@@ -1,4 +1,4 @@
-# Echo for Platform.sh
+# Gin for Platform.sh
 
 This template builds the Gin framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 

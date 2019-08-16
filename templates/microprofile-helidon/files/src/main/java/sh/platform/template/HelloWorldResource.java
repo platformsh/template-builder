@@ -12,6 +12,6 @@ public class HelloWorldResource {
     @GET
     @Produces("text/plain")
     public String doGet() {
-        return "hello from Platform.sh";
+        return "Hello world - a simple Microprofile Helidon template for Platform.sh";
     }
 }

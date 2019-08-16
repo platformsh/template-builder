@@ -12,6 +12,6 @@ public class HelloWorldResource {
     @GET
     @Produces("text/plain")
     public String doGet() {
-        return Hello world - a simple Microprofile Open Liberty template for Platform.sh;
+        return "Hello world - a simple Microprofile Open Liberty template for Platform.sh";
     }
 }

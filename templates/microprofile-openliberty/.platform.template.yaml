@@ -24,6 +24,7 @@ info:
   name: Open Liberty
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
+     <p>This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.</p>
      <p>Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.</p>
   # A list of tags associated with the template.
   tags:

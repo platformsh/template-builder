@@ -1,6 +1,6 @@
 # Beego for Platform.sh
 
-This template builds the BeeGo framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
+This template builds the Beego framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
 Beego is a popular web framework written in Go.
 

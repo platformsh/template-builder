@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/microprofile-helidon
   # The human-readable name of the template.
-  name: microprofile-helidon
+  name: Helidon
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.</p>

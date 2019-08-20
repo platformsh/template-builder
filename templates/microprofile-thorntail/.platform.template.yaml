@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Thorntail Eclipse MicroProfile projects hosted on Platform.sh.</p>
-     <p>Thorntail offers an innovative approach to packaging and running Java EE applications by packaging them with just enough of the server runtime to "java -jar" your application. It's MicroProfile compatible, too.</p>   
+     <p>Thorntail offers an innovative approach to packaging and running Java EE applications by packaging them with just enough of the server runtime to "java -jar" your application. It's MicroProfile compatible, too.</p>
   # A list of tags associated with the template.
   tags:
   - Java

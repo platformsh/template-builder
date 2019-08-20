@@ -24,7 +24,7 @@ info:
   name: Beego
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template builds the BeeGo framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.</p>
+      <p>This template builds the Beego framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.</p>
       <p>Beego is a popular web framework written in Go.</p>
   # A list of tags associated with the template.
   tags:

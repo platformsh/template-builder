@@ -29,7 +29,6 @@ info:
   # A list of tags associated with the template.
   tags:
   - Go
-  - Hugo
   - CMS
   - Static Site Generator
 

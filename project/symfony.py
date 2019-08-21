@@ -12,7 +12,7 @@ class Symfony3(RemoteProject):
             # Of PHP 5.6, for no good reason, even though it depends on Doctrine, which
             # requires PHP 7.1.  Since we're guaranteeing a PHP 7.2 environment, just
             # change that requirement to 7.2 and be done with it.
-            'cd {0} && composer config platform.php 7.2'.format(
+            'cd {0} && composer config platform.php 7.3'.format(
                 self.builddir),
             'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
                 self.builddir),

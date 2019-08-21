@@ -11,7 +11,7 @@ class Akeneo(RemoteProject):
 
         def akeneo_modify_composer():
             """
-            akeneo requires PHP 7.2, but on of it's dependency ocramius/package-versions requires 7.3 with the previous
+            akeneo/pim-community-standard requires PHP 7.2, but it's dependency ocramius/package-versions requires 7.3 with the previous
             default configuration (1.5.1). This resolves that problem.
             """
             with open('{0}/composer.json'.format(self.builddir), 'r') as f:
@@ -21,7 +21,7 @@ class Akeneo(RemoteProject):
             composer['require']['ocramius/package-versions'] = ">=1.4.0 <1.5.0"
 
             with open('{0}/composer.json'.format(self.builddir), 'w') as out:
-                json.dump(composer, out, indent=2)
+                json.dump(composer, out, indent=4)
 
         return super(Akeneo, self).update + [
             (akeneo_modify_composer, [])

@@ -43,7 +43,7 @@ class Govcms8(RemoteProject):
 
         def govcms8_add_installer_paths():
             """
-            govcms8 requires more Composer modification than can be done
+            govcms9 requires more Composer modification than can be done
             with the Composer command line.  This function modifies the composer.json
             file as raw JSON instead.
             """

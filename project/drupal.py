@@ -59,5 +59,5 @@ class Govcms8(RemoteProject):
 
         return super(Govcms8, self).platformify + [
             (govcms8_add_installer_paths, []),
-            'cd {0} && composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
+            'cd {0} composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
         ]

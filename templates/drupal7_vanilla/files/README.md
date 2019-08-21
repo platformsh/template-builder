@@ -11,7 +11,7 @@ Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the l
 
 ## Post-install
 
-1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
+1. Run through the Drupal installer as normal by visiting `<project url>/install.php`.  You will not be asked for database credentials as those are already provided.
 
 2. Once Drupal is fully installed, We strongly recommend switching to Redis-based caching.  See [the documentation](https://docs.platform.sh/frameworks/drupal7/redis.html) for instructions on how to do so.
 

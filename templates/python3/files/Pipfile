@@ -6,8 +6,6 @@ verify_ssl = true
 [packages]
 redis = "*"
 pymysql = "*"
-flask = "*"
-gevent = "*"
 platformshconfig = "~=2.0"
 
 [requires]

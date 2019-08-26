@@ -4,12 +4,10 @@
 # See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
 
 # The name of this app. Must be unique within a project.
-
+name: app
 
 # The runtime the application uses.
-name: app
 type: php:7.3
-
 
 # The relationships of the application with services or other applications.
 #
@@ -17,7 +15,7 @@ type: php:7.3
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "mysqldb:mysql"   
+  database: "mysqldb:mysql"
   redis: 'rediscache:redis'
 
 build:
@@ -39,7 +37,6 @@ variables:
   php:
       memory_limit: 128M
 
-
 # The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
 # directory paths, relative to the application root. The values are strings such as
 # 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
@@ -47,7 +44,7 @@ mounts:
     "/var":
       source: "local"
       source_path: "var"
-    "/web/var": 
+    "/web/var":
       source: "local"
       source_path: "web_var"
     "/pimcore":

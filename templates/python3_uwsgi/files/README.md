@@ -1,19 +1,21 @@
-# Python UWSGI with Unix Sockets template for Platform.sh
+# Basic Python 3 with UWSGI for Platform.sh
 
-This project provides a starter kit for Python projects hosted on Platform.sh using uwsgi. It is primarily an example, although could be used as the starting point for a real project.
+This template provides the most basic configuration for running a custom Python 3.7 project.  It launches the application using the UWSGI application runner.
 
-## Starting a new project
+Python is a general purpose scripting language often used in web development.
 
-To start a new project based on this template, follow these 3 simple steps:
+## Services
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+* Python 3.7.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+## Customizations
 
-That's it!  You now have a working "hello world" level project you can build on.
+The following files are of particular importance.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-## Using as a reference
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+## References
+
+* [Python](https://www.python.org/)
+* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

@@ -1,0 +1,53 @@
+# Platform.sh Project Initialization Template
+#
+# This file defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+#
+# Once provisioned this file has no effects on the running project.  You
+# are free to remove it.
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
+info:
+  # Unique machine name, prefaced by a vendor or organization identifier
+  id: platformsh/magento2ce
+  # The human-readable name of the template.
+  name: Magento 2 Community Edition
+  # Human-readable descriptive text for the template. Supports limited HTML.
+  description: |
+      <p>This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.</p>
+      <p>Magneto is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
+  # A list of tags associated with the template.
+  tags:
+  - PHP
+  - Magento
+  - CMS
+  # An image URI (either base64-encoded or a URL) representing the template.
+  image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzNSA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjMzNzYgMEwwIDEwLjAwNzZWMjkuOTk2N0w0Ljk0OTIyIDMyLjg1NzlMNC45MTQyNyAxMi44NjQ1TDE3LjMwMjYgNS43MTM2NkwyOS42OTA5IDEyLjg2NDVWMzIuODQ5MkwzNC42NDAyIDI5Ljk5NjdWOS45OTAxN0wxNy4zMzc2IDBaIiBmaWxsPSIjRjI2MzIyIi8+CjxwYXRoIGQ9Ik0xOS43OTI1IDMyLjg1MzZMMTcuMzIgMzQuMjkwN0wxNC44MzQ1IDMyLjg2NjdWMTIuODY0NUw5Ljg4OTY1IDE1LjcyMTNMOS44OTgzOSAzNS43MTQ4TDE3LjMxNTcgNDBMMjQuNzQxNyAzNS43MTQ4VjE1LjcyMTNMMTkuNzkyNSAxMi44NjQ1VjMyLjg1MzZaIiBmaWxsPSIjRjI2MzIyIi8+Cjwvc3ZnPgo=
+  
+  # Additional notes displayed in the template's detail view.
+  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+  notes:
+    - heading: "Apps & Services"
+      content: "PHP 7.2<br/>MySQL 10.2<br/>Redis 3.2"
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exitss now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+  repository: git://github.com/platformsh/template-magento2ce.git@master
+  config: null
+  files: []
+  profile: Magento 2 Community Edition

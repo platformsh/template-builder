@@ -1,0 +1,54 @@
+# Platform.sh Project Initialization Template
+#
+# This file defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+#
+# Once provisioned this file has no effects on the running project.  You
+# are free to remove it.
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
+info:
+  # Unique machine name, prefaced by a vendor or organization identifier
+  id: platformsh/laravel
+  # The human-readable name of the template.
+  name: Laravel
+  # Human-readable descriptive text for the template. Supports limited HTML.
+  description: |
+      <p>This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions.</p>
+      <p>Laravel is an opinionated, integrated rapid-application-development framework for PHP.</p>
+  # A list of tags associated with the template.
+  tags:
+  - PHP
+  - Laravel
+  - Symfony
+  - Framework
+  # An image URI (either base64-encoded or a URL) representing the template.
+  image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA4NC4xIDU3LjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDg0LjEgNTcuNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiNGQjUwM0I7fQo8L3N0eWxlPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNODMuOCwyNi45Yy0wLjYtMC42LTguMy0xMC4zLTkuNi0xMS45Yy0xLjQtMS42LTItMS4zLTIuOS0xLjJzLTEwLjYsMS44LTExLjcsMS45Yy0xLjEsMC4yLTEuOCwwLjYtMS4xLDEuNgoJYzAuNiwwLjksNyw5LjksOC40LDEybC0yNS41LDYuMUwyMS4yLDEuNWMtMC44LTEuMi0xLTEuNi0yLjgtMS41QzE2LjYsMC4xLDIuNSwxLjMsMS41LDEuM2MtMSwwLjEtMi4xLDAuNS0xLjEsMi45UzE3LjQsNDEsMTcuOCw0MgoJczEuNiwyLjYsNC4zLDJjMi44LTAuNywxMi40LTMuMiwxNy43LTQuNmMyLjgsNSw4LjQsMTUuMiw5LjUsMTYuN2MxLjQsMiwyLjQsMS42LDQuNSwxYzEuNy0wLjUsMjYuMi05LjMsMjcuMy05LjhzMS44LTAuOCwxLTEuOQoJYy0wLjYtMC44LTctOS41LTEwLjQtMTRjMi4zLTAuNiwxMC42LTIuOCwxMS41LTMuMUM4NC4yLDI4LDg0LjQsMjcuNSw4My44LDI2Ljl6IE0zNy41LDM2LjRjLTAuMywwLjEtMTQuNiwzLjUtMTUuMywzLjcKCWMtMC44LDAuMi0wLjgsMC4xLTAuOC0wLjJDMjEuMiwzOS42LDQuNCw0LjgsNC4xLDQuNEMzLjksNCwzLjksMy42LDQuMSwzLjZjMC4yLDAsMTMuNS0xLjIsMTMuOS0xLjJjMC41LDAsMC40LDAuMSwwLjYsMC40CgljMCwwLDE4LjcsMzIuMywxOSwzMi44QzM4LDM2LjEsMzcuOCwzNi4zLDM3LjUsMzYuNHogTTc3LjcsNDMuOWMwLjIsMC40LDAuNSwwLjYtMC4zLDAuOGMtMC43LDAuMy0yNC4xLDguMi0yNC42LDguNAoJYy0wLjUsMC4yLTAuOCwwLjMtMS40LTAuNnMtOC4yLTE0LTguMi0xNEw2OC4xLDMyYzAuNi0wLjIsMC44LTAuMywxLjIsMC4zQzY5LjcsMzMsNzcuNSw0My42LDc3LjcsNDMuOXogTTc5LjMsMjYuMwoJYy0wLjYsMC4xLTkuNywyLjQtOS43LDIuNGwtNy41LTEwLjJjLTAuMi0wLjMtMC40LTAuNiwwLjEtMC43czktMS42LDkuNC0xLjdzMC43LTAuMiwxLjIsMC41YzAuNSwwLjYsNi45LDguOCw3LjIsOS4xCglDODAuMywyNiw3OS45LDI2LjIsNzkuMywyNi4zeiIvPgo8L3N2Zz4K
+
+  # Additional notes displayed in the template's detail view.
+  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+  notes:
+    - heading: "Apps & Services"
+      content: "PHP 7.3<br/>MariaDB 10.2<br/>Redis 5.0"
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exitss now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+  repository: git://github.com/platformsh/template-laravel.git@master
+  config: null
+  files: []
+  profile: Laravel

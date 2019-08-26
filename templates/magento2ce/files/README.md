@@ -1,26 +1,30 @@
-# Magento 2 Community Edition example for Platform.sh
+# Magento 2 Community Edition for Platform.sh
 
-This project provides a starter kit for Magento 2 Community Edition (M2CE) projects hosted on Platform.sh. It is strongly recommended that M2CE projects on Platform.sh start from this repository as Magento does require some modification to run correctly.
+This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.
 
-## Starting a new project
+Magneto is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.
 
-To start a new project based on this template, follow these 3 simple steps:
+## Services
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+* PHP 7.2
+* MariaDB 10.2
+* Redis 3.2
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+## Post-install
 
-That's it!  Your Magento site will deploy and you'll be able to view it in a browser.  Note that as part of the setup process the admin account is already created for you.  The initial username `admin` has a password of `admin123`.  You will be required to change it the first time you login (at `/admin` in the browser).
+1. The site comes pre-configured with an admin account, with username/password of `admin`/`admin123`.  Login at `/admin` in your browser.  **You will be required to update the password the first time you log in**.
 
-## Using as a reference
+## Customizations
 
-If you have an existing Magento 2 CE site you need to prepare for running on Platform.sh, the following files are the most important:
+The following changes have been made relative to Magento 2 as it is downloaded from Magento.com.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-* The [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory, which tell the system how to assemble your containers.
-* The [`deploy`](/deploy) script, which is a Python script that runs the Magento installer (on first run) and runs Magento's built-in database updates (on subsequent runs).
-* The [`app/etc/local.xml`](/.app/etc/local.xml) file.
-* The [`pub/static-versioned.php`](/pub/static-version.php) file, which provides an alternative front-controller for static files.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional front controller is included in `pub/static-versioned.php` to serve static files.
+* A custom deploy script, written in Python, is provided in the `deploy` file and called from the deploy hook in `.platform.app.yaml`.  The `deploy` script handles installing Magento on first run, including populating the administrator account.  It also handles Magento self-updates on normal point release updates.  Do not modify or remove this file.
+* The installer has been patched to not ask for information that is already provided by Platform.sh, such as database credentials, file paths, or the initial administrator account.  These changes should have no impact post-installation.  See the [patch file](https://github.com/platformsh/template-builder/blob/master/magento2ce/platformsh.patch) for details.
 
-There is also a [patch file](https://github.com/platformsh/template-builder/blob/master/magento2ce/platformsh.patch) needed to make the installer run correctly.
+## References
+
+* [Magento](https://magento.com/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

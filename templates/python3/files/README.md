@@ -1,24 +1,21 @@
-# Platform.sh Python 3 minimal example
+# Basic Python 3 for Platform.sh
 
-This project provides a starter kit for minimal Python 3 projects hosted on Platform.sh. Multiple Python 3 [versions](https://docs.platform.sh/languages/python.html#supported-versions) are supported. It is primarily an example, although could be used as the starting point for a real project.
+This template provides the most basic configuration for running a custom Python 3.7 project.  It launches a Python application directly rather than using a runner.
 
-Notice specifically the `server.py` where we read some of the environment variables and configure the App
-to connect to the correct database and to a redis instance.
+Python is a general purpose scripting language often used in web development.
 
-In this example we are not running any application server but the python script directly, you can check-out other examples to see it run with application servers such as Gunicorn.
+## Services
 
-## Starting a new project
+* Python 3.7.
 
-To start a new project based on this template, follow these 3 simple steps:
+## Customizations
 
-1. Clone this repository locally.  You may optionally remove the `origin` remote or remove the `.git` directory and re-init the project if you want a clean history.
- 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+The following files are of particular importance.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
 
-That's it!  You now have a working "hello world" level project you can build on.
+## References
 
-## Using as a reference
-
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the `.platform.app.yaml` file and the `.platform` directory.
+* [Python](https://www.python.org/)
+* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

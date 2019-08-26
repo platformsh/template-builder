@@ -1,19 +1,22 @@
-# PHP project template for Platform.sh
+# Basic PHP for Platform.sh
 
-This project provides a starter kit for a super-basic PHP project hosted on [Platform.sh](http://platform.sh).
+This template provides the most basic configuration for running a custom PHP project.
 
-## Starting a new project
+PHP is a high-performance scripting language especially well suited to web development.
 
-To start a new project based on this template, follow these 3 simple steps:
+## Services
 
-1. Clone this repository locally. You may optionally remove the origin remote or remove the .git directory and re-init the project if you want a clean history.
+* PHP 7.3
 
-2. Create a new project through the Platform.sh user interface and select "Import an existing project" when prompted.
+## Customizations
 
-3. Run the provided Git commands to add a Platform.sh remote and push the code to the Platform.sh repository.
+The following files are of particular importance.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-That's it! You now have a working "hello world" level project you can build on.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* A Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 
-## Using as a reference
+## References
 
-You can also use this repository as a reference for your own projects, and borrow whatever code is needed. The most important parts are the .platform.app.yaml file and the .platform directory.
+* [PHP](https://php.net/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

@@ -1,21 +1,30 @@
-# Symfony 4 Flex project template for Platform.sh
+# Symfony 4 for Platform.sh
 
-This project provides a starter kit for Symfony 4 projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Symfony 4.
+This template provides a basic Symfony 4 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.  That can be adjusted in `.platform.app.yaml`.
 
-## Starting a new project
+Symfony is a high-performance loosely-coupled PHP web development framework.
 
-To start a new Symfony 4 project on Platform.sh, you have 2 options:
+## Services
 
-1. Create a new project through the Platform.sh user interface and select "start new project from a template".  Then select Symfony 4 as the template. That will create a new project using this repository as a starting point.
+* PHP 7.3
+* MariaDB 10.2
 
-2. Take an existing project, add the necessary Platform.sh files, and push it to a Platform.sh Git repository.
+## Post-install
 
-## Using as a reference
+1. This is a bare, empty Symfony project.  That means there will be no installation page after the site is deployed.  If you wish to switch Symfony into development mode, edit your `.platform.app.yaml` file and change the `variables.env.APP_ENV` property to "dev".  (Be sure to change it back before you go live.)
 
-You can use this repository as a reference for your own projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+2. This bare skeleton does not include an ORM or any other bundles.  You are free to install your own as you need.  Many of them will be automatically configured on Platform.sh via environment variables.  See the `platformsh-flex-env.php` file in the `platformsh/symfonyflex-bridge` library (installed via Composer), as some bundles may require additional manual configuration.
 
-You also will need the [platformsh/symfonyflex-bridge](https://github.com/platformsh/symfonyflex-bridge) composer library.  It can be installed like any other composer library:
+## Customizations
 
-`composer require platformsh/symfonyflex-bridge`
+The following changes have been made relative to a plain Symfony 4 project.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-That's all you need to make a Symfony 4 application run on Platform.sh!
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Composer library, [`platformsh/symfonyflex-bridge`](https://github.com/platformsh/symfonyflex-bridge), has been added.  It automatically maps Platform.sh's environment variables to Symfony environment variables where possible.  It leverages the [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php) library.
+
+## References
+
+* [Symfony](https://symfony.com/)
+* [Symfony on Platform.sh](https://docs.platform.sh/frameworks/symfony.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

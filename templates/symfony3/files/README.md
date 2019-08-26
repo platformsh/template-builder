@@ -1,23 +1,32 @@
-# Symfony 3 project template for Platform.sh
+# Symfony 3 for Platform.sh
 
-This project provides a starter kit for Symfony 3 projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Symfony 3.
+This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
 
-## Starting a new project
+Symfony is a high-performance loosely-coupled PHP web development framework.  Version 3 is the legacy support version.
 
-To start a new Symfony 3 project on Platform.sh, you have 2 options:
+## Services
 
-1. Create a new project through the Platform.sh user interface and select "start    new project from a template".  Then select Symfony 3 as the template. That will create a new project using this repository as a starting point.
+* PHP 7.3
+* MariaDB 10.2
 
-2. Take an existing project, add the necessary Platform.sh files, and push it to a Platform.sh Git repository.
+## Post-install
 
-## Using as a reference
+1. This is a bare, empty Symfony project.  That means there will be no installation page after the site is deployed.
 
-You can use this repository as a reference for your own Symfony projects, and
-borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+## Customizations
 
-Also see:
+The following changes have been made relative to a plain Symfony 3 project.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-* [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platform.php`.  That will load a PHP file rather than YAML file to specify Symfony configuration parameters.  Also note toward the bottom that the Doctrine DBAL server version is specified explicitly.  That is required to work around an issue where Doctrine will try to connect to the database during the build process to determine the server version, even though it doesn't need it.
-* [`parameters_platform.php`](/app/config/parameters_platform.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters.  This file will be parsed on every page load.  By default it only maps a default database connection to Container parameters expected by Doctrine.  You can add to it as needed.
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.template.yaml` file contains information needed by Platform.sh's project setup process for templates.  It may be safely ignored or removed.
+* An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platformsh.php`.  That will load a PHP file rather than YAML file to specify Symfony configuration parameters.
+* [`parameters_platformsh.php`](/app/config/parameters_platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and Elasticsearch connection parameters. You can add to it as needed.
+* [`parameters.yml.dist`](/app/config/parameters.yml.dist) - This file is modified so the install process can retrieve the database connection parameters, SwiftMailer can connect to the correct host and the initial data set is set to `minimal`.
+* Due to a bug in Doctrine, the database version must be specified explicitly in `parameters.yml` or this project will fail to deploy.  It is already set.  Remember to update this file if you change the database version used in `services.yaml`.
 
-That's all you need to make a Symfony 3 application run on Platform.sh!
+## References
+
+* [Symfony](https://symfony.com/)
+* [Symfony on Platform.sh](https://docs.platform.sh/frameworks/symfony.html)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

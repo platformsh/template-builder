@@ -1,41 +1,33 @@
-# Pimcore 5 project template for Platform.sh
+# Drupal 8 for Platform.sh
 
-This project provides a starter kit for Pimcore 5 projects hosted on [Platform.sh](http://platform.sh).  There are only very minor changes from vanilla Pimcore 5.
+This template builds Pimcore 5 on Platform.sh.  It comes pre-installed with Doctrine and Redis caching.
 
-## Starting a new project
+Pimcore is a Symfony-based Digital Experience Platform.
 
-To start a new Pimcore 5 project on Platform.sh, you have 2 options:
+## Services
 
-1. Create a new project through the Platform.sh user interface and select "start    new project from a template".  Then select Pimcore 5 as the template. That will create a new project using this repository as a starting point.
+* PHP 7.3
+* MariaDB 10.2
+* Redis 5
 
-2. Take an existing project, add the necessary Platform.sh files, and push it to a Platform.sh Git repository.
+## Post-install
 
-## Using as a reference
+1. This template installs Pimcore with a default `admin` user with password `admin`.  **You must login and change this immediately.**
 
-You can use this repository as a reference for your own Pimcore 5 projects, and
-borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+2. Once the site has been installed and the password changed, you may optionally modify the `deploy` hook in `.platform.app.yaml` and remove the install block.  It's the part wrapped in a bash `if` statement that includes the default user and password.
 
-Also see:
+## Customizations
 
-* [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platform.php`.  That will load a PHP file rather than YAML file to specify Symfony configuration parameters.
-* [`parameters_platform.php`](/app/config/parameters_platform.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters.  This file will be parsed on every page load.  By default it only maps a default database and rediscache connection parameters.  You can add to it as needed.
-* [`installer.yml`](/app/config/installer.yml) - This file is added so the pimcore install process can retrieve the database connection parameters needed for the installation process.
+The following changes have been made relative to a vanilla Pimcore install.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-Now that you have you pimcore base project loaded on platform, proceed with setting up your admin user and bootstraping pimcore5
-- Update the database encoding, using our Platform CLI tool:
-```
-platform sql -p {PROJECT-ID} -e master "ALTER DATABASE  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-```
-- Install Pimcore:
-Ssh to the container instance with Platform CLI tool:
-```
-platform ssh
-```
-Proceed with the installation procedure
-```bash
-export PIMCORE_INSTALL_ADMIN_USERNAME='admin'
-export PIMCORE_INSTALL_ADMIN_PASSWORD='admin'
-vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
-```
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* The Doctrine ORM has been included out of the box.
+* [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platformsh.php`.  That will load a PHP file rather than YAML file to specify Pimcore configuration parameters.  It also enables Doctrine and Redis caching.  Due to a bug in Doctrine, the database version must be specified explicitly in `config.yml` or this project will fail to deploy.  It is already set.  Remember to update this file if you change the database version used in `config.yaml`.
+* [`parameters_platformsh.php`](/app/config/parameters_platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and Redis connection parameters. You can add to it as needed.
+* [`installer.yml`](/app/config/installer.yml) - This file is modified so the install process can retrieve the database connection parameters.
 
-That's all you need to make a Pimcore 5 application run on Platform.sh!
+## References
+
+* [Pimcore](https://pimcore.com/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

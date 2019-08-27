@@ -8,6 +8,11 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 import os
 
 from project import BaseProject, TEMPLATEDIR
+from project.akeneo import Akeneo
+from project.drupal import Drupal7_vanilla, Drupal8, Govcms8
+from project.laravel import Laravel
+from project.magento import Magento2ce
+from project.pimcore import Pimcore
 from project.drupal import Drupal7_vanilla, Drupal8, Opigno, Govcms8
 from project.laravel import Laravel
 from project.magento import Magento2ce
@@ -15,7 +20,6 @@ from project.rails import Rails
 from project.sculpin import Sculpin
 from project.symfony import Symfony3, Symfony4
 from project.wordpress import Wordpress
-from project.akeneo import Akeneo
 
 DOIT_CONFIG = {
     "verbosity": 2,

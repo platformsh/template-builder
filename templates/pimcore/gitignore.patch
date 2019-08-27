@@ -1,0 +1,20 @@
+diff --git a/.gitignore b/.gitignore
+index 0bf9e638..9bf0a050 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -3,7 +3,6 @@
+ 
+ # symfony default
+ /.web-server-pid
+-/app/config/parameters.yml
+ /build/
+ /phpunit.xml
+ /web/bundles/
+@@ -47,7 +46,6 @@
+ /composer.local.json
+ 
+ # composer
+-/composer.lock
+ /vendor/
+ 
+ # PhpStorm / IDEA

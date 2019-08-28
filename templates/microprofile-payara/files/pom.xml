@@ -15,6 +15,7 @@
         <version.microprofile>2.2</version.microprofile>
         <version.payara.micro>5.192</version.payara.micro>
         <payara.version>1.0.5</payara.version>
+        <platform.sh.version>2.2.2</platform.sh.version>
     </properties>
 
     <build>
@@ -52,7 +53,7 @@
         <dependency>
             <groupId>sh.platform</groupId>
             <artifactId>config</artifactId>
-            <version>2.2.0</version>
+            <version>${platform.sh.version}</version>
         </dependency>
     </dependencies>
 

@@ -28,7 +28,7 @@ info:
       <p>Hugo is a static site generator written in Go, using Go's native template packages for formatting.</p>
   # A list of tags associated with the template.
   tags:
-  - Hugo
+  - Go
   - CMS
   - Static Site Generator
 

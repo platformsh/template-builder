@@ -39,7 +39,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <checkstyle.config.location>etc/checkstyle.xml</checkstyle.config.location>
-        <platform.sh.version>2.2.1</platform.sh.version>
+        <platform.sh.version>2.2.2</platform.sh.version>
     </properties>
 
     <build>

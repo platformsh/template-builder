@@ -16,6 +16,7 @@
         <version.microprofile>2.2</version.microprofile>
         <tomee.version>8.0.0-M3</tomee.version>
         <version.payara.micro>5.191</version.payara.micro>
+        <platform.sh.version>2.2.2</platform.sh.version>
         <http.port>8888</http.port>
     </properties>
 
@@ -54,7 +55,7 @@
         <dependency>
             <groupId>sh.platform</groupId>
             <artifactId>config</artifactId>
-            <version>2.2.0</version>
+            <version>${platform.sh.version}</version>
         </dependency>
     </dependencies>
 

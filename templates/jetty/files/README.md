@@ -1,8 +1,8 @@
-# Open Liberty for Platform.sh
+# Eclipse Jetty
 
-This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.
+Eclipse Jetty provides a Web server and javax.servlet container, plus support for HTTP/2, WebSocket, OSGi, JMX, JNDI, JAAS and many other integrations. These components are open source and available for commercial use and distribution.
 
-Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.
+Eclipse Jetty is used in a wide variety of projects and products, both in development and production. Jetty can be easily embedded in devices, tools, frameworks, application servers, and clusters.
 
 ## Services
 
@@ -21,6 +21,5 @@ The following files and additions make the framework work.  If using this projec
 
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
-* [Open Liberty](https://openliberty.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Eclipse Jetty](https://www.eclipse.org/jetty/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

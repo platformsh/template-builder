@@ -1,8 +1,8 @@
-# Open Liberty for Platform.sh
+# Micronaut
 
-This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.
+This project provides a starter kit for Micronaut projects hosted on Platform.sh.
 
-Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.
+A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.
 
 ## Services
 
@@ -21,6 +21,5 @@ The following files and additions make the framework work.  If using this projec
 
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
-* [Open Liberty](https://openliberty.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Micronaut](https://micronaut.io/) 
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

@@ -39,4 +39,4 @@ web:
     commands:
         start: |
            cp target/microprofile-liberty.jar server/microprofile-liberty.jar
-           java -jar -Xmx512m -Ddefault.http.port=8888 server/microprofile-liberty.jar
+           java -jar -Xmx512m -Ddefault.http.port=$PORT server/microprofile-liberty.jar

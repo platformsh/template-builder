@@ -1,8 +1,6 @@
-# Open Liberty for Platform.sh
+# Apache Tomcat
 
-This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.
-
-Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.
+The Apache Tomcat® software is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process. 
 
 ## Services
 
@@ -21,6 +19,5 @@ The following files and additions make the framework work.  If using this projec
 
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
-* [Open Liberty](https://openliberty.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Apache Tomcat](http://tomcat.apache.org/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

@@ -17,8 +17,8 @@ runtime:
 # to the application in the environment variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
-    elasticsearch: "elasticsearch:elasticsearch"
+    database: "db:mysql"
+    elasticsearch: "search:elasticsearch"
 
 # The configuration of app when it is exposed to the web.
 web:

@@ -24,9 +24,9 @@ hooks:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
-    rediscache: "redis:redis"
-    redissession: "redis:redis"
+    database: "db:mysql"
+    rediscache: "cache:redis"
+    redissession: "cache:redis"
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048

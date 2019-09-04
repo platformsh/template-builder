@@ -24,7 +24,7 @@ info:
   name: Tomcat
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-     <p>The Apache Tomcat® software is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process.</p>
+     <p>The Apache Tomcat software is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process.</p>
   # A list of tags associated with the template.
   tags:
   - Java

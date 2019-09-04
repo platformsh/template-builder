@@ -17,11 +17,9 @@ hooks:
       mvn clean package -DskipTests jetty:deploy-war
 
 mounts:
-
     '/target/':
         source: local
         source_path: server_source
-
     '/.m2/':
       source: local
       source_path: maven_source

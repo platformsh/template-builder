@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Micronaut projects hosted on Platform.sh.</p>
-     <p>A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
+     <p>Micronaut is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
   # A list of tags associated with the template.
   tags:
   - Java

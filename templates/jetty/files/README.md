@@ -19,7 +19,6 @@ The following files and additions make the framework work.  If using this projec
 
 ## References
 
-* [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Eclipse Jetty](https://www.eclipse.org/jetty/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

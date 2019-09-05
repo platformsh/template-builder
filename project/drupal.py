@@ -28,6 +28,8 @@ class Drupal8(RemoteProject):
                 self.builddir)
         ]
 
+class Drupal8multi(Drupal8):
+    pass
 
 class Opigno(Drupal8):
     major_version = '2'

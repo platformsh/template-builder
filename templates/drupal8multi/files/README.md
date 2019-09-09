@@ -56,6 +56,8 @@ Adding a new subsite requires the following steps.  For these steps, assume we'r
 8. Commit and push that change.
 9. Profit.
 
+Alternatively, a PHP shell script is provided that automates steps 1-4.  See [`psh-subsite-add.php`](psh-subsite-add.php).
+
 ## References
 
 * [Drupal](https://www.drupal.org/)

@@ -38,9 +38,9 @@ Multisite on Platform.sh can be tricky.  Drupal multisite bases its logic off of
 * The `.platform.app.yaml` file is essentially the same as for a single-site Drupal installation, but its relationships include every defined MariaDB endpoint.  The relationship is also named for the subsite ID.
 * Every subsite ID's `settings.php` file is identical, and largely similar to the standard Platform.sh `settings.php` file.  You may customize it if needed.  In particular, the `$platformsh_enable_redis` variable should be toggled to `true` for each site only after the install process is completed for that site, as Drupal cannot install with the redis module active.
 * The `settings.php` files also include a shared `sites/settings.platformsh.php` file.  It is largely the same as in a single-site configuration but has been modified to leverage the subsite ID for:
-** Selecting which database relationship to use
-** Sncluding a cache prefix in Redis so that each site has its own effective cache pool.
-** Setting the files and private files directories, which are subsite ID prefixes of top-level `files` and `private` directories rather than under each site directory.
+  * Selecting which database relationship to use
+  * Including a cache prefix in Redis so that each site has its own effective cache pool.
+  * Setting the files and private files directories, which are subsite ID prefixes of top-level `files` and `private` directories rather than under each site directory.
 
 ## Adding a new subsite
 

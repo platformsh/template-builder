@@ -36,9 +36,15 @@ disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "/var/cache": "shared:files/cache"
-    "/var/logs": "shared:files/logs"
-    "/var/sessions": "shared:files/sessions"
+    "/var/cache":
+        source: local
+        source_path: "cache"
+    "/var/logs":
+        source: local
+        source_path: "logs"
+    "/var/sessions":
+        source: local
+        source_path: "sessions"
 
 # The configuration of app when it is exposed to the web.
 web:

@@ -65,6 +65,17 @@ And poof, you are ready to make a PR with the updates.
 
 Template projects are hooked up to Platform.sh projects, so each new PR gets built as a new, empty environment ready for testing.  In most cases simply visiting the built site and verifying that the installer can run (if available) or that the site gives the appropriate "there's nothing here yet" error is sufficient, but further testing can be done if needed.
 
+## Conventions
+
+Templates should all follow some standard conventions for consistency and easier documentability, even though technically the Platform.sh code doesn't care.  There may be case-by-case exceptions to these guidelines but the following should be followed unless there is a good reason otherwise.
+
+* In single-application examples, the application name is always `app`.
+* Service names should be named for the *use case* they are primarily for.  For example, the primary database for an application is a service named `db` (regardless if it's MySQL, MariaDB, PostgreSQL, or MongoDB).  The main cache service should be named `cache`.  The main search service is named `search`.  Etc.
+* Relationship names should be named for the service type and use case.  Thus, a Redis service named `cache` will have a relationship name of `rediscache`.  A Solr service named `search` will have a relationship named `solrsearch`.  Etc.
+* As an exception to the previous point, the relationship for the primary database is called simply `database` regardless of its type.  This is largely for historical reasons, and because 99% of the time no one cares about the type at that level.
+* Always use the most recent version of a language or service container that the application supports.
+* Always use the most up-to-date syntax and style for YAML files.  For instance, always use the newer nested `mount` syntax, not the old inline version.
+* If including both a www-prefixed domain and not in `routes.yaml`, the bare domain should redirect to the www domain, not vice versa.
 
 ## Contributing
 

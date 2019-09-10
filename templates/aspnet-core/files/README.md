@@ -12,7 +12,7 @@ ASP.NET Core is an open-source and cross-platform .NET framework for building mo
 
 ## Customizations
 
-This repository is was created from an ASP.NET Core MVC template and most of it still resembles that. The following files and additions make the framework work on Platform.sh. If using this project as a reference for your own existing project, replicate the changes below to your project.
+This repository was created from an ASP.NET Core MVC template and most of it still resembles that. The following files and additions make the framework work on Platform.sh. If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added. These provide Platform.sh-specific configuration and are present in all projects on Platform.sh. You may customize them as you see fit.
 * The `Program.cs` file has been modified to look for Platform-specific environment variables on startup, and listen on the correct TCP port.

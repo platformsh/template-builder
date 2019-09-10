@@ -29,7 +29,7 @@ if ($creds) {
 }
 
 // Enable Redis caching.
-if (!empty($platformsh_enable_redis) && $platformsh->hasRelationship('rediscache') && !drupal_installation_attempted() && extension_loaded('redis')) {
+if (!empty($platformsh_enable_redis) && $platformsh->hasRelationship('rediscache') && !drupal_installation_attempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
   $redis = $platformsh->credentials('rediscache');
 
   // Set a cache prefix so not all sites go into the same cache pool.

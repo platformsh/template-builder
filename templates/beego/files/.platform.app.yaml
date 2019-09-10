@@ -16,7 +16,7 @@ hooks:
         go build -o bin/app
 
 relationships:
-    database: "mysqldb:mysql"
+    database: "db:mysql"
 
 # The configuration of app when it is exposed to the web.
 web:

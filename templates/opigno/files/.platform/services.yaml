@@ -3,9 +3,9 @@
 # Each service listed will be deployed
 # to power your Platform.sh project.
 
-mysqldb:
-    type: mysql:10.2
+db:
+    type: mariadb:10.2
     disk: 2048
 
-rediscache:
+cache:
     type: redis:5.0

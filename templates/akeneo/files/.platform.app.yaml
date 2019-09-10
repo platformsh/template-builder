@@ -17,8 +17,8 @@ runtime:
 # to the application in the environment variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
-    elasticsearch: "elasticsearch:elasticsearch"
+    database: "db:mysql"
+    elasticsearch: "search:elasticsearch"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -31,17 +31,34 @@ web:
 disk: 3072
 
 # The mounts that will be performed when the package is deployed.
-# Filesystem is read only by default
 mounts:
-    "var/logs":                 "shared:files/app-logs"
-    "var/cache":                "shared:files/app-cache"
-    "var/uploads":              "shared:files/app-uploads"
-    "app/file_storage":         "shared:files/app-file_storage"
-    "app/archive":              "shared:files/app-archive"
-    "app/uploads/product":      "shared:files/app-uploads"
-    "installer":                "shared:files/installer"
-    "web/media":                "shared:files/media-cache"
-    "upgrades/schema":          "shared:files/upgrades-schema"
+    "var/logs":
+        source: local
+        source_path: "app-logs"
+    "var/cache":
+        source: local
+        source_path: "app-cache"
+    "var/uploads":
+        source: local
+        source_path: "app-uploads"
+    "app/file_storage":
+        source: local
+        source_path: "app-file_storage"
+    "app/archive":
+        source: local
+        source_path: "app-archive"
+    "app/uploads/product":
+        source: local
+        source_path: "app-uploads"
+    "installer":
+        source: local
+        source_path: "installer"
+    "web/media":
+        source: local
+        source_path: "media-cache"
+    "upgrades/schema":
+        source: local
+        source_path: "upgrades-schema"
 
 hooks:
     # We run the build hook before your application has been packaged.

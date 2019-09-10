@@ -24,21 +24,29 @@ build:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: mysqldb:mysql
-    redis: rediscache:redis
+    database: db:mysql
+    redis: cache:redis
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-# The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
-# directory paths, relative to the application root. The values are strings such as
-# 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    "/var": "shared:files/var"
-    "/generated": "shared:files/generated"
-    "/pub/media": "shared:files/media"
-    "/pub/static": "shared:files/static"
-    "/.config": "shared:files/config"
+    "/var":
+        source: local
+        source_path: "var"
+    "/generated":
+        source: local
+        source_path: "generated"
+    "/pub/media":
+        source: local
+        source_path: "media"
+    "/pub/static":
+        source: local
+        source_path: "static"
+    "/.config":
+        source: local
+        source_path: "config"
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:

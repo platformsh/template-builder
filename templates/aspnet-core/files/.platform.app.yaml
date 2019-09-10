@@ -62,7 +62,9 @@ hooks:
 # These are writable folders mounted over the read-only image of the built application.
 # Use these for static assets and uploads.
 mounts:
-  "/wwwroot/etc": "shared:files/wwwroot/etc"
+  "/wwwroot/etc":
+    source: local
+    source_path: "etc"
 
 # The disk size allocated to (and shared between) mounts.
 disk: 512

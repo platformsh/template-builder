@@ -1,6 +1,8 @@
-from .remote import RemoteProject
 import json
 from collections import OrderedDict
+
+from project.remoteproject import RemoteProject
+
 
 class Akeneo(RemoteProject):
     major_version = 'v3'

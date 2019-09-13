@@ -1,52 +1,16 @@
 '''
 DoIt (http://pydoit.org/) main Python module. Tasks are automatically generated for all projects from
-ALL_PROJECTS list. Template directory is scanned for the templates. When adding new template, no
+project_list() list. Template directory is scanned for the templates. When adding new template, no
 changes to this file are needed in case BaseProject implementations of all tasks are satisfying.
 In case the actions of some tasks need to be customized, the new BaseProject subclass must be imported.
 '''
 
-import os
-
-from project import BaseProject, TEMPLATEDIR
-from project.akeneo import Akeneo
-from project.backdrop import Backdrop
-from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8
-from project.laravel import Laravel
-from project.magento import Magento2ce
-from project.pimcore import Pimcore
-from project.laravel import Laravel
-from project.magento import Magento2ce
-from project.mautic import Mautic
-from project.rails import Rails
-from project.sculpin import Sculpin
-from project.symfony import Symfony3, Symfony4, Symfony5
-from project.typo3 import Typo3
-from project.wordpress import Wordpress
+from project.builder import project_list
 
 DOIT_CONFIG = {
     "verbosity": 2,
 }
 
-# Blacklist of projects to ignore.
-IGNORED = []
-
-def project_factory(name):
-    '''Instantiate a project object.  Class selection is based on the following naming convention:
-    Project class matches template directory name with the first letter capitalized.
-      laravel -> Laravel,
-      drupal7_vanilla -> Drupal7_vanilla.
-
-    The BaseProject class is used by default (class with the matching name is not imported)
-    '''
-
-    targetclass = name.capitalize().replace('-', '_')
-    try:
-        return globals()[targetclass](name)
-    except KeyError:
-        return BaseProject(name)
-
-ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
-                if f.is_dir() and f.name not in IGNORED]
 
 def task_cleanup():
     """
@@ -54,7 +18,7 @@ def task_cleanup():
 
     Usage: doit cleanup:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'actions': project.cleanup,
@@ -67,7 +31,7 @@ def task_init():
 
     Usage: doit init:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'task_dep': ['cleanup:{0}'.format(project.name)],
@@ -81,10 +45,23 @@ def task_update():
 
     Usage: doit update:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'actions': project.update,
+        }
+
+
+def task_build():
+    """
+    DoIt Task: Runs any build steps required for the application
+
+    Usage: doit build:<project>
+    """
+    for project in project_list():
+        yield {
+            'name': project.name,
+            'actions': project.build,
         }
 
 
@@ -95,7 +72,7 @@ def task_platformify():
 
     Usage: doit platformify:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'actions': project.platformify,
@@ -108,7 +85,7 @@ def task_branch():
 
     Usage: doit branch:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'actions': project.branch,
@@ -121,7 +98,7 @@ def task_push():
 
     Usage: doit push:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'actions': project.push,
@@ -134,11 +111,11 @@ def task_rebuild():
 
     Usage: doit rebuild:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'task_dep': ["{0}:{1}".format(action, project.name)
-                         for action in ['update', 'platformify', 'branch']
+                         for action in ['update', 'build', 'platformify', 'branch']
                          ],
             'actions': [],
         }
@@ -150,7 +127,7 @@ def task_full():
 
     Usage: doit full:<project>
     """
-    for project in ALL_PROJECTS:
+    for project in project_list():
         yield {
             'name': project.name,
             'task_dep': ["{0}:{1}".format(action, project.name)

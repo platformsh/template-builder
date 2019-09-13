@@ -44,11 +44,12 @@ Each project has a series of build tasks, suffixed with the project.
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.
 * `update:spiffy` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.
+* `build:spiffy` - Run any build steps required, such as composer
 * `platformify:spiffy` - Copies the `files` directory over the build directory to add the Platform.sh files, applies any patches, and potentially takes other actions as needed.  (Adding composer libraries, for instance.)  This may vary widely with the application.
 * `branch:spiffy` - Prepares a branch named `update` with the changes just made by `update` and `platformify`, with all changes committed.
 * `push:spiffy` - Pushes a branch to GitHub, which displays a link to create a Pull Request out of it.
 
-* `rebuild:spiffy` - Implies `update:spiffy`, `platformify:spiffy`, and `branch:spiffy`.
+* `rebuild:spiffy` - Implies `update:spiffy`, `build:spiffy`, `platformify:spiffy`, and `branch:spiffy`.
 * `full:spiffy` - Runs `cleanup:spiffy`, `init:spiffy`, `update:spiffy`, `platformify:spiffy`, `branch:spiffy`, `push:spiffy`.
 
 A particular task is run across all projects in case the project is not specified.  That is, the following will clean-and-initialize all projects:

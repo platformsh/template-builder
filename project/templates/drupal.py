@@ -1,15 +1,16 @@
-from . import BaseProject
-from .remote import RemoteProject
 import json
 from collections import OrderedDict
 
+from project.baseproject import BaseProject
+from project.remoteproject import RemoteProject
 
-class Drupal7_vanilla(BaseProject):
+
+class Drupal7Vanilla(BaseProject):
     version = '7.67'
 
     @property
     def update(self):
-        return super(Drupal7_vanilla, self).update + [
+        return super(Drupal7Vanilla, self).update + [
             "wget https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz && tar xzvf drupal-{0}.tar.gz -C {1}".format(self.version, self.builddir),
             "rm drupal-{0}.tar.gz".format(self.version),
             "rm -rf {0}public || true".format(self.builddir),

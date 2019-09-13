@@ -1,13 +1,12 @@
-from . import BaseProject
 import subprocess
 import packaging.version
 
+from project.baseproject import BaseProject
+
+
 class RemoteProject(BaseProject):
     '''
-    Base class for projects that need to synchronize code with an upstream source.
-
-    Projects that are based on a remote source that we then modify should use this
-    base class instead.
+    Class for projects that need to synchronize code with an upstream source.
 
     Projects extending this class MUST define the following class attributes:
     - `remote`, which is a Git URL to the upstream source.

@@ -1,4 +1,4 @@
-from .remote import RemoteProject
+from project.remoteproject import RemoteProject
 
 
 class Symfony3(RemoteProject):

@@ -1,8 +1,7 @@
 import json
 from collections import OrderedDict
 
-from project.baseproject import BaseProject
-from project.remoteproject import RemoteProject
+from project import BaseProject, RemoteProject
 
 
 class Drupal7Vanilla(BaseProject):

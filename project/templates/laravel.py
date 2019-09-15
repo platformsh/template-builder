@@ -1,4 +1,4 @@
-from project.remoteproject import RemoteProject
+from project import RemoteProject
 
 
 class Laravel(RemoteProject):

@@ -1,28 +1,7 @@
+from os import scandir
+
 from project.config import TEMPLATEDIR, IGNORED
-
-from project.baseproject import *
-from project.remoteproject import *
-
-from project.templates.akeneo import Akeneo
-from project.templates.backdrop import Backdrop
-from project.templates.drupal import (
-    Drupal7_vanilla,
-    Drupal8,
-    Drupal8_multisite,
-    Drupal8_opigno,
-    Drupal8_govcms8,
-)
-from project.templates.laravel import Laravel
-from project.templates.magento import Magento2ce
-from project.templates.pimcore import Pimcore
-from project.templates.laravel import Laravel
-from project.templates.magento import Magento2ce
-from project.templates.mautic import Mautic
-from project.templates.rails import Rails
-from project.templates.sculpin import Sculpin
-from project.templates.symfony import Symfony3, Symfony4, Symfony5
-from project.templates.typo3 import Typo3
-from project.templates.wordpress import Wordpress
+from project import BaseProject
 
 
 def project_factory(name):
@@ -32,6 +11,9 @@ def project_factory(name):
       drupal7_vanilla -> Drupal7_vanilla.
 
     The BaseProject class is used by default (class with the matching name is not imported)
+
+    :param name: name of the project
+    :return: BaseProject
     """
 
     targetclass = name.capitalize().replace("-", "_")

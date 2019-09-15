@@ -1,4 +1,4 @@
-from project.baseproject import BaseProject
+from project import BaseProject
 
 
 class Rails(BaseProject):

@@ -1,7 +1,7 @@
 import json
 from collections import OrderedDict
 
-from project.remoteproject import RemoteProject
+from project import RemoteProject
 
 
 class Wordpress(RemoteProject):

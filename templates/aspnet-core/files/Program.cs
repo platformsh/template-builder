@@ -21,14 +21,18 @@ namespace PlatformshAspNetCore
             {
                 var port = Environment.GetEnvironmentVariable("PORT");
                 if (port != null && Int16.TryParse(port, out var portNum))
-                    options.ListenLocalhost(portNum);
+                {
+                  options.ListenLocalhost(portNum);
+                }
 
                 // This won't work as is now, due to:
                 // https://go.microsoft.com/fwlink/?linkid=874850
                 // Here for future reference only.
                 var socket = Environment.GetEnvironmentVariable("SOCKET");
                 if (socket != null)
-                    options.ListenUnixSocket(socket);
+                {
+                  options.ListenUnixSocket(socket);
+                }
             });
 
             builder.Build().Run();

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace PlatformshAspNetCore.Helpers
+namespace PlatformshAspNetCore.PlatformConfig
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PlatformRelationship
@@ -41,8 +41,9 @@ namespace PlatformshAspNetCore.Helpers
                 if (_relationships == null)
                 {
                     var relationshipsStr = Environment.GetEnvironmentVariable("PLATFORM_RELATIONSHIPS");
-                    if (relationshipsStr == null)
+                    if (relationshipsStr == null) {
                         _relationships = new Dictionary<string, PlatformRelationship[]>();
+                    }
                     else
                     {
                         var jsonStr = Encoding.UTF8.GetString(Convert.FromBase64String(relationshipsStr));

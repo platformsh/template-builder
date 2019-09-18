@@ -16,8 +16,8 @@ This repository was created from an ASP.NET Core MVC template and most of it sti
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added. These provide Platform.sh-specific configuration and are present in all projects on Platform.sh. You may customize them as you see fit.
 * The `Program.cs` file has been modified to look for Platform-specific environment variables on startup, and listen on the correct TCP port.
-* The `Starup.cs` file has been modified to
-* A class at `Helpers/PlatformRelationship.cs` has been added to retrieve connection strings and handle service credentials for MariaDB and Redis.
+* The `Startup.cs` file has been modified to include a `DbContext` and a `DistributedRedisCache` to handle the configured services. The typical `app.UseHttpsRedirection();` line has been removed as it is handled in `.platform/routes.yaml`.
+* A class at `PlatformConfig/PlatformRelationship.cs` has been added to retrieve connection strings and handle service credentials for MariaDB and Redis.
 
 
 ## References

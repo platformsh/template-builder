@@ -56,7 +56,7 @@ web:
 hooks:
   build: |
     set -xe
-    dotnet publish --self-contained --runtime "$DOTNET_DEFAULT_RUNTIME" --output "$PLATFORM_OUTPUT_DIR" -p:UseRazorBuildServer=false -p:UseSharedCompilation=false
+    dotnet publish --self-contained --runtime debian.9-x64 --output "$PLATFORM_APP_DIR" -p:UseRazorBuildServer=false -p:UseSharedCompilation=false
 
 
 # These are writable folders mounted over the read-only image of the built application.

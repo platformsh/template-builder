@@ -10,6 +10,6 @@ public class HelloController {
 
     @Get(uri = "/", produces = MediaType.TEXT_PLAIN)
     public Single<String> hello() {
-        return Single.just("Hello World! from Platform.sh");
+        return Single.just("Hello World! A simple Micronaut template for Platform.sh");
     }
 }

@@ -7,7 +7,7 @@
 name: app
 
 # The runtime the application uses.
-type: golang:1.12
+type: golang:1.13
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
@@ -16,7 +16,7 @@ hooks:
         go build -o bin/app
 
 relationships:
-    database: "mysqldb:mysql"
+    database: "db:mysql"
 
 # The configuration of app when it is exposed to the web.
 web:

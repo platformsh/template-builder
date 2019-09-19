@@ -16,7 +16,7 @@ build:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
+    database: "db:mysql"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -55,7 +55,12 @@ dependencies:
     php:
         wp-cli/wp-cli: "^2.2.0"
         psy/psysh: "^0.8.4"
+
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "web/wp-content/cache": "shared:files/cache"
-    "web/wp-content/uploads": "shared:files/uploads"
+    "web/wp-content/cache":
+        source: local
+        source_path: "cache"
+    "web/wp-content/uploads":
+        source: local
+        source_path: "uploads"

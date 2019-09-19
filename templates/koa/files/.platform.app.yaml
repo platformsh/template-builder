@@ -12,7 +12,7 @@ type: nodejs:10
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "mydatabase:mysql"
+  database: "db:mysql"
 
 # The configuration of the application when it is exposed to the web.
 web:

@@ -27,8 +27,8 @@ disk: 1024
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
-    redis: "redis:redis"
+    database: "db:mysql"
+    rediscache: "cache:redis"
 
 # The configuration of app when it is exposed to the web.
 web:

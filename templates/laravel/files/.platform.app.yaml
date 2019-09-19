@@ -24,22 +24,36 @@ hooks:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "mysqldb:mysql"
-    rediscache: "redis:redis"
-    redissession: "redis:redis"
+    database: "db:mysql"
+    rediscache: "cache:redis"
+    redissession: "cache:redis"
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-  "storage/app/public": "shared:files/public"
-  "storage/framework/views": "shared:files/views"
-  "storage/framework/sessions": "shared:files/sessions"
-  "storage/framework/cache": "shared:files/cache"
-  "storage/logs": "shared:files/logs"
-  "bootstrap/cache": "shared:files/bootstrap/cache"
-  "/.config": "shared:files/config"
+  "storage/app/public":
+      source: local
+      source_path: "public"
+  "storage/framework/views":
+      source: local
+      source_path: "views"
+  "storage/framework/sessions":
+      source: local
+      source_path: "sessions"
+  "storage/framework/cache":
+      source: local
+      source_path: "cache"
+  "storage/logs":
+      source: local
+      source_path: "logs"
+  "bootstrap/cache":
+      source: local
+      source_path: "cache"
+  "/.config":
+      source: local
+      source_path: "config"
 
 # The configuration of app when it is exposed to the web.
 web:

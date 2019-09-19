@@ -14,17 +14,15 @@ disk: 1024
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
-       mvn clean package
+      mvn clean package -DskipTests jetty:deploy-war
 
 mounts:
-    'server/':
+    '/target/':
         source: local
         source_path: server_source
-
-    'wlpExtract/':
-        source: local
-        source_path: liberty_source
-
+    '/.m2/':
+      source: local
+      source_path: maven_source
 # The relationships of the application with services or other applications.
 #
 # The left-hand side is the name of the relationship as it will be exposed
@@ -37,5 +35,4 @@ mounts:
 web:
     commands:
         start: |
-           cp target/microprofile-liberty.jar server/microprofile-liberty.jar
-           java -jar -Xmx512m -Ddefault.http.port=$PORT server/microprofile-liberty.jar
+          mvn -DskipTests -Djetty.http.port=$PORT jetty:run

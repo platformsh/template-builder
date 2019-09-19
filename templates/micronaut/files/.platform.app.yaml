@@ -14,16 +14,7 @@ disk: 1024
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
-       mvn clean package
-
-mounts:
-    'server/':
-        source: local
-        source_path: server_source
-
-    'wlpExtract/':
-        source: local
-        source_path: liberty_source
+      mvn clean install -DskipTests
 
 # The relationships of the application with services or other applications.
 #
@@ -37,5 +28,4 @@ mounts:
 web:
     commands:
         start: |
-           cp target/microprofile-liberty.jar server/microprofile-liberty.jar
-           java -jar -Xmx512m -Ddefault.http.port=$PORT server/microprofile-liberty.jar
+          java -Xmx512m -jar target/micronaut-1.0-SNAPSHOT.jar

@@ -16,14 +16,17 @@ function _platformsh_drush_site_url() {
     return;
   }
 
-  $appUrls = array_keys($platformsh->getUpstreamRoutes($appName));
+  $routes = $platformsh->getUpstreamRoutes($appName);
 
-  // Sort the URLs, preferring shorter ones with HTTPS.
-  usort($appUrls, function (array $a, array $b) {
+  // Sort URLs, with the primary route first, then by HTTPS before HTTP, then by length.
+  usort($routes, function (array $a, array $b) {
     // false sorts before true, normally, so negate the comparison.
-    return [strpos($a, 'https://') !== 0, strlen($a)] <=> [strpos($a, 'https://') !== 0, strlen($b)];
+    return
+      [!$a['primary'], strpos($a['url'], 'https://') !== 0, strlen($a['url'])]
+      <=>
+      [!$a['primary'], strpos($a['url'], 'https://') !== 0, strlen($b['url'])];
   });
 
-  // Return the first one.
-  return reset($appUrls) ?: NULL;
+  // Return the url of the first one.
+  return reset($appUrls)['url'] ?: NULL;
 }

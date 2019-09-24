@@ -6,7 +6,7 @@ Drupal is a flexible and extensible PHP-based CMS framework capable of hosting m
 
 ## Services
 
-* PHP 7.3
+* PHP 7.2
 * MariaDB 10.2
 * Redis 5
 
@@ -34,7 +34,7 @@ Multisite on Platform.sh can be tricky.  Drupal multisite bases its logic off of
 
 * Every subsite is a subdomain off of a common domain.  See `routes.yaml`.  The domain prefix is the "subsite ID".
 * Every subsite has its own database and endpoint on a single MariaDB service instance.  The endpoint name is the same as the subsite ID.
-* The `sites/sites.php` file includes code to build a `$sites` lookup list to map any incoming request, regardless of branch, to a settings directory named for the subsite ID.  It consists of two parts: The first block filters the routes list from the environment to just those that are relevant (that is, it excludes redirect routes or routes that point to a different application container).  The second parses those routes into a domain name -> directory list, where the directory is the site ID.  You will also most never want to modify the first part.  The second part you may want to modify if you are not using a subdomain model.
+* The `sites/sites.php` file includes code to build a `$sites` lookup list to map any incoming request, regardless of branch, to a settings directory named for the subsite ID.  It iterates over all routes that point to the Drupal application and parses those routes into a domain name -> directory list, where the directory is the site ID.  If you are not using a subdomain based multi-site you will likely need to modify the body of the `foreach()` loop.
 * The `.platform.app.yaml` file is essentially the same as for a single-site Drupal installation, but its relationships include every defined MariaDB endpoint.  The relationship is also named for the subsite ID.
 * Every subsite ID's `settings.php` file is identical, and largely similar to the standard Platform.sh `settings.php` file.  You may customize it if needed.  In particular, the `$platformsh_enable_redis` variable should be toggled to `true` for each site only after the install process is completed for that site, as Drupal cannot install with the redis module active.
 * The `settings.php` files also include a shared `sites/settings.platformsh.php` file.  It is largely the same as in a single-site configuration but has been modified to leverage the subsite ID for:

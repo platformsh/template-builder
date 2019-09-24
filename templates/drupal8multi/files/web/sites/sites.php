@@ -60,16 +60,11 @@ if (!$platformsh->inRuntime()) {
   return;
 }
 
-$applicationName = $platformsh->applicationName;
-$relevantRoutes = array_filter($platformsh->routes(), function ($route) use ($applicationName) {
-  return $route['type'] == 'upstream' && $route['upstream'] == $applicationName;
-});
-
 // The following block adds a $sites[] entry for each subdomain that is defined
 // in routes.yaml.
 // If you are not using subdomain-based multisite routes then you will need to
 // adapt the code below accordingly.
-foreach ($relevantRoutes as $route) {
+foreach ($platformsh->getUpstreamRoutes($platformsh->applicationName) as $route) {
   $host = parse_url($route['url'], PHP_URL_HOST);
   if ($host !== FALSE) {
     $subdomain = substr($host, 0, strpos($host,'.'));

@@ -10,40 +10,20 @@
  * @return string|NULL
  */
 function _platformsh_drush_site_url() {
-  if (!getenv('PLATFORM_ROUTES') || !getenv('PLATFORM_APPLICATION_NAME')) {
-    return NULL;
+  $platformsh = new \Platformsh\ConfigReader\Config();
+
+  if (!$platformsh->inRuntime()) {
+    return;
   }
 
-  $routes = json_decode(base64_decode(getenv('PLATFORM_ROUTES')), TRUE);
-  $appName = getenv('PLATFORM_APPLICATION_NAME');
-
-  // Filter the list of routes to find those matching the current app.
-  $appUrls = [];
-  foreach ($routes as $url => $route) {
-    if ($route['type'] === 'upstream' && strpos($route['upstream'], $appName . ':') === 0) {
-      // If this route is the primary one, use its URL directly.
-      if (!empty($route['primary'])) {
-        return $url;
-      }
-
-      // Otherwise, add it to the list.
-      $appUrls[] = $url;
-    }
-  }
+  $appUrls = array_keys($platformsh->getUpstreamRoutes($appName));
 
   // Sort the URLs, preferring shorter ones with HTTPS.
-  usort($appUrls, function ($a, $b) {
-    $result = 0;
-    foreach ([$a, $b] as $key => $url) {
-      if (strpos($url, 'https://') === 0) {
-        $result += $key === 0 ? -2 : 2;
-      }
-    }
-    $result += strlen($a) <= strlen($b) ? -1 : 1;
-
-    return $result;
+  usort($appUrls, function (array $a, array $b) {
+    // false sorts before true, normally, so negate the comparison.
+    return [strpos($a, 'https://') !== 0, strlen($a)] <=> [strpos($a, 'https://') !== 0, strlen($b)];
   });
-  
+
   // Return the first one.
   return reset($appUrls) ?: NULL;
 }

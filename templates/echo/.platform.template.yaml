@@ -28,7 +28,7 @@ info:
       <p>Echo is a lightweight, minimalist web framework written in Go.</p>
   # A list of tags associated with the template.
   tags:
-  - Golang
+  - Go
   - Framework
 
   # An image URI (either base64-encoded or a URL) representing the template.

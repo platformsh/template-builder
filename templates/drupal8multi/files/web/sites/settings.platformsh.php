@@ -104,20 +104,13 @@ if (!isset($settings['php_storage']['twig'])) {
   $settings['php_storage']['twig']['directory'] = $settings['file_private_path'];
 }
 
-// Set trusted hosts based on Platform.sh routes.
-if (!isset($settings['trusted_host_patterns'])) {
-  $routes = $platformsh->routes();
-  $patterns = [];
-  foreach ($routes as $url => $route) {
-    $host = parse_url($url, PHP_URL_HOST);
-    if ($host !== false && $route['type'] == 'upstream' && $route['upstream'] == $platformsh->applicationName) {
-      // Replace asterisk wildcards with a regular expression.
-      $host_pattern = str_replace('\*', '[^\.]+', preg_quote($host));
-      $patterns[] = '^' . $host_pattern . '$';
-    }
-  }
-  $settings['trusted_host_patterns'] = array_unique($patterns);
-}
+// The 'trusted_hosts_pattern' setting allows an admin to restrict the Host header values
+// that are considered trusted.  If an attacker sends a request with a custom-crafted Host
+// header then it can be an injection vector, depending on how the Host header is used.
+// However, Platform.sh already replaces the Host header with the route that was used to reach
+// Platform.sh, so it is guaranteed to be safe.  The following line explicitly allows all
+// Host headers, as the only possible Host header is already guaranteed safe.
+$settings['trusted_host_patterns'] = ['.*'];
 
 // Import variables prefixed with 'd8settings:' into $settings
 // and 'd8config:' into $config.

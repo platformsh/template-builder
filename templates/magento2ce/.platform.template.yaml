@@ -33,7 +33,7 @@ info:
   - CMS
   # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzNSA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjMzNzYgMEwwIDEwLjAwNzZWMjkuOTk2N0w0Ljk0OTIyIDMyLjg1NzlMNC45MTQyNyAxMi44NjQ1TDE3LjMwMjYgNS43MTM2NkwyOS42OTA5IDEyLjg2NDVWMzIuODQ5MkwzNC42NDAyIDI5Ljk5NjdWOS45OTAxN0wxNy4zMzc2IDBaIiBmaWxsPSIjRjI2MzIyIi8+CjxwYXRoIGQ9Ik0xOS43OTI1IDMyLjg1MzZMMTcuMzIgMzQuMjkwN0wxNC44MzQ1IDMyLjg2NjdWMTIuODY0NUw5Ljg4OTY1IDE1LjcyMTNMOS44OTgzOSAzNS43MTQ4TDE3LjMxNTcgNDBMMjQuNzQxNyAzNS43MTQ4VjE1LjcyMTNMMTkuNzkyNSAxMi44NjQ1VjMyLjg1MzZaIiBmaWxsPSIjRjI2MzIyIi8+Cjwvc3ZnPgo=
-  
+
   # Additional notes displayed in the template's detail view.
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
@@ -47,7 +47,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-magento2ce.git@master
+  repository: git://github.com/platformsh-templates/magento2ce.git@master
   config: null
   files: []
   profile: Magento 2 Community Edition

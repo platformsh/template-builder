@@ -46,7 +46,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-flask.git@master
+  repository: git://github.com/platformsh-templates/flask.git@master
   config: null
   files: []
   profile: Flask

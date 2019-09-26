@@ -37,7 +37,7 @@ def project_factory(name):
     The BaseProject class is used by default (class with the matching name is not imported)
     '''
 
-    targetclass = name.capitalize()
+    targetclass = name.capitalize().replace('-', '_')
     try:
         return globals()[targetclass](name)
     except KeyError:

@@ -9,11 +9,10 @@ import os
 
 from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
-from project.drupal import Drupal7_vanilla, Drupal8, Govcms8
+from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8
 from project.laravel import Laravel
 from project.magento import Magento2ce
 from project.pimcore import Pimcore
-from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Opigno, Govcms8
 from project.laravel import Laravel
 from project.magento import Magento2ce
 from project.rails import Rails

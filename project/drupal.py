@@ -31,12 +31,12 @@ class Drupal8(RemoteProject):
 class Drupal8_multisite(Drupal8):
     pass
 
-class Opigno(Drupal8):
+class Drupal8_opigno(Drupal8):
     major_version = '2'
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
 
-class Govcms8(RemoteProject):
+class Drupal8_govcms8(RemoteProject):
     upstream_branch = '8.x'
     remote = 'https://github.com/drupal-composer/drupal-project.git'
 
@@ -59,7 +59,7 @@ class Govcms8(RemoteProject):
             with open('{0}/composer.json'.format(self.builddir), 'w') as out:
                 json.dump(composer, out, indent=2)
 
-        return super(Govcms8, self).platformify + [
+        return super(Drupal8_govcms8, self).platformify + [
             (govcms8_add_installer_paths, []),
             'cd {0} && composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
         ]

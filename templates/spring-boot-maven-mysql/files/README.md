@@ -7,7 +7,7 @@ The Spring Framework is an application framework and inversion of control contai
 ## Services
 
 * Java 8
-* MariaDB 10.2
+* Oracle MySQL 8.0
 
 ## Customizations
 

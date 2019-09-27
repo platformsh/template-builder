@@ -1,6 +1,6 @@
 https://{default}/:
     type: upstream
-    upstream: magento:http
+    upstream: app:http
 
 https://{default}/static/:
     type: upstream

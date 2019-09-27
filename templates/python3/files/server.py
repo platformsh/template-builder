@@ -18,7 +18,7 @@ class myHandler(BaseHTTPRequestHandler):
 
         tests = {
             "mysql": self.wrap_test(self.test_mysql, config.credentials("database")),
-            "redis": self.wrap_test(self.test_redis, config.credentials("redis"))
+            "redis": self.wrap_test(self.test_redis, config.credentials("rediscache"))
         }
 
         self.send_response(200)

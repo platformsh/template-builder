@@ -6,7 +6,7 @@ Hugo is a static site generator written in Go, using Go's native template packag
 
 ## Services
 
-* Go 1.12
+* Go 1.13
 
 ## Post-install
 

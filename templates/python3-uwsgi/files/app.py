@@ -63,7 +63,7 @@ def application(env, start_response):
 
     tests = {
         "mysql": wrap_test(test_mysql, config.credentials("database")),
-        "redis": wrap_test(test_redis, config.credentials("redis"))
+        "redis": wrap_test(test_redis, config.credentials("rediscache"))
     }
 
     start_response('200 OK', [('Content-Type', 'text/html')])

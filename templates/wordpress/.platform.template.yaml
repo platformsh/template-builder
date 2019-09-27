@@ -37,7 +37,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.3<br/>MySQL 10.2"
+      content: "PHP 7.3<br/>MariaDB 10.2"
 
 
 # This key describes the initialization call made to the master environment at

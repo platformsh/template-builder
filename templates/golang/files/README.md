@@ -6,7 +6,7 @@ Go is a statically typed, compiled language with an emphasis on easy concurrency
 
 ## Services
 
-* Go 1.12
+* Go 1.13
 * MariaDB 10.2
 
 ## Customizations

@@ -37,7 +37,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Python 3.7<br/>MySQL 10.2<br/>Redis 3.2"
+      content: "Python 3.7<br/>MySQL 10.2<br/>Redis 5.0"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

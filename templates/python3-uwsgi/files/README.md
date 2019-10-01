@@ -6,7 +6,9 @@ Python is a general purpose scripting language often used in web development.
 
 ## Services
 
-* Python 3.7.
+* Python 3.7
+* MariaDB 10.2
+* Redis 5.0
 
 ## Customizations
 

@@ -1,4 +1,4 @@
-# Drupal 8 for Platform.sh
+# Pimcore for Platform.sh
 
 This template builds Pimcore 5 on Platform.sh.  It comes pre-installed with Doctrine and Redis caching.
 

@@ -7,7 +7,7 @@ ASP.NET Core is an open-source and cross-platform .NET framework for building mo
 ## Services
 
 * .NET 2.2
-* MariaDB 10.2
+* MariaDB 10.4
 * Redis 5.0
 
 ## Customizations

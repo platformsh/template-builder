@@ -7,7 +7,7 @@
         "cms",
         "template"
     ],
-    "homepage": "https://github.com/platformsh/template-wordpress",
+    "homepage": "https://github.com/platformsh-templates/wordpress",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "repositories": [

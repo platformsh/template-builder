@@ -36,7 +36,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.3<br/>MySQL 10.2"
+      content: "PHP 7.3<br/>MariaDB 10.2"
 
 
 # This key describes the initialization call made to the master environment at
@@ -46,7 +46,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-php.git@master
+  repository: git://github.com/platformsh-templates/php.git@master
   config: null
   files: []
   profile: PHP

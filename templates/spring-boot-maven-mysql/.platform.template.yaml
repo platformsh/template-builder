@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This project provides a starter kit for Spring Boot Maven with MySQL projects hosted on Platform.sh.</p>
-     <p>The Spring Framework is an application framework and inversion of control container for the Java platform.</p>  
+     <p>The Spring Framework is an application framework and inversion of control container for the Java platform.</p>
   # A list of tags associated with the template.
   tags:
   - Java
@@ -38,7 +38,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Java 8<br/>Maven<br/>Spring Boot<br/>MySQL"
+      content: "Java 8<br/>Maven<br/>Spring Boot<br/>Oracle MySQL 8.0"
 
 
 # This key describes the initialization call made to the master environment at
@@ -48,7 +48,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-spring-boot-maven-mysql.git@master
+  repository: git://github.com/platformsh-templates/spring-boot-maven-mysql.git@master
   config: null
   files: []
   profile: Spring

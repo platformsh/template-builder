@@ -18,7 +18,7 @@ config = Config()
 def root():
     tests = {
         "database": wrap_test(test_mysql, config.credentials("database")),
-        "redis": wrap_test(test_redis, config.credentials("redis"))
+        "redis": wrap_test(test_redis, config.credentials("rediscache"))
     }
     return flask.json.jsonify(tests)
 

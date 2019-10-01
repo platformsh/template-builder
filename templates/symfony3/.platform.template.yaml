@@ -37,7 +37,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.2<br/>MySQL 10.2"
+      content: "PHP 7.2<br/>MariaDB 10.2"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which
@@ -46,7 +46,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh/template-symfony3.git@master
+  repository: git://github.com/platformsh-templates/symfony3.git@master
   config: null
   files: []
   profile: Symfony 3

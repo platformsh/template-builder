@@ -1,5 +1,6 @@
 from . import BaseProject
 import subprocess
+import packaging.version
 
 class RemoteProject(BaseProject):
     '''
@@ -35,6 +36,7 @@ class RemoteProject(BaseProject):
         if hasattr(self, 'major_version'):
             def merge_from_upstream_tag():
                 latest_tag = self.latest_tag()
+                print("Merging from upstream tag: {0}".format(latest_tag))
                 subprocess.check_output('cd {0} && git merge --allow-unrelated-histories -X theirs --squash {1}'.format(
                 self.builddir, latest_tag), shell=True)
             actions.append(merge_from_upstream_tag)
@@ -56,12 +58,12 @@ class RemoteProject(BaseProject):
         :return: string The version number of the most up to date tag matching the current major version.
         """
         tags = subprocess.check_output('cd {0} && git tag'.format(self.builddir), shell=True).decode('utf-8').splitlines()
-        tags = [tag for tag in tags if tag.startswith(self.major_version)]
-        tags.sort(key=lambda s: [u for u in s.split('.')], reverse=True)
+        tags = [tag for tag in tags if tag.startswith(self.major_version) and 'beta' not in tag and 'alpha' not in tag]
+        tags.sort(key=lambda x: packaging.version.parse(x), reverse=True)
 
         tag = next(iter(tags), None)
 
         if tag == None:
-            raise Exception('No upstream tag found to merge from')
+            raise Exception('No upstream tag found to merge from.')
 
         return tag

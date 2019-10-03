@@ -31,20 +31,10 @@
         "sort-packages": true
     },
     "scripts": {
-      "update-packages": [
-          "cp -rf wp/* web/",
-          "rm -rf wp"
+      "movewpcore-towebroot": [
+          "cp -rf wordpress/* web/ && rm -rf wordpress"
       ],
-      "post-install-cmd": "@update-packages",
-      "post-update-cmd": "@update-packages"
-    },
-    "extra": {
-        "wordpress-install-dir": "wp",
-        "installer-paths": {
-            "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
-            "web/wp-content/themes/{$name}": ["type:wordpress-theme"],
-            "web/wp-content/mu-plugins/{$name}": ["type:wordpress-muplugin"],
-            "web/wp-content/{$name}": "type:wordpress-dropin"
-        }
+      "post-install-cmd": "@movewpcore-towebroot",
+      "post-update-cmd": "@movewpcore-towebroot"
     }
 }

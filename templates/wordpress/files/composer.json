@@ -31,11 +31,11 @@
         "sort-packages": true
     },
     "scripts": {
-      "movewpcore-towebroot": [
+      "movewpcore-todocroot": [
           "cp -rf wordpress/* web/ && rm -rf wordpress"
       ],
-      "post-install-cmd": "@movewpcore-towebroot",
-      "post-update-cmd": "@movewpcore-towebroot"
+      "post-install-cmd": "@movewpcore-todocroot",
+      "post-update-cmd": "@movewpcore-todocroot"
     },
     "extra": {
       "installer-paths": {

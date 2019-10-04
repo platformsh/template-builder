@@ -9,6 +9,10 @@ type: php:7.2
 build:
     flavor: composer
 
+runtime:
+    extensions:
+        - imap
+
 variables:
     env:
         # Tell Symfony to always install in production-mode.
@@ -18,11 +22,12 @@ variables:
 hooks:
     build: |
         set -e
-        rm web/app_dev.php
-        bin/console --env=prod assets:install --no-debug
+        # rm index_dev.php
+        #app/console --env=prod assets:install --no-debug
     deploy: |
         set -e
-        bin/console --env=prod cache:clear
+        php app/console doctrine:migrations:migrate
+        php app/console --env=prod cache:clear
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -36,13 +41,13 @@ disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "/var/cache":
+    "/app/cache":
         source: local
         source_path: "cache"
-    "/var/logs":
+    "/app/logs":
         source: local
         source_path: "logs"
-    "/var/sessions":
+    "/app/sessions":
         source: local
         source_path: "sessions"
 
@@ -51,6 +56,17 @@ web:
     locations:
         "/":
             # The public directory of the app, relative to its root.
-            root: "web"
+            root: ""
             # The front-controller script to send non-static requests to.
-            passthru: "/app.php"
+            passthru: "/index.php"
+
+cron:
+    mautic-segments:
+        spec: '*/7 * * * *'
+        cmd: php app/console mautic:segments:update
+    mautic-campaign-update:
+        spec: '*/11 * * * *'
+        cmd: php app/console mautic:campaigns:update
+    mautic-campaign-actions:
+        spec: '*/5 * * * *'
+        cmd: php app/console mautic:campaigns:trigger

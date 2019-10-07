@@ -1,0 +1,15 @@
+diff --git a/.platform.app.yaml b/.platform.app.yaml
+index fa6464901..40d55d80e 100644
+--- a/app/AppKernel.php
++++ b/app/AppKernel.php
+@@ -382,6 +382,10 @@ class AppKernel extends Kernel
+      */
+     public function getCacheDir()
+     {
++        // The default cache path logic fails on encrypted disks, so force the cache
++        // to use tmp, which is not encrypted.
++        return '/tmp/mautic/cache/' . $this->environment;
++
+         $parameters = $this->getLocalParams();
+         if (isset($parameters['cache_path'])) {
+             $envFolder = (substr($parameters['cache_path'], -1) != '/') ? '/'.$this->environment : $this->environment;

@@ -1,8 +1,11 @@
 <?php
+
 /**
  * @file
  * Platform.sh utilities for integrating with Drush.
  */
+
+require_once(__DIR__ . 'vendor/autoload.php');
 
 /**
  * Returns a site URL to use with Drush, if possible.
@@ -16,7 +19,7 @@ function _platformsh_drush_site_url() {
     return;
   }
 
-  $routes = $platformsh->getUpstreamRoutes($appName);
+  $routes = $platformsh->getUpstreamRoutes($platformsh->appName);
 
   // Sort URLs, with the primary route first, then by HTTPS before HTTP, then by length.
   usort($routes, function (array $a, array $b) {

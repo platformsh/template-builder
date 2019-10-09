@@ -81,8 +81,6 @@ mounts:
 
 # The hooks that will be performed when the package is deployed.
 hooks:
-
-    # Ensure to
     build: |
         set -e
         php src/installer.php install:setup

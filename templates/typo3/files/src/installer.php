@@ -1,5 +1,7 @@
 <?php
+
 $classLoader = require __DIR__ . '/../vendor/autoload.php';
+
 use Doctrine\DBAL\DBALException;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
@@ -26,6 +28,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 use TYPO3\CMS\Install\FolderStructure\DefaultFactory;
+
 class TYPO3InstallerCommand extends Command
 {
     /**
@@ -231,11 +234,12 @@ class SetupExtensionsCommand extends TYPO3InstallerCommand
         return 0;
     }
 }
+
 // Here goes the spaghetti code
 // Bootstrap TYPO3
 SystemEnvironmentBuilder::run(1, SystemEnvironmentBuilder::REQUESTTYPE_CLI);
 $container = Bootstrap::init($classLoader);
-$application = new Application('platform.sh TYPO3 Installer');
+$application = new Application('Platform.sh TYPO3 Installer');
 $application->add(new FileAndFolderSetupCommand($container, 'install:setup'));
 $application->add(new WireConfigFoldersCommand($container, 'install:wireconfig'));
 // Only run these if the base set up is run through

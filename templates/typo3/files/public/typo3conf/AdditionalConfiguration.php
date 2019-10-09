@@ -1,7 +1,7 @@
 <?php
 use Platformsh\ConfigReader\Config;
 $platformConfig = new Config();
-if ($platformConfig->isValidPlatform()) {
+if ($platformConfig->isValidPlatform() && !$platformConfig->inBuild()) {
     // Workaround to set the proper env variable for the main route (found in config/sites/main/config.yaml)
     putenv('PLATFORM_ROUTES_MAIN=' . $platformConfig->getRoute('main')['url']);
     $databaseConfig = $platformConfig->credentials('database');

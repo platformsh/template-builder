@@ -18,8 +18,8 @@ runtime:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: 'mysqldb:mysql'
-    redis: 'rediscache:redis'
+    database: 'db:mysql'
+    rediscache: 'cache:redis'
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -69,9 +69,15 @@ disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "public/typo3temp": "shared:files/typo3temp"
-    "public/fileadmin": "shared:files/fileadmin"
-    "var": "shared:files/var"
+    "public/typo3temp":
+        source: local
+        source_path: "typo3temp"
+    "public/fileadmin":
+        source: local
+        source_path: "fileadmin"
+    "var":
+        source: local
+        source_path: "var"
 
 # The hooks that will be performed when the package is deployed.
 hooks:

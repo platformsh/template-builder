@@ -11,7 +11,7 @@ if ($platformConfig->isValidPlatform() && !$platformConfig->inBuild()) {
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = $databaseConfig['path'];
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = $databaseConfig['username'];
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = $databaseConfig['password'];
-    $redisConfig = $platformConfig->credentials('redis');
+    $redisConfig = $platformConfig->credentials('rediscache');
     $redisHost = $redisConfig['host'];
     $redisPort = $redisConfig['port'];
     $list = [

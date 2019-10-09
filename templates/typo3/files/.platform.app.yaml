@@ -95,6 +95,7 @@ hooks:
           php src/installer.php install:createuser "admin" "password"
           touch var/platformsh.installed
         fi;
+
 crons:
     typo3:
         spec: "*/5 * * * *"

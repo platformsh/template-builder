@@ -89,11 +89,11 @@ hooks:
     deploy: |
         set -e
         php src/installer.php install:wireconfig
-        if [ ! -f var/installed.lock ]; then
+        if [ ! -f var/platformsh.installed ]; then
           php src/installer.php install:dbimport
           php src/installer.php install:activateextensions
           php src/installer.php install:createuser "admin" "password"
-          touch var/installed.lock
+          touch var/platformsh.installed
         fi;
 crons:
     typo3:

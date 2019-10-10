@@ -89,12 +89,12 @@ hooks:
         set -e
         php src/installer.php install:wireconfig
         if [ ! -f var/platformsh.installed ]; then
-          php src/installer.php install:dbimport
-          php src/installer.php install:activateextensions
-          # This creates the initial admin user with a default password.
-          # *CHANGE THIS VALUE IMMEDIATELY AFTER INSTALLATION*
-          php src/installer.php install:createuser "admin" "password"
-          touch var/platformsh.installed
+            php src/installer.php install:dbimport
+            php src/installer.php install:activateextensions
+            # This creates the initial admin user with a default password.
+            # *CHANGE THIS VALUE IMMEDIATELY AFTER INSTALLATION*
+            php src/installer.php install:createuser "admin" "password"
+            touch var/platformsh.installed
         fi;
 
 crons:

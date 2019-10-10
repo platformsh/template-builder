@@ -24,7 +24,8 @@ The following changes have been made relative to TYPO3 as it is downloaded from 
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * At this time, the TYPO3 10 CLI installer is not yet compatible with Platform.sh.  Therefore this package includes a custom installer in `src/install.php` that is run from the deploy hook the first time the site is deployed.  It will non-interactively initialize the site's database and admin user.
 * A `sites/main/config.yaml` file is provided that reads the base URL from an environment variable.
-* A default `public/typo3conf/AdditionalConfiguration.php` file is provided that loads a `PlatformshConfiguration.php` file if found.  That file maps Platform.sh environment variables to the database, redis, and base URL environment configuration needed by TYPO3.  You may modify this file if needed.
+* A default `public/typo3conf/AdditionalConfiguration.php` file is provided that loads a `PlatformshConfiguration.php` file if found.  That file maps Platform.sh environment variables to the database, redis, and base URL environment configuration needed by TYPO3.  You may modify both of these files as needed.
+* Specifically, a relationship named `database` will automatically be wired to the TYPO3 primary database.  Additionally, if a relationship named `rediscache` is defined it will be used as the cache backend.  (It is included in this template.)
 
 ## References
 

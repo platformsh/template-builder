@@ -57,8 +57,16 @@ class RemoteProject(BaseProject):
         """
         :return: string The version number of the most up to date tag matching the current major version.
         """
-        tags = subprocess.check_output('cd {0} && git tag'.format(self.builddir), shell=True).decode('utf-8').splitlines()
-        tags = [tag for tag in tags if tag.startswith(self.major_version) and 'beta' not in tag and 'alpha' not in tag]
+        all_tags = subprocess.check_output('cd {0} && git tag'.format(self.builddir), shell=True).decode(
+            'utf-8').splitlines()
+
+        tags = [tag for tag in all_tags if tag.startswith(self.major_version) and 'beta' not in tag and 'alpha' not in tag]
+        # If there are no proper releases, search again but allow pre-release versions this time.
+        # @todo If the project is hosted on GitHub, a better approach would be to check the GitHub API to see what
+        # is marked as the latest release.
+        if not tags:
+            tags = [tag for tag in all_tags if tag.startswith(self.major_version)]
+
         tags.sort(key=lambda x: packaging.version.parse(x), reverse=True)
 
         tag = next(iter(tags), None)

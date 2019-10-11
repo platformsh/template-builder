@@ -7,7 +7,7 @@ TYPO3 is a Content Management System (CMS) built in PHP.
 ## Services
 
 * PHP 7.3
-* MariaDB 10.2
+* MariaDB 10.4
 * Redis 5.0
 
 ## Post-install

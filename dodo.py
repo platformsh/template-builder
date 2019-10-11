@@ -18,6 +18,7 @@ from project.magento import Magento2ce
 from project.rails import Rails
 from project.sculpin import Sculpin
 from project.symfony import Symfony3, Symfony4
+from project.typo3 import Typo3
 from project.wordpress import Wordpress
 
 DOIT_CONFIG = {

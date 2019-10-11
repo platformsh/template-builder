@@ -1,0 +1,11 @@
+"https://{default}/":
+    type: upstream
+    upstream: "app:http"
+    id: "main"
+    cache:
+        enabled: true
+        cookies:
+          - 'be_typo_user'
+          - 'fe_typo_user'
+          - 'PHPSESSID'
+          - 'Typo3InstallTool'

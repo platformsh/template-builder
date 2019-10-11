@@ -36,7 +36,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "PHP 7.3<br/>MariaDB 10.2<br />Redis 5.0"
+      content: "PHP 7.3<br/>MariaDB 10.4<br />Redis 5.0"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

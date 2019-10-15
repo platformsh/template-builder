@@ -22,10 +22,9 @@ class Wordpress(RemoteProject):
 
             composer['scripts'] = {
                 'movewpcore-todocroot': [
-                    "cp -rf wordpress/* web/ && rm -rf wordpress"
+                    "mv wordpress/* web/"
                 ],
-                'post-install-cmd': "@movewpcore-todocroot",
-                "post-update-cmd": "@movewpcore-todocroot"
+                'post-install-cmd': "@movewpcore-todocroot"
             }
 
             composer['extra'] = {

@@ -1,0 +1,19 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "Example Node.js project for Platform.sh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/platformsh-templates/nodejs.git"
+  },
+  "author": "Platform.sh",
+  "license": "MIT",
+  "dependencies": {
+    "mysql2": "^1.6.5",
+    "platformsh-config": "^2.0.0"
+  }
+}

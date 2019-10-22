@@ -21,17 +21,17 @@ class Wordpress(RemoteProject):
                 composer = json.load(f, object_pairs_hook=OrderedDict)
 
             composer['scripts'] = {
-                'movewpcore-todocroot': [
-                    "mv wordpress/* web/"
+                'movewpconfig': [
+                    "mv wp-config.php wordpress/"
                 ],
-                'post-install-cmd': "@movewpcore-todocroot"
+                'post-install-cmd': "@movewpconfig"
             }
 
             composer['extra'] = {
                 'installer-paths': {
-                    r'web/wp-content/plugins/{$name}': ['type:wordpress-plugin'],
-                    r'web/wp-content/themes/{$name}': ['type:wordpress-theme'],
-                    r'web/wp-content/mu-plugins/{$name}': ['type:wordpress-muplugin'],
+                    r'wordpress/wp-content/plugins/{$name}': ['type:wordpress-plugin'],
+                    r'wordpress/wp-content/themes/{$name}': ['type:wordpress-theme'],
+                    r'wordpress/wp-content/mu-plugins/{$name}': ['type:wordpress-muplugin'],
                 }
             }
 

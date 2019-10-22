@@ -26,4 +26,4 @@ relationships:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start:  java -jar target/spring-mvc-maven-mongodb.jar --server.port=$PORT
+        start:  java -jar -Xmx512m target/spring-mvc-maven-mongodb.jar --server.port=$PORT

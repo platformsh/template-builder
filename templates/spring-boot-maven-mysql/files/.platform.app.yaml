@@ -27,4 +27,4 @@ relationships:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start:  java -jar target/spring-boot-maven-mysql.jar --server.port=$PORT
+        start:  java -jar -Xmx512m target/spring-boot-maven-mysql.jar --server.port=$PORT

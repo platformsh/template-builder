@@ -10,16 +10,7 @@ class Wordpress(RemoteProject):
 
     @property
     def platformify(self):
-        def wp_modify_composer():
-            """
-            Wordpress requires more Composer modification than can be done
-            with the Composer command line.  This function modifies the composer.json
-            file as raw JSON instead.
-            """
-            with open('{0}/composer.json'.format(self.builddir), 'r') as f:
-                # The OrderedDict means that the property orders in composer.json will be preserved.
-                composer = json.load(f, object_pairs_hook=OrderedDict)
-
+        def wp_modify_composer(composer):
             # In order to both use the Wordpress default install location `wordpress` and
             # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
             # added to the upstream composer.json to move that config file during composer install.
@@ -37,12 +28,10 @@ class Wordpress(RemoteProject):
                     r'wordpress/wp-content/mu-plugins/{$name}': ['type:wordpress-muplugin'],
                 }
             }
-
-            with open('{0}/composer.json'.format(self.builddir), 'w') as out:
-                json.dump(composer, out, indent=2)
+            return composer
 
         return super(Wordpress, self).platformify + [
-            (wp_modify_composer, []),
+            (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
                 self.builddir),

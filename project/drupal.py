@@ -43,19 +43,14 @@ class Drupal8_govcms8(Drupal8):
 
     @property
     def platformify(self):
-        def govcms_remove_phing():
+        def govcms_remove_phing(composer):
             """
             The default GovCMS8 composer.json file runs a phing task that copies the site
             within itself.  It's not clear why, but it's unnecessary. Skip that.
             """
-            with open('{0}/composer.json'.format(self.builddir), 'r') as f:
-                # The OrderedDict means that the property orders in composer.json will be preserved.
-                composer = json.load(f, object_pairs_hook=OrderedDict)
 
             composer['scripts']['post-install-cmd'].remove('@composer push')
             composer['scripts']['post-update-cmd'].remove('@composer push')
+            return composer
 
-            with open('{0}/composer.json'.format(self.builddir), 'w') as out:
-                json.dump(composer, out, indent=2)
-
-        return [(govcms_remove_phing, [])] + super(Drupal8, self).platformify
+        return [(self.modify_composer, [govcms_remove_phing])] + super(Drupal8, self).platformify

@@ -49,7 +49,7 @@ class RemoteProject(BaseProject):
                 'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
 
         # Do this last so it picks up all changes from above.
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 

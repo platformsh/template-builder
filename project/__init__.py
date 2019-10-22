@@ -1,5 +1,7 @@
 import os.path
+import json
 from glob import glob
+from collections import OrderedDict
 
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
@@ -48,7 +50,7 @@ class BaseProject(object):
             'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
         ]
 
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 
@@ -74,7 +76,7 @@ class BaseProject(object):
         # In some cases the package updater needs to be run after we've platform-ified the
         # template, so run it a second time. Worst case it's a bit slower to build but doesn't
         # hurt anything.
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 
@@ -97,7 +99,7 @@ class BaseProject(object):
         ]
 
 
-    def packageUpdateActions(self):
+    def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
 
@@ -108,3 +110,19 @@ class BaseProject(object):
             actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(self.builddir, file, command))
 
         return actions
+
+    def modify_composer(self, mod_function):
+        """
+        Wordpress requires more Composer modification than can be done
+        with the Composer command line.  This function modifies the composer.json
+        file as raw JSON instead.
+        """
+
+        with open('{0}/composer.json'.format(self.builddir), 'r') as f:
+        # The OrderedDict means that the property orders in composer.json will be preserved.
+            composer = json.load(f, object_pairs_hook=OrderedDict)
+
+        composer = mod_function(composer)
+
+        with open('{0}/composer.json'.format(self.builddir), 'w') as out:
+            json.dump(composer, out, indent=2)

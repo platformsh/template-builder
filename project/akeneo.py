@@ -9,22 +9,18 @@ class Akeneo(RemoteProject):
     @property
     def update(self):
 
-        def akeneo_modify_composer():
+        def akeneo_modify_composer(composer):
             """
-            akeneo/pim-community-standard requires PHP 7.2, but it's dependency ocramius/package-versions requires 7.3 with the previous
-            default configuration (1.5.1). This resolves that problem.
+            akeneo/pim-community-standard requires PHP 7.2, but it's dependency ocramius/package-versions requires 7.3
+            with the previous default configuration (1.5.1). This resolves that problem.
             """
-            with open('{0}/composer.json'.format(self.builddir), 'r') as f:
-                # The OrderedDict means that the property orders in composer.json will be preserved.
-                composer = json.load(f, object_pairs_hook=OrderedDict)
 
             composer['require']['ocramius/package-versions'] = ">=1.4.0 <1.5.0"
 
-            with open('{0}/composer.json'.format(self.builddir), 'w') as out:
-                json.dump(composer, out, indent=4)
+            return composer
 
         return super(Akeneo, self).update + [
-            (akeneo_modify_composer, [])
+            (self.modify_composer, [akeneo_modify_composer])
         ]
 
     @property

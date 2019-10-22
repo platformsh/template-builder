@@ -23,7 +23,7 @@ web:
     locations:
         "/":
             # The public directory of the app, relative to its root.
-            root: "web"
+            root: "wordpress"
             # The front-controller script to send non-static requests to.
             passthru: "/index.php"
             # Wordpress has multiple roots (wp-admin) so the following is required
@@ -41,11 +41,11 @@ web:
                 ^/readme\.html$:
                     allow: false
         "/wp-content/cache":
-            root: "web/wp-content/cache"
+            root: "wordpress/wp-content/cache"
             scripts: false
             allow: false
         "/wp-content/uploads":
-            root: "web/wp-content/uploads"
+            root: "wordpress/wp-content/uploads"
             scripts: false
             allow: true
 
@@ -58,9 +58,9 @@ dependencies:
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "web/wp-content/cache":
+    "wordpress/wp-content/cache":
         source: local
         source_path: "cache"
-    "web/wp-content/uploads":
+    "wordpress/wp-content/uploads":
         source: local
         source_path: "uploads"

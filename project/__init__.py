@@ -48,7 +48,7 @@ class BaseProject(object):
             'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
         ]
 
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 
@@ -74,7 +74,7 @@ class BaseProject(object):
         # In some cases the package updater needs to be run after we've platform-ified the
         # template, so run it a second time. Worst case it's a bit slower to build but doesn't
         # hurt anything.
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 
@@ -97,7 +97,7 @@ class BaseProject(object):
         ]
 
 
-    def packageUpdateActions(self):
+    def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
 

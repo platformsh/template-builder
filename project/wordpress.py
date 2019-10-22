@@ -20,6 +20,9 @@ class Wordpress(RemoteProject):
                 # The OrderedDict means that the property orders in composer.json will be preserved.
                 composer = json.load(f, object_pairs_hook=OrderedDict)
 
+            # In order to both use the Wordpress default install location `wordpress` and
+            # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
+            # added to the upstream composer.json to move that config file during composer install.
             composer['scripts'] = {
                 'movewpconfig': [
                     "mv wp-config.php wordpress/"

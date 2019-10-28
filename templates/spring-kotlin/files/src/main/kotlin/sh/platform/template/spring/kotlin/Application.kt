@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication(scanBasePackages = arrayOf("sh.platform.template.spring.kotlin"),
         exclude = arrayOf(SecurityAutoConfiguration::class))
 class Application
-fun main(args: Array<String>) {
-    SpringApplication.run(Application::class.java, *args)
-}
+    fun main(args: Array<String>) {
+        SpringApplication.run(Application::class.java, *args)
+    }

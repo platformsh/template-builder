@@ -14,12 +14,12 @@ if (!$config->inRuntime()) {
 if ($config->hasRelationship('database')) {
     $credentials = $config->credentials('database');
 
-    $container->setParameter('database_driver', 'pdo_'.$credentials['scheme']);
-    $container->setParameter('database_host', $credentials['host']);
-    $container->setParameter('database_port', $credentials['port']);
-    $container->setParameter('database_name', $credentials['path']);
-    $container->setParameter('database_user', $credentials['username']);
-    $container->setParameter('database_password', $credentials['password']);
+    $container->setParameter('mautic.db_driver', 'pdo_'.$credentials['scheme']);
+    $container->setParameter('mautic.db_host', $credentials['host']);
+    $container->setParameter('mautic.db_port', $credentials['port']);
+    $container->setParameter('mautic.db_name', $credentials['path']);
+    $container->setParameter('mautic.db_user', $credentials['username']);
+    $container->setParameter('mautic.db_password', $credentials['password']);
     $container->setParameter('database_path', '');
 }
 

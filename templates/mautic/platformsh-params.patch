@@ -1,0 +1,17 @@
+diff --git a/app/config/parameters.php b/app/config/parameters.php
+index 2fd18a9c2..da8d4d260 100644
+--- a/app/config/parameters.php
++++ b/app/config/parameters.php
+@@ -65,6 +65,12 @@ if (isset($paths['local_config'])) {
+     }
+ }
+
++// Allow Platform.sh overrides.
++if (file_exists(__DIR__.'/parameters_platformsh.php')) {
++    include __DIR__.'/parameters_platformsh.php';
++
++}
++
+ // Force local specific params
+ if (file_exists(__DIR__.'/parameters_local.php')) {
+     include __DIR__.'/parameters_local.php';

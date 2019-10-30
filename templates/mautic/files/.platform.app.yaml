@@ -22,10 +22,33 @@ variables:
 hooks:
     build: |
         set -e
-        # rm index_dev.php
-        #app/console --env=prod assets:install --no-debug
+        # Mautic wants to modify this file at runtime, but its directory is not writeable.
+        # Instead, make the read-only file a symlink to the real file, which is in a
+        # mounted directory.
+        cd $PLATFORM_APP_DIR/config
+        ln -fs ../../persistent/platformsh_local.php local.php
+
+        # Mautic uses the same directory for both system-provided files and user-uploaded
+        # files.  This is bad practice.  To work around that, move the system-provided files
+        # elsewhere and copy them into a writeable mount later.
+        cd $PLATFORM_APP_DIR/mautic
+        mv media _media
     deploy: |
         set -e
+
+        # Copy the pre-defined config file into the writeable mount.
+        if [ ! -f $PLATFORM_APP_DIR/persistent/local.php ]; then
+            cp $PLATFORM_APP_DIR/platformsh_local.php $PLATFORM_APP_DIR/persistent/platformsh_local.php
+        fi;
+
+        # Initialize the Mautic site's data set if it's not already installed.
+        if [ ! -f /app/persistent/installed ]; then
+            php app/console mautic:install:data
+            cp -R $PLATFORM_APP_DIR/_media/ $PLATFORM_APP_DIR/media/
+            touch persistent/installed
+        fi;
+
+        # Run migrations to ensure the latest updates are in place.
         php app/console doctrine:migrations:migrate
         php app/console --env=prod cache:clear
 
@@ -41,6 +64,12 @@ disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
+    "/persistent":
+        source: local
+        source_path: "persistent"
+    "/media":
+        source: local
+        source_path: "media"
     "/app/cache":
         source: local
         source_path: "cache"

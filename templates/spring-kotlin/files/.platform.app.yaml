@@ -15,14 +15,13 @@ disk: 1024
 hooks:
     build: mvn clean install
 
-
 # The relationships of the application with services or other applications.
 #
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
-#relationships:
-#   database: "db:mysql"
+relationships:
+    database: "db:mysql"
 
 # The configuration of app when it is exposed to the web.
 web:

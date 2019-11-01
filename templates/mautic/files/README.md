@@ -7,7 +7,7 @@ Mautic is an Open SOurce marketing automation tool built on Symfony.
 ## Services
 
 * PHP 7.2
-* MariaDB 10.2
+* MariaDB 10.4
 * RabbitMQ 3.7
 
 ## Post-install

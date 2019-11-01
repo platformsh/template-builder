@@ -3,7 +3,7 @@ package sh.platform.template.spring.kotlin
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class HtmlController(private val repository: CityRepository) {
+class CityController(private val repository: CityRepository) {
 
     @GetMapping("cities")
     fun findAll(): Iterable<City> {

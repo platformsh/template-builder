@@ -15,6 +15,7 @@ from project.magento import Magento2ce
 from project.pimcore import Pimcore
 from project.laravel import Laravel
 from project.magento import Magento2ce
+from project.mautic import Mautic
 from project.rails import Rails
 from project.sculpin import Sculpin
 from project.symfony import Symfony3, Symfony4

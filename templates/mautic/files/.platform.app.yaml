@@ -1,0 +1,106 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.2
+build:
+    flavor: composer
+
+runtime:
+    extensions:
+        - imap
+
+variables:
+    env:
+        # Tell Symfony to always install in production-mode.
+        SYMFONY_ENV: 'prod'
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+    build: |
+        set -e
+        # Mautic wants to modify this file at runtime, but its directory is not writeable.
+        # Instead, make the read-only file a symlink to the real file, which is in a
+        # mounted directory.
+        cd $PLATFORM_APP_DIR/app/config
+        ln -fs ../../persistent/platformsh_local.php local.php
+
+        # Mautic uses the same directory for both system-provided files and user-uploaded
+        # files.  This is bad practice.  To work around that, move the system-provided files
+        # elsewhere and copy them into a writeable mount later.
+        cd $PLATFORM_APP_DIR
+        mv media _media
+    deploy: |
+        set -e
+
+        # Copy the pre-defined config file into the writeable mount.
+        if [ ! -f $PLATFORM_APP_DIR/persistent/platformsh_local.php ]; then
+            cp $PLATFORM_APP_DIR/platformsh_local.php $PLATFORM_APP_DIR/persistent/platformsh_local.php
+        fi;
+
+        # Initialize the Mautic site's data set if it's not already installed.
+        if [ ! -f $PLATFORM_APP_DIR/persistent/installed ]; then
+            php app/console mautic:install:data
+            cp -R $PLATFORM_APP_DIR/_media/* $PLATFORM_APP_DIR/media/
+            touch $PLATFORM_APP_DIR/persistent/installed
+        fi;
+
+        # Run migrations to ensure the latest updates are in place.
+        cd $PLATFORM_APP_DIR
+        php app/console doctrine:migrations:migrate
+        php app/console --env=prod cache:clear
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "db:mysql"
+    rabbitmqqueue: "queuerabbit:rabbitmq"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    "/persistent":
+        source: local
+        source_path: "persistent"
+    "/media":
+        source: local
+        source_path: "media"
+    "/app/cache":
+        source: local
+        source_path: "cache"
+    "/app/spool":
+        source: local
+        source_path: "spool"
+    "/app/logs":
+        source: local
+        source_path: "logs"
+    "/app/sessions":
+        source: local
+        source_path: "sessions"
+
+# The configuration of app when it is exposed to the web.
+web:
+    locations:
+        "/":
+            # The public directory of the app, relative to its root.
+            root: ""
+            # The front-controller script to send non-static requests to.
+            passthru: "/index.php"
+
+cron:
+    mautic-segments:
+        spec: '*/7 * * * *'
+        cmd: php app/console mautic:segments:update
+    mautic-campaign-update:
+        spec: '*/11 * * * *'
+        cmd: php app/console mautic:campaigns:update
+    mautic-campaign-actions:
+        spec: '*/5 * * * *'
+        cmd: php app/console mautic:campaigns:trigger

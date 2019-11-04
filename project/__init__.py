@@ -20,7 +20,7 @@ class BaseProject(object):
     # The key is a file name. If that file exists, then its value will be run in the
     # project build directory to update the corresponding lock file.
     updateCommands = {
-        'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction',
+        'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction --no-suggest',
         'Pipfile': 'pipenv update',
         'Gemfile': 'bundle update',
         'package.json': 'npm update',

@@ -105,3 +105,9 @@ Let's use the previous example: you have created a new application that uses the
 10. Open a pull request for `updates` on `template-spiffy`.
 11. Commit and push `add-spiffy` to the `template-builder` repository and create a pull request for it.
 12. Paste the two PR links in the Slack `#devrel` channel and include the handle `@devrel_team` so that it will be reviewed.
+
+## License
+
+The license for the projects built by this tool vary.
+
+All code unique to this repository is released under the [MIT License](LICENSE.md).

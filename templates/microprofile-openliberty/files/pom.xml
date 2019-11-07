@@ -23,11 +23,17 @@
         <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
 
+    <parent>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-app-parent</artifactId>
+        <version>3.0-M2</version>
+    </parent>
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>2.0.1</version>
+            <version>3.1</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -51,9 +57,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.0-M2</version>
                 <configuration>
                     <!-- set install-apps goal parameters -->
                     <looseApplication>true</looseApplication>
@@ -65,64 +71,6 @@
                         <default.https.port>${testServerHttpsPort}</default.https.port>
                     </bootstrapProperties>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>stop-server-before-clean</id>
-                        <phase>pre-clean</phase>
-                        <goals>
-                            <goal>stop-server</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>create-server</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>install-server</goal>
-                            <goal>create-server</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>install-feature</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>install-feature</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target/liberty-alt-output-dir</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-apps</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>install-apps</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>package-server</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package-server</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target/liberty-alt-output-dir</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-start-server</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>test-start-server</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-stop-server</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>test-stop-server</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -13,9 +13,9 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.microprofile>2.2</version.microprofile>
-        <version.payara.micro>5.192</version.payara.micro>
+        <version.payara.micro>5.193.1</version.payara.micro>
         <payara.version>1.0.5</payara.version>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
 
     <build>

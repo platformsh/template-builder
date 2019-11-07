@@ -5,8 +5,9 @@
     <groupId>sh.platform.template</groupId>
     <artifactId>micronaut</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
-        <micronaut.version>1.2.0</micronaut.version>
+        <micronaut.version>1.2.6</micronaut.version>
         <jdk.version>1.8</jdk.version>
         <maven.compiler.target>${jdk.version}</maven.compiler.target>
         <maven.compiler.source>${jdk.version}</maven.compiler.source>
@@ -15,8 +16,9 @@
         <exec.mainClass>sh.platform.template.Application</exec.mainClass>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
+
     <repositories>
         <repository>
             <id>jcenter.bintray.com</id>

@@ -44,7 +44,7 @@
     </dependencies>
 
     <properties>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
         <java.version>1.8</java.version>
     </properties>
 

@@ -20,7 +20,7 @@
         <package.file>${project.build.directory}/${app.name}.zip</package.file>
         <packaging.type>usr</packaging.type>
         <skipTests>false</skipTests>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
 
     <dependencies>

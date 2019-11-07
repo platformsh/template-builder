@@ -8,11 +8,11 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.thorntail>2.4.0.Final</version.thorntail>
+        <version.thorntail>2.5.0.Final</version.thorntail>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>

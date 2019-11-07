@@ -17,7 +17,7 @@
         <jayway-rest-assured.version>2.9.0</jayway-rest-assured.version>
         <kotlin.version>1.3.50</kotlin.version>
         <httpclient.version>4.5.8</httpclient.version>
-        <platform.sh.version>2.2.2</platform.sh.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
 
     <dependencies>

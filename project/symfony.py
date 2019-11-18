@@ -14,7 +14,11 @@ class Symfony3(RemoteProject):
             # change that requirement to 7.3 and be done with it.
             'cd {0} && composer config platform.php 7.3'.format(
                 self.builddir),
-            'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
+            # Monolog-Bundle allows for Monolog 1.x or 2.x, but nothing else forces Monolog 1.x, so by default
+            # 2.x gets installed.  That's explicitly not compatible with Symfony < 5, however.  Instead, force
+            # an extra dependency on Monolog 1 to sideste that issue.  It has to be done in a single install
+            # step to avoid issues with Symfony's install script failing if either of these packages are missing.
+            'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22 --ignore-platform-reqs'.format(
                 self.builddir),
         ]
 

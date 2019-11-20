@@ -1,5 +1,11 @@
 # Drupal 7 for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal7-vanilla/.platform.template.yaml&utm_content=drupal7-vanilla&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds a Drupal 7 site, with the entire site committed to Git.
 
 Drupal is a flexible and extensible PHP-based CMS framework.  Version 7 is the legacy support version.

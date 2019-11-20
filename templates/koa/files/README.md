@@ -1,5 +1,11 @@
 # Koa for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/koa/.platform.template.yaml&utm_content=koa&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds a Koa project on Platform.sh.
 
 Koa is a lightweight web framework for Node.js.

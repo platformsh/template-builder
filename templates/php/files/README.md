@@ -1,5 +1,11 @@
 # Basic PHP for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/php/.platform.template.yaml&utm_content=php&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template provides the most basic configuration for running a custom PHP project.
 
 PHP is a high-performance scripting language especially well suited to web development.

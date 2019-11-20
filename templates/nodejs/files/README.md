@@ -1,5 +1,11 @@
 # Node.js for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/nodejs/.platform.template.yaml&utm_content=nodejs&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds a simple application using the Node.js built-in `http` web server. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
 Node.js is an open-source JavaScript runtime built on Chrome's V8 JavaScript engine.

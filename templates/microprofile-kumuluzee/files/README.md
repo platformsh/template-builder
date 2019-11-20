@@ -1,5 +1,11 @@
 # KumuluzEE for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/microprofile-kumuluzee/.platform.template.yaml&utm_content=microprofile-kumuluzee&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for KumuluzEE Eclipse MicroProfile projects hosted on Platform.sh.
 
 KumuluzEE is a lightweight framework for developing microservices using standard Java, Java EE / Jakarta EE technologies and migrating existing Java applications to microservices. KumuluzEE packages microservices as standalone JARs. KumuluzEE microservices are lightweight and optimized for size and start-up time. 

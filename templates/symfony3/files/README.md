@@ -1,5 +1,11 @@
 # Symfony 3 for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/symfony3/.platform.template.yaml&utm_content=symfony3&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
 
 Symfony is a high-performance loosely-coupled PHP web development framework.  Version 3 is the legacy support version.

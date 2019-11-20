@@ -1,5 +1,11 @@
 # Express for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/express/.platform.template.yaml&utm_content=express&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds the Express framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
 Express is a minimalist web framework written in Node.js.

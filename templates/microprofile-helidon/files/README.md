@@ -1,5 +1,11 @@
 # Helidon for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/microprofile-helidon/.platform.template.yaml&utm_content=microprofile-helidon&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.
 
 Helidon is a collection of Java libraries for writing microservices that run on a fast web core powered by Netty.

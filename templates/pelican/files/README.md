@@ -1,5 +1,11 @@
 # Pelican for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/pelican/.platform.template.yaml&utm_content=pelican&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template provides a basic Pelican skeleton.  All files are generated at build time, so at runtime only static files need to be served.
 
 Pelican is a static site generator written in Python and using Jinja for templating.

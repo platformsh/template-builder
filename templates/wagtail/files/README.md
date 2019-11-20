@@ -1,5 +1,11 @@
 # Wagtail for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/wagtail/.platform.template.yaml&utm_content=wagtail&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds the Wagtail CMS on Platform.sh, using the gunicorn application runner.
 
 Wagtail is a web CMS built using the Django framework for Python.

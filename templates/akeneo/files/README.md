@@ -1,5 +1,11 @@
 # Akeneo PIM Community Edition for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/akeneo/.platform.template.yaml&utm_content=akeneo&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds the Akeneo PIM system for Platform.sh.  It requires at least a Medium plan as it uses a Worker instance for queue processing.
 
 Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.

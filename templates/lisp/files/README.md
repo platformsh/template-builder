@@ -1,5 +1,11 @@
 # Common Lisp Example for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/lisp/.platform.template.yaml&utm_content=lisp&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds a simple Lisp Hunchentoot web server for Platform.sh.  It includes a minimalist application  for demonstration, but you are free to alter it as needed.
 
 Hunchentoot is a web server written in Common Lisp and at the same time a toolkit for building dynamic websites.

@@ -1,5 +1,11 @@
 # Spring Boot Gradle for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/spring-boot-gradle-mysql/.platform.template.yaml&utm_content=spring-boot-gradle-mysql&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for Spring Boot Gradle with MySQL projects hosted on Platform.sh.
 
 The Spring Framework is an application framework and inversion of control container for the Java platform.

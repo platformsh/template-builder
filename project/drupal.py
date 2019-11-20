@@ -12,7 +12,7 @@ class Drupal7_vanilla(BaseProject):
         return super(Drupal7_vanilla, self).update + [
             "wget https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz && tar xzvf drupal-{0}.tar.gz -C {1}".format(self.version, self.builddir),
             "rm drupal-{0}.tar.gz".format(self.version),
-            "rm {0}public || true".format(self.version),
+            "rm -rf {0}public || true".format(self.builddir),
             "mv {0}drupal-{1} {0}public".format(self.builddir, self.version),
         ]
 

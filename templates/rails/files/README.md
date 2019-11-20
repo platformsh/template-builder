@@ -1,5 +1,11 @@
 # Ruby on Rails for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/rails/.platform.template.yaml&utm_content=rails&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds Ruby on Rails 5 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services.
 
 Rails is an opinionated rapid application development framework written in Ruby.

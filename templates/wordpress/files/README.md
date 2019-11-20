@@ -1,5 +1,11 @@
 # WordPress for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/wordpress/.platform.template.yaml&utm_content=wordpress&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.
 
 WordPress is a blogging and lightweight CMS written in PHP.

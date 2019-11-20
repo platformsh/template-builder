@@ -1,5 +1,11 @@
 # TYPO3 for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/typo3/.platform.template.yaml&utm_content=typo3&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds the TYPO3 CMS for Platform.sh.
 
 TYPO3 is a Content Management System (CMS) built in PHP.

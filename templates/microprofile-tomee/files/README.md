@@ -1,5 +1,11 @@
 # Apache TomEE MicroProfile for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/microprofile-tomee/.platform.template.yaml&utm_content=microprofile-tomee&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for Apache TomEE Eclipse MicroProfile projects hosted on Platform.sh.
 
 Apache TomEE is the Eclipse MicroProfile  implementation that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.

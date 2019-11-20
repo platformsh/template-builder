@@ -1,5 +1,11 @@
 # ASP.NET Core for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/aspnet-core/.platform.template.yaml&utm_content=aspnet-core&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds the ASP.NET Core framework for Platform.sh. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
 
 ASP.NET Core is an open-source and cross-platform .NET framework for building modern cloud-based web applications.

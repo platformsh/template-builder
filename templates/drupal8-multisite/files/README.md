@@ -1,5 +1,11 @@
 # Drupal 8 Multisite for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal8-multisite/.platform.template.yaml&utm_content=drupal8-multisite&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This template builds Drupal 8 in a multisite configuration using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install per-site.
 
 Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.

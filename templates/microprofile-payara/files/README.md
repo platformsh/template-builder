@@ -1,5 +1,11 @@
 # Payara Micro Maven for Platform.sh
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/microprofile-payara/.platform.template.yaml&utm_content=microprofile-payara&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for Payara Micro projects hosted on Platform.sh.
 
 Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices deployments.

@@ -1,5 +1,11 @@
 # Micronaut
 
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/micronaut/.platform.template.yaml&utm_content=micronaut&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 This project provides a starter kit for Micronaut projects hosted on Platform.sh.
 
 Micronaut is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.

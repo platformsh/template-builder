@@ -13,7 +13,7 @@ Symfony is a high-performance loosely-coupled PHP web development framework.
 ## Services
 
 * PHP 7.3
-* MariaDB 10.2
+* MariaDB 10.4
 
 ## Post-install
 

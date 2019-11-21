@@ -33,3 +33,14 @@ class Symfony4(RemoteProject):
             'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
                 self.builddir)
         ]
+
+class Symfony5(RemoteProject):
+    major_version = 'v5'
+    remote = 'https://github.com/symfony/skeleton.git'
+
+    @property
+    def platformify(self):
+        return super(Symfony5, self).platformify + [
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
+                self.builddir)
+        ]

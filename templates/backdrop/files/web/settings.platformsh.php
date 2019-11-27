@@ -49,11 +49,11 @@ $settings['trusted_host_patterns'] = ['.*'];
 
 // Configure private and temporary file paths.
 if (isset($_ENV['PLATFORM_APP_DIR'])) {
-  if (!isset($conf['file_private_path'])) {
-    $conf['file_private_path'] = $_ENV['PLATFORM_APP_DIR'] . '/private';
+  if (!isset($settings['file_private_path'])) {
+    $settings['file_private_path'] = $_ENV['PLATFORM_APP_DIR'] . '/private';
   }
-  if (!isset($conf['file_temporary_path'])) {
-    $conf['file_temporary_path'] = $_ENV['PLATFORM_APP_DIR'] . '/tmp';
+  if (!isset($settings['file_temporary_path'])) {
+    $settings['file_temporary_path'] = $_ENV['PLATFORM_APP_DIR'] . '/tmp';
   }
 }
 

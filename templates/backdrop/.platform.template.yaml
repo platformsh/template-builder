@@ -24,7 +24,7 @@ info:
   name: Backdrop
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    <p>This template builds a Backdrop, with the entire site committed to Git.</p>
+    <p>This template builds a Backdrop site, with the entire site committed to Git.</p>
     <p>Backdrop is a PHP-based CMS, originally forked from Drupal 7.</p>
   # A list of tags associated with the template.
   tags:

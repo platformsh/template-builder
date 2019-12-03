@@ -19,6 +19,7 @@ from project.magento import Magento2ce
 from project.mautic import Mautic
 from project.rails import Rails
 from project.sculpin import Sculpin
+from project.shopware import Shopware
 from project.symfony import Symfony3, Symfony4, Symfony5
 from project.typo3 import Typo3
 from project.wordpress import Wordpress

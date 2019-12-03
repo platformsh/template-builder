@@ -1,0 +1,79 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.3
+build:
+    flavor: composer
+
+variables:
+    env:
+        # Tell Shopware to always install in production-mode.
+        SHOPWARE_ENV: 'prod'
+
+# Specify additional PHP extensions that should be loaded.
+runtime:
+    extensions:
+        - ctype
+        - dom
+        #- hash
+        - iconv
+        - mbstring
+        #- openssl
+        #- session
+        #- zlib
+        - fileinfo
+
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+    build: |
+        set -e
+        bin/console --env=prod assets:install --no-debug
+    deploy: |
+        set -e
+        bin/console --env=prod cache:clear
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "db:mysql"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    "/custom/plugin":
+        source: local
+        source_path: "custom/plugin"
+    "/engine/Shopware/Plugins/Community":
+        source: local
+        source_path: "engine/Shopware/Plugins/Community"
+    "/files":
+        source: local
+        source_path: "files"
+    "/media":
+        source: local
+        source_path: "media"
+    "/var":
+        source: local
+        source_path: "var"
+    "/web":
+        source: local
+        source_path: "web"
+
+# The configuration of app when it is exposed to the web.
+web:
+    locations:
+        "/":
+            # The public directory of the app, relative to its root.
+            root: ""
+            # The front-controller script to send non-static requests to.
+            passthru: "/index.php"
+

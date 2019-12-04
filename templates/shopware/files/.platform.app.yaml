@@ -19,14 +19,9 @@ runtime:
     extensions:
         - ctype
         - dom
-        #- hash
         - iconv
         - mbstring
-        #- openssl
-        #- session
-        #- zlib
         - fileinfo
-
 
 # The hooks that will be performed when the package is deployed.
 hooks:
@@ -38,7 +33,7 @@ hooks:
         set -e
 
         # Install the site if necessary.
-        if [ ! -f $PLATFORM_APP_DIR/var/installed ]; then
+        if [ ! -f $PLATFORM_APP_DIR/installer/.platform.installed ]; then
             # These credentials will be used for the admin user upon installation.
             # You MUST change the admin credentials immediately after setting up your site.
             # Failure to do so is a critical security risk.
@@ -59,10 +54,12 @@ hooks:
             $PLATFORM_APP_DIR/bin/console sw:plugin:deactivate SwagUpdate
             $PLATFORM_APP_DIR/bin/console sw:admin:create --name="$ADMIN_NAME" --email="$ADMIN_EMAIL" --username="$ADMIN_USERNAME" --password="$ADMIN_PASSWORD" -n
 
-            touch $PLATFORM_APP_DIR/var/installed
+            touch $PLATFORM_APP_DIR/installer/.platform.installed
         fi;
 
-        ./deploy/deploy.sh
+        php bin/console sw:cache:clear
+        php bin/console sw:theme:cache:generate
+
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -76,12 +73,6 @@ disk: 2048
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "/custom/plugin":
-        source: local
-        source_path: "custom/plugin"
-    "/engine/Shopware/Plugins/Community":
-        source: local
-        source_path: "engine/Shopware/Plugins/Community"
     "/files":
         source: local
         source_path: "files"
@@ -94,6 +85,9 @@ mounts:
     "/web":
         source: local
         source_path: "web"
+    "/installer":
+        source: local
+        source_path: "installer"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -107,12 +101,11 @@ web:
 crons:
     cache-cleanup:
         spec: '30 2 * * *'
-        cmd: '/bin/sh /app/deploy/cleanup.sh >> /app/var/log/cleanup.log'
+        cmd: |
+            deploy/cleanup.sh >> $PLATFORM_APP_DIR/var/log/cleanup.log
 
     shopware-cron:
         spec: '*/15 * * * *'
         cmd: |
-            if [ "$PLATFORM_BRANCH" = master ]; then
-                SHOPWARE_ENV=prod /usr/bin/php -c /app/deploy/php/php.ini bin/console sw:cron:run
-            fi
+            php bin/console sw:cron:run
 

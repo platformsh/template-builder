@@ -6,6 +6,6 @@ rm -rf /app/var/cache/production_*/html/* && \
 rm -rf /app/var/cache/production_*/mpdf/* && \
 rm -rf /app/var/cache/production_*/proxies/* && \
 rm -rf /app/var/cache/production_*/templates/* && \
-SHOPWARE_ENV=prod /usr/bin/php -c /app/deploy/php/php.ini bin/console --no-interaction sw:cache:clear && \
-SHOPWARE_ENV=prod /usr/bin/php -c /app/deploy/php/php.ini bin/console --no-interaction sw:theme:cache:generate && \
-SHOPWARE_ENV=prod /usr/bin/php -c /app/deploy/php/php.ini bin/console --no-interaction sw:warm:http:cache
+php bin/console --no-interaction sw:cache:clear && \
+php bin/console --no-interaction sw:theme:cache:generate && \
+php bin/console --no-interaction sw:warm:http:cache

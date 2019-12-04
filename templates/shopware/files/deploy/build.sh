@@ -3,36 +3,32 @@
 echo "build.sh"
 
 echo "Creating symlinks"
-rm -rf  /app/engine/Library
-mkdir -p /app/engine/Library
-ln -s /app/vendor/shopware/shopware/engine/Library/CodeMirror /app/engine/Library/CodeMirror
-ln -s /app/vendor/shopware/shopware/engine/Library/ExtJs /app/engine/Library/ExtJs
-ln -s /app/vendor/shopware/shopware/engine/Library/TinyMce /app/engine/Library/TinyMce
+rm -rf  $PLATFORM_APP_DIR/engine/Library
+mkdir -p $PLATFORM_APP_DIR/engine/Library
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/engine/Library/CodeMirror $PLATFORM_APP_DIR/engine/Library/CodeMirror
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/engine/Library/ExtJs $PLATFORM_APP_DIR/engine/Library/ExtJs
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/engine/Library/TinyMce $PLATFORM_APP_DIR/engine/Library/TinyMce
 
-rm -rf /app/themes/Frontend/Bare
-rm -rf /app/themes/Frontend/Responsive
-rm -rf /app/themes/Backend/ExtJs
+rm -rf $PLATFORM_APP_DIR/themes/Frontend/Bare
+rm -rf $PLATFORM_APP_DIR/themes/Frontend/Responsive
+rm -rf $PLATFORM_APP_DIR/themes/Backend/ExtJs
 
-mkdir -p /app/themes/Backend
-mkdir -p /app/themes/Frontend
+mkdir -p $PLATFORM_APP_DIR/themes/Backend
+mkdir -p $PLATFORM_APP_DIR/themes/Frontend
 
-ln -s /app/vendor/shopware/shopware/themes/Backend/ExtJs /app/themes/Backend/ExtJs
-ln -s /app/vendor/shopware/shopware/themes/Frontend/Bare /app/themes/Frontend/Bare
-ln -s /app/vendor/shopware/shopware/themes/Frontend/Responsive /app/themes/Frontend/Responsive
-ln -s /app/src/theme/Tecosmart /app/themes/Frontend/Tecosmart
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/themes/Backend/ExtJs $PLATFORM_APP_DIR/themes/Backend/ExtJs
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/themes/Frontend/Bare $PLATFORM_APP_DIR/themes/Frontend/Bare
+ln -s $PLATFORM_APP_DIR/vendor/shopware/shopware/themes/Frontend/Responsive $PLATFORM_APP_DIR/themes/Frontend/Responsive
 
-ln -s /app/src/plugin/Tecosmart /app/Plugins/Local/Frontend/Tecosmart
-
-rm -rf /app/vendor/shopware/shopware/var
-rm -rf /app/vendor/shopware/shopware/web/cache
-rm -rf /app/vendor/shopware/shopware/media
-rm -rf /app/vendor/shopware/shopware/files
-rm -rf /app/vendor/shopware/shopware/custom
+rm -rf $PLATFORM_APP_DIR/vendor/shopware/shopware/var
+rm -rf $PLATFORM_APP_DIR/vendor/shopware/shopware/web/cache
+rm -rf $PLATFORM_APP_DIR/vendor/shopware/shopware/media
+rm -rf $PLATFORM_APP_DIR/vendor/shopware/shopware/files
+rm -rf $PLATFORM_APP_DIR/vendor/shopware/shopware/custom
 
 echo "Patching shopware internal folders with symlinks"
-ln -s /app/var  /app/vendor/shopware/shopware/var
-ln -s /app/web/cache /app/vendor/shopware/shopware/web/cache
-ln -s /app/media /app/vendor/shopware/shopware/media
-ln -s /app/files /app/vendor/shopware/shopware/files
-ln -s /app/custom /app/vendor/shopware/shopware/custom
-
+ln -s $PLATFORM_APP_DIR/var  $PLATFORM_APP_DIR/vendor/shopware/shopware/var
+ln -s $PLATFORM_APP_DIR/web/cache $PLATFORM_APP_DIR/vendor/shopware/shopware/web/cache
+ln -s $PLATFORM_APP_DIR/media $PLATFORM_APP_DIR/vendor/shopware/shopware/media
+ln -s $PLATFORM_APP_DIR/files $PLATFORM_APP_DIR/vendor/shopware/shopware/files
+ln -s $PLATFORM_APP_DIR/custom $PLATFORM_APP_DIR/vendor/shopware/shopware/custom

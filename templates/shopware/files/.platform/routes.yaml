@@ -5,6 +5,7 @@
 
 "https://{default}/":
     type: upstream
+    id: shopware
     upstream: "app:http"
 
 "https://www.{default}/":

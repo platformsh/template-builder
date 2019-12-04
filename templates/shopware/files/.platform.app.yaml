@@ -32,10 +32,37 @@ runtime:
 hooks:
     build: |
         set -e
-        bin/console --env=prod assets:install --no-debug
+        export PHP_INI_SCAN_DIR="/app/deploy/php"
+        ./deploy/build.sh
     deploy: |
         set -e
-        bin/console --env=prod cache:clear
+
+        # Install the site if necessary.
+        if [ ! -f $PLATFORM_APP_DIR/var/installed ]; then
+            # These credentials will be used for the admin user upon installation.
+            # You MUST change the admin credentials immediately after setting up your site.
+            # Failure to do so is a critical security risk.
+            # After the site is installed the values here have no effect.
+            export ADMIN_NAME=Admin
+            export ADMIN_EMAIL=admin@example.com
+            export ADMIN_USERNAME=admin
+            export ADMIN_PASSWORD=admin
+
+            # Make the DB credentials available to the installer.
+            export DATABASE_URL=`php platformsh-db-url.php`
+
+            $PLATFORM_APP_DIR/bin/console sw:database:setup --steps=import
+            $PLATFORM_APP_DIR/bin/console sw:database:setup --steps=setupShop --shop-url="$SHOP_URL"
+            $PLATFORM_APP_DIR/bin/console sw:snippets:to:db --include-plugins
+            $PLATFORM_APP_DIR/bin/console sw:theme:initialize
+            $PLATFORM_APP_DIR/bin/console sw:firstrunwizard:disable
+            $PLATFORM_APP_DIR/bin/console sw:plugin:deactivate SwagUpdate
+            $PLATFORM_APP_DIR/bin/console sw:admin:create --name="$ADMIN_NAME" --email="$ADMIN_EMAIL" --username="$ADMIN_USERNAME" --password="$ADMIN_PASSWORD" -n
+
+            touch $PLATFORM_APP_DIR/var/installed
+        fi;
+
+        ./deploy/deploy.sh
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -75,5 +102,17 @@ web:
             # The public directory of the app, relative to its root.
             root: ""
             # The front-controller script to send non-static requests to.
-            passthru: "/index.php"
+            passthru: "/shopware.php"
+
+crons:
+    cache-cleanup:
+        spec: '30 2 * * *'
+        cmd: '/bin/sh /app/deploy/cleanup.sh >> /app/var/log/cleanup.log'
+
+    shopware-cron:
+        spec: '*/15 * * * *'
+        cmd: |
+            if [ "$PLATFORM_BRANCH" = master ]; then
+                SHOPWARE_ENV=prod /usr/bin/php -c /app/deploy/php/php.ini bin/console sw:cron:run
+            fi
 

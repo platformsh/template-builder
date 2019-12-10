@@ -49,4 +49,4 @@ initialize:
   repository: git://github.com/platformsh-templates/gatsby.git@master
   config: null
   files: []
-  profile: Node.js
+  profile: Gatsby

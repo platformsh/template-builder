@@ -1,7 +1,7 @@
 # .platform.app.yaml
 
 # The name of this application, which must be unique within a project.
-name: 'gatsbyjs'
+name: 'app'
 
 # The type key specifies the language and version for your application.
 type: 'nodejs:10'

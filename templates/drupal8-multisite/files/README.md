@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds Drupal 8 in a multisite configuration using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install per-site.
+This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It also includes configuration to use Redis for caching, although that must be enabled post-install per-site.
 
 Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.
 
@@ -22,15 +22,15 @@ Each subsite installs separately.  As configured, this project uses a subdomain 
 
 1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
 
-2. Once Drupal is fully installed, edit the `sites/<sitename>/site-definition.php` file and set `$platformsh_enable_redis` to `true.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
+2. Once Drupal is fully installed, edit the `sites/<sitename>/settings.php` file and set `$platformsh_enable_redis` to `true.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
 
 ## Customizations
 
 The following changes have been made relative to Drupal 8 as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-* It uses the Drupal Composer project, which allow the site to be managed entirely with Composer. That also causes the `vendor` and `config` directories to be placed outside of the web root for added security.  See the [Drupal documentation](https://www.drupal.org/node/2404989) for tips on how best to leverage Composer with Drupal 8.
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.  However, the multi-site logic will only work if the conventions documented below are retained.
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* Drush and Drupal Console have been pre-included in `composer.json`.  You are free to remove one or both if you do not wish to use them.  (Note that the default cron and deploy hooks make use of Drush commands, however.)  The Drupal Redis module also comes pre-installed but not enabled by default.
 * The `sites/sites.php` file has been modified to dynamically build a `$sites` index based on the available routes.  If you wish to alter the subsite logic you will need to change the contents of the `foreach()` loop in that file.
 * The `sites/settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See the documentation for more examples of common snippets to include here.  It uses the Config Reader library.
 * The `sites/default` site directory is unused.  It is retained as an example for copy-and-paste-ing only.

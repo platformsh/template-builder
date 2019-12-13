@@ -31,6 +31,7 @@ class RemoteProject(BaseProject):
             'cd {0} && git checkout master'.format(self.builddir),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
+            'cd {0} && (find . ! -path . | grep -v ".git" | xargs rm -rf)'.format(self.builddir),
         ]
 
         if hasattr(self, 'major_version'):

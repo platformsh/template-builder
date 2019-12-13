@@ -18,13 +18,13 @@ class Drupal7_vanilla(BaseProject):
 
 
 class Drupal8(RemoteProject):
-    upstream_branch = '8.x'
-    remote = 'https://github.com/drupal-composer/drupal-project.git'
+    major_version = '8.8'
+    remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} /build && composer require platformsh/config-reader drupal/redis --ignore-platform-reqs'.format(
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis --ignore-platform-reqs'.format(
                 self.builddir)
         ]
 

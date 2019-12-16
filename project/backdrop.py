@@ -11,7 +11,7 @@ class Backdrop(BaseProject):
         return super(Backdrop, self).update + [
             "wget https://github.com/backdrop/backdrop/archive/{0}.tar.gz && tar xzvf {0}.tar.gz -C {1}".format(self.version, self.builddir),
             "rm {0}.tar.gz".format(self.version),
-            "rm {0}web || true".format(self.version),
+            "rm -rf {0}web || true".format(self.builddir),
             "mv {0}backdrop-{1} {0}web".format(self.builddir, self.version),
         ]
 

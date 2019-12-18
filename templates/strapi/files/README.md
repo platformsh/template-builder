@@ -1,4 +1,4 @@
-# strapi template for Platform.sh
+# Strapi template for Platform.sh
 
 <p align="center">
 <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/strapi/.platform.template.yaml&utm_content=strapi&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
@@ -18,7 +18,7 @@ Strapi is a Headless CMS framework written in Node.js.
 ## Post-install
 
 1. The first time the site is deployed, Strapi will direct you to visit the `/admin` path to register an administrative user. You will need to register an admin user before any API endpoints can be created.
-2. Once you have registered the admin user, you will have access to the **Admin Panel**, and from there you can being adding Content Types to build out the API. By default, no Content Types have been included in the installation *and* any Content Types you add will have secured API endpoints that will make them inaccessible. You will need to update the permissions for each Content Type from the *Users & Permissions* section of the **Admin Panel** after you have created them. If you are unfamiliar with how to create Content Types or modify permissions with Strapi, visit the [Quick Start Guide](https://strapi.io/documentation/3.0.0-beta.x/getting-started/quick-start.html) for detailed instructions.
+2. Once you have registered the admin user, you will have access to the **Admin Panel**, and from there you can begin adding Content Types to build out the API. By default, no Content Types have been included in the installation *and* any Content Types you add will have secured API endpoints that will make them publicly inaccessible. You will need to update the permissions for each Content Type from the *Users & Permissions* section of the **Admin Panel** after you have created them. If you are unfamiliar with how to create Content Types or modify permissions with Strapi, visit the [Quick Start Guide](https://strapi.io/documentation/3.0.0-beta.x/getting-started/quick-start.html) for detailed instructions.
 3. This template provides only the API for a full project, but you can modify the repository into a [multi-app project](https://docs.platform.sh/configuration/app/multi-app.html#multiple-applications) where Strapi acts as a separate backend application for the front end of your choice. For example, you can repackage this template into a subdirectory called `backend` to create a project structure that looks like this:
 
   ```

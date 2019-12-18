@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# For the sake of this template, strapi defaults to a development environment.
+# For the sake of this template, Strapi defaults to a development environment.
 # You can add new Content Types from the start, but you should replace your start
 # command with `yarn start` for production environments when taking the
 # application live. (Example below)

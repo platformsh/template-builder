@@ -1,0 +1,54 @@
+# Platform.sh Project Initialization Template
+#
+# This file defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+#
+# Once provisioned this file has no effects on the running project.  You
+# are free to remove it.
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
+info:
+  # Unique machine name, prefaced by a vendor or organization identifier
+  id: platformsh/strapi
+  # The human-readable name of the template.
+  name: strapi
+  # Human-readable descriptive text for the template. Supports limited HTML.
+  description: |
+      <p>This template builds a Strapi backend for Platform.sh.</p>
+      <p>Strapi is a Headless CMS framework written in Node.js.</p>
+  # A list of tags associated with the template.
+  tags:
+  - Node.js
+  - CMS
+  - API
+
+  # An image URI (either base64-encoded or a URL) representing the template.
+  image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjU2cHgiIGhlaWdodD0iMjcxcHgiIHZpZXdCb3g9IjAgMCAyNTYgMjcxIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIj4KICAgIDxnPgogICAgICAgIDxwYXRoIGQ9Ik0xMTYuNTUzLDAgTDAsNjcuOTUzIEwwLDk4LjA5NiBMNDkuNjY1LDEyNy44ODIgTDkxLjM2NiwxMDUuMTYzIEw5MS4zNjYsNzguNzQgTDE3OS42NjUsMjguMDM0IEwyNDEuNzExLDYzLjc3IEwyNDEuNjM3LDEzNS4yMjIgTDE1Ni41NjcsMTg0LjIzMSBMMTI4LjA4MiwxNzMuNjk0IEw5MC4xNjUsMTk3Ljg4MiBMOTEuMTI4LDI1NS43ODUgTDExNy4yMzMsMjcwLjg1OCBMMjM0Ljc0MywyMDMuODk3IEwyMzQuNzQzLDE2My42NSBMMjIxLjUzMSwxNzAuNzYxIEwyMjEuNTMxLDE5Ni4zNDcgTDExNy4yNjcsMjU1LjQ2MSBMMTA0LjM1MiwyNDguMDA1IEwxMDMuNjQ0LDIwNS40OCBMMTI4LjExNCwxODkuMTI4IEwxNTcuNjA3LDE5OS42NTggTDI1NiwxNDIuOTEyIEwyNTUuMDY1LDU1LjY1NiBMMTc5LjY3OCwxMi42MzMgTDc4LjAxNiw3MS4wMDkgTDc4LjAxNiw5Ny40MTkgTDQ5LjgyNCwxMTIuNDEgTDEzLjM1LDkwLjUzNiBMMTMuMzUsNzUuNjIyIEwxMTYuMjQzLDE1LjYzNiBMMTM3Ljg0MSwyOS4zOTkgTDE1MC44OSwyMS44ODYgTDExNi41NTMsMCBaIE0xODYuMDY5Niw3MS4wOTE4IEwxNjQuMTg3Niw4NC4zNjc4IEwxNjQuNzQzNiwxMDkuOTU1OCBMMTg3LjE4MTYsMTIyLjI2NzggTDIwOS4wNjM2LDEwOC45OTE4IEwyMDguNTA3Niw4My40MDQ4IEwxODYuMDY5Niw3MS4wOTE4IFogTTE4Ni4zMjA2LDgyLjY1MDggTDE5OC42MjI2LDg5LjQwMTggTDE5OC45Mjc2LDEwMy40MzA4IEwxODYuOTMwNiwxMTAuNzA4OCBMMTc0LjYyODYsMTAzLjk1ODggTDE3NC4zMjM2LDg5LjkyOTggTDE4Ni4zMjA2LDgyLjY1MDggWiBNNzMuNzAxLDE0MS4wMjM1IEw3MC43MzgsMTM1LjQwOTUgQzcwLjA4NiwxMzQuMTc1NSA2OC41NTgsMTMzLjcwMzUgNjcuMzI0LDEzNC4zNTQ1IEw0Ny45MzEsMTQ0LjU4NTUgQzQ2LjY5NywxNDUuMjM2NSA0Ni4yMjQsMTQ2Ljc2NTUgNDYuODc2LDE0OC4wMDA1IEw0OS44NCwxNTMuNjE3NSBDNTAuNDkxLDE1NC44NTE1IDUyLjAyLDE1NS4zMjQ1IDUzLjI1NCwxNTQuNjcyNSBMNzIuNjQ1LDE0NC40Mzg1IEM3My44OCwxNDMuNzg2NSA3NC4zNTIsMTQyLjI1NzUgNzMuNzAxLDE0MS4wMjM1IE04NC45MTY4LDE1OC4wNzAzIEw4MS45NTQ4LDE1Mi40NTQzIEM4MS4yODM4LDE1MS4xODEzIDc5LjY4NjgsMTUwLjcyNTMgNzguNDQzOCwxNTEuNDUxMyBMNDUuNzM5OCwxNzAuNTcyMyBDNDQuNTcxOCwxNzEuMjU2MyA0NC4xNDg4LDE3Mi43MzczIDQ0Ljc3OTgsMTczLjkzMzMgTDQ3Ljc0MTgsMTc5LjU0OTMgQzQ4LjQxMzgsMTgwLjgyMjMgNTAuMDEwOCwxODEuMjc4MyA1MS4yNTI4LDE4MC41NTIzIEw4My45NTc4LDE2MS40MzEzIEM4NS4xMjQ4LDE2MC43NDgzIDg1LjU0NzgsMTU5LjI2NzMgODQuOTE2OCwxNTguMDcwMyBNODcuOTcwNSwxNjkuNjA1NSBMNDkuNTIyNSwxOTEuNzA2NSBDNDguMzQzNSwxOTIuMzgzNSA0Ny45MTE1LDE5My44NzM1IDQ4LjU0NzUsMTk1LjA3NjUgTDUxLjUxMDUsMjAwLjY5MTUgQzUyLjE3ODUsMjAxLjk1NzUgNTMuNzYzNSwyMDIuNDE2NSA1NS4wMDQ1LDIwMS43MDM1IEw5My40NTI1LDE3OS42MDI1IEM5NC42MzI1LDE3OC45MjQ1IDk1LjA2MzUsMTc3LjQzNDUgOTQuNDI4NSwxNzYuMjMxNSBMOTEuNDY0NSwxNzAuNjE2NSBDOTAuNzk2NSwxNjkuMzUxNSA4OS4yMTE1LDE2OC44OTI1IDg3Ljk3MDUsMTY5LjYwNTUiIGZpbGw9IiMwMDAwMDAiLz4KICAgIDwvZz4KPC9zdmc+
+
+  # Additional notes displayed in the template's detail view.
+  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+  notes:
+    - heading: "Apps & Services"
+      content: "Node.js 12<br/>PostgreSQL 11"
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exitss now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+  repository: git://github.com/platformsh-templates/strapi.git@master
+  config: null
+  files: []
+  profile: strapi

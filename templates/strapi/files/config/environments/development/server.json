@@ -1,0 +1,13 @@
+{
+  "host": "localhost",
+  "port": "${process.env.PORT}",
+  "proxy": {
+    "enabled": false
+  },
+  "cron": {
+    "enabled": false
+  },
+  "admin": {
+    "autoOpen": false
+  }
+}

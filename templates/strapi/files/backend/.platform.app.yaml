@@ -43,3 +43,9 @@ mounts:
     'api':
         source: local
         source_path: api
+    'groups':
+        source: local
+        source_path: groups
+    'public/uploads':
+        source: local
+        source_path: uploads

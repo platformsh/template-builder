@@ -15,7 +15,7 @@ module.exports = {
   defaultConnection: 'default',
   connections: {
     default: {
-      connector: 'strapi-hook-bookshelf',
+      connector: 'bookshelf',
       settings,
       options: {
         ssl: false,

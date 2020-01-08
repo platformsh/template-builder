@@ -16,9 +16,9 @@ dependencies:
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
-    build: |
-      yarn build
-      chmod +x start.sh
+    build: !include
+      type: string
+      path: build.sh
 
 # The relationships of the application with services or other applications.
 #
@@ -43,9 +43,12 @@ mounts:
     'api':
         source: local
         source_path: api
-    'groups':
+    'components':
         source: local
-        source_path: groups
+        source_path: components
     'public/uploads':
         source: local
         source_path: uploads
+    'extensions':
+        source: local
+        source_path: extensions

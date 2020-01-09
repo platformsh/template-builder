@@ -56,7 +56,7 @@ The following changes have been made relative to the quickstart Strapi project t
 
 ## References
 
-* [Strap.io](https://strapi.io/)
+* [Strapi.io](https://strapi.io/)
 * [Strapi Documentation](https://strapi.io/documentation/3.0.0-beta.x/getting-started/introduction.html)
 * [Strapi Quick Start Guide](https://strapi.io/documentation/3.0.0-beta.x/getting-started/quick-start.html)
 * [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)

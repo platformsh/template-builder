@@ -14,6 +14,7 @@
             - '/^wordpress_sec_/'
             - 'wordpress_test_cookie'
             - '/^wp-settings-/'
+            - '/^wp-postpass/'
 
 "https://www.{default}/":
     type: redirect

@@ -42,8 +42,6 @@ Strapi is a Headless CMS framework written in Node.js.
       └── package.json
   ```
 
-  You can find a full tutorial for how to accomplish this on the [Platform.sh Community Site](https://community.platform.sh/t/use-strapi-as-an-api-backend/435).
-
 ## Customizations
 
 The following changes have been made relative to the quickstart Strapi project to run on Platform.sh.  If using this project as a reference for your own existing project, replicate the changes below to your project.

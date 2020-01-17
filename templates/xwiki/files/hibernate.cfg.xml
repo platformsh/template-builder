@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.use_outer_join">true</property>
+
+    <property name="hibernate.jdbc.use_scrollable_resultset">false</property>
+    <property name="hibernate.dbcp.defaultAutoCommit">false</property>
+    <property name="hibernate.dbcp.maxTotal">50</property>
+    <property name="hibernate.dbcp.maxIdle">5</property>
+    <property name="hibernate.dbcp.maxWaitMillis">30000</property>
+    <property name="hibernate.connection.provider_class">com.xpn.xwiki.store.DBCPConnectionProvider</property>
+
+    <property name="hibernate.bonecp.idleMaxAgeInMinutes">240</property>
+    <property name="hibernate.bonecp.idleConnectionTestPeriodInMinutes">60</property>
+    <property name="hibernate.bonecp.partitionCount">3</property>
+    <property name="hibernate.bonecp.acquireIncrement">10</property>
+    <property name="hibernate.bonecp.maxConnectionsPerPartition">60</property>
+    <property name="hibernate.bonecp.minConnectionsPerPartition">20</property>
+    <property name="hibernate.bonecp.statementsCacheSize">50</property>
+    <property name="hibernate.bonecp.releaseHelperThreads">3</property>
+    <property name="hibernate.connection.provider_class">com.xpn.xwiki.store.DBCPConnectionProvider</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://database.internal:5432/main</property>
+    <property name="hibernate.connection.username">main</property>
+    <property name="hibernate.connection.password">main</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+    <property name="hibernate.connection.charSet">UTF-8</property>
+    <property name="hibernate.connection.useUnicode">true</property>
+    <property name="hibernate.connection.characterEncoding">utf8</property>
+
+    <mapping resource="xwiki.hbm.xml"/>
+    <mapping resource="feeds.hbm.xml"/>
+    <mapping resource="instance.hbm.xml"/>
+    <mapping resource="notification-filter-preferences.hbm.xml"/>
+    <mapping resource="mailsender.hbm.xml"/>
+
+  </session-factory>
+</hibernate-configuration>

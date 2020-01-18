@@ -5,7 +5,7 @@
 
 "https://{default}/":
   type: upstream
-  upstream: "xwiki:http"
+  upstream: "app:http"
 
 "https://www.{default}/":
   type: redirect

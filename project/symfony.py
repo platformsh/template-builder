@@ -30,8 +30,11 @@ class Symfony4(RemoteProject):
     @property
     def platformify(self):
         return super(Symfony4, self).platformify + [
-            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
-                self.builddir)
+            # Symfony Flex now pins the lock files to a specific PHP version, so we have to in the platform version
+            # as well to avoid issues if the lock files are generated on a newer PHP version than the template uses.
+            # Keep this in sync with the template's PHP verison.
+            'cd {0} && composer config platform.php 7.3'.format(self.builddir),
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(self.builddir),
         ]
 
 class Symfony5(RemoteProject):
@@ -41,6 +44,9 @@ class Symfony5(RemoteProject):
     @property
     def platformify(self):
         return super(Symfony5, self).platformify + [
-            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
-                self.builddir)
+            # Symfony Flex now pins the lock files to a specific PHP version, so we have to in the platform version
+            # as well to avoid issues if the lock files are generated on a newer PHP version than the template uses.
+            # Keep this in sync with the template's PHP verison.
+            'cd {0} && composer config platform.php 7.3'.format(self.builddir),
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(self.builddir),
         ]

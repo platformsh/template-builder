@@ -22,6 +22,8 @@ XWiki is a free wiki software platform written in Java with a design emphasis on
 
 > To follow the minimum requirement use at least a Large plan type. https://www.xwiki.org/xwiki/bin/view/Documentation/AdminGuide/Performances/#HMemory
 
+*Make sure you turn on large app env or it won't work on dev envs*
+
 ## References
 
 * [XWiki](https://www.xwiki.org/xwiki/bin/view/Main/WebHome) 

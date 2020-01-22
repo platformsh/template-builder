@@ -38,6 +38,13 @@ info:
   notes:
     - heading: "Apps & Services"
       content: "Java 8<br/>"
+## Sets the available plans in the same way:
+plans:
+  # Removes plans from the list and bloceks them from being used for this
+  # project.
+  exclude:
+    - development
+    - small
 
 
 # This key describes the initialization call made to the master environment at

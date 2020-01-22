@@ -1,0 +1,10 @@
+diff --git a/.gitignore b/.gitignore
+index 136901b..2ad4cce 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -7,3 +7,5 @@
+ /var/
+ /vendor/
+ ###< symfony/framework-bundle ###
++
++.env

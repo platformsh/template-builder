@@ -1,0 +1,7 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+db:
+    type: postgresql:11
+    disk: 3000

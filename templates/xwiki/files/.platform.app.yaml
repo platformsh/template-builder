@@ -1,0 +1,42 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses.
+type: "java:8"
+
+disk: 2048
+
+mounts:
+    '/server':
+        source: local
+        source_path: server_source
+
+relationships:
+    database: "db:postgresql"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    build: |
+         echo "Downloading xwiki"
+         wget -q http://nexus.xwiki.org/nexus/content/groups/public/org/xwiki/platform/xwiki-platform-distribution-jetty-hsqldb/11.10.2/xwiki-platform-distribution-jetty-hsqldb-11.10.2.zip -O xwiki.zip
+         echo "Downloading MySQL connector"
+         wget -q https://jdbc.postgresql.org/download/postgresql-42.2.9.jar -O postgresql-connector-java.jar
+         echo "unzip xwiki"
+         unzip -q xwiki.zip
+         mv xwiki-platform-distribution-jetty-hsqldb-11.10.2 xwiki
+         cp postgresql-connector-java.jar xwiki/webapps/xwiki/WEB-INF/lib/postgresql-connector-java.jar
+         cp hibernate.cfg.xml xwiki/webapps/xwiki/WEB-INF/hibernate.cfg.xml
+
+# The configuration of app when it is exposed to the web.
+# The memory is just to a standard plan.
+web:
+    commands:
+        start: |
+           cp -R xwiki server/
+           export JETTY_PORT=$PORT && ./server/xwiki/start_xwiki.sh
+        

@@ -26,7 +26,6 @@ XWiki is a free wiki software platform written in Java with a design emphasis on
 >
 > After the project has been initialized, make sure to [increase the size of your application containers on development environments](https://platform.sh/blog/2019/supersize-app-containers-in-your-dev-environments/) as well.
 
-*Make sure you turn on large app env or it won't work on dev envs*
 
 ## References
 

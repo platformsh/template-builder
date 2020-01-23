@@ -20,7 +20,11 @@ XWiki is a free wiki software platform written in Java with a design emphasis on
 * [`.platform/services.yaml`](.platform/services.yaml):  Platform.sh allows you to completely define and configure the topology and [services you want to use on your project](https://docs.platform.sh/configuration/services.html).
 * [`.platform.app.yaml`](.platform.app.yaml): You control your application and the way it will be built and deployed on Platform.sh [via a single configuration file](https://docs.platform.sh/configuration/app-containers.html).
 
-> To follow the minimum requirement use at least a Large plan type. https://www.xwiki.org/xwiki/bin/view/Documentation/AdminGuide/Performances/#HMemory
+> **note**
+>
+> This template must be initialized on a *Large* Platform.sh plan, due to XWiki's [minimum memory requirements](https://www.xwiki.org/xwiki/bin/view/Documentation/AdminGuide/Performances/#HMemory).
+>
+> After the project has been initialized, make sure to [increase the size of your application containers on development environments](https://platform.sh/blog/2019/supersize-app-containers-in-your-dev-environments/) as well.
 
 *Make sure you turn on large app env or it won't work on dev envs*
 

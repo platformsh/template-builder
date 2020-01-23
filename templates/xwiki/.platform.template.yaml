@@ -40,7 +40,7 @@ info:
       content: "Java 8<br/>"
 ## Sets the available plans in the same way:
 plans:
-  # Removes plans from the list and bloceks them from being used for this
+  # Removes plans from the list and blocks them from being used for this
   # project.
   exclude:
     - small

@@ -30,6 +30,6 @@ def project_list():
     """
     return [
         project_factory(f.name)
-        for f in os.scandir(TEMPLATEDIR)
+        for f in scandir(TEMPLATEDIR)
         if f.is_dir() and f.name not in IGNORED
     ]

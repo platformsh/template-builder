@@ -60,3 +60,12 @@ class Drupal8_govcms8(Drupal8):
         return [(self.modify_composer, [govcms_remove_phing])] + super(
             Drupal8, self
         ).platformify
+
+
+__all__ = (
+    "Drupal7_vanilla",
+    "Drupal8",
+    "Drupal8_multisite",
+    "Drupal8_opigno",
+    "Drupal8_govcms8",
+)

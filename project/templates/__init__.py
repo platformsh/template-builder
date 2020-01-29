@@ -1,22 +1,25 @@
-from .akeneo import Akeneo
-from .pimcore import Pimcore
-from .backdrop import Backdrop
-from .drupal import (
-    Drupal7_vanilla,
-    Drupal8,
-    Drupal8_multisite,
-    Drupal8_opigno,
-    Drupal8_govcms8,
-)
-from .laravel import Laravel
-from .magento import Magento2ce
-from .mautic import Mautic
-from .pimcore import Pimcore
-from .rails import Rails
-from .sculpin import Sculpin
-from .symfony import Symfony3, Symfony4, Symfony5
-from .typo3 import Typo3
-from .wordpress import Wordpress
+"""Templates Namespace Module.
+
+This module acts as the namespace for various template-specific classes.
+
+Within each submodule, the relevant classes should be exported via the `__all__` constant
+declaration. All exported classes should them be imported into the module namespace
+using the `from .submodule import *` format and exported via the `__all__` constant
+declaration at the end of this file.
+"""
+from .akeneo import *
+from .pimcore import *
+from .backdrop import *
+from .drupal import *
+from .laravel import *
+from .magento import *
+from .mautic import *
+from .pimcore import *
+from .rails import *
+from .sculpin import *
+from .symfony import *
+from .typo3 import *
+from .wordpress import *
 
 __all__ = (
     "Akeneo",

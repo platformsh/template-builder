@@ -5,19 +5,18 @@ from project import RemoteProject
 
 
 class Akeneo(RemoteProject):
-    major_version = 'v3'
-    remote = 'https://github.com/akeneo/pim-community-standard.git'
+    major_version = "v3"
+    remote = "https://github.com/akeneo/pim-community-standard.git"
 
     @property
     def update(self):
-
         def akeneo_modify_composer(composer):
             """
             akeneo/pim-community-standard requires PHP 7.2, but it's dependency ocramius/package-versions requires 7.3
             with the previous default configuration (1.5.1). This resolves that problem.
             """
 
-            composer['require']['ocramius/package-versions'] = ">=1.4.0 <1.5.0"
+            composer["require"]["ocramius/package-versions"] = ">=1.4.0 <1.5.0"
 
             return composer
 
@@ -29,4 +28,10 @@ class Akeneo(RemoteProject):
     def platformify(self):
 
         return super(Akeneo, self).platformify + [
-                'cd {0} && composer require platformsh/config-reader --no-scripts --ignore-platform-reqs'.format(self.builddir),]
+            "cd {0} && composer require platformsh/config-reader --no-scripts --ignore-platform-reqs".format(
+                self.builddir
+            ),
+        ]
+
+
+__all__ = ("Akeneo",)

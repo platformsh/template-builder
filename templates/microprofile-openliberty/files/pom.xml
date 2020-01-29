@@ -1,77 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+   <modelVersion>4.0.0</modelVersion>
 
-    <groupId>sh.platform.template</groupId>
-    <artifactId>microprofile-liberty</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+   <groupId>sh.platform.template</groupId>
+   <artifactId>microprofile-liberty</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>war</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <app.name>LibertyProject</app.name>
-        <testServerHttpPort>9080</testServerHttpPort>
-        <testServerHttpsPort>9080</testServerHttpsPort>
-        <package.file>${project.build.directory}/${app.name}.zip</package.file>
-        <packaging.type>usr</packaging.type>
-        <skipTests>false</skipTests>
-        <platform.sh.version>2.2.3</platform.sh.version>
-    </properties>
+   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <app.name>LibertyProject</app.name>
+    <testServerHttpPort>9080</testServerHttpPort>
+    <testServerHttpsPort>9080</testServerHttpsPort>
+    <package.file>${project.build.directory}/${app.name}.zip</package.file>
+    <packaging.type>usr</packaging.type>
+    <skipTests>false</skipTests>
+    <platform.sh.version>2.2.3</platform.sh.version>
+    <junit.version>5.6.0</junit.version>
+    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+</properties>
 
-    <parent>
-        <groupId>io.openliberty.tools</groupId>
-        <artifactId>liberty-maven-app-parent</artifactId>
-        <version>3.0-M2</version>
-    </parent>
+<parent>
+    <groupId>io.openliberty.tools</groupId>
+    <artifactId>liberty-maven-app-parent</artifactId>
+    <version>3.0-M2</version>
+</parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>3.1</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>sh.platform</groupId>
-            <artifactId>config</artifactId>
-            <version>${platform.sh.version}</version>
-        </dependency>
-        <!-- dependencies for tests -->
-    </dependencies>
+<dependencies>
+    <dependency>
+        <groupId>org.eclipse.microprofile</groupId>
+        <artifactId>microprofile</artifactId>
+        <version>3.2</version>
+        <type>pom</type>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>sh.platform</groupId>
+        <artifactId>config</artifactId>
+        <version>${platform.sh.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.openliberty.tools</groupId>
-                <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.0-M2</version>
-                <configuration>
-                    <!-- set install-apps goal parameters -->
-                    <looseApplication>true</looseApplication>
-                    <installAppPackages>project</installAppPackages>
-                    <packageFile>${project.build.directory}/${project.build.finalName}.jar</packageFile>
-                    <include>runnable</include>
-                    <bootstrapProperties>
-                        <default.http.port>${testServerHttpPort}</default.http.port>
-                        <default.https.port>${testServerHttpsPort}</default.https.port>
-                    </bootstrapProperties>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.3</version>
+            <configuration>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>io.openliberty.tools</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>3.0-M2</version>
+            <configuration>
+                <!-- set install-apps goal parameters -->
+                <looseApplication>true</looseApplication>
+                <installAppPackages>project</installAppPackages>
+                <packageFile>${project.build.directory}/${project.build.finalName}.jar</packageFile>
+                <include>runnable</include>
+                <bootstrapProperties>
+                    <default.http.port>${testServerHttpPort}</default.http.port>
+                    <default.https.port>${testServerHttpsPort}</default.https.port>
+                </bootstrapProperties>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.plugin.version}</version>
+        </plugin>
+    </plugins>
+</build>
 </project>

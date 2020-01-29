@@ -14,7 +14,7 @@ disk: 1024
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
-      mvn clean install -DskipTests
+      mvn clean install
 
 # The relationships of the application with services or other applications.
 #

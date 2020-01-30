@@ -1,48 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ <modelVersion>4.0.0</modelVersion>
 
-    <groupId>sh.platform.template</groupId>
-    <artifactId>jetty</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+ <groupId>sh.platform.template</groupId>
+ <artifactId>jetty</artifactId>
+ <version>1.0-SNAPSHOT</version>
+ <packaging>war</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <platform.sh.version>2.2.3</platform.sh.version>
-        <jetty.version>9.4.20.v20190813</jetty.version>
-        <jetty.port>8080</jetty.port>
-    </properties>
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <platform.sh.version>2.2.3</platform.sh.version>
+    <jetty.version>9.4.26.v20200117</jetty.version>
+    <jetty.port>8080</jetty.port>
+    <junit.version>5.6.0</junit.version>
+    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+</properties>
 
-    <dependencies>
-        <dependency>
+<dependencies>
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-server</artifactId>
+        <version>${jetty.version}</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>sh.platform</groupId>
+        <artifactId>config</artifactId>
+        <version>${platform.sh.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+<build>
+    <finalName>app</finalName>
+    <plugins>
+        <plugin>
             <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
+            <artifactId>jetty-maven-plugin</artifactId>
             <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>sh.platform</groupId>
-            <artifactId>config</artifactId>
-            <version>${platform.sh.version}</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <finalName>app</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-                <configuration>
-                    <jvmArgs>-Xmx512m</jvmArgs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+            <configuration>
+                <jvmArgs>-Xmx512m</jvmArgs>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.plugin.version}</version>
+        </plugin>
+    </plugins>
+</build>
 </project>

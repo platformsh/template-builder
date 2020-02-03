@@ -31,7 +31,9 @@ class RemoteProject(BaseProject):
             'cd {0} && git checkout master'.format(self.builddir),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
-            'cd {0} && (find . ! -path . | grep -v ".git" | xargs rm -rf)'.format(self.builddir),
+            # Remove working directory files when updating from upstream, so that deletions get picked up.
+            # The @ directive means "match if exactly one of these patterns matches". There's then two patterns,
+            'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
         ]
 
         if hasattr(self, 'major_version'):

@@ -13,6 +13,7 @@ type: php:7.2
 runtime:
     extensions:
     - xsl
+    - sodium
 
 # Configuration of the build of this application.
 build:
@@ -94,3 +95,11 @@ web:
             rules:
                 ^/static/version\d+/(?<resource>.*)$:
                     passthru: "/static/$resource"
+
+workers:
+    queue:
+        size: S
+        disk: 128
+        commands:
+            start: |
+                bin/magento queue:consumers:start --single-thread --max-messages=10000

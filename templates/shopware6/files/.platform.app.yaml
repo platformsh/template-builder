@@ -39,10 +39,10 @@ hooks:
         # This file needs to exist for the installer, but the directory must be writeable.
         echo "6.1.1" > $PLATFORM_APP_DIR/public/recovery/install/data/version
 
-        # Initialize the Mautic site's data set if it's not already installed.
+        # Initialize the Shopware site's data set if it's not already installed.
         if [ ! -f $PLATFORM_APP_DIR/installer/installed ]; then
             # setup the environment
-            bin/console system:setup
+            # bin/console system:setup
             # create database with a basic setup (admin user and storefront sales channel)
             bin/console system:install --create-database --basic-setup
             touch $PLATFORM_APP_DIR/installer/installed
@@ -66,6 +66,9 @@ mounts:
     "/app":
         source: local
         source_path: "app"
+    "/config/secrets":
+        source: local
+        source_path: "config/secrets"
     "/var/cache":
         source: local
         source_path: "var/cache"
@@ -93,6 +96,9 @@ mounts:
     "/public/theme":
         source: local
         source_path: "public/theme"
+    "/public/bundles":
+        source: local
+        source_path: "public/bundles"
     "/public/recovery/install/data":
         source: local
         source_path: "install/data"

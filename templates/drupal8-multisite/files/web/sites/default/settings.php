@@ -11,7 +11,6 @@
 //
 // See https://api.drupal.org/api/drupal/sites!default!default.settings.php/8
 $databases = [];
-$config_directories = [];
 $settings['update_free_access'] = FALSE;
 $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
 $settings['file_scan_ignore_directories'] = [
@@ -30,12 +29,12 @@ $settings['file_scan_ignore_directories'] = [
 $platformsh_subsite_id = basename(__DIR__);
 
 // Set this to true to enable Redis caching, but only after the site has been installed.
-$platformsh_enable_redis = false;
+$platformsh_enable_redis = FALSE;
 
 // Set up a config sync directory.
 //
 // This is defined inside the read-only "config" directory, deployed via Git.
-$config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync/' . $platformsh_subsite_id;
+$settings['config_sync_directory'] = '../config/sync/' . $platformsh_subsite_id;
 
 // Automatic Platform.sh settings.
 if (file_exists($app_root . '/' . $site_path . '/../settings.platformsh.php')) {

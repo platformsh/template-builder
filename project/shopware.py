@@ -30,7 +30,7 @@ class Shopware6(RemoteProject):
     def platformify(self):
         def shopware_modify_composer(composer):
             # The default scripts require env files to already be created, which... is silly.
-            #composer['scripts'] = {}
+            composer['scripts'] = {}
 
             # Add the environment variable pre-set code.
             composer['autoload']['files'] = ['platformsh-env.php']

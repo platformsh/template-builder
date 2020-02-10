@@ -42,9 +42,11 @@ hooks:
         # Initialize the Shopware site's data set if it's not already installed.
         if [ ! -f $PLATFORM_APP_DIR/installer/installed ]; then
             # setup the environment
-            # bin/console system:setup
+            echo "Running system:setup"
+            bin/console system:setup || 1
             # create database with a basic setup (admin user and storefront sales channel)
-            bin/console system:install --create-database --basic-setup
+            echo "Running system:install"
+            bin/console system:install --create-database --basic-setup --force
             touch $PLATFORM_APP_DIR/installer/installed
         fi;
 

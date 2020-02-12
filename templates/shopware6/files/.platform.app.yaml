@@ -13,6 +13,8 @@ variables:
     env:
         # Tell Shopware to always install in production-mode.
         SHOPWARE_ENV: 'prod'
+    php:
+        upload_max_filesize: 6M
 
 # Specify additional PHP extensions that should be loaded.
 runtime:
@@ -29,6 +31,9 @@ hooks:
     build: |
         set -e
 
+        # Add the Redis extension.
+        bash install-redis.sh 5.1.1
+
         # Temporary hack to disable writeability checks of the public directory and root.
         sed -i '/public\//d' vendor/shopware/recovery/Common/requirements.php
         sed -i "/'.',/d" vendor/shopware/recovery/Common/requirements.php
@@ -42,13 +47,16 @@ hooks:
         # Initialize the Shopware site's data set if it's not already installed.
         if [ ! -f $PLATFORM_APP_DIR/installer/installed ]; then
             # setup the environment
-            echo "Running system:setup"
-            bin/console system:setup || 1
+            #echo "Running system:setup"
+            # This must be run manually for now, so that it can create thw jwt files and fail gracefully on the DB.
+            #bin/console system:setup || setup_error=1
             # create database with a basic setup (admin user and storefront sales channel)
             echo "Running system:install"
             bin/console system:install --create-database --basic-setup --force
             touch $PLATFORM_APP_DIR/installer/installed
         fi;
+
+        bin/console cache:clear
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -56,6 +64,7 @@ hooks:
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     database: "db:mysql"
+    rediscache: "cacheredis:redis"
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
@@ -71,6 +80,9 @@ mounts:
     "/config/secrets":
         source: local
         source_path: "config/secrets"
+    "/custom/plugins":
+        source: local
+        source_path: "custom/plugins"
     "/var/cache":
         source: local
         source_path: "var/cache"

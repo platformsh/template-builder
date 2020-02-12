@@ -39,9 +39,8 @@ class Shopware6(RemoteProject):
 
         return super(Shopware6, self).platformify + [
             (self.modify_composer, [shopware_modify_composer]),
-            #'cd {0} && composer require platformsh/symfonyflex-bridge ^2.1 --ignore-platform-reqs'.format(
-            # self.builddir),
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.2 --ignore-platform-reqs'.format(self.builddir),
             # 'cd {0} && composer config platform.php 7.3'.format(self.builddir),
-            'cd {0} && composer require platformsh/config-reader'.format(self.builddir),
+            #'cd {0} && composer require platformsh/config-reader'.format(self.builddir),
         ]
 

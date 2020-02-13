@@ -23,7 +23,7 @@ $databases['default']['default'] = [
 ];
 
 // Enable Redis caching.
-if ($platformsh->hasRelationship('redis') && !drupal_installation_attempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
+if ($platformsh->hasRelationship('redis') && !InstallerKernel::installationAttempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
   $redis = $platformsh->credentials('redis');
 
   // Set Redis as the default backend for any cache bin not otherwise specified.
@@ -80,8 +80,8 @@ if ($platformsh->hasRelationship('redis') && !drupal_installation_attempted() &&
 if (!isset($settings['file_private_path'])) {
   $settings['file_private_path'] = $platformsh->appDir . '/private';
 }
-if (!isset($config['system.file']['path']['temporary'])) {
-  $config['system.file']['path']['temporary'] = $platformsh->appDir . '/tmp';
+if (!isset($config['file_temp_path'])) {
+  $config['file_temp_path'] = $platformsh->appDir . '/tmp';
 }
 
 // Configure the default PhpStorage and Twig template cache directories.

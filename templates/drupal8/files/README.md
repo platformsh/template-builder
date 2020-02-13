@@ -20,7 +20,9 @@ Drupal is a flexible and extensible PHP-based CMS framework.
 
 1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
 
-2. Once Drupal is fully installed, edit your `.platform.app.yaml` file and uncomment the line under the `relationships` block that reads `redis: 'rediscache:redis'`.  Commit and push the changes.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
+2. Due to a [known](https://www.drupal.org/project/drupal/issues/3113802) [bug](https://www.drupal.org/project/drupal/issues/3103529) in the Drupal installer introduced in 8.8.1, you may see a non-descript error message after the installer has completed.  Login to your environment over SSH and run `vendor/bin/drush cr` to flush the cache, which should resolve the issue.  (This step will be unnecessary once the bug is corrected upstream in Drupal core.)
+
+3. Once Drupal is fully installed, edit your `.platform.app.yaml` file and uncomment the line under the `relationships` block that reads `redis: 'rediscache:redis'`.  Commit and push the changes.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
 
 ## Customizations
 

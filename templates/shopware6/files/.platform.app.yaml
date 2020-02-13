@@ -131,3 +131,10 @@ web:
             root: "public"
             # The front-controller script to send non-static requests to.
             passthru: "/index.php"
+
+workers:
+    queue:
+        disk: 128
+        commands:
+            start: |
+                bin/console messenger:consume-messages default --time-limit=30

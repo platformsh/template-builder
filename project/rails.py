@@ -20,4 +20,6 @@ class Rails(BaseProject):
             'cd {0} && rm .ruby-version'.format(self.builddir),
             # Remove the Ruby version from the Gemfile, as it pins to a .z release which is too strict.
             "cd {0} && sed '/^ruby /d' Gemfile > temp && mv temp Gemfile".format(self.builddir),
+            # Make bootsnap use the /tmp folder
+            'cd {0} && echo {1} >> config/boot.rb'.format(self.builddir, "\nBootsnap.setup(cache_dir: \"/tmp/cache\")\n"),
         ]

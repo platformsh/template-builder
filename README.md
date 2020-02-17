@@ -1,5 +1,13 @@
 # Utility scripts to manage the Platform.sh Template projects
 
+## Introduction
+
+Platform.sh maintains a set of deployable templates on https://github.com/platformsh-templates/. This utility eases the job of keeping them up-do-date.
+
+In this document we use the fictional term "spiffy" as an example of a template name (ie drupal7, django3).
+
+In this README we first focus on the workflow to update an existing template, then we describe how to create a new one.
+
 ## Dependencies
 
 * [DoIt](http://pydoit.org/install.html)
@@ -7,7 +15,24 @@
 * Git
 * Public ssh key in github account
 
+### Setup
+
+1. First install the dependencies:
+```
+pipenv install
+```
+2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
+
+
 ## How it works
+
+Each template is composed of three things:
+
+* A repo to be kept up-to-date on https://github.com/platformsh-templates for example https://github.com/platformsh-templates/rails
+* A python class that has the specific logic on how to update it. For example `project/rails.py`
+* And a template directory, for example `templates/rails` that contains the extra files we would add.
+
+> It is worthy to note that currently the build itself will happen in a `build` subdirectory of, for example `templates/rails`. So once you run any of the commands expect the output to be in `templates/rails/build`.
 
 This project is built using the Python DoIt library, which is required.  It consists of a series of build targets for each supported project.  Taken together, the build process can reproduce a Platform.sh-friendly version of any application or framework from its upstream source.
 
@@ -39,7 +64,7 @@ Additionally, each project has a Python class defined in the `project` directory
 
 ### Build tasks
 
-Each project has a series of build tasks, suffixed with the project.
+Each project has a series of build tasks, suffixed with the project name.
 
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.

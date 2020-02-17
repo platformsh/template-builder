@@ -7,7 +7,10 @@ class Rails(BaseProject):
     def update(self):
         return super(Rails, self).update + [
             # Force a new install of Rails, over the old copy, to get any updated files.
-            'rails new {0} --force'.format(self.builddir)
+            'cd {0} && bundle update'.format(self.builddir),
+            'cd {0}/.. && BUNDLE_GEMFILE={0}/Gemfile bundle exec rails new {0} --force'.format(self.builddir),
+            # Don't update the readme
+            'cd {0} git checkout README.md'.format(self.builddir),
         ]
 
     @property
@@ -21,5 +24,5 @@ class Rails(BaseProject):
             # Remove the Ruby version from the Gemfile, as it pins to a .z release which is too strict.
             "cd {0} && sed '/^ruby /d' Gemfile > temp && mv temp Gemfile".format(self.builddir),
             # Make bootsnap use the /tmp folder
-            'cd {0} && echo {1} >> config/boot.rb'.format(self.builddir, "\nBootsnap.setup(cache_dir: \"/tmp/cache\")\n"),
+            'cd {0} && if ! grep -q platform_sh config/boot.rb; then cat ../files/_boot.rb >> config/boot.rb; fi; rm _boot.rb'.format(self.builddir),
         ]

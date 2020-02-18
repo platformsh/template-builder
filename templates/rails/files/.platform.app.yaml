@@ -37,9 +37,6 @@ mounts:
     "/tmp":
         source: local
         source_path: tmp
-    "/db":
-        source: local
-        source_path: db
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:

@@ -7,7 +7,7 @@
 name: app
 
 # The runtime the application uses.
-type: php:7.3
+type: php:7.4
 
 # The relationships of the application with services or other applications.
 #
@@ -24,7 +24,6 @@ build:
 # Add additional PHP extensions.
 runtime:
   extensions:
-    - redis
     - iconv
     - dom
     - simplexml
@@ -77,6 +76,9 @@ disk: 2048
 hooks:
   build: |
     set -e
+
+    bash install-redis.sh 5.1.1
+
     # This is needed for the installer in the deploy hook.
     curl -sS https://platform.sh/cli/installer | php
 

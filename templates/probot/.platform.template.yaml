@@ -19,7 +19,7 @@ version: 1
 # Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
   # Unique machine name, prefaced by a vendor or organization identifier
-  id: platformsh/template-probot-envs
+  id: platformsh/probot
   # The human-readable name of the template.
   name: Probot
   # Human-readable descriptive text for the template. Supports limited HTML.

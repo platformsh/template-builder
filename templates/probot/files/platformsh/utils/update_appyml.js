@@ -26,11 +26,6 @@ try {
 
     // Probot would do this automatically for master, but this allows a environment-specific
     //  name in addition to that standard.
-//     console.log(`
-// * No application name provided. Using package name.
-//   > Consider updating 'name' in 'app.yml' or 'package.json'.
-//   > GitHub App names are limited to 34 characters.`);
-
     var packageParsed = JSON.parse(fs.readFileSync('package.json', 'utf8'));
     bot_name = packageParsed.name;
 
@@ -46,9 +41,6 @@ try {
   }
 
   doc.name = bot_name;
-//   console.log(`
-// * Configuring application:
-//   > ${doc.name}`);
 
   // Over-ride the `hook_attributes.url` attribute in `app.yml` to help setup the registration.
   doc.hook_attributes = { url: config.getPrimaryRoute().url };

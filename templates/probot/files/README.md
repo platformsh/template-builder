@@ -1,7 +1,7 @@
 # Probot GitHub Apps for Platform.sh
 
 <p align="center">
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/chadwcarlson/template-probot/updates/.platform.template.yaml">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/probot/.platform.template.yaml&utm_content=probot&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
     <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
 </a>
 </p>
@@ -63,12 +63,12 @@ Probot is a framework for building GitHub Apps in Node.js.
    Expand the previous failed delivery by clicking the three dots, and then click **Redeliver** and then **Yes, repeat this delivery** to repeat the delivery. Since you have set up the app for production, it should now show a `200` successful response.
 
    Scroll to the bottom of the "General" settings page and click the "Active" checkbox so that GitHub can start sending more deliveries once it's installed on a repository.
-   
+
 6. **Test on a repository**
 
    Visit your application's public page (`https://github.com/apps/APPLICATION_NAME`) and click **Install**. For now, select the **Only select repositories** option and choose a repository to test the application on.
 
-   Go to the repository you chose and open a new issue. Your app should now be listening for newly opened issues, and has delivered a response in a comment. You can follow the steps within that comment for some additional tips for working with and customizing the app on development branches.
+   Go to the repository you chose and open a new issue. Your app should now be listening for newly opened issues, and has delivered a response in a comment. 
 
 ## Customizations
 

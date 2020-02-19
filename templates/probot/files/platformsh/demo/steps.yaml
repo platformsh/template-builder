@@ -1,0 +1,155 @@
+description: |
+
+  ![divider](https://platform.sh/images/cta/bg-contact.svg?sanitize=true)
+
+  # GitHub/Probot App Template for Platform.sh
+
+  Continue to follow the README Post-install steps to set up your app for production.
+
+issue_opened_branch: |
+
+  ![divider](https://platform.sh/images/linked-block/bunny-carrots.svg?sanitize=true)
+
+  <p><h3 align="center">Success! <br><br>You've deployed another GitHub App from Platform.sh<br>this time, for development.</h3></p><br>
+
+  Nice work! Now you've got two GitHub Apps registered on GitHub.
+
+  - a production app (installed on repository A)
+  - a development app (installed on repository B)
+
+  All that's left now is to merge your development changes into `master` and update the production application.
+
+  > **note:**
+  >
+  > In this demo, we're not going to delete the development app just yet, so that you can continue to have a staging version as you go through the workshop.
+
+  ### Merge the changes into production
+
+  You've made some changes to the app, and verified that they work like you've expected them to on the development version of your application, you want to merge these changes into your prodution environment.
+
+  In your console, simply merge the `updates` branch into `master` and push to Platform.sh.
+
+  ```
+  git checkout master
+  git merge updates
+  git push origin master
+  ```
+
+  When you see that `master` has redeployed in your Platform.sh management console, open another issue on the repository you installed the production version of your application on, and you will see that the issue comment has now been updated.
+
+  ### Next steps
+
+  Some assignment for the workshop.
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie lorem sem, nec viverra quam lacinia id. Vivamus convallis id massa id convallis. Proin cursus lorem ac dignissim feugiat. Donec quis ligula nibh. Quisque non mi mollis, bibendum eros quis, faucibus metus. Cras egestas ligula metus, in scelerisque elit egestas id. Quisque aliquam arcu vel libero sodales, nec malesuada enim dictum. In tempus iaculis maximus. Integer in mi sapien.
+
+  - Quisque vestibulum sapien quis sem dapibus tincidunt.
+  - Nullam et diam commodo, euismod diam quis, ullamcorper elit.
+  - Cras et augue hendrerit, consectetur felis id, ultricies nulla.
+  - Mauris vitae tellus et risus bibendum pretium.
+  - Vivamus maximus justo id lectus facilisis, vel euismod augue molestie.
+  - Vestibulum sollicitudin ipsum nec enim mattis, ut mollis lacus tincidunt.
+
+  Mauris pulvinar ullamcorper ligula fringilla pretium. Mauris at metus ornare, molestie diam non, suscipit dolor. Ut vitae faucibus eros, tempor blandit turpis. Proin scelerisque mi in porttitor porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+  Good luck, have fun, and feel free to ask the workshop guides with any questions you have along the way!
+
+issue_opened: |
+  ![divider](https://platform.sh/images/cta/hands.svg?sanitize=true)
+
+  <p><h3 align="center">Success! <br><br>You've deployed your first GitHub App <br>using Probot on Platform.sh!</h3></p><br>
+
+  The template has automatically set all of your application's environment variables to match the GitHub registration process, and you are free to develop your app.
+
+  ### Next steps
+
+  Now, this was pretty simple. You clicked a button, and after a few registration steps on GitHub and a single commit to set the `NODE_ENV`, you now have a production-ready GitHub App.
+
+  So what's next? The great thing that comes with projects on Platform.sh is the ability to create development environments. The way Platform.sh works is that a branch off of `master` results in an exact copy of your production site (in this case, your GitHub App) that is built and deployed for that branch.
+
+  Once it's created, you can test changes to that development branch prior to merging into production. Now the very cool thing as far as your GitHub App is concerned, is that those development environments can become brand new `WEBHOOK_PROXY_URL`s for an entirely new *development version* of your app.
+
+  1. **Create a branch and make some changes.**
+
+      In the README steps, you should have already cloned the project repository locally so that you were able to set `NODE_ENV` to `production`.
+
+      In that repository, checkout a new branch called `updates`
+
+      ```
+      git checkout -b updates
+      ```
+
+  2. **Update `.environment`**
+
+       At the end of our `master` setup, we set `NODE_ENV=production` so that it could start receiving deliveries from GitHub. Our `updates` environment will be its own webhook proxy, and it will need to be registered as its own GitHub App in order for us to test. For now, set the environment to `development` and commit it.
+
+       ```
+       echo 'export NODE_ENV="development"' > .environment
+       git add .environment && git commit -m "Set NODE_ENV to development to register."
+       ```
+
+  3. **Update the application**
+
+       Make a small change to the application by going to the `index.js` file in the project root and modifying the `app.on('issue_opened')` function's `issueComment` variable from `platformsh.issue_opened` to `platformsh.issue_opened_branch`:
+
+       ```js
+       app.on('issues.opened', async context => {
+         const issueComment = context.issue({ body: platformsh.issue_opened_branch })
+         return context.github.issues.createComment(issueComment)
+       })
+       ```
+
+       This small change, as you might expect, updates the comment message that the application deliveries to repositories it's installed on when a new issue is opened.
+
+       Then, commit that change and push it to Platform.sh:
+
+       ```
+       git add index.js && git commit -m "Modify issue comment message."
+       git push origin updates
+       ```
+
+       You'll notice that, at first, the console returns a simple Git message, and nothing that would indicate that the `updates` environment has been deployed. Run the command:
+
+       ```
+       platform environment:activate updates
+       ```
+
+       By default, Platform.sh keeps new development environments **inactive** until you activate them. Once you have run the command, a brand new un-registered development version of your application will be deployed.
+
+  4. **(Optional) Update the application name**
+
+       For the purposes of this demo, you will likely only need a single development or staging version of your GitHub App. On Platform.sh, however, you could potentially have a GitHub App created and registered for every development environment (or open pull request).
+
+       Because of this, you may not want to keep naming your applications over and over again. This demo is set up to name your development apps automatically using the name of the branch you're working on. All you need to do is:
+
+       1. Edit your `app.yaml` file. At the bottom of this file, there is a `name` attribute, which should currently have the value `Platform.sh GitHub App Demo`. Change that value to the name you registered your production application with.
+
+       ```
+       name: <PRODUCTION_GH_APP_NAME>
+       ```
+
+       2. Commit the change
+
+       ```
+       git add app.yaml && git commit -m "Update app naming."
+       ```
+
+  5. **Register the development GitHub App**
+
+       After the environment has built and deployed, you'll see the same **Register GitHub App** landing page you saw at the beginning of this demo. For this development app, we'll have to go through those steps again to register the development version.
+
+       Consult the README for the detailed instructions, but briefly those steps are:
+
+       - Click the **Register GitHub App button**.
+       - Name the development app, then click **Create GitHub App**.
+       - In your local repository, re-set `NODE_ENV` to production and push to the Platform.sh `updates` environment.
+
+          ```
+          git clone <PROJECT ID>@git.<REGION>.platform.sh:<PROJECT ID>.git <PROJECT NAME>
+          echo 'export NODE_ENV="production"' > .environment
+          git add .environment && git commit -m "Set NODE_ENV to production."
+          git push origin updates
+          ```
+       - Platform.sh will detect GitHub's temporary credentials, and then set five environment variables for the environment, which will each trigger a redeployment, so hang tight.
+       - When all redeployments have completed, visit the app's **Advanced Settings** page, and re-deliver the first deliver GitHub attempted to make to the environment.
+       - When the re-delivery succeeds, install the app on another repository and verify that a new issue comment message appears.

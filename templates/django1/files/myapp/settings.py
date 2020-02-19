@@ -133,16 +133,6 @@ entropy = os.getenv('PLATFORM_PROJECT_ENTROPY')
 if entropy:
     SECRET_KEY = entropy
 
-routes = os.getenv('PLATFORM_ROUTES')
-if routes:
-    routes = json.loads(base64.b64decode(routes).decode('utf-8'))
-    app_name = os.getenv('PLATFORM_APPLICATION_NAME')
-    for url, route in routes.items():
-        host = urlparse(url).netloc
-        if (host not in ALLOWED_HOSTS and route['type'] == 'upstream'
-                and route['upstream'] == app_name):
-            ALLOWED_HOSTS.append(host)
-
 relationships = os.getenv('PLATFORM_RELATIONSHIPS')
 if relationships:
     relationships = json.loads(base64.b64decode(relationships).decode('utf-8'))

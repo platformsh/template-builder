@@ -5,13 +5,9 @@
 name: app
 
 # The type of the application to build.
-type: php:7.3
+type: php:7.4
 build:
     flavor: composer
-
-runtime:
-    extensions:
-        - redis
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -82,6 +78,9 @@ mounts:
 hooks:
     build: |
         set -e
+
+        bash install-redis.sh 5.1.1
+
         php src/installer.php install:setup
         # Enable the install tool for 60mins after deployment
         touch public/typo3conf/ENABLE_INSTALL_TOOL

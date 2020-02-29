@@ -1,0 +1,19 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+
+database:
+    type: mariadb:10.4
+    disk: 1024
+#it's just to force a password to be generated
+    configuration:
+        schemas:
+            - main
+        endpoints:
+            mariadb:
+                default_schema: main
+                privileges:
+                    main: admin
+                

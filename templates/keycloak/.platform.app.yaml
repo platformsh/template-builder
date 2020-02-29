@@ -1,0 +1,80 @@
+name: 'app'
+
+type: 'java:11'
+disk: 1024
+
+variables:
+    env:
+        KC_VERSION: 8.0.2
+        JBOSS_HOME: /app
+        JDBC_MARIADB_VERSION: 2.2.3
+        LAUNCH_JBOSS_IN_BACKGROUND: 1
+
+hooks:
+    build: |
+        set -e
+
+        if [ ! -d "$PLATFORM_CACHE_DIR"/keycloak-$KC_VERSION ]; then
+            echo "Downloading KeyCloak version ${KC_VERSION}..."
+            (
+                cd "$PLATFORM_CACHE_DIR"
+                curl -L -o $KC_VERSION.tar.gz https://downloads.jboss.org/keycloak/$KC_VERSION/keycloak-$KC_VERSION.tar.gz
+                tar -zxf $KC_VERSION.tar.gz
+                rm -f $KC_VERSION.tar.gz
+            )
+        else
+            echo "Using cached archive of Keycloak: ${KC_VERSION}..."
+        fi
+
+        echo "Installing archive of Keycloak: ${KC_VERSION}..."
+        cp -R "$PLATFORM_CACHE_DIR"/keycloak-"$KC_VERSION"/* .
+        mv standalone/configuration standalone/cfg.bkp
+
+        curl -L https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/$JDBC_MARIADB_VERSION/mariadb-java-client-$JDBC_MARIADB_VERSION.jar > modules/system/layers/base/org/mariadb/jdbc/main/mariadb-jdbc.jar
+        
+        rm -rf standalone/tmp/auth
+        rm -rf domain/tmp/auth
+    
+relationships:
+    database: 'database:mariadb'
+
+web:
+    upstream:
+        socket_family: tcp
+        protocol: http
+    commands:
+        start: |
+           
+            cp standalone/cfg.bkp/* standalone/configuration/
+            cp -f tools/standalone.xml standalone/configuration/standalone.xml
+            cp -f tools/logging.properties standalone/configuration/logging.properties
+            touch tmp/INSTALLED
+            # the INSTALLED folder is required
+
+            export DB_PORT=`echo $PLATFORM_RELATIONSHIPS | base64 -d | jq -r ".database[0].port"`
+            export DB_ADDR=`echo $PLATFORM_RELATIONSHIPS|base64 -d|json_pp| jq -r ".database[0].host"`
+            export DB_PASSWORD=`echo $PLATFORM_RELATIONSHIPS|base64 -d|json_pp| jq -r ".database[0].password"`
+            export DB_USER=`echo $PLATFORM_RELATIONSHIPS|base64 -d|json_pp| jq -r ".database[0].username"`
+            export DB_DATABASE=`echo $PLATFORM_RELATIONSHIPS|base64 -d|json_pp| jq -r ".database[0].path"`
+            export FRONTEND_URL=`echo $PLATFORM_ROUTES|base64 -d|json_pp| jq -r 'to_entries | map_values(.value + { slug: .key }) | .[] | select(.primary == true) | .slug'`
+            bin/standalone.sh -Dkeycloak.frontendUrl=$FRONTEND_URL -Djboss.http.port=$PORT
+    locations:
+        /:
+            passthru: true
+
+mounts:
+    'standalone/data':
+        source: local
+        source_path: data
+    'standalone/configuration':
+        source: local
+        source_path: configuration
+    'standalone/log':
+        source: local
+        source_path: log
+    'standalone/deployments':
+        source: local
+        source_path: deployments
+    'standalone/tmp':
+        source: local
+        source_path: tmp

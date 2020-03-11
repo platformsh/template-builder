@@ -40,7 +40,7 @@ defmodule TemplateElixirWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_template_elixir_key",
-    signing_salt: "TaQ2DjZK"
+    signing_salt: System.get_env("SECRET_KEY_BASE")
 
   plug TemplateElixirWeb.Router
 end

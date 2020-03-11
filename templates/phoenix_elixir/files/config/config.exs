@@ -13,7 +13,7 @@ config :template_elixir,
 # Configures the endpoint
 config :template_elixir, TemplateElixirWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base:   System.get_env("PLATFORM_PROJECT_ENTROPY"),
+  secret_key_base:   System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: TemplateElixirWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TemplateElixir.PubSub, adapter: Phoenix.PubSub.PG2]
 

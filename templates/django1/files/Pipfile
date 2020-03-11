@@ -9,7 +9,7 @@ python_version = "2.7"
 [dev-packages]
 
 [packages]
-django = ">=1.11.27,<2.0"
+django = ">=1.11.28,<2.0"
 "psycopg2-binary" = "*"
 gunicorn = "*"
 platformshconfig = "~=2.0"

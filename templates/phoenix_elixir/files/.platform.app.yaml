@@ -31,8 +31,10 @@ hooks:
         fi
     deploy: |
         mix do ecto.setup
+
 relationships:
     database: "database:postgresql"
+
 # The configuration of app when it is exposed to the web.
 web:
     commands:
@@ -46,4 +48,4 @@ web:
             passthru: true
 
 # The size of the persistent disk of the application (in MB).
-disk: 512
+disk: 128

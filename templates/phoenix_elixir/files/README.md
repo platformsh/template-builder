@@ -8,7 +8,7 @@
 
 This template builds a simple application using Phoenix.
 
-Phoenix is a web framework written in Elixir that implements the server-side MVC pattern, prioritizing speed and concurrency.
+Phoenix is a web framework written in Elixir that prioritizes speed and concurrency.
 
 ## Services
 

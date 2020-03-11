@@ -13,7 +13,7 @@ class Phoenix_elixir(BaseProject):
 
     Here, it simply reuses 'name' to match the directory name exactly.
     '''
+
     def __init__(self, name):
-        self.name = name
         self.github_name = name
-        self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        return super(Phoenix_elixir, self).__init__(name)

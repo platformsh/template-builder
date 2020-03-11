@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
      <p>This template builds a simple application using Phoenix.</p>
-     <p>Phoenix is a web framework written in Elixir that implements the server-side MVC pattern, prioritizing speed and concurrency.</p>
+     <p>Phoenix is a web framework written in Elixir that prioritizes speed and concurrency.</p>
   # A list of tags associated with the template.
   tags:
   - Elixir

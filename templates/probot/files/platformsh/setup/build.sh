@@ -10,5 +10,5 @@ mv app.yml probot.app.yml
 # Create a symlink for the app.yml file, which will need to be writable during deploy, but in project root.
 ln -s registration/app.yml app.yml
 
-# Install Platform.sh CLI, probably needs to have a check here so it isn't installed on every build.
+# Install Platform.sh CLI
 curl -sS https://platform.sh/cli/installer | php

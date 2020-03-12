@@ -2,11 +2,6 @@ name: app
 
 type: 'nodejs:12'
 
-# You can remove this block or set to false to not use the demo strings.
-variables:
-    env:
-        PLATFORMSH_DEMO: true
-
 hooks:
   build: !include
     type: string

@@ -20,6 +20,8 @@ Probot is a framework for building GitHub Apps in Node.js.
 
    When the app has deployed, you will need to first register the app with GitHub by clicking the **Register GitHub App** button on the homepage. Name the application anything you like, then click the **Create GitHub App** button. This will automatically save your `WEBHOOK_SECRET`, `PRIVATE_KEY`, and `APP_ID` variables to a `.env` file in your Platform.sh environment.
 
+   Typically, any file in your project root would be read-only at runtime, but here it is symlinked to a writable mounted file when `platformsh/setup/build.sh` is run during the build hook. Since it is writable, your temporary credentials can be written to the app at runtime and you can complete registration. These credentials will automatically be replaced by environment variables in Steps 3 and 4. After that, and since Probot uses `dotenv` to read its environment variables, these proper environment variables will always be prioritized over anything in `.env`. You can feel free to delete this file, and otherwise be unconcerned on whether its values are overwritten.
+
 2. **Clone repository locally**
 
    Return to the management console for the project. Enter the master environment and copy the clone command under the `GIT` dropdown  button.
@@ -46,17 +48,17 @@ Probot is a framework for building GitHub Apps in Node.js.
 
    Inside the local repository, find the `.environment` file. You will see that `NODE_ENV` is currently set for `development`.
 
-   Update that file to read `NODE_ENV=\"production\"`. Once you have done that, commit and push the change.
+   Update that file to read `NODE_ENV="production"`. Once you have done that, commit and push the change.
 
    ```
-   git commit -am \"Set for production\" && git push origin master
+   git commit -am "Set for production" && git push origin master
    ```
 
    Now that you have done that, you will see that as soon as the build of your commit completes, a number of other activities will open for the environment as environment variables are set that allow GitHub to recognize your app.
 
 5. **Verify**
 
-   When the final redeployment has completed, and all of your environment variables have been added, go back to your GitHub App\'s advanced settings.
+   When the final redeployment has completed, and all of your environment variables have been added, go back to your GitHub App's advanced settings.
 
    You will see that the first delivery it attempted to deliver to Platform.sh failed while you were registering.
 
@@ -68,7 +70,7 @@ Probot is a framework for building GitHub Apps in Node.js.
 
    Visit your application's public page (`https://github.com/apps/APPLICATION_NAME`) and click **Install**. For now, select the **Only select repositories** option and choose a repository to test the application on.
 
-   Go to the repository you chose and open a new issue. Your app should now be listening for newly opened issues, and has delivered a response in a comment. 
+   Go to the repository you chose and open a new issue. Your app should now be listening for newly opened issues, and has delivered a response in a comment.
 
 ## Customizations
 

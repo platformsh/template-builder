@@ -1,0 +1,22 @@
+name: app
+
+type: 'nodejs:12'
+
+hooks:
+  build: !include
+    type: string
+    path: platformsh/setup/build.sh
+  deploy: !include
+    type: string
+    path: platformsh/setup/deploy.sh
+
+disk: 256
+
+mounts:
+  'registration':
+    source: local
+    source_path: registration
+
+web:
+  commands:
+    start: "npm start"

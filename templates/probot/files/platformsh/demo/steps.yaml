@@ -1,0 +1,14 @@
+description: |
+
+  ![divider](https://platform.sh/images/cta/bg-contact.svg?sanitize=true)
+
+  # GitHub/Probot App Template for Platform.sh
+
+  Continue to follow the README Post-install steps to set up your app for production.
+
+issue_opened: |
+  ![divider](https://platform.sh/images/cta/hands.svg?sanitize=true)
+
+  <p><h3 align="center">Success! <br><br>You've deployed your first GitHub App <br>using Probot on Platform.sh!</h3></p><br>
+
+  The template has automatically set all of your application's environment variables to match the GitHub registration process, and you are free to develop your app.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HUGOVERSION=0.58.3
+HUGOVERSION=0.66.0
 
 wget https://github.com/gohugoio/hugo/releases/download/v$HUGOVERSION/hugo_${HUGOVERSION}_Linux-64bit.tar.gz
 tar xvzf hugo_${HUGOVERSION}_Linux-64bit.tar.gz

@@ -30,7 +30,7 @@ class Drupal8(RemoteProject):
 
             composer['extra']['patches'] = {
                 'drupal/core': {
-                    "Work around SA-2019-009 bug": "https://www.drupal.org/files/issues/2020-03-02/3103529-56.patch"
+                    "Work around SA-2019-009 bug": "https://www.drupal.org/files/issues/2020-03-16/3103529-8.x-122.patch"
                 }
             }
 

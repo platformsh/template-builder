@@ -37,7 +37,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Go 1.13<br/>MariaDB 10.2"
+      content: "Go 1.14<br/>MariaDB 10.2"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

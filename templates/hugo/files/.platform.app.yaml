@@ -4,7 +4,7 @@
 name: 'app'
 
 # The type key specifies the language and version for your application.
-type: golang:1.13
+type: golang:1.14
 
 # The hooks that will be triggered when the package is deployed.
 hooks:

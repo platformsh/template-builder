@@ -1,0 +1,11 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+database:
+    type: postgresql:12
+    disk: 2048
+search:
+    type: elasticsearch:7.2
+    disk: 1024

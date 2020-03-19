@@ -19,16 +19,6 @@ install () {
     ./occ upgrade
 }
 
-add_user (){
-    ./occ group:add users
-    # Create a user
-    OC_PASS=$NEXTCLOUD_PASSWORD php src/occ user:add $NEXTCLOUD_USER  -g users --password-from-env
-    # set their email
-    ./occ user:setting $NEXTCLOUD_USER settings email $NEXTCLOUD_USER
-    # Set the quota for the user
-    curl -u"$ADMIN_USER:$ADMIN_PASSWORD" -X PUT http://localhost/ocs/v1.php/users/$NEXTCLOUD_USER -d key="quota" -d value=$NEXTCLOUD_QUOTA
-}
-
 # This is run within the deployment hook if the configuration is not yet done.
 # If environment variable set create the admin account.
 if [[ -z "${ADMIN_USER}" ]]; then

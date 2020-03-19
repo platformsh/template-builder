@@ -19,23 +19,13 @@ install () {
     ./occ upgrade
 }
 
-add_user (){
-    ./occ group:add users
-    # Create a user
-    OC_PASS=$NEXTCLOUD_PASSWORD php src/occ user:add $NEXTCLOUD_USER  -g users --password-from-env
-    # set their email
-    ./occ user:setting $NEXTCLOUD_USER settings email $NEXTCLOUD_USER
-    # Set the quota for the user
-    curl -u"$ADMIN_USER:$ADMIN_PASSWORD" -X PUT http://localhost/ocs/v1.php/users/$NEXTCLOUD_USER -d key="quota" -d value=$NEXTCLOUD_QUOTA
-}
-
 # This is run within the deployment hook if the configuration is not yet done.
 # If environment variable set create the admin account.
-if [[ -z "${ADMIN_USER}" ]]; then
+if [ -z "${ADMIN_USER}" ]; then
     ADMIN_USER='admin'
     ADMIN_PASSWORD=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-12})
-    echo -e "No ADMIN_USER set, generating admin account and password.\nTo login to your instance:\nUser: ${GREEN}${ADMIN_USER}${NC}\nPassword: ${RED}${ADMIN_PASSWORD}${NC}\n"
-    echo -e  "${RED}You should change your password after installation and add an email to your account${NC}"
+    echo "No ADMIN_USER set, generating admin account and password.\nTo login to your instance:\nUser: ${GREEN}${ADMIN_USER}${NC}\nPassword: ${RED}${ADMIN_PASSWORD}${NC}\n"
+    echo "${RED}You should change your password after installation and add an email to your account${NC}"
 fi
 
 reset_config

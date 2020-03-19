@@ -36,8 +36,21 @@ The following changes have been made relative to Nextcloud as it is downloaded f
 * The `update.sh` script will read a desired Nextcloud version from a project variable and use that to download that version of Nextcloud and replace the code in `src` with it.  You can then commit and push the changes.  This is the preferred way to update your version of Nextcloud.  (The built-in self-updater will not work.)
 * The `_apps` and `_themes` directories are for you to add Nextcloud apps and themes you wish to have installed.  They will be copied into the `src/apps` and `src/themes` directories, respectively, during the build process.  (The built-in app downoader will not work.)
 
+## Installing applications
+
+Nextcloud features an in-application app store and app updating functionality.  Those features require a writeable disk at runtime, while Platform.sh offers only a read-only disk for security reasons.
+
+Instead, applications can be installed via Git.
+
+1. Locate an application  you wish to install on the [Nextcloud Apps](https://apps.nextcloud.com/) site.
+2. Download the latest version for the appropriate verison of Nextcloud.
+3. Unpack the downloaded `tgz` file into the `_apps` directory of your project.
+
+As part of the build process, applications and themes will be copied from the `_apps` and `_themes` directories to the appropriate directories in the codebase.  (The code to do so is in the `hooks.build` section of `.platform.app.yaml`.)  They can then be enabled through the Nextcloud UI as normal.
+
+This separate setup allows the `update.sh` script to update Nextcloud itself without losing the code for any extensions you have added.
 
 ## References
 
-* [Nextcloud](https://nextcloud.org/)
+* [Nextcloud](https://nextcloud.com/)
 * [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

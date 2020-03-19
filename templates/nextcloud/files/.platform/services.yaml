@@ -1,0 +1,11 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+database:
+    type: mariadb:10.4
+    disk: 800
+redis:
+    type: redis-persistent:5.0
+    disk: 256

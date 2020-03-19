@@ -1,0 +1,101 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "5639a09feff2318b1b69e11a10a81e7d",
+    "packages": [
+        {
+            "name": "icewind/smb",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/icewind1991/SMB.git",
+                "reference": "26b7b8780342d0e61313b464b880d50a2ea898e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/icewind1991/SMB/zipball/26b7b8780342d0e61313b464b880d50a2ea898e2",
+                "reference": "26b7b8780342d0e61313b464b880d50a2ea898e2",
+                "shasum": ""
+            },
+            "require": {
+                "icewind/streams": ">=0.2.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Icewind\\SMB\\": "src/",
+                    "Icewind\\SMB\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Appelman",
+                    "email": "icewind@owncloud.com"
+                }
+            ],
+            "description": "php wrapper for smbclient and libsmbclient-php",
+            "time": "2019-03-04T15:02:42+00:00"
+        },
+        {
+            "name": "icewind/streams",
+            "version": "v0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/icewind1991/Streams.git",
+                "reference": "4db3ed6c366e90b958d00e1d4c6360a9b39b2121"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/icewind1991/Streams/zipball/4db3ed6c366e90b958d00e1d4c6360a9b39b2121",
+                "reference": "4db3ed6c366e90b958d00e1d4c6360a9b39b2121",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "satooshi/php-coveralls": "v1.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Icewind\\Streams\\Tests\\": "tests/",
+                    "Icewind\\Streams\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Appelman",
+                    "email": "icewind@owncloud.com"
+                }
+            ],
+            "description": "A set of generic stream wrappers",
+            "time": "2019-02-15T12:57:29+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

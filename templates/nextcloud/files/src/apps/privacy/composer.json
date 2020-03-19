@@ -1,0 +1,23 @@
+{
+    "name": "nextcloud/privacy",
+    "description": "-",
+    "type": "project",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Georg Ehrke"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "scripts": {
+        "lint": "find . -name \\*.php -not -path './vendor/*' -exec php -l \"{}\" \\;"
+    },
+    "config": {
+        "platform": {
+            "php": "7.1.8"
+        }
+    }
+}

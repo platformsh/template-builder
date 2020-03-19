@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<info>
+	<id>files_videoplayer</id>
+	<name>Video player</name>
+	<description>A responsive video player using a skinned version of Video.js
+
+		Based on this app: https://apps.owncloud.com/content/show.php/Video+Js?content=159670
+
+		Video.js: http://videojs.com/
+
+		Skin: https://github.com/cabin/videojs-sublime-skin
+	</description>
+	<version>1.7.0</version>
+	<licence>MIT</licence>
+	<author>Björn Korella</author>
+	<default_enable/>
+	<documentation>
+		<user>https://github.com/nextcloud/files_videoplayer/blob/master/README.md</user>
+		<admin>https://github.com/nextcloud/files_videoplayer/blob/master/README.md</admin>
+		<developer>https://github.com/nextcloud/files_videoplayer/blob/master/README.md</developer>
+	</documentation>
+	<website>https://github.com/nextcloud/files_videoplayer</website>
+	<bugs>https://github.com/nextcloud/files_videoplayer/issues</bugs>
+	<repository type="git">https://github.com/nextcloud/files_videoplayer.git</repository>
+	<dependencies>
+		<nextcloud min-version="18" max-version="18" />
+	</dependencies>
+</info>

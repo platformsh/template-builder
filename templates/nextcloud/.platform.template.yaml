@@ -21,7 +21,7 @@ info:
   # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/nextcloud
   # The human-readable name of the template.
-  name: MoinMoin
+  name: Nextcloud
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds Nextcloud on Platform.sh.</p>

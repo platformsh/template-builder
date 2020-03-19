@@ -1,4 +1,4 @@
-# Moin Moin for Platform.sh
+# Nextcloud for Platform.sh
 
 <p align="center">
 <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/nextcloud/.platform.template.yaml&utm_content=nextcloud&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
@@ -39,5 +39,5 @@ The following changes have been made relative to Nextcloud as it is downloaded f
 
 ## References
 
-* [Moin Moin](https://moinmo.in/)
-* [Python on Platform.sh](https://docs.platform.sh/languages/python.html)
+* [Nextcloud](https://nextcloud.org/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

@@ -19,8 +19,8 @@ hooks:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "database:postgresql"
-  search: "search:elasticsearch"
+  database: "db:postgresql"
+  essearch: "searchelastic:elasticsearch"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -49,16 +49,16 @@ disk: 1024
 mounts:
   'config':
     source: local
-    source_path: files/config-files
+    source_path: config-files
   'logs':
     source: local
-    source_path: files/log-files
+    source_path: log-files
   'data':
     source: local
-    source_path: files/data-files
+    source_path: data-files
   'dist/files':
     source: local
-    source_path: files/dist-files
+    source_path: dist-files
   'plugins':
     source: local
-    source_path: files/plugins
+    source_path: plugins

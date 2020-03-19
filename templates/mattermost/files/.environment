@@ -1,7 +1,7 @@
 export MM_SERVICESETTINGS_LISTENADDRESS=":$PORT"
 export MM_SQLSETTINGS_DRIVERNAME="postgres"
 export MM_SQLSETTINGS_DATASOURCE="postgres://main:main@database.internal:5432/main?sslmode=disable&connect_timeout=10"
-export MM_ELASTICSEARCHSETTINGS_CONNECTIONURL="http://search.internal:9200"
+export MM_ELASTICSEARCHSETTINGS_CONNECTIONURL="http://essearch.internal:9200"
 export MM_ELASTICSEARCHSETTINGS_USERNAME=""
 export MM_ELASTICSEARCHSETTINGS_PASSWORD=""
 export MM_LOGSETTINGS_ENABLEFILE=false

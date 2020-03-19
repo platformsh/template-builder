@@ -1,0 +1,26 @@
+{ "translations": {
+    "Last report sent on: {on}" : "Utolsó riport megtekintése: {on}",
+    "An error occurred while sending your report." : "Hiba történt a jelentés elküldése közben.",
+    "App list <em>(for each app: name, version, enabled status)</em>" : "Alkalmazás lista <em>(minden appnak: név, verzió, engedélyezési állapot)</em>",
+    "Database environment <em>(type, version, database size)</em>" : "Adatbázis környezet <em>(típus, verzió, adatbázis méret)</em>",
+    "Encryption information <em>(is it enabled?, what is the default module)</em>" : "Titkosítási információk <em>(engedélyezve?, melyik az alapértelmezett modul)</em>",
+    "Number of shares <em>(per type and permission setting)</em>" : "Megosztások száma <em>(típus és engedély beállítása szerint)</em>",
+    "PHP environment <em>(version, memory limit, max. execution time, max. file size)</em>" : "PHP környezet <em>(verzió, memória korlát, max. végrehajtási idő, max. fájlméret)</em>",
+    "Server instance details <em>(version, memcache used, status of locking/previews/avatars)</em>" : "Szerver telepítés részletek <em>(verzió, memcache használat, zárolási állapot/előnézetek/avatarok)</em>",
+    "Statistic <em>(number of files, users, storages per type, comments and tags)</em>" : "Statisztikai <em>(fájlok, felhasználók, típusonkénti tárhelyek, megjegyzések és címkék szerinti összegzés)</em>",
+    "Usage survey" : "Használati és statisztikai adatok",
+    "Help improve Nextcloud" : "Segíts jobbá tenni a Nextcloudot",
+    "Do you want to help us to improve Nextcloud by providing some anonymized data about your setup and usage? You can disable it at any time in the admin settings again." : "Szeretnél segíteni nekünk, hogy javítsuk a Nextcloud-ot? Névtelen statisztikai adatok küldésével megteheted! Amennyiben utólag meggondolod magad bármikor letilthatod a rendszergazdai beállításokban.",
+    "Not now" : "Most nem",
+    "Send usage" : "Statisztikai adatok küldése",
+    "Never" : "Soha",
+    "Sends anonymized data to Nextcloud to help us to improve Nextcloud." : "Aninimizált adatok küldése a Nextcloudnak segítve a Nextcloud jobbá tételét.",
+    "You can help improve Nextcloud by sending us some data about your current setup and usage." : "Segíthet nekünk a Nextcloud javításában, ha elküldi számunkra az aktuális beállításokról és felhasználásokról szóló adatokat.",
+    "We take your privacy seriously. Sending data is disabled by default, and should you choose to turn it on, it will be anonymized first, and you are given the option of what things to share. Upon receiving a report, the previous one is removed. Upload a clean report to delete all data currently stored on the server" : "Komolyan vesszük a magánéletet. Az adatok névtelenek, és bármikor engedélyezheted vagy letilthatod a statisztikai jelentések küldését, alapértelmezetten tiltva van. Az alábbiakban megadhatod, hogy milyen statisztikai adatokat szeretnél elküldeni. Amikor a szerver új jelentést kap, az előző jelentések összes bejegyzése eltávolításra kerül. Ha letiltja az alábbi beállításokat, új jelentést küldhet, amely törli a szerveren jelenleg tárolt jelentéseket.",
+    "Send new report now" : "Statisztikai adatok küldése most",
+    "Send usage survey monthly" : "Statisztikai adatok küldése havonta",
+    "Data to send" : "Küldeni kívánt adatok",
+    "Last report sent on: %s" : "Utolsó riport megtekintése: %s",
+    "Last report" : "Utolsó jelentés"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

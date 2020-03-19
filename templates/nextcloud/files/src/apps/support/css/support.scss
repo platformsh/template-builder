@@ -1,0 +1,155 @@
+.columns {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 20px;
+	div p,
+	div ul {
+		text-align: left;
+		margin: 10px 0;
+	}
+	// headers images
+	div[style] {
+		background-position: top center;
+		background-repeat: no-repeat;
+		padding-top: 50px;
+		background-size: 50px;
+	}
+	div img {
+		width: 50px;
+		margin-top: 60px;
+		display: inline-block;
+		&.account-manager-avatar {
+			opacity: 1 !important;
+			border-radius: 50%;
+			margin-top: 10px;
+			width: 100px;
+		}
+		.community-support & {
+			margin-top: 0;
+		}
+	}
+}
+
+.sidebyside-section {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 60px;
+}
+
+
+@media only screen and (max-width: 1000px) {
+	.sidebyside-section {
+		grid-template-columns: 1fr;
+
+	}
+}
+
+
+.section {
+	text-align: center;
+}
+
+input[name="subscriptionKey"] {
+	width: 300px;
+	text-align: center;
+}
+
+.generate-report-button,
+.irc-info,
+.subscription-info,
+.account-manager-info {
+	margin: 20px 0;
+}
+
+.deemphasize {
+	opacity: .4;
+}
+
+.subscription-info pre {
+	display: inline-block;
+	font-family: monospace;
+	font-size: 14px;
+	background-color: var(--color-background-dark);
+	padding: 0 4px;
+	border-radius: 3px;
+}
+
+.subscription-toggle-subscription-key {
+	opacity: .4;
+}
+
+#report-status {
+	.icon-loading:after {
+		width: 20px;
+		height: 20px;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+}
+
+ul.normal-list {
+	list-style: initial;
+	padding-left: 20px;
+}
+
+.badge {
+	background-position: left center;
+	background-position: 5px center;
+	border: 1px solid #555;
+	border-radius: 3px;
+	padding: 3px 6px 3px 25px;
+}
+
+.unsupported {
+	border-color: $color-error;
+	font-weight: 600;
+}
+
+.overlimit {
+	border-color: $color-warning;
+    font-weight: 600;
+}
+
+.supported {
+	border-color: $color-success;
+}
+
+p.text-center {
+	text-align: center !important;
+}
+
+.text-bold {
+    font-weight: 600;
+}
+
+.link-button {
+	border-radius: 21px;
+	background-color: #0082c9;
+	color: #fff;
+	border: 1px solid #0082c9;
+	padding: 10px 15px;
+	box-shadow: 0 2px 9px rgba(50, 50, 50, .2);
+	margin: 10px;
+	display: inline-block;
+
+	&:active,
+	&:hover,
+	&:focus {
+		color: #0082c9;
+		background-color: #fff;
+		border-color: #0082c9 !important;
+	}
+}
+
+/* IE GRID FIXES */
+.ie {
+	.columns {
+		display: flex;
+		> * {
+			flex: 0 0 33%;
+		}
+	}
+}
+

@@ -1,0 +1,106 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses.
+type: "php:7.3"
+# Configuration of the build of the application.
+build:
+    flavor: none
+hooks:
+    build: |
+        cp -R _themes/* src/themes/
+        cp -R _apps/* src/apps/
+    deploy: |
+        mkdir -p /tmp/nextcloudtemp /tmp/cache /tmp/logs
+        # Only launch installation script if config does not exist
+        if [ ! -f "src/config/config.php" ]; then
+        ./install.sh
+        fi
+        ./occ maintenance:mode --on
+        ./occ upgrade
+        ./occ maintenance:repair 
+        ./occ db:add-missing-indice
+        ./occ maintenance:mode --off
+        ./occ app:enable previewgenerator
+variables:
+    env:
+        front_controller_active: true
+source:
+    operations:
+        update:
+            command: |
+                set -e #Exit immediately if a command exits with a non-zero status.
+                ./update.sh
+                git add .
+                git commit -m "Update NextCloud to version ${NEXTCLOUD_VERSION}"
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "database:mysql"
+    cache: "redis:redis"
+runtime:
+    extensions:
+        - apcu
+        - redis
+    sizing_hints:
+        request_memory: 11
+# The configuration of app when it is exposed to the web.
+web:
+    locations:
+        "/":
+            # The public directory of the app, relative to its root.
+            root: "src"
+            # The front-controller script to send non-static requests to.
+            passthru: "/index.php"
+            rules:
+                '^':
+                         passthru: '/index.php'
+                         allow: true
+                '^\.well-known/host-meta':
+                         passthru: "/public.php?service=host-meta"
+                '^\.well-known/host-meta\.json':
+                         passthru: "/public.php?service=host-meta-json"
+                '^\.well-known/webfinger':
+                         passthru: "/public.php?service=webfinger"
+                '^\.well-known/nodeinfo':
+                         passthru: "/public.php?service=nodeinfo"
+                '^remote/(.*)':  
+                         passthru: "/remote.php"
+                '^(?:build|tests|config|lib|3rdparty|templates)/.*':
+                         allow: false
+                '^(?:\.|autotest|occ|issue|indie|db_|console).*':
+                         allow: false
+            index:
+                - index.php
+                - index.html
+# The size of the persistent disk of the application (in MB).
+disk: 4000
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    "apps":
+        source: local
+        source_path: "user_apps"
+#    "src/apps":
+#        source: local
+#        source_path: "apps"
+    "src/data":
+        source: local
+        source_path: "data"
+    "src/config":
+        source: local
+        source_path: "src/config"
+crons:
+    # Run NextClouds's cron tasks every 5 minutes.
+    cron:
+        spec: '*/5 * * * *'
+        cmd: 'cd src ; php cron.php'
+    preview:
+        spec: '*/10 * * * *'
+        cmd: './occ preview:pre-generate'

@@ -1,0 +1,42 @@
+.settings {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-top: 1px solid #eee;
+  padding: 1em;
+  z-index: 100;
+  position: absolute;
+  top: 43px;
+  left: 10px;
+  width: 170px;
+
+  li {
+    list-style: none;
+    a {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  > a {
+    margin: 5px;
+    display: inline-block;
+  }
+
+  h4 {
+    font-weight: bold;
+    padding-left: 7px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.settings:after {
+  left: 75px;
+}

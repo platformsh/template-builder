@@ -25,8 +25,8 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds Nextcloud on Platform.sh.</p>
-
-       <p>Nextcloud is a PHP-based groupware server with installable apps, file synchronization, and federated storage.</p>
+      <p>Nextcloud is a PHP-based groupware server with installable apps, file synchronization, and federated storage.</p>
+      <p>An adminstrative user will be created automatically.  See the deploy log after the project is installed for the name and password.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

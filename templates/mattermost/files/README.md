@@ -26,7 +26,9 @@ The following changes have been made relative from initializing a Mattermost pro
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * Mattermost binaries are downloaded during the build hook in `setup.sh`. You can edit that file to download a newer version of the upstream on a new environment to update.
-* Environment variables are set in the `.environment` file, which override default settings created in Mattermost's `/app/config/config.json` file, which allow  allow Mattermost to connect to PostgreSQL and Elasticsearch.
+* Environment variables are set in `.environment` that override the settings generated in Mattermost's `app/config/config.json` file. Most of these additions connect Mattermost to the PostgreSQL and Elasticsearch services. You can add to this file to override additional variables in `/app/config/config.json` by matching its keys to an exported variable prefixed by `MM_`, and with each key level separated by an underscore. For example, `port` is defined in `config.json` at `ServiceSettings.ListenAddress`, and over-written in `.environment` to read Platform.sh's `PORT` environment variable with `export MM_SERVICESETTINGS_LISTENADDRESS=":$PORT"`.
+* **Marketplace Plugins:** To install plugins for Mattermost, navigate to the Plugin Marketplace link in your primary dropdown. The template has already been configured to search the Marketplace, and install plugins to the `client/plugins` mount. Once they are installed, the plugin will still need to be enabled according to its documentation.
+* **Non-Marketplace Plugins:** If you would like to install a plugin that is not in the Marketplace, you can visit `System Console > Plugin Management`, and upload a release `.tar.gz` under the `Upload Plugin:` section. Once it has been uploaded, enable it according the the plugin's documentation.
 
 ## References
 

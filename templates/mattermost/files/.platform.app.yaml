@@ -62,3 +62,6 @@ mounts:
   'plugins':
     source: local
     source_path: plugins
+  'client/plugins':
+    source: local
+    source_path: client_plugins

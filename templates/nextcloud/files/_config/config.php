@@ -73,20 +73,19 @@ $CONFIG = array (
 
 // set object-store as primary store if we have an S3 bucket set.
 if (getenv('S3_BUCKET')){
-    $CONFIG["objectstore"] =array(
-          'class' => '\\OC\\Files\\ObjectStore\\S3',
-          'arguments' => array(
-                  'bucket' => $_ENV['S3_BUCKET'],
-                  'autocreate' => true,
-                  'key'    => $_ENV['S3_KEY'],
-                  'secret' => $_ENV['S3_SECRET'],
-                  'hostname' => $_ENV['S3_HOSTNAME'],
-                  'region'=>$_ENV['S3_REGION'],
-                  'port' => 443,
-                  'use_ssl' => true,
-                  // required for some non Amazon S3 implementations
-                  'use_path_style'=>true
-          ),
+  $CONFIG["objectstore"] =array(
+    'class' => '\\OC\\Files\\ObjectStore\\S3',
+    'arguments' => array(
+      'bucket' => $_ENV['S3_BUCKET'],
+      'autocreate' => true,
+      'key'    => $_ENV['S3_KEY'],
+      'secret' => $_ENV['S3_SECRET'],
+      'hostname' => $_ENV['S3_HOSTNAME'],
+      'region'=>$_ENV['S3_REGION'],
+      'port' => 443,
+      'use_ssl' => true,
+       // required for some non Amazon S3 implementations
+      'use_path_style'=>true
+    ),
   );
-
 }

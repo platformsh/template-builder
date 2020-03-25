@@ -50,6 +50,45 @@ As part of the build process, applications and themes will be copied from the `_
 
 This separate setup allows the `update.sh` script to update Nextcloud itself without losing the code for any extensions you have added.
 
+## Using Amazon S3 for storage
+
+Nextcloud supports using Amazon S3 (or any S3 compatible storage service) for the primary data backend.  That allows you to use the far cheaper S3 storage, but *all environments on Platform.sh will connect to the same S3 bucket and thus be working with live data*.  There may also be a performance impact, which will vary depending on the type of data you're storing.
+
+Nextcloud also must be configured for S3 at the time of installation.  That means you cannot use the one-click install button above as it will run through the installation process before you have a chance to provide S3 credentials.  Instead, follow these steps:
+
+1. Create a new empty Platform.sh project through the UI; when asked if you want to create a "New Project" or "Use a template", select "New Project".
+
+2. Create an Amazon S3 bucket and user that has write access to it.  You will need a number of pieces of information, which you must set on the newly created project as project-level variables.  The easiest way to do so is from the command line:
+
+    ```bash
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=false --level=project --name="env:S3_BUCKET"   --value=$S3_BUCKET
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=true  --level=project --name="env:S3_KEY"      --value=$S3_KEY
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=true  --level=project --name="env:S3_SECRET"   --value=$S3_SECRET
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=false --level=project --name="env:S3_REGION"   --value=$S3_REGION
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=false --level=project --name="env:S3_HOSTNAME" --value=$S3_HOSTNAME
+    ```
+
+Where `$PROJECT_ID` is the ID of the Platform.sh project you just created, and `$S3_BUCKET`, `$S3_Key`, `$S3_SECRET`, `$S3_REGION`, and `$S3_HOSTNAME` are the appropriate values for the S3 bucket you wish to use.
+
+3. (Optional) If you would like to specify the name and password for the admin user up front, you may also set that.  You will be able to change these later after logging in, and should remove these variables once the project is installed.  If you do not specify a name and password they will be auto-created for you, and available in the deploy log output.
+
+    ```bash
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=false --level=project --name="env:ADMIN_USER" --value=$ADMIN_USER
+    platform -p $PROJECT_ID -q variable:create --json=false --sensitive=true  --level=project --name="env:ADMIN_PASSWORD" --value=$ADMIN_PASSWORD
+    ```
+
+4. Initialize the code from this GitHub repository.  That can be done directly with:
+
+    ```bash
+    platform environment:init -p $PROJECT_ID -e master https://github.com/platformsh-templates/nextcloud
+    ```
+
+That will initialize the project with the code from this template and deploy it, which will trigger the installer.  The default configuration file will detect that you have S3 parameters already defined and use those in the initial configuration of the site.
+
+5. Go to your site in a browser and login with the user and password you specified above, or the user and password shown in the shell output from the previous command.  Your Nextcloud site is now ready to use.
+
+*Please remember to change your admin password immediately.*
+
 ## References
 
 * [Nextcloud](https://nextcloud.com/)

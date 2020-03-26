@@ -21,7 +21,7 @@ hooks:
         fi
         ./occ maintenance:mode --on
         ./occ upgrade
-        ./occ maintenance:repair 
+        ./occ maintenance:repair
         ./occ db:add-missing-indice
         ./occ maintenance:mode --off
         ./occ app:enable previewgenerator
@@ -70,7 +70,7 @@ web:
                          passthru: "/public.php?service=webfinger"
                 '^\.well-known/nodeinfo':
                          passthru: "/public.php?service=nodeinfo"
-                '^remote/(.*)':  
+                '^remote/(.*)':
                          passthru: "/remote.php"
                 '^(?:build|tests|config|lib|3rdparty|templates)/.*':
                          allow: false
@@ -87,15 +87,13 @@ mounts:
     "apps":
         source: local
         source_path: "user_apps"
-#    "src/apps":
-#        source: local
-#        source_path: "apps"
     "src/data":
         source: local
         source_path: "data"
     "src/config":
         source: local
         source_path: "src/config"
+
 crons:
     # Run NextClouds's cron tasks every 5 minutes.
     cron:

@@ -68,7 +68,7 @@ Nextcloud also must be configured for S3 at the time of installation.  That mean
     platform -p $PROJECT_ID -q variable:create --json=false --sensitive=false --level=project --name="env:S3_HOSTNAME" --value=$S3_HOSTNAME
     ```
 
-Where `$PROJECT_ID` is the ID of the Platform.sh project you just created, and `$S3_BUCKET`, `$S3_Key`, `$S3_SECRET`, `$S3_REGION`, and `$S3_HOSTNAME` are the appropriate values for the S3 bucket you wish to use.
+Where `$PROJECT_ID` is the ID of the Platform.sh project you just created, and `$S3_BUCKET`, `$S3_KEY`, `$S3_SECRET`, `$S3_REGION`, and `$S3_HOSTNAME` are the appropriate values for the S3 bucket you wish to use.
 
 3. (Optional) If you would like to specify the name and password for the admin user up front, you may also set that.  You will be able to change these later after logging in, and should remove these variables once the project is installed.  If you do not specify a name and password they will be auto-created for you, and available in the deploy log output.
 

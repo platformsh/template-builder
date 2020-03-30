@@ -10,13 +10,13 @@ class Symfony3(RemoteProject):
         return super(Symfony3, self).platformify + [
             # Symfony 3 ships with a composer.json file that specifies a platform target
             # Of PHP 5.6, for no good reason, even though it depends on Doctrine, which
-            # requires PHP 7.1.  Since we're guaranteeing a PHP 7.3 environment, just
-            # change that requirement to 7.3 and be done with it.
-            'cd {0} && composer config platform.php 7.3'.format(
+            # requires PHP 7.1.  Since we're guaranteeing a PHP 7.4 environment, just
+            # change that requirement to 7.4 and be done with it.
+            'cd {0} && composer config platform.php 7.4'.format(
                 self.builddir),
             # Monolog-Bundle allows for Monolog 1.x or 2.x, but nothing else forces Monolog 1.x, so by default
             # 2.x gets installed.  That's explicitly not compatible with Symfony < 5, however.  Instead, force
-            # an extra dependency on Monolog 1 to sideste that issue.  It has to be done in a single install
+            # an extra dependency on Monolog 1 to sidestep that issue.  It has to be done in a single install
             # step to avoid issues with Symfony's install script failing if either of these packages are missing.
             'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22 --ignore-platform-reqs'.format(
                 self.builddir),

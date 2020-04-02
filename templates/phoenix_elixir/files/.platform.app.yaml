@@ -1,0 +1,51 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses.
+type: elixir:1.9
+
+build:
+    flavor: none
+
+variables:
+    env:
+        MIX_ENV: 'prod'
+        SECRET_KEY_BASE: $PLATFORM_PROJECT_ENTROPY
+
+# This is assuming we have nothing in the build flavour
+hooks:
+    build: |
+        mix local.hex --force
+        mix local.rebar --force
+        mix do deps.get --only prod, deps.compile, compile
+        if grep -q phoenix mix.lock
+        then
+            npm install --prefix ./assets
+            npm run deploy --prefix ./assets
+            mix phx.digest
+        fi
+    deploy: |
+        mix do ecto.setup
+
+relationships:
+    database: "database:postgresql"
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+        start: mix do platformsh.config, phx.server --no-halt --no-compile
+    locations:
+        /:
+            # Route all requests to the Lisp app, unconditionally.
+            # If you want some files served directly by the web server without hitting Elixir, see
+            # https://docs.platform.sh/configuration/app/web.html
+            allow: false
+            passthru: true
+
+# The size of the persistent disk of the application (in MB).
+disk: 128

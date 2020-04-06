@@ -13,7 +13,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit.version>5.6.0</junit.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <kumuluzee.version>3.6.1</kumuluzee.version>
+    <kumuluzee.version>3.8.0</kumuluzee.version>
     <platform.sh.version>2.2.3</platform.sh.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
@@ -22,7 +22,12 @@
 <dependencies>
     <dependency>
         <groupId>com.kumuluz.ee</groupId>
-        <artifactId>kumuluzee-microProfile-1.0</artifactId>
+        <artifactId>kumuluzee-microProfile-3.2</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.kumuluz.ee.config</groupId>
+        <artifactId>kumuluzee-config-mp</artifactId>
+        <version>1.4.0</version>
     </dependency>
     <dependency>
         <groupId>sh.platform</groupId>

@@ -4,9 +4,13 @@
 # to be processed by Platform.sh.
 
 "https://{default}/":
-  type: upstream
-  upstream: "app:http"
+  type: redirect
+  to: "https://{default}/hello"
 
 "https://www.{default}/":
   type: redirect
   to: "https://{default}/"
+
+"https://{default}/hello":
+  type: upstream
+  upstream: "app:http"  

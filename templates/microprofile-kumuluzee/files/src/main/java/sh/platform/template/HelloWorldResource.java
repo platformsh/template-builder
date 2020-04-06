@@ -1,12 +1,12 @@
 package sh.platform.template;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-@Path("")
-@RequestScoped
+@Path("/hello")
+@ApplicationScoped
 public class HelloWorldResource {
 
     @GET

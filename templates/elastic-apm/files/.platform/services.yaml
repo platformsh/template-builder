@@ -10,3 +10,6 @@
 elasticsearch:
     type: elasticsearch:7.2
     disk: 2048
+    configuration:
+        authentication:
+            enabled: true

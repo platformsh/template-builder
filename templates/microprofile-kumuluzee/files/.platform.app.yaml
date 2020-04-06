@@ -32,5 +32,5 @@ mounts:
 web:
     commands:
         start: |
-           mv target/microprofile.jar app/microprofile.jar
+           cp target/microprofile.jar app/microprofile.jar
            java -jar -Xmx512m -Dkumuluzee.server.http.port=$PORT app/microprofile.jar

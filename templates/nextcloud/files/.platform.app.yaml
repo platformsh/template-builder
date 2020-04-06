@@ -5,19 +5,24 @@
 name: app
 
 # The runtime the application uses.
-type: "php:7.3"
+type: "php:7.4"
+
 # Configuration of the build of the application.
 build:
     flavor: none
+
 hooks:
     build: |
+        ./install-redis.sh 5.2.1
+        ./download-nextcloud.sh 18.0.3
+        chmod +x src/occ
         cp -R _themes/* src/themes/
         cp -R _apps/* src/apps/
     deploy: |
         mkdir -p /tmp/nextcloudtemp /tmp/cache /tmp/logs
         # Only launch installation script if config does not exist
         if [ ! -f "src/config/config.php" ]; then
-        ./install.sh
+          ./install.sh
         fi
         ./occ maintenance:mode --on
         ./occ upgrade
@@ -25,17 +30,10 @@ hooks:
         ./occ db:add-missing-indice
         ./occ maintenance:mode --off
         ./occ app:enable previewgenerator
+
 variables:
     env:
         front_controller_active: true
-source:
-    operations:
-        update:
-            command: |
-                set -e #Exit immediately if a command exits with a non-zero status.
-                ./update.sh
-                git add .
-                git commit -m "Update NextCloud to version ${NEXTCLOUD_VERSION}"
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -44,12 +42,14 @@ source:
 relationships:
     database: "database:mysql"
     cache: "redis:redis"
+
 runtime:
     extensions:
         - apcu
-        - redis
     sizing_hints:
         request_memory: 11
+
+
 # The configuration of app when it is exposed to the web.
 web:
     locations:
@@ -60,22 +60,22 @@ web:
             passthru: "/index.php"
             rules:
                 '^':
-                         passthru: '/index.php'
-                         allow: true
+                    passthru: '/index.php'
+                    allow: true
                 '^\.well-known/host-meta':
-                         passthru: "/public.php?service=host-meta"
+                    passthru: "/public.php?service=host-meta"
                 '^\.well-known/host-meta\.json':
-                         passthru: "/public.php?service=host-meta-json"
+                    passthru: "/public.php?service=host-meta-json"
                 '^\.well-known/webfinger':
-                         passthru: "/public.php?service=webfinger"
+                    passthru: "/public.php?service=webfinger"
                 '^\.well-known/nodeinfo':
-                         passthru: "/public.php?service=nodeinfo"
+                    passthru: "/public.php?service=nodeinfo"
                 '^remote/(.*)':
-                         passthru: "/remote.php"
+                    passthru: "/remote.php"
                 '^(?:build|tests|config|lib|3rdparty|templates)/.*':
-                         allow: false
+                    allow: false
                 '^(?:\.|autotest|occ|issue|indie|db_|console).*':
-                         allow: false
+                    allow: false
             index:
                 - index.php
                 - index.html
@@ -102,3 +102,4 @@ crons:
     preview:
         spec: '*/10 * * * *'
         cmd: './occ preview:pre-generate'
+

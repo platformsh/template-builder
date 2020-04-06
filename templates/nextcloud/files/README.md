@@ -12,7 +12,7 @@ Nextcloud is a PHP-based groupware server with installable apps, file synchroniz
 
 ## Services
 
-* PHP 7.3
+* PHP 7.4
 * MariaDB 10.4
 * Redis 5.0
 
@@ -29,7 +29,7 @@ You should also set an email address for the administrative user after logging i
 The following changes have been made relative to Nextcloud as it is downloaded from the Nextcloud website.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
-* Nextcloud itself is installed in the `src` directory, as downloaded from Nextcloud.org.
+* Nextcloud itself is downloaded on the fly into the `src` directory during the build step by the `download-nextcloud.sh` script.  It leverages the build cache to avoid redownloading the application each time.
 * The `install.sh` script is used for the initial installation of Nextcloud on the first deploy.  It is not needed afterward unless you want to reinitialize the installation.  (Note: "reinitialize" means "delete all data and start over".  This is a destructive operation with no rollback option.)  You may delete it if you wish.
 * The `nukedb.sql` file is used to wipe the SQL database.  It is used as part of `install.sh`.  Do not use it yourself unless you want to lose all of your data.  You may delete it if you wish.
 * There is a symlink `occ` in the project root that points to the `src/occ` file.  It allows you to run `occ` commands from the project root once deployed.

@@ -35,3 +35,6 @@ Temporary Items
 *.tmp
 
 .platform/local/project.yaml
+
+# This will be populated during the build phase.
+src

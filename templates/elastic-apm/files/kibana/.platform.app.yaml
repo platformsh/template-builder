@@ -18,6 +18,9 @@ hooks:
         mkdir -p kibana/optimize/bundles
         cp -n -r _kibana_optimize/* kibana/optimize/bundles
 
+        export ES_USER = echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq "elasticsearch[0].user"
+        export ES_PASS = echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq "elasticsearch[0].password"
+
 variables:
     env:
         KIBANA_HOME: '/app/kibana'
@@ -52,11 +55,15 @@ disk: 1024
 ## the persistent mount where it lives. At this time, only 'shared:files' is
 ## a supported mount.
 mounts:
-    "/run":local
+    "/run":
+        source: local
         source_path: "run"
-    "/kibana/data":local
+    "/kibana/data":
+        source: local
         source_path: "data"
-    "/kibana/optimize":local
+    "/kibana/optimize":
+        source: local
         source_path: "optimize"
-    "/kibana/plugins":local
+    "/kibana/plugins":
+        source: local
         source_path: "plugins"

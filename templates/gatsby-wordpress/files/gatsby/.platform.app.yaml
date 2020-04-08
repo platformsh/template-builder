@@ -12,6 +12,9 @@ hooks:
     post_deploy: |
       npm run build
 
+relationships:
+    wordpress: "wordpress:http"
+
 # The size of the persistent disk of the application (in MB).
 disk: 1280
 

@@ -10,7 +10,7 @@ name: app
 type: elixir:1.9
 
 build:
-    flavor: none
+  flavor: none
 
 variables:
     env:

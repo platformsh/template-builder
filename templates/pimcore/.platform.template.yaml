@@ -47,7 +47,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git@github.com:platformsh/template-pimcore.git@master
+  repository: git@github.com:platformsh-templates/pimcore.git@master
   config: null
   files: []
   profile: Pimcore

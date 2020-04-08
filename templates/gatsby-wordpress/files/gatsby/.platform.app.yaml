@@ -8,15 +8,12 @@ type: 'nodejs:12'
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
+    # Post deploy hook builds Gatsby frontend now that backend content is available.
     post_deploy: |
       npm run build
 
 # The size of the persistent disk of the application (in MB).
 disk: 1280
-
-# relationships:
-#   backend: "wordpress:http"
 
 # The configuration of the application when it is exposed to the web.
 web:

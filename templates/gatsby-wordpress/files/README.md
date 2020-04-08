@@ -8,7 +8,7 @@
 
 This template builds a multi-app project using Gatsby as its frontend and a Wordpress backend to store content using Gatsby's Wordpress source plugin.
 
-Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps, and WordPress is a blogging and lightweight CMS written in PHP.
+Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and WordPress is a blogging and lightweight CMS written in PHP.
 
 ## Services
 

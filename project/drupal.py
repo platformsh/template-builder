@@ -3,7 +3,6 @@ from .remote import RemoteProject
 import json
 from collections import OrderedDict
 
-
 class Drupal7_vanilla(BaseProject):
     version = '7.67'
 

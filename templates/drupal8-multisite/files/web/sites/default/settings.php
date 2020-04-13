@@ -28,9 +28,6 @@ $settings['file_scan_ignore_directories'] = [
 
 $platformsh_subsite_id = basename(__DIR__);
 
-// Set this to true to enable Redis caching, but only after the site has been installed.
-$platformsh_enable_redis = FALSE;
-
 // Set up a config sync directory.
 //
 // This is defined inside the read-only "config" directory, deployed via Git.

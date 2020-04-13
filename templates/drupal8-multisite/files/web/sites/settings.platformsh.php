@@ -12,9 +12,6 @@ if (!isset($platformsh_subsite_id)) {
 
 $platformsh = new \Platformsh\ConfigReader\Config();
 
-if (!$platformsh->inRuntime()) {
-  return;
-}
 
 // Configure the database.
 $creds = $platformsh->credentials($platformsh_subsite_id);
@@ -30,8 +27,12 @@ if ($creds) {
   ];
 }
 
+if (!$platformsh->inRuntime()) {
+  return;
+}
+
 // Enable Redis caching.
-if (!empty($platformsh_enable_redis) && $platformsh->hasRelationship('rediscache') && !InstallerKernel::installationAttempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
+if ($platformsh->hasRelationship('rediscache') && !InstallerKernel::installationAttempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
   $redis = $platformsh->credentials('rediscache');
 
   // Set a cache prefix so not all sites go into the same cache pool.

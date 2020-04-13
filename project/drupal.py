@@ -3,7 +3,6 @@ from .remote import RemoteProject
 import json
 from collections import OrderedDict
 
-
 class Drupal7_vanilla(BaseProject):
     version = '7.67'
 
@@ -23,21 +22,7 @@ class Drupal8(RemoteProject):
 
     @property
     def platformify(self):
-
-        def drupal_modify_composer(composer):
-
-            composer['require']['cweagans/composer-patches'] = '~1.0'
-
-            composer['extra']['patches'] = {
-                'drupal/core': {
-                    "Work around SA-2019-009 bug": "https://www.drupal.org/files/issues/2020-03-16/3103529-8.x-122.patch"
-                }
-            }
-
-            return composer
-
         return super(Drupal8, self).platformify + [
-            (self.modify_composer, [drupal_modify_composer]),
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis --ignore-platform-reqs'.format(
                 self.builddir)
         ]

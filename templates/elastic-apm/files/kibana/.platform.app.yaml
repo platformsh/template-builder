@@ -18,9 +18,6 @@ hooks:
         mkdir -p kibana/optimize/bundles
         cp -n -r _kibana_optimize/* kibana/optimize/bundles
 
-        export ES_USER = echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].user"
-        export ES_PASS = echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq ".elasticsearch[0].password"
-
 variables:
     env:
         KIBANA_HOME: '/app/kibana'
@@ -29,7 +26,7 @@ web:
     ## The commands section lists programs to start when the container is deployed,
     ## typically starting your application.
     commands:
-        start: ./kibana/bin/kibana --verbose  -c /app/kibana/config/kibana.yml
+        start: ./kibana/bin/kibana --verbose  -c /app/kibana/config/kibana.yml --elasticsearch.username=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].username") --elasticsearch.password=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].password")
     locations:
         "/":
             passthru: true

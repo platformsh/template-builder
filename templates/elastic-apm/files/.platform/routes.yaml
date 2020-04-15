@@ -6,9 +6,9 @@
 #
 # See https://docs.platform.sh/user_guide/reference/routes-yaml.html for more information.
 
-"https://{default}/":
+"https://apm.{default}/":
     type: upstream
     upstream: "apm:http"
-"https://kibana.{default}/":
+"https://{default}/":
     type: upstream
     upstream: "kibana:http"

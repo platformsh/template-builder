@@ -26,4 +26,4 @@ relationships:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start:  java -jar -Xmx512m target/spring-kotlin.jar --server.port=$PORT
+        start:  java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError target/spring-kotlin.jar --server.port=$PORT

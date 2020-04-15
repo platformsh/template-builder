@@ -27,4 +27,4 @@ relationships:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start:  java -jar -Xmx512m build/libs/spring-boot-gradle-mysql.jar --server.port=$PORT
+        start:  java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError build/libs/spring-boot-gradle-mysql.jar --server.port=$PORT

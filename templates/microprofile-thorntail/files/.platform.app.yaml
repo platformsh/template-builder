@@ -26,5 +26,5 @@ hooks:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start: java -jar -Xmx512m -Dswarm.http.port=$PORT -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true target/microprofile-thorntail.jar
+        start: java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -Dswarm.http.port=$PORT -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true target/microprofile-thorntail.jar
 

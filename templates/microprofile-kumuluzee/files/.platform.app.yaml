@@ -33,4 +33,4 @@ web:
     commands:
         start: |
            cp target/microprofile.jar app/microprofile.jar
-           java -jar -Xmx512m -Dkumuluzee.server.http.port=$PORT app/microprofile.jar
+           java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -Dkumuluzee.server.http.port=$PORT app/microprofile.jar

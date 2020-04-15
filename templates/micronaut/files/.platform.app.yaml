@@ -28,4 +28,4 @@ hooks:
 web:
     commands:
         start: |
-          java -Xmx512m -jar target/micronaut-1.0-SNAPSHOT.jar
+          java -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -jar target/micronaut-1.0-SNAPSHOT.jar

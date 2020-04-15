@@ -14,9 +14,15 @@ This template builds Elastic APM (Application Performance Monitoring) with a Kib
 
 ## Post-install
 
-1. Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
+1. Elasticsearch is configured to require authentication with a user and password that is generated automatically and available in the relationships array.  Kibana is configured to inherit those credentials.  To access them, run `platform relationships -A kibana -p <URL of your site>`.  That will show the relationship information for the kibana application, which will include `username` and `password` keys.  You may use those to login at your site's URL.
 
-2. Once Drupal is fully installed, edit your `.platform.app.yaml` file and uncomment the line under the `relationships` block that reads `redis: 'rediscache:redis'`.  Commit and push the changes.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
+> **Note**
+>
+> Although the Kibana UI has a way for you to change the user and password, do not do so.  Trying to change the password will leave Kibana and Elasticsearch out of sync and inaccessible.
+
+2. After logging into Kibana, go to `/app/apm`.  You will get a message that no APM services are installed and a "Setup instructions" button.  Click that.  It will present you with instructions to install an APM server which you can ignore as that is already done by the template.  Instead, consult the APM Agent instructions for your chosen language further down for instructions on how to connect your application to APM.
+
+3. (Optional) Elasticsearch is not publicly routable by default.  It can only be accessed through Kibana or APM.  If you wish to expose Elasticsearch to the public, you may add a route to `routes.yaml` that uses `elasticsearch:http` as its upstream.  Note that all connections to Elasticsearch will require HTTP Basic Authentication, using the same user and password that you use to login to Kibana.
 
 ## Structure
 
@@ -24,9 +30,19 @@ This is an unusual project in that it contains no application code.  Both APM an
 
 The versions of Kibana and APM that are downloaded are specified as environment variables in the build hooks.  Kibana and APM are very sensitive to version compatibility, so if upgrading the version ensure that you upgrade both in tandem, and possibly Elasticsearch itself as well.
 
+## Embedding into another project
+
+If you would prefer to include the full APM suite inside another project, do the following:
+
+1. Copy the `kibana` and `apm` directories to your application as-is.
+
+2. Copy the `elasticsearch` service definition from `services.yaml` to your project's `services.yaml`.  Do not rename the service or else the default configuration provided will not work.
+
+3. Add an additional route in your project at the subdomain of your choosing that has an upstream of `kibana:http`, and another that has an upstream of `apm:http`.
+
 ## Customizations
 
-On initial run, Kibana by default will run a self-optimize step.  This step is very memory intensive and will not complete successfully on a Platform.sh `S` sized container (used by development environments).  Instead, this repository includes the optimized asset files pre-loaded, and copies them into place in the Kibana deploy hook.  That skips the self-optimize step.
+On its initial run, Kibana by default will run a self-optimize step.  This step is very memory intensive and will not complete successfully on a Platform.sh `S` sized container (used by development environments).  Instead, this repository includes the optimized asset files pre-loaded, and copies them into place in the Kibana deploy hook.  That skips the self-optimize step.
 
 If you upgrade Kibana, you will need to re-generate the pre-optimized files.  To do so, run the following command locally:
 

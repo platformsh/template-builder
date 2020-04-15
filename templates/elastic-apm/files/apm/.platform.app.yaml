@@ -22,7 +22,7 @@ web:
     ## The commands section lists programs to start when the container is deployed,
     ## typically starting your application.
     commands:
-        start: ./apm-server/apm-server -c /app/apm-server.yml -e
+        start: ./apm-server/apm-server -c /app/apm-server.yml -E output.elasticsearch.username=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].username") -E output.elasticsearch.password=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].password")
 
 
 ## You can add services in .platform/services.yaml, to use them in your application

@@ -27,6 +27,18 @@ class Drupal8(RemoteProject):
                 self.builddir)
         ]
 
+class Drupal9(RemoteProject):
+    # This can have a common base with Drupal 8 eventually, once modules are updated.
+    major_version = "9.0.0-beta2"
+    remote = 'https://github.com/drupal/recommended-project.git'
+
+    @property
+    def platformify(self):
+        return super(Drupal9, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
+                self.builddir)
+        ]
+
 class Drupal8_multisite(Drupal8):
     pass
 

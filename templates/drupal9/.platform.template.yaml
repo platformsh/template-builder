@@ -19,12 +19,12 @@ version: 1
 # Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
   # Unique machine name, prefaced by a vendor or organization identifier
-  id: platformsh/drupal8
+  id: platformsh/drupal9
   # The human-readable name of the template.
-  name: Drupal 8
+  name: Drupal 9
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    <p>This template builds Drupal 8 using the "Drupal Recommended" Composer project.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.</p>
+    <p>This template builds Drupal 9 Beta using the "Drupal Recommended" Composer project.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.</p>
     <p>Drupal is a flexible and extensible PHP-based CMS framework.</p>
 
   # A list of tags associated with the template.
@@ -49,7 +49,7 @@ info:
 # this key also gets mapped to the appropriate location in project.settings so
 # that the current UI can have its own workflow overridden as well.
 initialize:
-  repository: git://github.com/platformsh-templates/drupal8.git@master
+  repository: git://github.com/platformsh-templates/drupal9.git@master
   config: null
   files: []
-  profile: Drupal 8
+  profile: Drupal 9

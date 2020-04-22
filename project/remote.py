@@ -44,6 +44,7 @@ class RemoteProject(BaseProject):
                 self.builddir, latest_tag), shell=True)
             actions.append(merge_from_upstream_tag)
         elif hasattr(self, 'upstream_branch'):
+            print("Merging from upstream branch: {0}".format(self.upstream_branch))
             actions.append(
                 'cd {0} && git merge --allow-unrelated-histories -X theirs --squash project/{1}'.format(
                     self.builddir, self.upstream_branch))

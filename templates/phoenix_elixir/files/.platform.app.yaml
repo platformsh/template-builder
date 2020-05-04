@@ -9,17 +9,14 @@ name: app
 # The runtime the application uses.
 type: elixir:1.9
 
-build:
-  flavor: none
-
 variables:
     env:
         MIX_ENV: 'prod'
-        SECRET_KEY_BASE: $PLATFORM_PROJECT_ENTROPY
 
 # This is assuming we have nothing in the build flavour
 hooks:
     build: |
+        export SECRET_KEY_BASE=$PLATFORM_PROJECT_ENTROPY
         mix local.hex --force
         mix local.rebar --force
         mix do deps.get --only prod, deps.compile, compile

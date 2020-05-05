@@ -55,12 +55,20 @@ Adding a new subsite requires the following steps.  For these steps, assume we'r
 3. Edit `services.yaml` and add a new database and endpoint.  Copying and pasting an existing entry is fine.  The new relationship must be named `stuff`.
 4. Edit `.platform.app.yaml` and add a new relationship: `stuff: db:stuff`.  (Where `db` is the name of the database service from `services.yaml`.)
 5. Commit the above changes and push.
-6. In your browser, go to the `stuff.example.com` domain (or equivalent on a dev environment) and run through the Drupal installer as usual.
+6. In your browser, go to the `stuff.example.com` domain (or equivalent on a dev environment) and run through the Drupal installer as usual. Alternatively, you can use Drush as described bellow.
 7. Edit the `sites/stuff/settings.php` file again and enable Redis by setting `$platformsh_enable_redis` to true.
 8. Commit and push that change.
 9. Profit.
 
 Alternatively, a PHP shell script is provided that automates steps 1-4.  See [`psh-subsite-add.php`](psh-subsite-add.php).
+
+## Using Drush in multi-site
+
+In a Drupal multi-site setup, sites ID are defined in [web/sites/sites.php](https://github.com/platformsh-templates/drupal8-multisite/blob/master/web/sites/sites.php).  By default in this multi-site template, 2 subsites are defined in [routes.yaml](https://github.com/platformsh-templates/drupal8-multisite/blob/master/.platform/routes.yaml): `first` and `second`
+
+Any Drush command can therefore be used on a specific subsite by using `--uri=`.  For example:
+* `drush status --uri=first`
+* `drush status --uri=second`
 
 ## References
 

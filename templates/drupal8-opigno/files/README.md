@@ -18,7 +18,9 @@ Opigno is a Learning Management system built as a Drupal distribution.
 
 ## Post-install
 
-Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
+1. Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
+
+3. Once Opigno is fully installed, edit your `.platform.app.yaml` file and uncomment the line under the `relationships` block that reads `redis: 'rediscache:redis'`.  Commit and push the changes.  That will enable Opigno's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
 
 ## Customizations
 

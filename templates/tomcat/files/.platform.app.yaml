@@ -1,0 +1,34 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses.
+type: 'java:8'
+
+disk: 1024
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    build: mvn clean install
+
+mounts:
+    'server/':
+        source: local
+        source_path: server_source
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+        start: |
+            cp target/dependency/webapp-runner.jar server/webapp-runner.jar
+            cp target/tomcat.war server/tomcat.war
+            cd server && java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError webapp-runner.jar --port $PORT tomcat.war

@@ -11,6 +11,7 @@ type: elixir:1.9
 
 variables:
     env:
+        SECRET_KEY_BASE: $PLATFORM_PROJECT_ENTROPY
         MIX_ENV: 'prod'
 
 # This is assuming we have nothing in the build flavour

@@ -11,9 +11,10 @@ if ( config.isValidPlatform() ) {
   backend_route = process.env.API_URL;
 }
 
+
 module.exports = {
   siteMetadata: {
-    title: "Gatsby + Strapi Blog",
+    title: "My super blog",
     description: "Gatsby blog with Strapi",
     author: "Strapi team",
   },

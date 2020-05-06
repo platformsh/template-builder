@@ -42,4 +42,4 @@ const Category = ({ data }) => {
   )
 }
 
-export default Category
+export default Category  

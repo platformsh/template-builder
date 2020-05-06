@@ -57,17 +57,18 @@ Then, visit the `Articles` Collection, and `Add a New Article` to test. Include 
 
 #### Categories
 
-Return to the Content-Types Builder, and `Create a new collection type` called `category` with a single field:
+Return to the Content-Types Builder, and `Create a new collection type` called (Display name) `category` with two  fields:
 
-- Text: `name`, Short text
-
-Save those changes (the server will restart).
-
-In the Content-Types Builder, add a new field to the `Article` collection, `Relation`. Select `Category` on the right hand side dropdown, and then select the many to one icon, so that it reads `Category has many Articles`.
+- **Text**
+  - Base Settings:
+    - Name: `name`
+    - Type: `Short text`
+- **Relation**
+  - Click the "many-to-many" icon, such that it reads "Categories has and belongs to many Articles"
 
 Finish, and save those changes (the server will restart).
 
-Visit the `Category` collection, and `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save.
+Visit the `Category` collection in the upper left section of the sidebar, and then click `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save.
 
 #### Permissions
 

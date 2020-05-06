@@ -25,4 +25,4 @@ const Card = ({ article }) => {
   )
 }
 
-export default Card
+export default Card  

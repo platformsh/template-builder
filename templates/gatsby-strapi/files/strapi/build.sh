@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Create quickstart Strapi project.
-yarn create strapi-app tmp-app --quickstart --no-run --debug
+yarn create strapi-app tmp-app --quickstart --no-run
 mv tmp-app/* . && rm -rf tmp-app
 
 # Install additional dependencies.

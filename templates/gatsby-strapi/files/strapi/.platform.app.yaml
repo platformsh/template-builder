@@ -1,0 +1,54 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+name: strapi
+
+# The runtime the application uses.
+type: nodejs:12
+
+dependencies:
+  nodejs:
+    yarn: "1.19.2"
+
+# The hooks that will be triggered when the package is deployed.
+hooks:
+    # Build hooks can modify the application files on disk but not access any services like databases.
+    build: !include
+      type: string
+      path: build.sh
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  postgresdatabase: "dbpostgres:postgresql"
+
+# The configuration of app when it is exposed to the web.
+web:
+  commands:
+    start: ./start.sh
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+mounts:
+    '/.cache':
+        source: local
+        source_path: cache
+    'api':
+        source: local
+        source_path: api
+    'components':
+        source: local
+        source_path: components
+    'public/uploads':
+        source: local
+        source_path: uploads
+    'extensions':
+        source: local
+        source_path: extensions

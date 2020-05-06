@@ -14,10 +14,8 @@ variables:
         SECRET_KEY_BASE: $PLATFORM_PROJECT_ENTROPY
         MIX_ENV: 'prod'
 
-# This is assuming we have nothing in the build flavour
 hooks:
     build: |
-        export SECRET_KEY_BASE=$PLATFORM_PROJECT_ENTROPY
         mix local.hex --force
         mix local.rebar --force
         mix do deps.get --only prod, deps.compile, compile
@@ -39,9 +37,7 @@ web:
         start: mix do platformsh.config, phx.server --no-halt --no-compile
     locations:
         /:
-            # Route all requests to the Lisp app, unconditionally.
-            # If you want some files served directly by the web server without hitting Elixir, see
-            # https://docs.platform.sh/configuration/app/web.html
+            # Route all requests to the app, unconditionally.
             allow: false
             passthru: true
 

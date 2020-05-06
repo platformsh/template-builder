@@ -40,6 +40,3 @@ web:
             # Route all requests to the app, unconditionally.
             allow: false
             passthru: true
-
-# The size of the persistent disk of the application (in MB).
-disk: 128

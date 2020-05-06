@@ -29,12 +29,27 @@ The frontend Gatsby application will attempt to index two content types by defau
 
 #### Articles
 
-In the Admin Panel, create your first content/collection type: `article`, with four fields:
+In the Admin Panel, create your first content/collection type (Display name: `article`) with four fields:
 
-- Text: `title`, Short text, Required field
-- Rich Text: `content`, Required field  
-- Media: `image`, Single media, Required field
-- Date: `published_at`, Type `date`, Required field
+- **Text:**
+  - Base Settings:
+    - Name: `title`
+    - Type: `Short text`
+  - Advanced Settings: `Required field`
+- **Rich Text**
+  - Base Settings:
+    - Name: `content`
+  - Advanced Settings: `Required field`
+- **Media**
+  - Base Settings:
+    - Name: `image`
+    - Type: `Single media`
+  - Advanced Settings: `Required field`
+- **Date**
+  - Base Settings:
+    - Name: `published_at`
+    - Type: `date`
+  - Advanced Settings: `Required field`
 
 Save those changes (the server will restart).
 

@@ -14,11 +14,6 @@ disk: 1024
 hooks:
     build: ./mvnw package -DskipTests
 
-mounts:
-    '/app':
-        source: local
-        source_path: app_source
-
 # The relationships of the application with services or other applications.
 #
 # The left-hand side is the name of the relationship as it will be exposed

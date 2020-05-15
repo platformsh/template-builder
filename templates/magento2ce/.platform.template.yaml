@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.</p>
-      <p>Magneto is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
+      <p>Magento is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
   # A list of tags associated with the template.
   tags:
   - PHP

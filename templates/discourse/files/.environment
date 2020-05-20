@@ -1,0 +1,32 @@
+export RAILS_ENV='production'
+export RAILS_LOG_TO_STDOUT=true
+export BUNDLE_ERROR_ON_STDERR=1
+# We don't want to run sidekiq in unicorn, because that would be bat-shit crazy.
+export UNICORN_SIDEKIQS=0
+
+# this gives us very good cache coverage, 96 -> 99
+# in practice it is 1-2% perf improvement
+export RUBY_GLOBAL_METHOD_CACHE_SIZE=131072
+
+# stop heap doubling in size so aggressively, this conserves memory
+export RUBY_GC_HEAP_GROWTH_MAX_SLOTS=40000
+export RUBY_GC_HEAP_INIT_SLOTS=400000
+export RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=1.5
+
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+export EXECJS_RUNTIME='Node'
+export UNICORN_TIMEOUT=15
+export RAILS_TMP=/tmp
+
+# NVM
+
+# This is necessary for nvm to work.
+unset NPM_CONFIG_PREFIX
+# Disable npm update notifier; being a read only system it will probably annoy you.
+export NO_UPDATE_NOTIFIER=1
+# This loads nvm for general usage.
+export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Add our extra executables to the path
+export PATH="$PATH:/app/_bin"

@@ -14,6 +14,7 @@ disk: 1024
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
+       rm -rf wlpExtract
        mvn clean package
 
 mounts:

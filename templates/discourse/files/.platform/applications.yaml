@@ -67,7 +67,7 @@
           if [ -f install/platform.installed ]; then
             rsync -avq --update --ignore-errors _public/ public/
           fi
-          bundle exec rake assets:precompile
+          #bundle exec rake assets:precompile
   relationships:
       database: "database:postgresql"
       cache: "cache:redis"

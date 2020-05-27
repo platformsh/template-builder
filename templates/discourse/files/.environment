@@ -30,3 +30,8 @@ export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
 
 # Add our extra executables to the path
 export PATH="$PATH:/app/_bin"
+
+# Extract the hostname of the application and inject that into Discourse.
+# This snippet assumes Discourse is running on the primary route. If not,
+# you will need to modify it appropriately. See the jq documentation.
+export DISCOURSE_HOSTNAME=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries | map(select(.value.primary) | .key)[0]')

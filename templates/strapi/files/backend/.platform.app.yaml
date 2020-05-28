@@ -37,6 +37,9 @@ web:
 disk: 1024
 
 mounts:
+    '/.tmp':
+        source: local
+        source_path: tmp
     '/.cache':
         source: local
         source_path: cache

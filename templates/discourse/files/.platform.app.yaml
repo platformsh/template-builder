@@ -1,97 +1,61 @@
 name: app
-disk: 1024
+
 type: "ruby:2.6"
+
 variables:
-  env:
-      NVM_VERSION: "v0.35.3"
-      NODE_VERSION: "12.16.3"
+    env:
+        NVM_VERSION: "v0.35.3"
+        NODE_VERSION: "12.16.3"
+
 size: M
+
 resources:
- base_memory: 1001 # between 64 and 1024 max
- memory_ratio: 512 # integer between 128 and 1024 max
+   base_memory: 1001 # between 64 and 1024 max
+   memory_ratio: 512 # integer between 128 and 1024 max
+
+relationships:
+    database: "database:postgresql"
+    cache: "cache:redis"
+
 hooks:
-  build: |
-      # move into place our config. We are not using the platform_sh_rails helper GEM
-      mv config/discourse.platformsh.conf config/discourse.conf
-      # move into place required binaries
-      mv public/ _public/
-      # create symbolic link form app/tmp to /tmp so Bootsnap doesn't die.
-      ln -s /tmp tmp
-      # install nvm
-
-      unset NPM_CONFIG_PREFIX
-      curl -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | dash
-      export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      nvm current
-      nvm install $NODE_VERSION
-      # Install globally some more required npm packages that are not in package.json
-      npm i -g "yarn" "svgo" "gifsicle@4.0.1" "uglify@<3"
-      # install the version of bundler specified in Gemfile.lock (should not be necessary with ruby 2.7 and up. This is a Gem bug.)
-      bundle update --bundler
-      gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
-      # Export the current ruby version
-      RUBY_VERSION=$(ruby -e"puts RUBY_VERSION")
-      # Install official plugins
-      # To install plugins ... uncomment the following lines
-      # git clone --depth=1 https://github.com/discourse/discourse-backup-uploads-to-s3.git plugins/discourse-backup-uploads-to-s3
-      # git clone --depth=1 https://github.com/discourse/discourse-spoiler-alert.git plugins/discourse-spoiler-alert
-      # git clone --depth=1 https://github.com/discourse/discourse-cakeday.git plugins/discourse-cakeday
-      # git clone --depth=1 https://github.com/discourse/discourse-canned-replies.git plugins/discourse-canned-replies
-      # git clone --depth=1 https://github.com/discourse/discourse-chat-integration.git plugins/discourse-chat-integration
-      # git clone --depth=1 https://github.com/discourse/discourse-assign.git plugins/discourse-assign
-      # git clone --depth=1 https://github.com/discourse/discourse-patreon.git plugins/discourse-patreon
-      # git clone --depth=1 https://github.com/discourse/discourse-user-notes.git plugins/discourse-user-notes
-      # git clone --depth=1 https://github.com/discourse/discourse-group-tracker
-      # Install Gems
-      bundle install --retry 3 --jobs 4
-      bundle exec rake plugin:install_all_gems
-      # Optionally install the CLI
-      # curl -sS https://platform.sh/cli/installer | php
-  deploy: |
-      unset NPM_CONFIG_PREFIX
-      export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      nvm use $NODE_VERSION
-      if [ ! -f install/platform.installed ]; then
-          # Copy the public files into a writeable directory before running the migration
-          # on the initial install. After the first deploy this can be put off to post_deploy.
-          rsync -avq --update --ignore-errors _public/ public/
-          touch install/platform.installed
-
-      fi
-      bundle exec rake db:migrate
-  post_deploy: |
+    build: !include
+        type: string
+        path: build.sh
+    deploy: !include
+        type: string
+        path: deploy.sh
+    post_deploy: |
       # To gain in performance we could potenitally only run this if
       # something changed (with an env variable like RUN_POST_DEPLOY)
       if [ -f install/platform.installed ]; then
-        rsync -avq --update --ignore-errors _public/ public/
+        time rsync -avq --update --ignore-errors _public/ public/
       fi
       #bundle exec rake assets:precompile
-relationships:
-  database: "database:postgresql"
-  cache: "cache:redis"
+
+disk: 1024
+
 mounts:
-  'install':    # This is just for the deploy/post-deploy hooks. Do not remove the touch-file inside it.
-      source: service
-      service: files
-      source_path: install
-  'app/assets/javascripts/plugins':
-      source: service
-      service: files
-      source_path: files/app/assets/javascripts/plugins
-  'public/':
-      source: service
-      service: files
-      source_path: files/public/
-  'vendor/data':
-      source: service
-      service: files
-      source_path: files/vendor/data
-  # This is here because discourse doesn't respect RAILS_LOG_TO_STDOUT
-  'log':
-      source: local
-      source_path: shared:files/log
+    'install':    # This is just for the deploy/post-deploy hooks. Do not remove the touch-file inside it.
+        source: service
+        service: files
+        source_path: install
+    'app/assets/javascripts/plugins':
+        source: service
+        service: files
+        source_path: files/app/assets/javascripts/plugins
+    'public/':
+        source: service
+        service: files
+        source_path: files/public/
+    'vendor/data':
+        source: service
+        service: files
+        source_path: files/vendor/data
+    # This is here because discourse doesn't respect RAILS_LOG_TO_STDOUT
+    'log':
+        source: local
+        source_path: shared:files/log
+
 web:
   upstream:
       socket_family: unix
@@ -115,6 +79,7 @@ web:
           root: "public/images/emoji"
           expires: 1y
           allow: true
+
 # Optionally Enable Crons
 #crons:
 #  auto_snapshot:
@@ -132,7 +97,8 @@ web:
 #           platform redeploy --yes --no-wait
 #       fi
 #
-#We put Sidkiq in its own container
+
+# Put Sidkiq in its own container to run background tasks.
 workers:
   sidekick:
       size: S

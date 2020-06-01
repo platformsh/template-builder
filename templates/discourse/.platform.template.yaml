@@ -24,8 +24,8 @@ info:
   name: Discourse
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template builds Discourse on Platform.sh.</p>
-      <p>Discourse is a community forum appliation build in Ruby.</p>
+      <p>This template builds Discourse on Platform.sh.  Note that it does require some post-install setup.</p>
+      <p>Discourse is a community forum application build in Ruby.</p>
   # A list of tags associated with the template.
   tags:
   - Ruby
@@ -37,7 +37,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
-      content: "Ruby 2.6<br />Postgresql 9.6"
+      content: "Ruby 2.6<br />PostgreSQL 9.6<br />Redis 5<br />Network storage"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

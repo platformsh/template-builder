@@ -4,8 +4,13 @@ type: "ruby:2.6"
 
 variables:
     env:
+        # These get used by the build and deploy scripts
+        # to control the version of Node and NVM to install.
         NVM_VERSION: "v0.35.3"
         NODE_VERSION: "12.16.3"
+
+        # Tell Rails to use the system tmp directory
+        RAILS_TMP=/tmp
 
 size: M
 

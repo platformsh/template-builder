@@ -3,6 +3,8 @@ package sh.platform.template;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Document
 public class User {
@@ -10,9 +12,11 @@ public class User {
     @Id
     private String id;
 
-        private String name;
+    @NotBlank(message = "Name is mandatory")
+    private String name;
 
-    
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email is not valid")
     private String email;
 
     public String getId() {

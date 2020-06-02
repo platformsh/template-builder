@@ -10,7 +10,7 @@ variables:
         NODE_VERSION: "12.16.3"
 
         # Tell Rails to use the system tmp directory
-        RAILS_TMP:/tmp
+        RAILS_TMP: "/tmp"
 
 size: M
 

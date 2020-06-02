@@ -36,4 +36,4 @@ web:
            -Dspring.data.mongodb.host=$HOST \
            -Dspring.data.mongodb.username=$USER \
            -Dspring.data.mongodb.password=$PASSWORD \
-            target/spring-mvc-maven-mongodb --server.port=$PORT
+            target/spring-mvc-maven-mongodb.jar --server.port=$PORT

@@ -1,0 +1,13 @@
+diff --git a/config/site_settings.yml b/config/site_settings.yml
+index 6ea8733db4..83d448f9b7 100644
+--- a/config/site_settings.yml
++++ b/config/site_settings.yml
+@@ -1342,7 +1342,7 @@ security:
+       - "staff"
+       - "all"
+   force_https:
+-    default: false
++    default: true
+   same_site_cookies:
+     default: Lax
+     type: enum

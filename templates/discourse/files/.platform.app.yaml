@@ -72,14 +72,20 @@ web:
           passthru: true
           expires: 1h
           allow: true
+          headers:
+              Content-Security-Policy: default-src 'self'
       "/assets":
           root: "public/assets"
           expires: 1y
           allow: true
+          headers:
+              Content-Security-Policy: default-src 'self'
       "/plugins":
           root: "public/plugins"
           expires: 1y
           allow: true
+          headers:
+              Content-Security-Policy: default-src 'self'
       "/images/emoji":
           root: "public/images/emoji"
           expires: 1y

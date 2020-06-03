@@ -12,7 +12,7 @@ Opigno is a Learning Management system built as a Drupal distribution.
 
 ## Services
 
-* PHP 7.2
+* PHP 7.3
 * MariaDB 10.4
 * Redis 5
 

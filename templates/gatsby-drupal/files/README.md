@@ -72,10 +72,9 @@ The following files and additions make the framework work.  If using this projec
 ## References
 
 * [Gatsby](https://www.gatsbyjs.org/)
-* [gatsby-source-wordpress](https://www.gatsbyjs.org/packages/gatsby-source-wordpress/)
-* [WordPress Source Plugin Tutorial](https://www.gatsbyjs.org/tutorial/wordpress-source-plugin-tutorial/)
-* [Node.js http](https://nodejs.org/api/http.html#http_http)
+* [gatsby-source-drupal](https://www.gatsbyjs.org/packages/gatsby-source-drupal/)
+* [Dedcoupled Drupal by Lullabot](https://www.google.com/search?client=safari&rls=en&q=gatsby+drupal&ie=UTF-8&oe=UTF-8)
 * [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)
-* [WordPress](https://wordpress.org/)
-* [WordPress on Platform.sh](https://docs.platform.sh/frameworks/wordpress.html)
+* [Drupal](https://drupal.org/)
+* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal.html)
 * [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)

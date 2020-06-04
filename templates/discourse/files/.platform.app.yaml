@@ -23,12 +23,8 @@ relationships:
     cache: "cache:redis"
 
 hooks:
-    build: !include
-        type: string
-        path: build.sh
-    deploy: !include
-        type: string
-        path: deploy.sh
+    build: bash build.sh
+    deploy: bash deploy.sh
     post_deploy: |
       # To gain in performance we could potenitally only run this if
       # something changed (with an env variable like RUN_POST_DEPLOY)

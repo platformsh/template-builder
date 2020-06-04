@@ -1,7 +1,13 @@
+#!/bin/bash
+
 # move into place our config. We are not using the platform_sh_rails helper GEM
 mv config/discourse.platformsh.conf config/discourse.conf
-# move into place required binaries
+
+# Move the app-provided static files out of the way, because the directory
+# is also written at runtime so must be a mount. (This is a bad practice
+# by Discourse.)
 mv public/ _public/
+
 # create symbolic link form app/tmp to /tmp so Bootsnap doesn't die.
 ln -s /tmp tmp
 
@@ -29,7 +35,7 @@ echo "Installing Additional Plugins"
 cd plugins
 file="../plugins.txt"
 while read -r line; do
-    [ "$line" =~ ^#.*$ ] && continue
+    [ "$line" = "\#*" ] && continue
     git clone --depth=1 $line
 done < "$file"
 cd ..

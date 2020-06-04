@@ -59,7 +59,7 @@ Gatsby is a free and open source framework based on React that helps developers 
       - File
       - Content
       - URL alias
-3. Update an Article. Go to one of your article, and update any of the fields.
+3. Update an Article. Go to one of your articles, and update any of the fields.
 
 ## Customizations
 

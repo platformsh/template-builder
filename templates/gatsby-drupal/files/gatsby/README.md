@@ -24,12 +24,12 @@ Gatsby is a free and open source framework based on React that helps developers 
 1. When you initially deploy the template, you will receive a `403` error on the base route. There is not yet any content to build the Gatsby site, because Drupal has not yet been fully installed. Visit the `backend.<generated url>` subdomain, and run through the Drupal installer as normal. You will not be asked for database credentials as those are already provided.
 2. Once you have completed the Drupal install, you will need to enable a few plugins in order to fully configure it to be used as a backend for the Gatsby site. From the admin page, install the following from **Extend**:
 
+- Gatsby JSON:API Extras
+- Gatsby JSON:API Instant Preview and Incremental Builds
 - JSON API
 - JSON API Extras
 - Serialization
 - Pathauto
-- Gatsby
-- Gatsby Live Preview
 
 3. Set up aliases for your articles. From **Configuration**, go to the subsection *Search and Metadata* and click on *URL aliases*. With Pathauto enabled, you should be able to click on a header called *Pattern*. Click *Add Pathauto pattern*, and set it with the following fields:
     - Pattern type: Content
@@ -40,8 +40,11 @@ Gatsby is a free and open source framework based on React that helps developers 
 
   Save the pattern. Now *Articles*, which would typically be available at `/node/<NODE NUMBER>` will have an alias at `/articles/<slug-of-article-title>`, which will be replicated on the final Gatsby site.
 
-4. Add some content. Make sure to include all of the required fields in *Articles* (title, summary, body, image, and alt text for the image).
-5. With the preceding steps completed, redeploy the environment with `platform redeploy -p <PROJECT ID> -e master`. The environment will redploy, and the Gatsby site will pull data from the backend Drupal API.
+4. Add *Articles* by clicking the **Content** tab. Make sure to include all of the required fields in *Articles* (title, summary, body, image, and alt text for the image).
+
+> **Note:** If you plan on enabling Gatsby Live Preview on your development environments, make sure to add at least two Articles now (larger description in Live Preview section below).
+
+5. With the above steps completed, redeploy the environment with `platform redeploy -p <PROJECT ID> -e master`. The environment will redploy, and the Gatsby site will pull data from the backend Drupal API.
 
 ### Adding Gatsby Live Preview
 

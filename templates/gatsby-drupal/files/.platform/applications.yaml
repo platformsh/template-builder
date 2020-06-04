@@ -12,7 +12,7 @@
   hooks:
       build: |
           chmod +x start.sh
-          chmod +x post_deploy
+          chmod +x post_deploy.sh
       post_deploy: |
           ./post_deploy.sh
 

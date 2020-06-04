@@ -10,4 +10,4 @@ if [ ! -f install/platform.installed ]; then
     rsync -avq --update --ignore-errors _public/ public/
     touch install/platform.installed
 fi
-bundle exec rake db:migrate
+bundle exec rake db:migrate -q

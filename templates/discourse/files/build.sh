@@ -29,7 +29,7 @@ echo "Installing Additional Plugins"
 cd plugins
 file="../plugins.txt"
 while read -r line; do
-    [[ "$line" =~ ^#.*$ ]] && continue
+    [ "$line" =~ ^#.*$ ] && continue
     git clone --depth=1 $line
 done < "$file"
 cd ..

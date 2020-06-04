@@ -1,5 +1,5 @@
 database:
-  type: "postgresql:9.6"
+  type: "postgresql:12"
   disk: 1000
   configuration:
     extensions:

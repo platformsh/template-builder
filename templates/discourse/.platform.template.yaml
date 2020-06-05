@@ -25,7 +25,7 @@ info:
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds Discourse on Platform.sh.  Note that it does require some post-install setup.</p>
-      <p>Discourse is a community forum application build in Ruby.</p>
+      <p>Discourse is a community forum application built in Ruby.</p>
   # A list of tags associated with the template.
   tags:
   - Ruby

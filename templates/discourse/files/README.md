@@ -8,7 +8,7 @@
 
 This template builds Discourse on Platform.sh.  Note that it does require some post-install setup.
 
-Discourse is a community forum application build in Ruby.
+Discourse is a community forum application built in Ruby.
 
 ## Services
 

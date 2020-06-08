@@ -15,10 +15,10 @@ class Wordpress(RemoteProject):
             # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
             # added to the upstream composer.json to move that config file during composer install.
             composer['scripts'] = {
-                'movewpconfig': [
-                    "mv wp-config.php wordpress/"
+                'copywpconfig': [
+                    "cp wp-config.php wordpress/"
                 ],
-                'post-install-cmd': "@movewpconfig"
+                'post-install-cmd': "@copywpconfig"
             }
 
             composer['extra'] = {

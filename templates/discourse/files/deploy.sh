@@ -10,8 +10,8 @@ nvm use $NODE_VERSION
     rsync -avq --update --ignore-errors _public/ public/
     # It's unclear why these need to be precompiled in deploy rather than post-deploy
     # the first time the site is deployed, but they do.
+    bundle exec rake db:migrate -q
     bundle exec rake assets:precompile -q
     touch install/platform.installed
 #fi
 
-bundle exec rake db:migrate -q

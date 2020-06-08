@@ -19,9 +19,6 @@ export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
 nvm current
 nvm install $NODE_VERSION
 
-# Install globally some more required npm packages that are not in package.json
-npm i -g "yarn" "svgo" "gifsicle@4.0.1" "uglify@<3"
-
 # install the version of bundler specified in Gemfile.lock (should not be necessary with ruby 2.7 and up. This is a Gem bug.)
 bundle update --bundler
 gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"

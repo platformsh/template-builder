@@ -41,7 +41,7 @@ Run the following command to set a "developer email" address, replacing the emai
 platform vset -e master env:DISCOURSE_DEVELOPER_EMAILS myemail@example.com
 ```
 
-If you do not have a checkout if your project, you will need to also include the project ID, e.g., `-p abc12345`.
+If you do not have a checkout of your project, you will need to also include the project ID, e.g., `-p abc12345`.
 
 Once the site redeploys, visit it in a web browser.  You will be prompted to register the administrator user, using the email address you just provided.  Enter your desired username and password and the site will email you a confirmation.  You can then login and begin configuring your site.
 

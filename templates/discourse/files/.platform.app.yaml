@@ -28,10 +28,10 @@ hooks:
     post_deploy: |
       # To gain in performance we could potenitally only run this if
       # something changed (with an env variable like RUN_POST_DEPLOY)
-      if [ -f install/platform.installed ]; then
-          rsync -avq --update --ignore-errors _public/ public/
-          bundle exec rake assets:precompile -q
-      fi
+      #if [ -f install/platform.installed ]; then
+      #    rsync -avq --update --ignore-errors _public/ public/
+      #    bundle exec rake assets:precompile -q
+      #fi
 
 disk: 1024
 

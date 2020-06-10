@@ -4,6 +4,8 @@ import json
 from glob import glob
 from collections import OrderedDict
 
+import requests
+
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
@@ -127,6 +129,61 @@ class BaseProject(object):
             self.builddir)
         ]
 
+<<<<<<< HEAD
+=======
+    def pull_request(self):
+        """
+        Creates a pull request from the "update" branch to master.
+        """
+        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+
+        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+
+        body = {"head": "update", "base": "master", "title": "Update to latest upstream"}
+        response = requests.post(pulls_api_url, headers=authorization_header, data=json.dumps(body))
+        return response.status_code in [201, 422]
+
+    def test(self):
+        """
+        Wraps single_test for all pull requests.
+        """
+        urls_to_test = self.get_test_urls()
+        if not urls_to_test:
+            print("No pull requests to test for {0}".format(self.name))
+        return all([self.single_test(self.test_request(url)) for url in self.get_test_urls()])
+
+    def merge_pull_request(self):
+        """
+        Merges latest pull request.
+        """
+        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+
+        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+        pull = requests.get(pulls_api_url, headers=authorization_header).json()[0]
+        print(pull["number"])
+        merge_url = pulls_api_url + "/" + str(pull["number"]) + "/merge"
+        response = requests.put(merge_url, headers=authorization_header)
+        print(response.text, response.url)
+        return response.status_code in [200, 204]
+
+
+    @staticmethod
+    def single_test(response):
+        """
+        Basic smoke test for a single PR. Override for specific projects
+        """
+        if response.status_code != 200:
+            print("Test failed on {0}".format(response.url))
+        return response.status_code == 200
+
+    @staticmethod
+    def test_request(url):
+        try:
+            return requests.get(url)
+        except requests.exceptions.SSLError:
+            return requests.get(url, verify=False)
+
+>>>>>>> WIP add steps to test and merge update pull requests
     def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
@@ -156,3 +213,25 @@ class BaseProject(object):
 
         with open('{0}/composer.json'.format(self.builddir), 'w') as out:
             json.dump(composer, out, indent=2)
+
+    def get_test_urls(self):
+        """
+        Returns URLs of environments integrated to active pull requests.
+        """
+        # TODO get rid of this hardcode
+        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+
+        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+        pulls = requests.get(pulls_api_url, headers=authorization_header)
+        urls = []
+        for pull in pulls.json():
+            statuses_api_url = pull["statuses_url"]
+            url = ""
+            while not url:
+                status = requests.get(statuses_api_url, headers=authorization_header)
+                try:
+                    url = status.json()[0]["target_url"]
+                except Exception as e:
+                    print("Pull request {0} was not built on Platform.sh".format(pull["url"]))
+            urls.append(url)
+        return urls

@@ -119,6 +119,18 @@ def task_branch():
         }
 
 
+def task_pull_request():
+    """
+    DoIt Task: Creates a pull request from the update branch to master
+
+    Usage: doit pull_request:<project>
+    """
+    for project in ALL_PROJECTS:
+        yield {
+            'name': project.name,
+            'actions': [project.pull_request],
+        }
+
 def task_push():
     """
     DoIt Task: Pushes a prepared branch to GitHub.
@@ -147,6 +159,29 @@ def task_rebuild():
             'actions': [],
         }
 
+def task_test():
+    """
+    DoIt Task: Runs smoke tests against branches on GitHub.
+
+    Usage: doit test:<project> 
+    """
+    for project in ALL_PROJECTS:
+        yield {
+            'name': project.name,
+            'actions': [project.test],
+        }
+
+def task_merge():
+    """
+    DoIt Task: Runs smoke tests against branches on GitHub.
+
+    Usage: doit test:<project> 
+    """
+    for project in ALL_PROJECTS:
+        yield {
+            'name': project.name,
+            'actions': [project.merge_pull_request],
+        }
 
 def task_full():
     """
@@ -158,7 +193,7 @@ def task_full():
         yield {
             'name': project.name,
             'task_dep': ["{0}:{1}".format(action, project.name)
-                         for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push']
+                         for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push', 'pull_request', 'test', 'merge']
                          ],
             'actions': [],
         }

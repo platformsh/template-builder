@@ -41,20 +41,20 @@ mounts:
         source: service
         service: files
         source_path: install
-    'app/assets/javascripts/plugins':
+    'discourse/app/assets/javascripts/plugins':
         source: service
         service: files
         source_path: files/app/assets/javascripts/plugins
-    'public/':
+    'discourse/public/':
         source: service
         service: files
         source_path: files/public/
-    'vendor/data':
+    'discourse/vendor/data':
         source: service
         service: files
         source_path: files/vendor/data
     # This is here because discourse doesn't respect RAILS_LOG_TO_STDOUT
-    'log':
+    'discourse/log':
         source: local
         source_path: shared:files/log
 
@@ -62,23 +62,23 @@ web:
   upstream:
       socket_family: unix
   commands:
-      start: "RAILS_ENV=production bundle exec unicorn -l $SOCKET -E production config.ru"
+      start: "cd discourse && RAILS_ENV=production bundle exec unicorn -l $SOCKET -E production config.ru"
   locations:
       "/":
-          root: "public"
+          root: "discourse/public"
           passthru: true
           expires: 1h
           allow: true
       "/assets":
-          root: "public/assets"
+          root: "discourse/public/assets"
           expires: 1y
           allow: true
       "/plugins":
-          root: "public/plugins"
+          root: "discourse/public/plugins"
           expires: 1y
           allow: true
       "/images/emoji":
-          root: "public/images/emoji"
+          root: "discourse/public/images/emoji"
           expires: 1y
           allow: true
 
@@ -108,4 +108,4 @@ workers:
           base_memory: 64 # between 64 and 1024 max
           memory_ratio: 256 # integer between 128 and 1024 max
       commands:
-          start: RAILS_ENV=production bundle exec sidekiq  -c 4 -e production -q critical -q low -q default
+          start: cd discourse && RAILS_ENV=production bundle exec sidekiq  -c 4 -e production -q critical -q low -q default

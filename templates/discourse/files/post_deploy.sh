@@ -1,4 +1,5 @@
-if [ -f install/platform.installed ]; then
+if [ -f $PLATFORM_APP_DIR/install/platform.installed ]; then
+    cd discourse
     # If the site is already installed, it's safe to run these
     # once the site is open again post-deploy.
     # If that's not the case for your site, move these two lines

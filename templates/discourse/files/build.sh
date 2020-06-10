@@ -1,7 +1,13 @@
 #!/bin/bash
 
+download-discourse.sh v2.4.5
+
+rsync -avq files/* discourse/
+
+cd discourse
+
 # move into place our config. We are not using the platform_sh_rails helper GEM
-mv config/discourse.platformsh.conf config/discourse.conf
+#mv config/discourse.platformsh.conf config/discourse.conf
 
 # Move the app-provided static files out of the way, because the directory
 # is also written at runtime so must be a mount. (This is a bad practice

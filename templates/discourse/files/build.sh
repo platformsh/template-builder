@@ -1,10 +1,12 @@
 #!/bin/bash
 
-download-discourse.sh v2.4.5
+./download-discourse.sh v2.4.5
 
 rsync -avq files/* discourse/
 
 cd discourse
+
+patch -p1 < ../force_https.patch
 
 # move into place our config. We are not using the platform_sh_rails helper GEM
 #mv config/discourse.platformsh.conf config/discourse.conf
@@ -36,7 +38,7 @@ RUBY_VERSION=$(ruby -e"puts RUBY_VERSION")
 
 echo "Installing Additional Plugins"
 cd plugins
-file="../plugins.txt"
+file="../../plugins.txt"
 while read -r line; do
     [ "$line" = "\#*" ] && continue
     git clone --depth=1 $line

@@ -8,6 +8,7 @@
 
 
 This template demonstrates building the Beego framework for Platform.sh using Go modules.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server.  It is intended for you to use as a starting point and modify for your own needs.
+
 Beego is a popular web framework written in Go.
 
 ## Services

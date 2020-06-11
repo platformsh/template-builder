@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides the most basic configuration for running a custom PHP project.
+This template provides the most basic configuration for running a custom PHP project built with Composer.  It includes but doesn't make use of the Platform.sh `config-reader` library.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.
 
 PHP is a high-performance scripting language especially well suited to web development.
 

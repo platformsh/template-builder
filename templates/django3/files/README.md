@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds Django 3 on Platform.sh, using the gunicorn application runner.
+This template deploys the Django 2 application framework on Platform.sh, using the gunicorn application runner.  It also includes a PostgreSQL database connection pre-configured.
 
 Django is a Python-based web application framework with a built-in ORM.
 

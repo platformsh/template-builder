@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds a Koa project on Platform.sh.
+This template demonstrates building the Koa framework for Platform.sh.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server for data storage.  It is intended for you to use as a starting point and modify for your own needs.
 
 Koa is a lightweight web framework for Node.js.
 

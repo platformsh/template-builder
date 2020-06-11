@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds the Australian government's GovCMS Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.
+This template builds the Australian government's GovCMS Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.
 
 GovCMS is a Drupal distribution built for the Australian government, and includes configuration optimized for managing government websites.
 
@@ -18,9 +18,7 @@ GovCMS is a Drupal distribution built for the Australian government, and include
 
 ## Post-install
 
-1. Run through the GovCMS installer as normal.  You will not be asked for database credentials as those are already provided.
-
-2. Once Drupal is fully installed, edit your `.platform.app.yaml` file and uncomment the line under the `relationships` block that reads `redis: 'rediscache:redis'`.  Commit and push the changes.  That will enable Drupal's Redis cache integration.  (The Redis cache integration cannot be active during the installer.)
+Run through the GovCMS installer as normal.  You will not be asked for database credentials as those are already provided.
 
 ## Customizations
 

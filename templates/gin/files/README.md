@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds the Gin framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
+This template demonstrates building the Gin framework for Platform.sh using Go modules.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server for data storage.  It is intended for you to use as a starting point and modify for your own needs.
 
 Gin is a lightweight web framework written in Go that emphasizes performance.
 

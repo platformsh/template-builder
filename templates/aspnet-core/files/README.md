@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds the ASP.NET Core framework for Platform.sh. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
+This template deploys the ASP.NET Core framework. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.  It includes demonstration-level connections for MariaDB and a Redis cache server.
 
 ASP.NET Core is an open-source and cross-platform .NET framework for building modern cloud-based web applications.
 

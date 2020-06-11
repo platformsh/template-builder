@@ -8,7 +8,7 @@
 
 This template demonstrates building a Spring MVC application in the Kotlin language. It uses Maven to build the application and deploy it to Platform.sh.
 
-A sample Hello World application is provided as a starting point. An Oracle MySQL database is deployed, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environmental variables. 
+A sample Hello World application is provided as a starting point.  It includes an Oracle MySQL database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables. 
 
 ## Services
 

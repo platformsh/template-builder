@@ -6,9 +6,13 @@
 </a>
 </p>
 
-This template provides a basic Symfony 3 skeleton.  It is configured for Production mode by default so the usual Symfony "welcome" page will not appear.
+This template provides a basic Symfony 4 skeleton.  It comes pre-configured to use a MariaDB database via a custom config file.  It is intended for you to use as a starting point and modify for your own needs.
 
-Symfony is a high-performance loosely-coupled PHP web development framework.  Version 3 is the legacy support version.
+It is configured for Production mode by default, so the usual Symfony "welcome" page will not appear.  Instead, you will see a 404 page after the site first deploys, which is normal.  You may switch it into dev mode via `.platform.app.yaml` if desired.
+
+Symfony is a high-performance loosely-coupled PHP web development framework.
+
+New projects should be built using Symfony 5, but this project is a reference for existing migrating sites.  Version 3 is the LTS support version.
 
 ## Services
 

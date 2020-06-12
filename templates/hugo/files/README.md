@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides a basic Hugo skeleton.  All files are generated at build time, so at runtime only static files need to be served.
+This template provides a basic Hugo skeleton.  All files are generated at build time, so at runtime only static files need to be served.  The Hugo executable itself is downloaded during the build hook. You can specify the version to use by updating the `.platform.app.yaml` file.  It also includes a minimal template to get you started, but you are free to replace it with your own template.
 
 Hugo is a static site generator written in Go, using Go's native template packages for formatting.
 

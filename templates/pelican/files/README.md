@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides a basic Pelican skeleton.  All files are generated at build time, so at runtime only static files need to be served.
+This template provides a basic Pelican skeleton.  Only content files need to be committed, as Pelican itself is downloaded at build time via the Pipfile.  All files are generated at build time, so at runtime only static files need to be served.
 
 Pelican is a static site generator written in Python and using Jinja for templating.
 

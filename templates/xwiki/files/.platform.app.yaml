@@ -24,7 +24,7 @@ hooks:
     build: |
          echo "Downloading xwiki"
          wget -q http://nexus.xwiki.org/nexus/content/groups/public/org/xwiki/platform/xwiki-platform-distribution-jetty-hsqldb/11.10.2/xwiki-platform-distribution-jetty-hsqldb-11.10.2.zip -O xwiki.zip
-         echo "Downloading MySQL connector"
+         echo "Downloading PostgreSQL connector"
          wget -q https://jdbc.postgresql.org/download/postgresql-42.2.9.jar -O postgresql-connector-java.jar
          echo "unzip xwiki"
          unzip -q xwiki.zip
@@ -39,4 +39,4 @@ web:
         start: |
            cp -R xwiki server/
            export JETTY_PORT=$PORT && ./server/xwiki/start_xwiki.sh
-        
+

@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.
+This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.
 
@@ -28,5 +28,5 @@ The following files and additions make the framework work.  If using this projec
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Open Liberty](https://openliberty.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Eclipse MicroProfile](https://microprofile.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds Mattermost on Platform.sh, configuring the deployment through user-defined environment variables.
+This template builds Mattermost on Platform.sh, configuring the deployment through user-defined environment variables.  The Mattermost binary is downloaded on the fly during the build step.  It includes a PostgreSQL database and Elasticsearch for indexing, both of which come pre-configured.
 
 Mattermost is an open-source messaging framework written in Go and React.
 

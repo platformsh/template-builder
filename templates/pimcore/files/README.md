@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds Pimcore 5 on Platform.sh.  It comes pre-installed with Doctrine and Redis caching.
+This template builds Pimcore 5 on Platform.sh.  It comes pre-installed with a MariaDB database connecting through Doctrine and Redis for caching via a custom configuration file.  It will self-install on the first deploy.
 
 Pimcore is a Symfony-based Digital Experience Platform.
 

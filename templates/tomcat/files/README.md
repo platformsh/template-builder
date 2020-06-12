@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This project provides a starter kit for Apache Tomcat hosted on Platform.sh.
+This project provides a starter kit for Apache Tomcat hosted on Platform.sh.  Tomcat itself is downloaded on the fly in the build hook based on the provided `pom.xml` file.
 
 Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and WebSocket technologies.
 

@@ -59,4 +59,8 @@ if ($platformConfig->hasRelationship('rediscache')) {
     }
 }
 
+// Ensure that HTTP requests have a timeout set, to avoid sites locking up due to slow
+// outgoing HTTP requests.
+$GLOBALS['TYPO3_CONF_VARS']['HTTP']['timeout'] = 3;
+
 // Add additional Platform.sh-specific configuration here, such as a search backend.

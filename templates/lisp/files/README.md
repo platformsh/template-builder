@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides the most basic configuration for running a Lisp Huchentoot web server for Platform.sh.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.  You are free to al
+This template provides the most basic configuration for running a Lisp Huchentoot web server for Platform.sh.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.  It is meant to be a starting point and can be modified to fit your own needs.
 
 This template builds a simple Lisp Hunchentoot web server for Platform.sh.  It includes a minimalist application  for demonstration, but you are free to alter it as needed.
 

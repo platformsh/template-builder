@@ -10,11 +10,13 @@ This template builds Drupal 8 using the "Drupal Recommended" Composer project.  
 
 Drupal is a flexible and extensible PHP-based CMS framework.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

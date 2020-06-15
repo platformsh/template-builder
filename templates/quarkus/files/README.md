@@ -10,9 +10,11 @@ QuarkusIO, the Supersonic Subatomic Java, promises to deliver small artifacts, e
 
 A sample Hello World application is provided as a starting point. It includes a plain REST application. It is a simple skeleton to use Quarkus with several services with Quarkus, to [get more information](https://github.com/platformsh-examples/quarkus).
 
-## Services
+## Features
 
 * Java 11
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

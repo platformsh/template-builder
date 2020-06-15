@@ -10,10 +10,12 @@ This template provides the most basic configuration for running a custom Go proj
 
 Go is a statically typed, compiled language with an emphasis on easy concurrency and network services.
 
-## Services
+## Features
 
 * Go 1.14
 * MariaDB 10.2
+* Automatic TLS certificates
+* Git module-based build
 
 ## Customizations
 

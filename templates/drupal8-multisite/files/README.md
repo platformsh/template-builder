@@ -12,11 +12,15 @@ It also includes instructions and a script to help with setting up additional mu
 
 Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5
+* Drush and Drupal Console included
+* Pre-configured for multiple sites
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

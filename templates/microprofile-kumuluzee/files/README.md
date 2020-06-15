@@ -6,15 +6,15 @@
 </a>
 </p>
 
-
-
 This project provides a starter kit for KumuluzEE Eclipse MicroProfile projects hosted on Platform.sh. It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 KumuluzEE is a lightweight framework for developing microservices using standard Java, Java EE/Jakarta EE technologies and migrating existing Java applications to microservices. KumuluzEE packages microservices as standalone JARs. KumuluzEE microservices are lightweight and optimized for size and start-up time.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

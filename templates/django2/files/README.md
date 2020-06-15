@@ -10,10 +10,12 @@ This template deploys the Django 2 application framework on Platform.sh, using t
 
 New projects should be built using Django 3, but this project is a reference for existing migrating sites.  Version 2 is in legacy support.
 
-## Services
+## Features
 
 * Python 3.7
 * PostgreSQL 10
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

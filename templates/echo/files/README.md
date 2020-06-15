@@ -10,10 +10,12 @@ This template demonstrates building the Echo framework for Platform.sh using Go 
 
 Echo is a lightweight, minimalist web framework written in Go.
 
-## Services
+## Features
 
 * Go 1.14
 * MariaDB 10.2
+* Automatic TLS certificates
+* Git module-based build
 
 ## Customizations
 

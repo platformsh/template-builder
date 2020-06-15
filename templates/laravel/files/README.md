@@ -10,11 +10,13 @@ This template provides a basic Laravel skeleton.  It comes pre-configured to use
 
 Laravel is an opinionated, integrated rapid-application-development framework for PHP.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.2
 * Redis 5.0
+* Automatic TLS certificates
+* Composer-based build
 
 ## Customizations
 

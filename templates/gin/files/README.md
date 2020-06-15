@@ -10,10 +10,11 @@ This template demonstrates building the Gin framework for Platform.sh using Go m
 
 Gin is a lightweight web framework written in Go that emphasizes performance.
 
-## Services
+## Features
 
 * Go 1.14
 * MariaDB 10.2
+* Git module-based build
 
 ## Customizations
 

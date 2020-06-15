@@ -10,9 +10,11 @@ This project provides a starter kit for Apache TomEE Eclipse MicroProfile projec
 
 Apache TomEE is the Eclipse MicroProfile  implementation that uses several Apache Project flavors such as Apache Tomcat, Apache OpenWebBeans and so on.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

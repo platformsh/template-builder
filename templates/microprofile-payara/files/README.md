@@ -10,9 +10,11 @@ This project provides a starter kit for Payara Micro projects hosted on Platform
 
 Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices deployments.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

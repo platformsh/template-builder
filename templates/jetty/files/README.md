@@ -10,9 +10,11 @@ This template provides an Eclipse Jetty Web server and javax.servlet container, 
 
 Eclipse Jetty is used in a wide variety of projects and products, both in development and production. Jetty can be easily embedded in devices, tools, frameworks, application servers, and clusters.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

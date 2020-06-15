@@ -10,10 +10,12 @@ This template builds a multi-app project using Gatsby as its frontend and a Stra
 
 Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps, and Strapi is a Headless CMS framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
 * PostgreSQL 12
+* Automatic TLS certificates
+* npm-based build
 
 ## Post-install
 
@@ -72,7 +74,7 @@ Return to the Content-Types Builder, and add a new field to the `Articles` colle
 
 - **Relation**
   - On the right hand dropdown, select Category
-  - Then select the "many-to-one" icon, which will read `Category has many Articles` when selected. 
+  - Then select the "many-to-one" icon, which will read `Category has many Articles` when selected.
 
 Visit the `Category` collection in the upper left section of the sidebar, and then click `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save.
 

@@ -11,9 +11,11 @@ This project provides a starter kit for Helidon Eclipse MicroProfile projects ho
 Helidon is a collection of Java libraries for writing microservices that run on a fast web core powered by Netty.
 Helidon is designed to be simple to use, with tooling and examples to get you going quickly. Since Helidon is just a collection of libraries running on a fast Netty core, there is no extra overhead or bloat.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

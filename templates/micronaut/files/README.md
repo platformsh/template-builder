@@ -10,9 +10,11 @@ This project provides a starter kit for Micronaut projects hosted on Platform.sh
 
 Micronaut is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

@@ -10,11 +10,13 @@ This template builds Pyramid on Platform.sh.  It includes a minimalist applicati
 
 Pyramid is a web framework written in Python.
 
-## Services
+## Features
 
 * Python 3.7
 * MariaDB 10.2
 * Redis 3.2
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Post-installation
 

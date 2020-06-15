@@ -10,10 +10,12 @@ This template builds the Wagtail CMS on Platform.sh, using the gunicorn applicat
 
 Wagtail is a web CMS built using the Django framework for Python.
 
-## Services
+## Features
 
 * Python 3.7
 * PostgreSQL 10
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Post-installation
 

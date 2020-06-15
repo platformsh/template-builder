@@ -10,9 +10,11 @@ This project provides a starter kit for Open Liberty Eclipse MicroProfile projec
 
 Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

@@ -10,9 +10,11 @@ This template provides the most basic configuration for running a custom Python 
 
 As Python 2.x is deprecated this template should be used for reference only for how to support existing legacy applications.  New applications should use a Python 3-based template instead.
 
-## Services
+## Features
 
 * Python 2.7.
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

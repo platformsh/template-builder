@@ -10,9 +10,11 @@ This template provides a basic Hugo skeleton.  All files are generated at build 
 
 Hugo is a static site generator written in Go, using Go's native template packages for formatting.
 
-## Services
+## Features
 
 * Go 1.14
+* Automatic TLS certificates
+* Hugo downloaded on the fly during build
 
 ## Post-install
 

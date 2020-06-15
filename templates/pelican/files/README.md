@@ -10,9 +10,11 @@ This template provides a basic Pelican skeleton.  Only content files need to be 
 
 Pelican is a static site generator written in Python and using Jinja for templating.
 
-## Services
+## Features
 
 * Python 3.7
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

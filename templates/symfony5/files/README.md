@@ -12,10 +12,12 @@ It is configured for Production mode by default, so the usual Symfony "welcome" 
 
 Symfony is a high-performance loosely-coupled PHP web development framework.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.4
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

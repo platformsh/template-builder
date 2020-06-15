@@ -12,9 +12,10 @@ This template builds a simple Lisp Hunchentoot web server for Platform.sh.  It i
 
 Hunchentoot is a web server written in Common Lisp and at the same time a toolkit for building dynamic websites.
 
-## Services
+## Features
 
 * Lisp 1.5
+* Automatic TLS certificates
 
 ## Customizations
 

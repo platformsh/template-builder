@@ -14,10 +14,12 @@ Symfony is a high-performance loosely-coupled PHP web development framework.
 
 New projects should be built using Symfony 5, but this project is a reference for existing migrating sites.  Version 3 is the LTS support version.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.2
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

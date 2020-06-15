@@ -10,9 +10,11 @@ This template provides the most basic configuration for running a custom PHP pro
 
 PHP is a high-performance scripting language especially well suited to web development.
 
-## Services
+## Features
 
 * PHP 7.3
+* Automatic TLS certificates
+* Composer-based build
 
 ## Customizations
 

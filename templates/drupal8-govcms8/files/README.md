@@ -10,11 +10,14 @@ This template builds the Australian government's GovCMS Drupal 8 distribution us
 
 GovCMS is a Drupal distribution built for the Australian government, and includes configuration optimized for managing government websites.
 
-## Services
+## Features
 
 * PHP 7.2
 * MariaDB 10.2
 * Redis 5
+* Drush and Drupal Console included
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

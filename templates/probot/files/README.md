@@ -12,9 +12,11 @@ Note that there are several setup steps required after first deploy to connect y
 
 Probot is a framework for building GitHub Apps in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
+* Automatic TLS certificates
+* npm-based build
 
 ## Post-install
 

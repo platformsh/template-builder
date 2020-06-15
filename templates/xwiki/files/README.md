@@ -10,10 +10,12 @@ This project provides a starter kit for XWiki projects hosted on Platform.sh.  I
 
 XWiki is a free wiki software platform written in Java with a design emphasis on extensibility. XWiki is an enterprise wiki. It includes WYSIWYG editing, OpenDocument based document import/export, semantic annotations and tagging, and advanced permissions management.
 
-## Services
+## Features
 
 * Java 8
 * PostgreSQL 11
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

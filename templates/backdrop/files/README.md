@@ -10,10 +10,12 @@ This template deploys a Backdrop CMS site, with the entire site committed to Git
 
 Backdrop is a PHP-based CMS, originally forked from Drupal 7.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.4
+* Drush included
+* Automatic TLS certificates
 
 ## Post-install
 

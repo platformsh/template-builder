@@ -10,10 +10,12 @@ This template deploys the Django 3 application framework on Platform.sh, using t
 
 Django is a Python-based web application framework with a built-in ORM.
 
-## Services
+## Features
 
 * Python 3.7
 * PostgreSQL 10
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

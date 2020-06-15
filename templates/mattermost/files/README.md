@@ -10,7 +10,7 @@ This template builds Mattermost on Platform.sh, configuring the deployment throu
 
 Mattermost is an open-source messaging framework written in Go and React.
 
-## Services
+## Features
 
 * Go 1.14
 * PostgreSQL 12

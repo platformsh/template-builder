@@ -12,11 +12,13 @@ The admin user is created automatically during the first deploy, and its name an
 
 Nextcloud is a PHP-based groupware server with installable apps, file synchronization, and federated storage.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5.0
+* Automatic TLS certificates
+* Nextcloud downloaded on the fly during build
 
 ## Post-installation
 

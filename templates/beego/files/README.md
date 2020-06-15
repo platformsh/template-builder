@@ -11,10 +11,12 @@ This template demonstrates building the Beego framework for Platform.sh using Go
 
 Beego is a popular web framework written in Go.
 
-## Services
+## Features
 
 * Go 1.14
 * MariaDB 10.2
+* Automatic TLS certificates
+* Git module-based build
 
 ## Customizations
 

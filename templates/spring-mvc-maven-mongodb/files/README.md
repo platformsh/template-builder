@@ -10,10 +10,12 @@ This template demonstrates building a Spring MVC application. It uses Maven to b
 
 A sample Hello World application is provided as a starting point.  It includes a MongoDB database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables using the Platform.sh Config Reader library.
 
-## Services
+## Features
 
 * Java 8
 * MongoDB 3.6
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

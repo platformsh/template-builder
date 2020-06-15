@@ -10,11 +10,13 @@ This template provides a basic Mautic installation.  It includes MariaDB for sto
 
 Mautic is an Open Source marketing automation tool built on Symfony.
 
-## Services
+## Features
 
 * PHP 7.2
 * MariaDB 10.4
 * RabbitMQ 3.7
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

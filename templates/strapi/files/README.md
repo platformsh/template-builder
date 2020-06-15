@@ -10,10 +10,12 @@ This template builds a Strapi backend for Platform.sh. It does not include a fro
 
 Strapi is a Headless CMS framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
 * PostgreSQL 11
+* Automatic TLS certificates
+* npm-based build
 
 ## Post-install
 

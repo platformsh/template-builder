@@ -10,11 +10,13 @@ This template builds Pimcore 5 on Platform.sh.  It comes pre-installed with a Ma
 
 Pimcore is a Symfony-based Digital Experience Platform.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.2
 * Redis 5
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

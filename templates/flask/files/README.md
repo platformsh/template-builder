@@ -10,11 +10,13 @@ This template demonstrates building the Flask framework for Platform.sh.  It inc
 
 Flask is a lightweight web microframework for Python.
 
-## Services
+## Features
 
 * Python 3.7
 * MariaDB 10.2
 * Redis 5.0
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

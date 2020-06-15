@@ -10,10 +10,12 @@ This template demonstrates building the Koa framework for Platform.sh.  It inclu
 
 Koa is a lightweight web framework for Node.js.
 
-## Services
+## Features
 
 * Node.js 10
 * MariaDB 10.2
+* Automatic TLS certificates
+* npm-based build
 
 ## Customizations
 

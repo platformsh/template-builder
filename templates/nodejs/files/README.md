@@ -10,10 +10,12 @@ This template builds a simple application using the Node.js built-in `http` web 
 
 Node.js is an open-source JavaScript runtime built on Chrome's V8 JavaScript engine.
 
-## Services
+## Features
 
 * Node.js 10
 * MariaDB 10.4
+* Automatic TLS certificates
+* npm-based build
 
 ## Customizations
 

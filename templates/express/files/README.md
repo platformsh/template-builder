@@ -10,10 +10,12 @@ This template demonstrates building the Express framework for Platform.sh.  It i
 
 Express is a minimalist web framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 10
 * MariaDB 10.2
+* Automatic TLS certificates
+* npm-based build
 
 ## Customizations
 

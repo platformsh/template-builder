@@ -10,9 +10,11 @@ This template provides a basic Sculpin skeleton.  All files are generated at bui
 
 Sculpin is a static site generator written in PHP and using the Twig templating engine.
 
-## Services
+## Features
 
 * PHP 7.3
+* Automatic TLS certificates
+* Composer-based build
 
 ## Customizations
 

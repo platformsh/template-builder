@@ -10,7 +10,7 @@ This project provides a starter kit for Apache Tomcat hosted on Platform.sh.  To
 
 Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and WebSocket technologies.
 
-## Services
+## Features
 
 * Java 8
 

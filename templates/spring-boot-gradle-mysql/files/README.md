@@ -10,10 +10,12 @@ This template demonstrates building a Spring Boot application. It uses Gradle to
 
 A sample Hello World application is provided as a starting point.  It includes an Oracle MySQL database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables using the Platform.sh Config Reader library.
 
-## Services
+## Features
 
 * Java 8
 * Oracle MySQL 8.0
+* Automatic TLS certificates
+* Gradle-based build
 
 ## Customizations
 

@@ -10,11 +10,12 @@ This template deploys the ASP.NET Core framework. It includes a minimalist appli
 
 ASP.NET Core is an open-source and cross-platform .NET framework for building modern cloud-based web applications.
 
-## Services
+## Features
 
 * .NET 2.2
 * MariaDB 10.4
 * Redis 5.0
+* Automatic TLS certificates
 
 ## Customizations
 

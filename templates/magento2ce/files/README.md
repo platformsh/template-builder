@@ -10,11 +10,14 @@ This template builds Magento 2 CE on Platform.sh.  It includes additional script
 
 Magento is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.
 
-## Services
+## Features
 
 * PHP 7.2
 * MariaDB 10.2
 * Redis 3.2
+* Dedicated worker instance for background processing
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

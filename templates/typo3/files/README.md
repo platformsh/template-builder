@@ -10,11 +10,13 @@ This template builds the TYPO3 CMS for Platform.sh.  It comes pre-configured wit
 
 TYPO3 is a Content Management System (CMS) built in PHP.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5.0
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

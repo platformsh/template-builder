@@ -10,11 +10,14 @@ This template builds a multi-app project using Gatsby as its frontend and a Word
 
 Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and WordPress is a blogging and lightweight CMS written in PHP.
 
-## Services
+## Features
 
 * Node.js 12
 * PHP 7.3
 * MariaDB 10.4
+* Automatic TLS certificates
+* npm-based build for Gatsby
+* Composer-based build for Wordpress
 
 ## Post-install
 

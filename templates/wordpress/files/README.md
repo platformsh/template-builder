@@ -10,10 +10,12 @@ This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](
 
 WordPress is a blogging and lightweight CMS written in PHP.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.2
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

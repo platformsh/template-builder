@@ -9,6 +9,7 @@
 This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 Helidon is a collection of Java libraries for writing microservices that run on a fast web core powered by Netty.
+
 Helidon is designed to be simple to use, with tooling and examples to get you going quickly. Since Helidon is just a collection of libraries running on a fast Netty core, there is no extra overhead or bloat.
 
 ## Features

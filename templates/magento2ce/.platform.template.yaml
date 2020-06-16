@@ -4,7 +4,7 @@ info:
   id: platformsh/magento2ce
   name: Magento 2 Community Edition
   description: |
-      <p>This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.</p>
+      <p>This template builds Magento 2 CE on Platform.sh.  It includes additional scripts to customize Magento to run effectively in a build-and-deploy environment.  A MariaDB database and Redis cache server come pre-configured and work out of the box.  The installer has been modified to not ask for database information.  Background workers are run using a worker container rather than via cron.</p>
       <p>Magento is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
   tags:
   - PHP
@@ -13,8 +13,14 @@ info:
   image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzNSA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjMzNzYgMEwwIDEwLjAwNzZWMjkuOTk2N0w0Ljk0OTIyIDMyLjg1NzlMNC45MTQyNyAxMi44NjQ1TDE3LjMwMjYgNS43MTM2NkwyOS42OTA5IDEyLjg2NDVWMzIuODQ5MkwzNC42NDAyIDI5Ljk5NjdWOS45OTAxN0wxNy4zMzc2IDBaIiBmaWxsPSIjRjI2MzIyIi8+CjxwYXRoIGQ9Ik0xOS43OTI1IDMyLjg1MzZMMTcuMzIgMzQuMjkwN0wxNC44MzQ1IDMyLjg2NjdWMTIuODY0NUw5Ljg4OTY1IDE1LjcyMTNMOS44OTgzOSAzNS43MTQ4TDE3LjMxNTcgNDBMMjQuNzQxNyAzNS43MTQ4VjE1LjcyMTNMMTkuNzkyNSAxMi44NjQ1VjMyLjg1MzZaIiBmaWxsPSIjRjI2MzIyIi8+Cjwvc3ZnPgo=
 
   notes:
-    - heading: "Apps & Services"
-      content: "PHP 7.2<br/>MariaDB 10.2<br/>Redis 3.2"
+    - heading: "Features"
+      content: |
+          PHP 7.2<br />
+          MariaDB 10.2<br />
+          Redis 3.2<br />
+          Dedicated worker instance for background processing<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
 
 initialize:
   repository: git://github.com/platformsh-templates/magento2ce.git@master

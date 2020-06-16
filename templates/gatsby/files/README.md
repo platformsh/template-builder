@@ -12,7 +12,7 @@ This template builds a simple application using Gatsby.  Gatsby is a free and op
 
 * Node.js 10
 * Automatic TLS certificates
-* npm-based build
+* yarn-based build
 
 ## Customizations
 

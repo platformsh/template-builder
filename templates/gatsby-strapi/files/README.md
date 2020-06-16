@@ -17,7 +17,7 @@ Gatsby is a free and open source framework based on React that helps developers 
 * Node.js 12
 * PostgreSQL 12
 * Automatic TLS certificates
-* npm-based build
+* yarn-based build
 * Multi-app configuration
 * Delayed SSG build (post deploy hook)
 

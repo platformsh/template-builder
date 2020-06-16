@@ -6,15 +6,19 @@
 </a>
 </p>
 
-This template builds Nextcloud on Platform.sh.
+This template builds Nextcloud on Platform.sh.  Nextcloud itself is downloaded on the fly during the build step, and pre-configured for use with MariaDB and Redis.  Add-on applications can be provided in a separate directory and will be merged into Nextcloud automatically during build.  (Self-update through the web interface is not supported.)
+
+The admin user is created automatically during the first deploy, and its name and password will be available in the deploy log.  Be sure to check for it there so you can log in.
 
 Nextcloud is a PHP-based groupware server with installable apps, file synchronization, and federated storage.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5.0
+* Automatic TLS certificates
+* Nextcloud downloaded on the fly during build
 
 ## Post-installation
 

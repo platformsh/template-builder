@@ -6,15 +6,17 @@
 </a>
 </p>
 
-This template builds a Flask project on Platform.sh, run natively without a separate runner.
+This template demonstrates building the Flask framework for Platform.sh.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server for data storage and Redis for caching.  The application starts as a bare Python process with no separate runner.  It is intended for you to use as a starting point and modify for your own needs.
 
 Flask is a lightweight web microframework for Python.
 
-## Services
+## Features
 
 * Python 3.7
 * MariaDB 10.2
 * Redis 5.0
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

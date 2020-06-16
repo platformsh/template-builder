@@ -1,52 +1,24 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/quarkus
-  # The human-readable name of the template.
   name: Quarkus
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-     <p>QuarkusIO, the Supersonic Subatomic Java, promises to deliver small artifacts, extremely fast boot time, and lower time-to-first-request. </p>
-     <p>A sample Hello World application is provided as a starting point. It includes a plain rest application. It is a simple skeleton to use Quarkus with several services with Quarkus, to [get more information](https://github.com/platformsh-examples/quarkus).</p>
-  # A list of tags associated with the template.
+      <p>QuarkusIO, the Supersonic Subatomic Java, promises to deliver small artifacts, extremely fast boot time, and lower time-to-first-request.</p>
+      <p>A sample Hello World application is provided as a starting point. It includes a plain REST application.  To use Quarkus with services see the example project (https://github.com/platformsh-examples/quarkus).</p>
   tags:
   - Java
   - MicroProfile
   - Maven
   image: data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjgwIDE5NSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiMwOTEzMTM7fS5jbHMtMntmaWxsOiM0Njk1ZWI7fS5jbHMtM3tmaWxsOiNmZjAwNGE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5xdWFya3VzX2xvZ29faG9yaXpvbnRhbF9yZ2JfMTI4MHB4X2RlZmF1bHQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQwNCw4OS4zOXEwLDI1LjktMTAuNDksNDMuMDdhNTIuMzEsNTIuMzEsMCwwLDEtMjkuNjEsMjMuMjRsMzIuMywzMy4zOUgzNzMuMjlsLTI2LjQ1LTMwLjQ0LTUuMTEuMTlxLTMwLDAtNDYuMjctMTguMjJUMjc5LjE3LDg5LjJxMC0zMi45MywxNi4zNC01MS4wNVQzNDEuOTIsMjBxMjkuMjQsMCw0NS42NiwxOC40NVQ0MDQsODkuMzlabS0xMDguMTQsMHEwLDI3LjM5LDExLjc0LDQxLjU1dDM0LjExLDE0LjE1cTIyLjU2LDAsMzQuMDctMTQuMTF0MTEuNTEtNDEuNTlxMC0yNy4yMS0xMS40Ny00MS4yN1QzNDEuOTIsMzQuMDVxLTIyLjU2LDAtMzQuMywxNC4xNlQyOTUuODgsODkuMzlaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTU5LjU2LDIyLjE1VjEwOS40cTAsMjMuMDUtMTQsMzYuMjVUNTA3LDE1OC44NHEtMjQuNTEsMC0zNy45Mi0xMy4yOVQ0NTUuNywxMDlWMjIuMTVoMTUuNzh2ODhxMCwxNi44OCw5LjI4LDI1LjkxdDI3LjI5LDlxMTcuMTYsMCwyNi40NS05LjA4VDU0My43OCwxMTBWMjIuMTVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNzAzLjYsMTU3LDY4Ni43LDExNC4xSDYzMi4zMUw2MTUuNiwxNTdoLTE2TDY1My4yOSwyMS42aDEzLjI3TDcxOS45MywxNTdabS0yMS44Mi01N0w2NjYsNTguMjFxLTMuMDctNy45Mi02LjMyLTE5LjQ2YTE3Mi41NSwxNzIuNTUsMCwwLDEtNS44NSwxOS40NmwtMTYsNDEuNzhaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNzc3LjE5LDEwMC45MlYxNTdINzYxLjRWMjIuMTVoMzcuMjNxMjUsMCwzNi44OSw5LjV0MTEuOTMsMjguNTlxMCwyNi43NC0yNy4yOSwzNi4xNkw4NTcsMTU3SDgzOC4zNWwtMzIuODYtNTYuMDdabTAtMTMuNDdoMjEuNjJxMTYuNzEsMCwyNC41MS02LjZ0Ny43OS0xOS43OHEwLTEzLjM3LTcuOTMtMTkuMjdUNzk3LjcsMzUuODlINzc3LjE5WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk5OS43NSwxNTdIOTgxLjE4TDkzMS43MSw5MS42bC0xNC4yLDEyLjU0VjE1N0g5MDEuNzNWMjIuMTVoMTUuNzhWODlsNjEuNTQtNjYuODdoMTguNjZMOTQzLjEzLDgwLjcyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTExNDMuNjksMjIuMTVWMTA5LjRxMCwyMy4wNS0xNCwzNi4yNXQtMzguNTIsMTMuMTlxLTI0LjUsMC0zNy45Mi0xMy4yOVQxMDM5LjgyLDEwOVYyMi4xNWgxNS43OHY4OHEwLDE2Ljg4LDkuMjgsMjUuOTF0MjcuMjksOXExNy4xNywwLDI2LjQ2LTkuMDh0OS4yOC0yNi4wNlYyMi4xNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xMjc5LDEyMS4xMXEwLDE3LjgtMTMsMjcuNzZ0LTM1LjI4LDEwcS0yNC4xMywwLTM3LjEzLTYuMThWMTM3LjUzYTk3LjgyLDk3LjgyLDAsMCwwLDE4LjIsNS41Myw5NS42Nyw5NS42NywwLDAsMCwxOS40OSwycTE1Ljc4LDAsMjMuNzYtNnQ4LTE2LjU1cTAtNy0yLjgzLTExLjQ4dC05LjQ2LTguMjZxLTYuNjUtMy43OC0yMC4xOS04LjU4LTE4Ljk0LTYuNzItMjcuMDYtMTZ0LTguMTItMjQuMDdxMC0xNS41OCwxMS43OS0yNC44MXQzMS4xOC05LjIyYTkyLjU1LDkyLjU1LDAsMCwxLDM3LjIyLDcuMzdsLTQuOTEsMTMuNjVxLTE2LjgyLTctMzIuNjgtNy0xMi41MywwLTE5LjU4LDUuMzV0LTcuMDYsMTQuODVxMCw3LDIuNiwxMS40OHQ4Ljc3LDguMjFxNi4xOCwzLjczLDE4Ljg5LDguMjYsMjEuMzYsNy41NiwyOS4zOCwxNi4yM1QxMjc5LDEyMS4xMVoiLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMTI2LjA1IDM0LjYgOTYuNjEgNTEuNTkgMTI2LjA1IDY4LjU5IDEyNi4wNSAzNC42Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0zIiBwb2ludHM9IjY3LjE3IDM0LjYgNjcuMTcgNjguNTkgOTYuNjEgNTEuNTkgNjcuMTcgMzQuNiIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSIxMjYuMDUgNjguNTkgOTYuNjEgNTEuNTkgNjcuMTcgNjguNTkgOTYuNjEgODUuNTkgMTI2LjA1IDY4LjU5Ii8+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjM2LjEzIDg4LjM2IDY1LjU3IDEwNS4zNiA2NS41NyA3MS4zNyAzNi4xMyA4OC4zNiIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMyIgcG9pbnRzPSI2NS41NyAxMzkuMzUgOTUuMDEgMTIyLjM2IDY1LjU3IDEwNS4zNiA2NS41NyAxMzkuMzUiLz48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iNjUuNTcgNzEuMzcgNjUuNTcgMTA1LjM2IDk1LjAxIDEyMi4zNiA5NS4wMSA4OC4zNiA2NS41NyA3MS4zNyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxMjcuNjUgMTM5LjM1IDEyNy42NSAxMDUuMzYgOTguMjEgMTIyLjM2IDEyNy42NSAxMzkuMzUiLz48cG9seWdvbiBjbGFzcz0iY2xzLTMiIHBvaW50cz0iMTU3LjA5IDg4LjM2IDEyNy42NSA3MS4zNyAxMjcuNjUgMTA1LjM2IDE1Ny4wOSA4OC4zNiIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSI5OC4yMSAxMjIuMzYgMTI3LjY1IDEwNS4zNiAxMjcuNjUgNzEuMzcgOTguMjEgODguMzYgOTguMjEgMTIyLjM2Ii8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTYwLjUsMUgzMi43MkEzMS44MSwzMS44MSwwLDAsMCwxLDMyLjcyVjE2MC41YTMxLjgxLDMxLjgxLDAsMCwwLDMxLjcyLDMxLjcyaDg3LjUxTDk2LjYxLDEzNC44NSw3OS40OCwxNzEuMDdIMzIuNzJBMTAuNzEsMTAuNzEsMCwwLDEsMjIuMTUsMTYwLjVWMzIuNzJBMTAuNzEsMTAuNzEsMCwwLDEsMzIuNzIsMjIuMTVIMTYwLjVhMTAuNzEsMTAuNzEsMCwwLDEsMTAuNTcsMTAuNTdWMTYwLjVhMTAuNzEsMTAuNzEsMCwwLDEtMTAuNTcsMTAuNTdIMTMyLjc3bDguNzEsMjEuMTVoMTlhMzEuODEsMzEuODEsMCwwLDAsMzEuNzItMzEuNzJWMzIuNzJBMzEuODEsMzEuODEsMCwwLDAsMTYwLjUsMVoiLz48L3N2Zz4=
-  # An image URI (either base64-encoded or a URL) representing the template.
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Java 8<br/>Maven<br/>Eclipse MicroProfile<br/>Quarkus"
+    - heading: "Features"
+      content: |
+          Java 11<br />
+          Automatic TLS certificates<br />
+          Maven-based build<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/quarkus.git@master
   config: null

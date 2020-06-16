@@ -6,14 +6,17 @@
 </a>
 </p>
 
-This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.
+This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 Helidon is a collection of Java libraries for writing microservices that run on a fast web core powered by Netty.
+
 Helidon is designed to be simple to use, with tooling and examples to get you going quickly. Since Helidon is just a collection of libraries running on a fast Netty core, there is no extra overhead or bloat.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 
@@ -29,5 +32,5 @@ The following files and additions make the framework work.  If using this projec
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Helidon](https://helidon.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Eclipse MicroProfile](https://microprofile.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

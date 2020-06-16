@@ -10,9 +10,11 @@ This template builds a Moin Moin wiki on Platform.sh.  The project doesn't inclu
 
 Moin Moin is a Python-based Wiki system that uses flat files on disk for storage.
 
-## Services
+## Features
 
 * Python 2.7
+* Automatic TLS certificates
+* Moinmoin downloaded on the fly during build
 
 ## Post-installation
 
@@ -22,7 +24,7 @@ By default, the front page of the wiki covers language setup, but that can be mo
 # page_front_page = u'FrontPage'
 ```
 
-in `wikiconfig_local.py`. If you would like to change additional settings on the wiki, consult [`wikiconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiconfig.py) and [`wikiserverconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiserverconfig.py) on GitHub and include the modified lines in `wikiconfig_local.py` and `wikiserverconfig_local.py` respectively. 
+in `wikiconfig_local.py`. If you would like to change additional settings on the wiki, consult [`wikiconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiconfig.py) and [`wikiserverconfig.py`](https://github.com/moinwiki/moin-1.9/blob/master/wikiserverconfig.py) on GitHub and include the modified lines in `wikiconfig_local.py` and `wikiserverconfig_local.py` respectively.
 
 ## Customizations
 

@@ -6,15 +6,17 @@
 </a>
 </p>
 
-This template provides the most basic configuration for running a custom Python 3.7 project.  It launches the application using the UWSGI application runner.
+This template provides the most basic configuration for running a custom Python 3.7 project.  It includes the `platformshconfig` package and demonstrates using it to connect to MariaDB and Redis.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.  The application runs through the UWSGI runner.
 
 Python is a general purpose scripting language often used in web development.
 
-## Services
+## Features
 
 * Python 3.7
 * MariaDB 10.2
 * Redis 5.0
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

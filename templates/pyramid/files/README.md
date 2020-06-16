@@ -6,15 +6,17 @@
 </a>
 </p>
 
-This template builds Pyramid on Platform.sh.  It includes some basic example code to demonstrate how to connect to the database.
+This template builds Pyramid on Platform.sh.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server for data storage and Redis for caching.  It is intended for you to use as a starting point and modify for your own needs.
 
 Pyramid is a web framework written in Python.
 
-## Services
+## Features
 
 * Python 3.7
 * MariaDB 10.2
 * Redis 3.2
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Post-installation
 

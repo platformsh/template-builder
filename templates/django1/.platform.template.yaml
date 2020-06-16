@@ -1,49 +1,23 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/django1
-  # The human-readable name of the template.
   name: Django 1
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template builds Django 1 on Platform.sh, using the gunicorn application runner.  New projects should be built using Django 2, but this project is a reference for existing migrating sites.</p>
-      <p>Django is a Python-based web application framework with a built-in ORM.  Version 1 is the legacy support version.</p>
-  # A list of tags associated with the template.
+        <p>This template deploys the Django 1 application framework on Platform.sh, using the gunicorn application runner.  It also includes a PostgreSQL database connection pre-configured.</p>
+        <p>New projects should be built using Django 3, but this project is a reference for existing migrating sites.  Version 1 is the legacy support version.</p>
   tags:
   - Python
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9InN2ZzI5NDgiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA2NC4xIDgyLjQiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQuMSA4Mi40OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO30KPC9zdHlsZT4KPGcgaWQ9ImxheWVyMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTIxLjA2MzA2LC0zNTUuOTM5NzYpIj4KCTxwYXRoIGlkPSJwYXRoMjgzOCIgY2xhc3M9InN0MCIgZD0iTS0xMDcuNCwzOTguMmMwLDguMiw2LDEzLjEsMTUuNiwxMC45di0yMS43Qy0xMDEuNSwzODQuNC0xMDcuMywzOTAuNC0xMDcuNCwzOTguMiBNLTkxLjUsMzU1LjkKCQloMTMuMnY2Mi41Yy0xMi43LDIuMS0yNC44LDMuNC0zMy41LTEuNWMtMTEuMi02LjItMTIuMS0yNi4xLTMuMi0zNC45YzQuNS00LjUsMTMuNS03LjYsMjMuMi01LjZ2LTE5LjcKCQlDLTkxLjgsMzU2LjQtOTEuOSwzNTYtOTEuNSwzNTUuOSIvPgoJPHBhdGggaWQ9InBhdGgyODQwIiBjbGFzcz0ic3QwIiBkPSJNLTU2LjksMzY5LjdoLTEzLjJ2LTEzLjhoMTMuMlYzNjkuN3oiLz4KCTxwYXRoIGlkPSJwYXRoMjg2MCIgY2xhc3M9InN0MCIgZD0iTS01Ni45LDM3Ni43YzAsOS43LDAsMTYuNywwLDI4LjVjLTAuNiwxMS42LTAuNCwyMC45LTQuNywyNi40Yy0wLjgsMS4xLTIuNiwyLjctNC4xLDMuOAoJCWMtMS4zLDAuOS0zLjYsMi45LTUsMi45Yy0xLjQsMC4xLTQuOS0xLjktNi41LTIuNmMtMi4xLTEtNC0yLjMtNi4yLTIuOWM1LTMuMSw5LjgtNS40LDExLjctMTEuN2MxLjctNS41LDEuNS0xMy40LDEuNS0yMS4xCgkJYzAtNy42LDAtMTYuNSwwLTIzLjJMLTU2LjksMzc2LjdMLTU2LjksMzc2Ljd6Ii8+CjwvZz4KPC9zdmc+Cg==
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Python 2<br/>PostgreSQL 10"
+    - heading: "Features"
+      content: |
+          Python 2.7<br />
+          PostgreSQL 10<br />
+          Automatic TLS certificates<br />
+          Pipfile-based build<br />
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exits now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/django1.git@master
   config: null

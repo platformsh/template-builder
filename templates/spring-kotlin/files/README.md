@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This project provides a starter kit for Spring with Kotlin Maven projects hosted on Platform.sh.
+This template demonstrates building a Spring MVC application in the Kotlin language. It uses Maven to build the application and deploy it to Platform.sh.
 
-The Spring Framework is an application framework and inversion of control container for the Java platform.
+A sample Hello World application is provided as a starting point.  It includes an Oracle MySQL database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables.
 
-## Services
+## Features
 
 * Java 8
 * MySQL 8.0
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 
@@ -29,6 +31,6 @@ The following files and additions make the framework work.  If using this projec
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Spring-Boot](https://spring.io/projects/spring-boot)
-* [Spring-MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) 
+* [Spring-MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
 * [Kotlin](https://kotlinlang.org/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

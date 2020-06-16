@@ -10,11 +10,14 @@ This template builds the Opigno Drupal 8 distribution using the [Drupal Composer
 
 Opigno is a Learning Management system built as a Drupal distribution.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.4
 * Redis 5
+* Drush and Drupal Console included
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

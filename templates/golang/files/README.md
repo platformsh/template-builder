@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This template provides the most basic configuration for running a custom Go project.
+This template provides the most basic configuration for running a custom Go project using Go modules.  It demonstrates the Platform.sh `config-reader` library and connecting to a MariaDB instance.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.
 
 Go is a statically typed, compiled language with an emphasis on easy concurrency and network services.
 
-## Services
+## Features
 
 * Go 1.14
 * MariaDB 10.2
+* Automatic TLS certificates
+* Git module-based build
 
 ## Customizations
 

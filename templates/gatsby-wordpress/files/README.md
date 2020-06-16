@@ -6,15 +6,22 @@
 </a>
 </p>
 
-This template builds a multi-app project using Gatsby as its frontend and a Wordpress backend to store content using Gatsby's Wordpress source plugin.
+This template builds a two application project to deploy the Headless CMS pattern using Gatsby as its frontend and Wordpress for its backend. The `gatsby-source-wordpress` source plugin is used to pull data from Wordpress during the `post_deploy` hook into the Gatsby Data Layer and build the frontend site. Gatsby utilizes the Platform.sh Configuration Reader library for Node.js to define the backend data source in its configuration. It is intended for you to use as a starting point and modify for your own needs.
+
+Note that after you have completed the Wordpress installation, the project will require a redeploy to build and deploy Gatsby for the first time. See the included README's post-install section for details.
 
 Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and WordPress is a blogging and lightweight CMS written in PHP.
 
-## Services
+## Features
 
 * Node.js 12
 * PHP 7.3
 * MariaDB 10.4
+* Automatic TLS certificates
+* npm-based build for Gatsby
+* Composer-based build for Wordpress
+* Multi-app configuration
+* Delayed SSG build (post deploy hook)
 
 ## Post-install
 

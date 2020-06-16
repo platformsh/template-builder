@@ -1,53 +1,25 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/microprofile-helidon
-  # The human-readable name of the template.
   name: Helidon
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-     <p>This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.</p>
+     <p>This project provides a starter kit for Helidon Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.</p>
      <p>Helidon is a collection of Java libraries for writing microservices that run on a fast web core powered by Netty.</p>
      <p>Helidon is designed to be simple to use, with tooling and examples to get you going quickly. Since Helidon is just a collection of libraries running on a fast Netty core, there is no extra overhead or bloat.</p>
-  # A list of tags associated with the template.
   tags:
   - Java
   - MicroProfile
   - Maven
   image: data:image/png;base64,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
-  # An image URI (either base64-encoded or a URL) representing the template.
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Java 8<br/>Maven<br/>Eclipse MicroProfile<br/>Helidon"
+    - heading: "Features"
+      content: |
+          Java 8<br />
+          Automatic TLS certificates<br />
+          Maven-based build<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/microprofile-helidon.git@master
   config: null

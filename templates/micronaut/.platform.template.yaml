@@ -1,51 +1,23 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/micronaut
-  # The human-readable name of the template.
   name: Micronaut
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-     <p>This project provides a starter kit for Micronaut projects hosted on Platform.sh.</p>
+     <p>This project provides a starter kit for Micronaut projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.</p>
      <p>Micronaut is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
-  # A list of tags associated with the template.
   tags:
   - Java
   - Maven
   image: data:image/png;base64,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
-  # An image URI (either base64-encoded or a URL) representing the template.
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Java 8<br/>Maven<br/>Micronaut"
+    - heading: "Features"
+      content: |
+          Java 8<br />
+          Automatic TLS certificates<br />
+          Maven-based build<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/micronaut.git@master
   config: null

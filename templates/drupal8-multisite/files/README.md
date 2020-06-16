@@ -6,15 +6,21 @@
 </a>
 </p>
 
-This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It also includes configuration to use Redis for caching, although that must be enabled post-install per-site.
+This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.
+
+It also includes instructions and a script to help with setting up additional multisite instances, although depending on your particular needs it may require some customization.
 
 Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.
 
-## Services
+## Features
 
 * PHP 7.4
 * MariaDB 10.4
 * Redis 5
+* Drush and Drupal Console included
+* Pre-configured for multiple sites
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 

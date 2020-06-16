@@ -1,51 +1,24 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/backdrop
-  # The human-readable name of the template.
   name: Backdrop
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    <p>This template builds a Backdrop site, with the entire site committed to Git.</p>
+    <p>This template deploys a Backdrop CMS site, with the entire site committed to Git.  It comes configured for MariaDB, the most popular database used with Backdrop.  It supports a quick web installation to configure the site.</p>
     <p>Backdrop is a PHP-based CMS, originally forked from Drupal 7.</p>
-  # A list of tags associated with the template.
   tags:
   - PHP
   - CMS
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCiA8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiB3aWR0aD0iNDcwIiBoZWlnaHQ9IjQ3MCI+DQo8cmVjdCBmaWxsPSJibGFjayIgd2lkdGg9IjQ3MCIgaGVpZ2h0PSI0NzAiLz4NCjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtIDIzNSw0NzAgMCwtMjM1IDIzNSwwIHoiLz4NCjwvc3ZnPg0K
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "PHP 7.3<br/>MariaDB 10.4"
+    - heading: "Features"
+      content: |
+          PHP 7.3<br />
+          MariaDB 10.4<br />
+          Drush included<br />
+          Automatic TLS certificates<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/backdrop.git@master
   config: null

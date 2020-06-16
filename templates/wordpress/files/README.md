@@ -6,20 +6,22 @@
 </a>
 </p>
 
-This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.
+This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.  A custom configuration file is provided that runs on Platform.sh to automatically configure the database, so the installer will not ask you for database credentials.  For local-only configuration you can use a `wp-config-local.php` file that gets excluded from Git.
 
 WordPress is a blogging and lightweight CMS written in PHP.
 
-## Services
+## Features
 
 * PHP 7.3
 * MariaDB 10.2
+* Automatic TLS certificates
+* Composer-based build
 
 ## Post-install
 
 1. Run through the WordPress installer as normal.  You will not be asked for database credentials as those are already provided.
 
-2. This example looks for an optional `wp-config-local.php` in the project root that you can use to develop locally. This file is ignored in git.
+2. This example looks for an optional `wp-config-local.php` in the project root that you can use to develop locally. This file is ignored in Git.
 
 Example `wp-config-local.php`:
 

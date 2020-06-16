@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This template builds a Strapi backend for Platform.sh. It does not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's `.platform.app.yaml` file.
+This template builds a Strapi backend for Platform.sh, which can be used to quickly create an API that can be served by itself or as a Headless CMS data source for another frontend application in the same project. This repository not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's `.platform.app.yaml` file.
 
 Strapi is a Headless CMS framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
 * PostgreSQL 11
+* Automatic TLS certificates
+* npm-based build
 
 ## Post-install
 

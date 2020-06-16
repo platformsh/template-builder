@@ -1,53 +1,30 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/drupal8multi
-  # The human-readable name of the template.
   name: Drupal 8 Multisite
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-    <p>This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It also includes configuration to use Redis for caching, although that must be enabled post-install per-site.</p>
+    <p>This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.</p>
+    <p>It also includes instructions and a script to help with setting up additional multisite instances, although depending on your particular needs it may require some customization.</p>
     <p>Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.</p>
 
-  # A list of tags associated with the template.
   tags:
   - PHP
   - Drupal
   - CMS
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNSA0MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzUgNDA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojMDA4RUNFO30KPC9zdHlsZT4KPGc+CjwvZz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTI0LDYuNmMwLDAtMi4zLTEtMy42LTEuOGMwLDAtMS43LTEtNC41LTQuN2MwLDAsMC4xLDQuMi00LjQsNi40QzQuNCw5LjMsMCwxNS4yLDAsMjIuN0MwLDMyLjIsNy44LDQwLDE3LjMsNDAKCWM5LjYsMCwxNy4zLTcuOCwxNy4zLTE3LjNDMzQuNywxMS4xLDI0LDYuNiwyNCw2LjZ6IE00LjgsMTYuMWMtMi43LDAuNi0yLjUtMC44LTItMmMwLjItMC43LDAuOS0xLjUsMC45LTEuNWMxLjgtMi45LDUuOC01LDUuOC01CglsMCwwYzAuNS0wLjIsMS40LTAuNywyLjItMS4xYzEuNi0wLjksMi0xLjQsMi0xLjRjMi4zLTIuMiwyLjEtNC45LDIuMS01YzAsMCwwLDAsMCwwYzAsMCwwLDAsMCwwdjBjMCwwLDAsMCwwLDAKCWMyLDQtMC40LDUuOC0wLjQsNS44YzAuNiwwLjYsMC40LDEuMiwwLjQsMS4yQzEyLjcsMTMuOCw0LjgsMTYuMSw0LjgsMTYuMXogTTI1LjcsMzcuMWMtMC4yLDAuMS0yLjcsMS4zLTUuNiwxLjMKCWMtMS42LDAtMy4zLTAuNC00LjgtMS40Yy0wLjUtMC40LTAuNy0xLjEtMC40LTEuNmMwLjEtMC4yLDAuNy0wLjksMi4xLDBsMCwwYzAuMSwwLjEsMy40LDIuMyw4LjUtMC41YzAuNC0wLjIsMC45LTAuMSwxLjEsMC4zCglDMjYuOSwzNS42LDI3LDM2LjQsMjUuNywzNy4xeiBNMTguNywzMi45bDAuMS0wLjFjMC4xLTAuMSwxLjgtMi4zLDQuMy0yYzAuNCwwLDEuOCwwLjEsMi43LDEuOGMwLjEsMC4yLDAuMywwLjktMC4xLDEuNAoJYy0wLjIsMC4yLTAuNSwwLjQtMS4xLDAuMmMtMC40LTAuMS0wLjYtMC41LTAuNi0wLjdsMCwwYy0wLjEtMC4zLTAuMi0wLjUtMS4yLTAuNmMtMC44LTAuMS0xLjMsMC4zLTEuOSwwLjgKCWMtMC4zLDAuMy0wLjcsMC42LTEuMSwwLjdjLTAuMSwwLjEtMC4yLDAuMS0wLjQsMC4xYy0wLjIsMC0wLjQtMC4xLTAuNi0wLjJDMTguNSwzNCwxOC40LDMzLjYsMTguNywzMi45eiBNMzAuMSwzMy4xCgljMCwwLTAuOSwwLjMtMS44LTAuN2MwLDAtMi43LTMuMS00LTMuNmMwLDAtMC44LTAuMy0xLjgsMC4xYzAsMC0wLjcsMC4xLTMuNCwxLjljMCwwLTQuNiwyLjktNi45LDIuNWMwLDAtNS4yLDAuMS00LjUtNS40CgljMCwwLDEuMS02LjIsOC4zLTQuOGMwLDAsMS42LDAuMyw0LjUsMi42YzAsMCwyLDEuNSwzLDEuNWMwLDAsMC44LDAuMSwyLjYtMWMwLDAsMy41LTIuNyw0LjgtMi42YzAsMCwwLDAsMCwwCgljMC4yLDAsMi41LTAuMSwyLjUsMy43QzMzLjMsMjcuMiwzMy40LDMxLjYsMzAuMSwzMy4xeiIvPgo8L3N2Zz4K
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "PHP 7.4<br/>MariaDB 10.4<br />Redis 5.0"
+    - heading: "Features"
+      content: |
+          PHP 7.4<br />
+          MariaDB 10.4<br />
+          Redis 5<br />
+          Drush and Drupal Console included<br />
+          Pre-configured for multiple sites<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/drupal8multi.git@master
   config: null

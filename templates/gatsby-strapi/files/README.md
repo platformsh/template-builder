@@ -6,14 +6,20 @@
 </a>
 </p>
 
-This template builds a multi-app project using Gatsby as its frontend and a Strapi backend to store content using the Gatsby source plugin for Strapi.
+This template builds a two application project to deploy the Headless CMS pattern using Gatsby as its frontend and Strapi for its backend. The `gatsby-source-strapi` source plugin is used to pull data from Strapi during the `post_deploy` hook into the Gatsby Data Layer and build the frontend site. Gatsby utilizes the Platform.sh Configuration Reader library for Node.js to define the backend data source in its configuration. It is intended for you to use as a starting point and modify for your own needs.
+
+Note that there are several setup steps required after the first deploy to create your first content types and access permissions in Strapi. See the included README's post-install section for details.
 
 Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps, and Strapi is a Headless CMS framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
 * PostgreSQL 12
+* Automatic TLS certificates
+* yarn-based build
+* Multi-app configuration
+* Delayed SSG build (post deploy hook)
 
 ## Post-install
 
@@ -72,7 +78,7 @@ Return to the Content-Types Builder, and add a new field to the `Articles` colle
 
 - **Relation**
   - On the right hand dropdown, select Category
-  - Then select the "many-to-one" icon, which will read `Category has many Articles` when selected. 
+  - Then select the "many-to-one" icon, which will read `Category has many Articles` when selected.
 
 Visit the `Category` collection in the upper left section of the sidebar, and then click `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save.
 

@@ -1,49 +1,24 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/typo3
-  # The human-readable name of the template.
   name: TYPO3
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template provides a basic TYPO3 installation.</p>
+      <p>This template builds the TYPO3 CMS for Platform.sh.  It comes pre-configured with MariaDB for storage and Redis for caching.  A command line installer will automatically initialize the site on first deploy.</p>
       <p>TYPO3 is a PHP-based Content Management System</p>
-  # A list of tags associated with the template.
   tags:
   - PHP
   - CMS
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSI0ODEuNzE4NzUiCiAgIGhlaWdodD0iMjAzLjU2MjUiCiAgIGlkPSJzdmc3NTkyIj4KICA8ZGVmcwogICAgIGlkPSJkZWZzNzU5NCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGE3NTk3Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1OCwtMjE5LjE1NjI1KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxwYXRoCiAgICAgICBkPSJtIDE0MC42MDAwMSwzNzEuNTAzNDkgYyAtNS4yMDUsMCAtMTIuOTYxMjUsLTEuNTkzNzUgLTEzLjkxNzUsLTEuODEgbCAwLC03Ljc1MTI1IGMgMi41NTEyNSwwLjUzIDkuMTM1LDEuNjI4NzUgMTMuODEyNSwxLjYyODc1IDUuNDE2MjUsMCA4LjkyMjUsLTQuNjA2MjUgOC45MjI1LC0xMi43ODM3NSAwLC05LjY2ODc1IC0xLjU5MTI1LC0xNC43Njc1IC05LjEzNSwtMTQuNzY3NSBsIC04LjcxMjUsMCAwLC03Ljc1NSA3LjY0ODc1LDAgYyA4LjYwNzUsMCA5LjAzLC04LjgxODc1IDkuMDMsLTEzLjA2NzUgMCwtOC4zOTUgLTIuNjU2MjUsLTExLjc5Mzc1IC03Ljk2NjI1LC0xMS43OTM3NSAtNC42NzUsMCAtOS45ODg3NSwxLjE2ODc1IC0xMy4wNjg3NSwxLjgwNjI1IGwgMCwtNy43NTM3NSBjIDEuMTcsLTAuMjEzNzUgNy40Mzg3NSwtMS44MDYyNSAxMi44NTUsLTEuODA2MjUgMTAuOTQzNzUsMCAxNy4yMTEyNSw0LjY3Mzc1IDE3LjIxMTI1LDIwLjUwNSAwLDcuMjIzNzUgLTIuNTUxMjUsMTMuNTk2MjUgLTguMTgxMjUsMTUuNjE2MjUgNi40Nzg3NSwwLjQyMzc1IDkuNDUzNzUsNy41NDEyNSA5LjQ1Mzc1LDE3Ljk1Mzc1IDAsMTUuODI4NzUgLTYuMTU4NzUsMjEuNzc4NzUgLTE3Ljk1MjUsMjEuNzc4NzUgbSAtNDguODY3NDk3LC02OC4xIGMgLTkuNTU4NzUsMCAtMTIuNzQ4NzUsNi40ODM3NSAtMTIuNzQ4NzUsMjkuODUzNzUgMCwyMi44NDI1IDMuMTksMzAuNDkxMjUgMTIuNzQ4NzUsMzAuNDkxMjUgOS41NjEyNDcsMCAxMi43NDg3NDcsLTcuNjQ4NzUgMTIuNzQ4NzQ3LC0zMC40OTEyNSAwLC0yMy4zNyAtMy4xODc1LC0yOS44NTM3NSAtMTIuNzQ4NzQ3LC0yOS44NTM3NSBtIDAsNjguMSBjIC0xNy41Mjg3NSwwIC0yMi4yMDUsLTEyLjc0ODc1IC0yMi4yMDUsLTM4Ljc3NjI1IDAsLTI0Ljk2NzUgNC42NzYyNSwtMzcuMDc3NSAyMi4yMDUsLTM3LjA3NzUgMTcuNTI5OTk3LDAgMjIuMjAyNDk3LDEyLjExIDIyLjIwMjQ5NywzNy4wNzc1IDAsMjYuMDI3NSAtNC42NzI1LDM4Ljc3NjI1IC0yMi4yMDI0OTcsMzguNzc2MjUgbSAtNTIuOTEsLTY4LjIwMzc1IGMgLTUuODQ1LDAgLTkuOTg2MjUsMC42MzYyNSAtOS45ODYyNSwwLjYzNjI1IGwgMCwzMS4wMiA5Ljk4NjI1LDAgYyA1Ljk0ODc1LDAgMTAuMDkyNSwtMy45MzEyNSAxMC4wOTI1LC0xNS41MSAwLC0xMC42MjUgLTIuNTUsLTE2LjE0NjI1IC0xMC4wOTI1LC0xNi4xNDYyNSBtIC0xLjA2MjUsMzkuNDEyNSAtOC45MjM3NSwwIDAsMjguMDQ1IC05LjI0MjUsMCAwLC03NC4zNjUgYyAwLDAgOS4xMzYyNSwtMC43NDI1IDE3Ljk1Mzc1LC0wLjc0MjUgMTYuMTQ4NzUsMCAyMC44MjUsOS45ODUgMjAuODI1LDIzLjA1MjUgMCwxNi4xNSAtNS41MjYyNSwyNC4wMSAtMjAuNjEyNSwyNC4wMSBtIC00OC4wMTc1LC02LjQ4IDAsMzQuNTI1IC05LjU2MTI1LDAgMCwtMzQuNTI1IC0xOS4wMTUsLTM5Ljg0IDEwLjE5NjI1LDAgMTQuMDIzNzUsMzAuMDY1IDE0LjAyMzc0OTg2LC0zMC4wNjUgOS42NjYyNTAwNCwwIC0xOS4zMzM3NDk5LDM5Ljg0IHogbSAtNDkuNTgsLTMxLjc2Mzc1IDAsNjYuMjg4NzUgLTkuMjQxMjUsMCAwLC02Ni4yODg3NSAtMTYuMzYxMjUsMCAwLC04LjA3NjI1IDQxLjk2MjUsMCAwLDguMDc2MjUgLTE2LjM2LDAgeiIKICAgICAgIGlkPSJwYXRoNTc3MSIKICAgICAgIHN0eWxlPSJmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAtMTI5Ljk2ODg2LDM0MC4wNzExMSBjIC0xLjUwMTI1LDAuNDQyNSAtMi42OTc1LDAuNTk1IC00LjI2MjUsMC41OTUgLTEyLjg0LDAgLTMxLjcsLTQ0Ljg3IC0zMS43LC01OS44MDM3NSAwLC01LjUwMTI1IDEuMzA2MjUsLTcuMzM1IDMuMTQyNSwtOC45MDYyNSAtMTUuNzE3NSwxLjgzMjUgLTM0LjU4LDcuNTk3NSAtNDAuNjA3NSwxNC45MzI1IC0xLjMwODc1LDEuODM1IC0yLjA5NSw0LjcxNjI1IC0yLjA5NSw4LjM4MjUgMCwyMy4zMTc1IDI0Ljg4NzUsNzYuMjMzNzUgNDIuNDQxMjUsNzYuMjMzNzUgOC4xMiwwIDIxLjgxNjI1LC0xMy4zNiAzMy4wODEyNSwtMzEuNDMzNzUiCiAgICAgICBpZD0icGF0aDU3NzUiCiAgICAgICBzdHlsZT0iZmlsbDojZmY4NzAwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gLTEzOC4xNjQ2MSwyNzAuMzgyOTkgYyAxNi4yNDI1LDAgMzIuNDg3NSwyLjYyIDMyLjQ4NzUsMTEuNzg4NzUgMCwxOC42MDEyNSAtMTEuNzg4NzUsNDEuMTMxMjUgLTE3LjgxNSw0MS4xMzEyNSAtMTAuNzQsMCAtMjQuMTAxMjUsLTI5Ljg2Mzc1IC0yNC4xMDEyNSwtNDQuNzk3NSAwLC02LjgxMTI1IDIuNjIsLTguMTIyNSA5LjQyODc1LC04LjEyMjUiCiAgICAgICBpZD0icGF0aDU3NzkiCiAgICAgICBzdHlsZT0iZmlsbDojZmY4NzAwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiAvPgogIDwvZz4KPC9zdmc+Cg==
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "PHP 7.4<br/>MariaDB 10.4<br />Redis 5.0"
+    - heading: "Features"
+      content: |
+          PHP 7.4<br />
+          MariaDB 10.4<br />
+          Redis 5.0<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/typo3.git@master
   config: null

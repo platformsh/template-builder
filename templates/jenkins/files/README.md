@@ -6,20 +6,22 @@
 </a>
 </p>
 
-This project provides a starter kit for Jenkins projects hosted on Platform.sh.
+This project provides a starter kit for Jenkins projects hosted on Platform.sh.  The Jenkins `.war` file is downloaded during the build hook and not included in the repository.
 
 Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Jenkins downloaded on the fly during build
 
 ## Post-install
 
 1. After creating a Jenkins project, the post-installation setup wizard begins.
 2. When you first access a new Jenkins instance, you are asked to unlock it using an automatically-generated password.
 3. Browse to the Jenkins service link and wait until the Unlock Jenkins page appears.
-4. From the Jenkins console log output, copy the automatically-generated alphanumeric password 
+4. From the Jenkins console log output, copy the automatically-generated alphanumeric password
 5. (Execute: `platform ssh cat /app/.jenkins/secrets/initialAdminPassword` and copy the output)[https://docs.platform.sh/development/access-site.html#accessing-the-application-with-ssh]
 6. On the Unlock Jenkins page, paste this password into the Administrator password field and click Continue.
 
@@ -34,5 +36,5 @@ The following files and additions make the Jenkins work.  If using this project 
 ## References
 
 * [Maven](https://maven.apache.org/)
-* [Jenkins](https://jenkins.io/) 
+* [Jenkins](https://jenkins.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

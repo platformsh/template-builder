@@ -1,53 +1,26 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/spring-kotlin
-  # The human-readable name of the template.
   name: Spring, Kotlin, Maven
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-     <p>This project provides a starter kit for Spring Boot Maven with Kotlin projects hosted on Platform.sh.</p>
-     <p>The Spring Framework is an application framework and inversion of control container for the Java platform.</p>
-  # A list of tags associated with the template.
+     <p>This template demonstrates building a Spring MVC application in the Kotlin language. It uses Maven to build the application and deploy it to Platform.sh.</p>
+     <p>>A sample Hello World application is provided as a starting point.  It includes an Oracle MySQL database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables.</p>
   tags:
   - Java
   - Kotlin
   - Spring
   - Maven
   image: data:image/svg+xml;base64,PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxMjUgMTI1IiB3aWR0aD0iMjUwMCIgaGVpZ2h0PSIyNTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgxPSItMjEuMDQ1IiB5MT0iMTE0LjkyNSIgeDI9Ijk1LjI3NCIgeTI9Ii0xLjM5NSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjEwOCIgc3RvcC1jb2xvcj0iI2M3NTdiYyIvPjxzdG9wIG9mZnNldD0iLjE3MyIgc3RvcC1jb2xvcj0iI2NkNWNhOSIvPjxzdG9wIG9mZnNldD0iLjQ5MiIgc3RvcC1jb2xvcj0iI2U4NzQ0ZiIvPjxzdG9wIG9mZnNldD0iLjcxNiIgc3RvcC1jb2xvcj0iI2Y4ODMxNiIvPjxzdG9wIG9mZnNldD0iLjgyMyIgc3RvcC1jb2xvcj0iI2ZmODkwMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMzkuODkzIiB5MT0iMTQ3LjU1MiIgeDI9Ijk2LjU4OSIgeTI9IjkwLjg1NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjI5NiIgc3RvcC1jb2xvcj0iIzAwYWZmZiIvPjxzdG9wIG9mZnNldD0iLjY5NCIgc3RvcC1jb2xvcj0iIzUyODJmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzk0NWRmZiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4MT0iLTEuNTAxIiB5MT0iMzQuNTAxIiB4Mj0iMzguMjcyIiB5Mj0iLTUuMjczIiB4bGluazpocmVmPSIjYSIvPjwvZGVmcz48dGl0bGU+aWNvbl9Lb3RsaW48L3RpdGxlPjxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik02Mi43NTkgMEwwIDY1Ljk5OVYxMjVsNjIuNjY5LTYyLjc3OUwxMjUgMEg2Mi43NTl6Ii8+PHBhdGggZGF0YS1uYW1lPSImbHQ7UGF0aCZndDsiIGZpbGw9InVybCgjYSkiIGQ9Ik0wIDEyNWw2Mi42NjktNjIuNzc4TDEyNSAxMjVIMHoiLz48cGF0aCBmaWxsPSJ1cmwoI2MpIiBkPSJNMCAwaDYyLjc1OUwwIDY1Ljk5OVYweiIvPjwvc3ZnPg==
-  # An image URI (either base64-encoded or a URL) representing the template.
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Java 8"
+    - heading: "Features"
+      content: |
+          Java 8<br />
+          MySQL 8.0<br />
+          Automatic TLS certificates<br />
+          Maven-based build<br />
 
-
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/spring-kotlin.git@master
   config: null

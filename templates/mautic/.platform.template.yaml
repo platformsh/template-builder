@@ -1,49 +1,24 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/mautic
-  # The human-readable name of the template.
   name: Mautic
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>TThis template provides a basic Mautic installation.</p>
+      <p>This template provides a basic Mautic installation.  It includes MariaDB for storage, which will be auto-selected during the installer.  It also includes a RabbitMQ queue server that may be enabled manually post-install.</p>
       <p>Mautic is an Open SOurce marketing automation tool built on Symfony. </p>
-  # A list of tags associated with the template.
   tags:
   - PHP
   - Symfony
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAyNDMuMiAxOTAuMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQzLjIgMTkwLjIiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8ZyBpZD0ibG9nbyI+Cgk8Zz4KCQk8cGF0aCBmaWxsPSIjNEU1RTlFIiBkPSJNMjYuMSwxODcuOXYtMjAuOGMwLTUuMS0yLjctOS44LTgtOS44Yy01LjIsMC04LjMsNC42LTguMyw5Ljh2MjAuOEgwLjNWMTQ5aDguOWwwLjcsNC43ICAgIGMyLTMuOSw2LjUtNS40LDEwLjItNS40YzQuNiwwLDkuMywxLjksMTEuNSw3LjJjMy41LTUuNSw4LTcuMSwxMy03LjFjMTEsMCwxNi41LDYuOCwxNi41LDE4LjR2MjFoLTkuNnYtMjFjMC01LjEtMi4xLTkuNS03LjMtOS41ICAgIGMtNS4yLDAtOC40LDQuNS04LjQsOS42djIwLjhIMjYuMXoiLz4KCQk8cGF0aCBmaWxsPSIjNEU1RTlFIiBkPSJNOTguNSwxNDkuMWg5LjJ2MzguOGgtOS4xbC0wLjUtNS43Yy0yLjIsNC42LTguMyw2LjgtMTIuNiw2LjljLTExLjUsMC4xLTIwLTctMjAtMjAuNiAgICBjMC0xMy40LDguOS0yMC40LDIwLjItMjAuM2M1LjIsMCwxMC4yLDIuNCwxMi40LDYuM0w5OC41LDE0OS4xeiBNNzUuMiwxNjguNWMwLDcuNCw1LjEsMTEuOCwxMS41LDExLjhjMTUuMSwwLDE1LjEtMjMuNiwwLTIzLjYgICAgQzgwLjMsMTU2LjcsNzUuMiwxNjEuMSw3NS4yLDE2OC41eiIvPgoJCTxwYXRoIGZpbGw9IiM0RTVFOUUiIGQ9Ik0xMjMuNSwxNDkuMXYyMC4zYzAsNS45LDMuMiwxMC40LDkuNCwxMC40YzUuOSwwLDkuOS01LDkuOS0xMC45di0xOS45aDkuNVYxODhoLTguNmwtMC42LTUuMyAgICBjLTQsMy45LTcuNyw1LjgtMTMuMiw1LjhjLTkuMywwLTE2LjEtNy0xNi4xLTE5LjF2LTIwLjRIMTIzLjV6Ii8+CgkJPHBhdGggZmlsbD0iIzRFNUU5RSIgZD0iTTE3NC40LDEzOC4xdjExaDEwLjd2OC4zaC0xMC44djE2LjhjMCwzLjcsMiw1LjUsNSw1LjVjMS41LDAsMy4yLTAuNSw0LjYtMS4ybDIuNyw4LjIgICAgYy0yLjgsMS4xLTUsMS42LTgsMS43Yy04LjQsMC4zLTEzLjktNC41LTEzLjktMTQuMnYtMTYuOGgtNy4ydi04LjNoNy4ydi0xMEwxNzQuNCwxMzguMXoiLz4KCQk8cGF0aCBmaWxsPSIjNEU1RTlFIiBkPSJNMjAyLjcsMTM4LjFjMCw3LjUtMTEuMyw3LjUtMTEuMywwQzE5MS40LDEzMC43LDIwMi43LDEzMC43LDIwMi43LDEzOC4xeiBNMTkyLjMsMTQ4Ljl2MzloOS42di0zOUgxOTIuM3ogICAgIi8+CgkJPHBhdGggZmlsbD0iIzRFNUU5RSIgZD0iTTI0Mi42LDE4M2MtNC41LDQuNC05LjIsNi4xLTE1LDYuMWMtMTEuMywwLTIwLjYtNi44LTIwLjYtMjAuNnM5LjQtMjAuNiwyMC42LTIwLjZjNS41LDAsOS44LDEuNiwxNCw1LjggICAgbC02LjEsNi40Yy0yLjMtMi01LjEtMy4xLTcuOC0zLjFjLTYuNSwwLTExLjIsNC43LTExLjIsMTEuNWMwLDcuNCw1LDExLjMsMTEsMTEuM2MzLjEsMCw2LjEtMC45LDguNS0zLjJMMjQyLjYsMTgzeiIvPgoJPC9nPgo8L2c+CjxnIGlkPSJicmFuZG1hcmsiPgoJPGc+CgkJPHBhdGggZmlsbD0iIzRFNUU5RSIgZD0iTTEyMS4yLDExOWMtMzIuNywwLTU5LjQtMjYuNi01OS40LTU5LjRTODguNSwwLjIsMTIxLjIsMC4yYzcuOSwwLDE1LjYsMS41LDIyLjgsNC42YzIsMC45LDMsMy4yLDIuMiw1LjMgICAgYy0wLjksMi0zLjIsMy01LjMsMi4yYy02LjMtMi42LTEyLjktMy45LTE5LjctMy45Yy0yOC4zLDAtNTEuMywyMy01MS4zLDUxLjNzMjMsNTEuMyw1MS4zLDUxLjNjMjguMywwLDUxLjMtMjMsNTEuMy01MS4zICAgIGMwLTYuMS0xLTEyLTMuMS0xNy42Yy0wLjgtMi4xLDAuMy00LjQsMi40LTUuMmMyLjEtMC44LDQuNCwwLjMsNS4yLDIuNGMyLjQsNi41LDMuNiwxMy40LDMuNiwyMC40QzE4MC42LDkyLjMsMTU0LDExOSwxMjEuMiwxMTl6ICAgICIvPgoJPC9nPgoJPGc+CgkJPHBvbHlnb24gZmlsbD0iI0ZEQjkzMyIgcG9pbnRzPSIxNDcuMiw1My41IDEzOCw2My4xIDE0My4xLDg0LjYgMTU0LjcsODQuNiAgICIvPgoJPC9nPgoJPHBvbHlnb24gZmlsbD0iI0ZEQjkzMyIgcG9pbnRzPSIxNDMuNCwyNS4xIDE0Ni42LDI4LjMgMTIxLjIsNTUuMiA5OS41LDMyLjkgODcsODQuNiA5OC42LDg0LjYgMTA1LjUsNTUuOSAxMjEuMiw3MyAxNTQuOCwzNi40ICAgIDE1OCwzOS43IDE2MS4yLDIxLjYgICIvPgo8L2c+Cjwvc3ZnPg==
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "PHP 7.2<br/>MariaDB 10.4<br />RabbitMQ 3.7"
+    - heading: "Features"
+      content: |
+          PHP 7.2<br />
+          MariaDB 10.4<br />
+          RabbitMQ 3.7<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/mautic.git@master
   config: null

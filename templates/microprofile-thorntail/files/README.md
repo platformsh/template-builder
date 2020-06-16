@@ -6,13 +6,15 @@
 </a>
 </p>
 
-This project provides a starter kit for Thorntail Eclipse MicroProfile projects hosted on Platform.sh.
+This project provides a starter kit for Thorntail Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 Thorntail offers an innovative approach to packaging and running Java EE applications by packaging them with just enough of the server runtime to "java -jar" your application. It's MicroProfile compatible, too.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 
@@ -28,5 +30,5 @@ The following files and additions make the framework work.  If using this projec
 * [Platform.sh post](https://platform.sh/blog/2019/java-hello-world-at-platform.sh/)
 * [Maven](https://maven.apache.org/)
 * [Thorntail](https://thorntail.io/)
-* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Eclipse MicroProfile](https://microprofile.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

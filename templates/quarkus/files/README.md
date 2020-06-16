@@ -6,13 +6,15 @@
 </a>
 </p>
 
-QuarkusIO, the Supersonic Subatomic Java, promises to deliver small artifacts, extremely fast boot time, and lower time-to-first-request. 
+QuarkusIO, the Supersonic Subatomic Java, promises to deliver small artifacts, extremely fast boot time, and lower time-to-first-request.
 
-A sample Hello World application is provided as a starting point. It includes a plain rest application. It is a simple skeleton to use Quarkus with several services with Quarkus, to [get more information](https://github.com/platformsh-examples/quarkus).
+A sample Hello World application is provided as a starting point. It includes a plain REST application.  To use Quarkus with services see [the example project](https://github.com/platformsh-examples/quarkus).
 
-## Services
+## Features
 
 * Java 11
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

@@ -6,18 +6,20 @@
 </a>
 </p>
 
-This template builds the Wagtail CMS on Platform.sh, using the gunicorn application runner.
+This template builds the Wagtail CMS on Platform.sh, using the gunicorn application runner.  It includes a PostgreSQL database that is configured automatically, and a basic demonstration app that shows how to use it.  It is intended for you to use as a starting point and modify for your own needs.  You will need to run the command line installation process by logging into the project over SSH after the first deploy.
 
 Wagtail is a web CMS built using the Django framework for Python.
 
-## Services
+## Features
 
 * Python 3.7
 * PostgreSQL 10
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Post-installation
 
-After installation you will need to create the initial administrative user.
+After installation, you will need to create the initial administrative user.
 
 1. SSH into the project using `platform ssh` (if you have checked out a copy of the repository), or using the SSH login URL provided in the web console.
 

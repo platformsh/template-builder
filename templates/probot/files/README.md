@@ -6,13 +6,17 @@
 </a>
 </p>
 
-This template builds a simple GitHub App using [Probot](https://github.com/probot/probot).
+This template builds a simple GitHub App using [Probot](https://github.com/probot/probot) for Node.js.  It includes a minimalist skeleton GitHub app that demonstrates a basic GitHub connection response.  It is intended for you to use as a starting point and modify for your own needs.
+
+Note that there are several setup steps required after first deploy to connect your project to GitHub.  See the included README file for details.
 
 Probot is a framework for building GitHub Apps in Node.js.
 
-## Services
+## Features
 
 * Node.js 12
+* Automatic TLS certificates
+* npm-based build
 
 ## Post-install
 

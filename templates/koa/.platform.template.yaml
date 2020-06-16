@@ -1,50 +1,24 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/koa
-  # The human-readable name of the template.
   name: Koa
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template builds a Koa project on Platform.sh.</p>
+      <p>This template demonstrates building the Koa framework for Platform.sh.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server for data storage.  It is intended for you to use as a starting point and modify for your own needs.</p>
       <p>Koa is a lightweight web microframework for Node.js.</p>
-  # A list of tags associated with the template.
   tags:
   - Node.js
   - Framework
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiPjxwYXRoIGQ9Ik0zMC4zODcgMTAuNDN2MjMuMjA2bDEwLjI1LTExLjU1N2guNDY3bC03LjU5OCA4LjU3NSAxMC4wMTUgMTQuNzE4aC0zLjI2N2wtOC42MjItMTIuNjg2LTEuMjU3IDEuNDQ3djExLjI0aC0zLjI1MlYxMC40M3ptMjYuNzcgMzUuMTM1cS00LjkyIDAtOC0yLjc5NS0zLjA3LTIuNzk1LTMuMDgyLTguNjIgMC01LjgyNCAzLjE5LTkuMDMgMy4xOS0zLjIwNSA4LjExNC0zLjIzIDQuOTIgMCA4IDIuNzk4IDMuMDcgMi43OTggMy4wNzggOC42MjIgMCA1LjgzLTMuMTkgOS4wNDMtMy4xOSAzLjIxMi04LjExMiAzLjIxNHptLjMwMy0yMy4zMDJxLTMuNTQgMC01Ljg3IDMuMTQ3LTIuMzMgMy4xNDctMi4zMzIgOC43NjcgMCA1LjYxNSAyLjE0MyA4LjMxNyAyLjE0MyAyLjcwMiA1LjY4MiAyLjcwMiAzLjU0IDAgNS44Ny0zLjE0NyAyLjMzMi0zLjE0NyAyLjMzMi04Ljc2IDAtNS42MTUtMi4xNDMtOC4zMTctMi4xNDMtMi43MDItNS42ODYtMi43MDZ6bTMzLjk3IDIzLjEwOHEtMy4xNyAwLTQuMzMzLTEuMjEtMS4wNzMtMS4wMjQtMS4wNzMtMS43OHYtLjk4cS0yLjI4MyA0LjE0OC03LjMxMyA0LjE0OC01Ljg3NiAwLTYuNjY2LTUuMzEyYTYuODgxIDYuODgxIDAgMCAxLS4wOTMtMS4xNDIgNC45OTQgNC45OTQgMCAwIDEgLjE4Ny0xLjI4MnEuMTg1LS43IDEuMDczLTEuNTM2IDEuNzgtMS42OCA3LjgtMi4wNTIgMS40OS0uMTQgMi43NDYtLjE0IDEuMjU1IDAgMi4yODMuMDl2LTcuNzJxLS4wOTMtLjA0NSAwLS40NDVhMS43NTggMS43NTggMCAwIDAtLjE2Mi0xLjAyNCA2LjQ1NCA2LjQ1NCAwIDAgMC0uNjY4LTEuMjM3cS0uNDIzLS42MDUtMS40OS0xLjA0NmE3LjQzMyA3LjQzMyAwIDAgMC0yLjc5NS0uNDQ1IDE1LjYwMSAxNS42MDEgMCAwIDAtNC4wNTEuNjM3cS0yLjMwMy42My0zLjM3NiAxLjIzNWwtLjE4Ny0uMzI3YTE5Ljk3NyAxOS45NzcgMCAwIDEgOC40MzUtMS45MXE0Ljc5NiAwIDYuMzM2IDEuNzI1IDEuMjEgMS4zNSAxLjIxIDIuODQydjE1LjZxMCAxLjM1My41NCAyLjA3NC41NC43MiAxLjA5NS43NjhsLjUxMi4wOTNoMS40NDd2LjM2N3ptLTExLjk3NC0uMTg3YTYuNjU0IDYuNjU0IDAgMCAwIDQuNDUxLTEuN3ExLjk4LTEuNyAyLjEyLTMuMjg1di01LjYzcS0xLjI2Mi0uMTAyLTIuNTQyLS4xMDJhMjMuMDM1IDIzLjAzNSAwIDAgMC0yLjUzNy4xNHEtMy41NDMuNDIzLTQuNjE2IDEuNTg1LTEuMDczIDEuMTYyLTEuMDY4IDMuMjE2YTguMzQ2IDguMzQ2IDAgMCAwIC4wNDUuODM5cS40MTggNC45NDcgNC4xNDYgNC45NDd6IiBmaWxsPSIjMTYxMTFjIi8+PC9zdmc+Cg==
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Node.js 10<br/>MariaDB 10.2"
+    - heading: "Features"
+      content: |
+          Node.js 10<br />
+          MariaDB 10.2<br />
+          Automatic TLS certificates<br />
+          npm-based build<br />
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/koa.git@master
   config: null

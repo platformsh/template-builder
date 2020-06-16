@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This template builds a simple application using the Node.js built-in `http` web server. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
+This template builds a simple application using the Node.js built-in `http` web server. It includes a minimalist application skeleton that demonstrates how to connect to the included MariaDB server, but you are free to alter it as needed.
 
 Node.js is an open-source JavaScript runtime built on Chrome's V8 JavaScript engine.
 
-## Services
+## Features
 
 * Node.js 10
 * MariaDB 10.4
+* Automatic TLS certificates
+* npm-based build
 
 ## Customizations
 

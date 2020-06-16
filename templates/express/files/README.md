@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This template builds the Express framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.
+This template demonstrates building the Express framework for Platform.sh.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server.  It is intended for you to use as a starting point and modify for your own needs.
 
 Express is a minimalist web framework written in Node.js.
 
-## Services
+## Features
 
 * Node.js 10
 * MariaDB 10.2
+* Automatic TLS certificates
+* npm-based build
 
 ## Customizations
 

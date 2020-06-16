@@ -1,50 +1,22 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/lisp
-  # The human-readable name of the template.
   name: Lisp Hunchentoot
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
-      <p>This template is a simple Lisp Hunchentoot web server on Platform.sh.  It includes a minimalist application  for demonstration, but you are free to alter it as needed.</p>
-      <p> Hunchentoot is a web server written in Common Lisp and at the same time a toolkit for building dynamic websites.</p>
-  # A list of tags associated with the template.
+      <p>This template provides the most basic configuration for running a Lisp Huchentoot web server for Platform.sh.  It can be used to build a very rudimentary application but is intended primarily as a documentation reference.  It is meant to be a starting point and can be modified to fit your own needs.</p>
+      <p>This template builds a simple Lisp Hunchentoot web server for Platform.sh.  It includes a minimalist application  for demonstration, but you are free to alter it as needed.</p>
+      <p>Hunchentoot is a web server written in Common Lisp and at the same time a toolkit for building dynamic websites.</p>
   tags:
   - Lisp
-
-  # An image URI (either base64-encoded or a URL) representing the template.
   image:  data:image/png;base64,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
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
-      content: "Lisp 1.5<br/>"
+    - heading: "Features"
+      content: |
+          Lisp 1.5<br />
+          Automatic TLS certificates<br />
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/lisp.git@master
   config: null

@@ -6,13 +6,15 @@
 </a>
 </p>
 
-This project provides a starter kit for Micronaut projects hosted on Platform.sh.
+This project provides a starter kit for Micronaut projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.
 
 Micronaut is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.
 
-## Services
+## Features
 
 * Java 8
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 
@@ -26,5 +28,5 @@ The following files and additions make the framework work.  If using this projec
 ## References
 
 * [Maven](https://maven.apache.org/)
-* [Micronaut](https://micronaut.io/) 
+* [Micronaut](https://micronaut.io/)
 * [Java at Platform.sh](https://docs.platform.sh/languages/java.html)

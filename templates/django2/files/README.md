@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This template builds Django 2 on Platform.sh, using the gunicorn application runner.
+This template deploys the Django 2 application framework on Platform.sh, using the gunicorn application runner.  It also includes a PostgreSQL database connection pre-configured.
 
-Django is a Python-based web application framework with a built-in ORM.
+New projects should be built using Django 3, but this project is a reference for existing migrating sites.  Version 2 is in legacy support.
 
-## Services
+## Features
 
 * Python 3.7
 * PostgreSQL 10
+* Automatic TLS certificates
+* Pipfile-based build
 
 ## Customizations
 

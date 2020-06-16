@@ -6,14 +6,16 @@
 </a>
 </p>
 
-This project provides a starter kit for Spring Boot Maven with MySQL projects hosted on Platform.sh.
+This template demonstrates building a Spring Boot application. It uses Maven to build the application and deploy it to Platform.sh.
 
-The Spring Framework is an application framework and inversion of control container for the Java platform.
+A sample Hello World application is provided as a starting point.  It includes an Oracle MySQL database, and the sample application shows how to make the database connection. The example code also demonstrates how to access the Platform.sh environment variables using the Platform.sh Config Reader library.
 
-## Services
+## Features
 
 * Java 8
 * Oracle MySQL 8.0
+* Automatic TLS certificates
+* Maven-based build
 
 ## Customizations
 

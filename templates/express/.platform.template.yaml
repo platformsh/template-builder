@@ -1,51 +1,20 @@
-# Platform.sh Project Initialization Template
-#
-# This file defines settings and workflow modifications that allow a git
-# repository to be deployed to Platform.sh and its white-label partners. A
-# project template can be a fully functioning ready-made application or a
-# quick-start point for custom development work.
-#
-# It contains elements that affect the behaviour upon the initialisation of
-# a new project (for example minimal plan sizes) as well as elements that
-# allow Platform.sh to present it in a user interface (such as the description
-# of the project, tags, an icon etc.).
-#
-# Once provisioned this file has no effects on the running project.  You
-# are free to remove it.
-
-# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 
-# Templates are a small amount of information supporting a template URL. Each template is selectable at the project-creation step.
 info:
-  # Unique machine name, prefaced by a vendor or organization identifier
   id: platformsh/express
-  # The human-readable name of the template.
   name: Express
-  # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds the Express framework for Platform.sh.  It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.</p>
       <p>Express is a minimalist web framework written in Node.js.</p>
-  # A list of tags associated with the template.
   tags:
   - Node.js
   - Framework
-
-  # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiPjxwYXRoIGQ9Ik00MCA0MS43NTNWMTguNzA4aDEuMjV2My42MjVhNC43NCA0Ljc0IDAgMCAwIC40MDgtLjUxMWMxLjA0NC0yLjE2NiAzLjI0Ni0zLjUzMyA1LjY1LTMuNTA2IDIuODUtLjA4NSA1LjE2Ni45NyA2LjUyNyAzLjUwNmExMS4yNyAxMS4yNyAwIDAgMSAuMjcyIDEwLjMzMWMtMS4yNjggMi44NDItNC40IDQuMjU1LTcuNzUzIDMuNzM2YTYuMjcgNi4yNyAwIDAgMS01LjAwNC0zLjMwMnY5LjE2NXptMS4yNS0xNC44OTNsLjI4IDIuNzA2Yy40OTQgMy4wOCAyLjMxNSA0LjkgNS4xNzQgNS4yNDJhNS44OCA1Ljg4IDAgMCAwIDYuNDU5LTMuNzM2YzEuMTEyLTIuNjUgMS4wMy01LjY1LS4yMi04LjIzOGE1Ljc2IDUuNzYgMCAwIDAtNi4wNjgtMy4zNTMgNS42MSA1LjYxIDAgMCAwLTUuMDEyIDQuMTQ0IDI4LjYyIDI4LjYyIDAgMCAwLS42MTMgMy4yMzR6bTM5LjQ5OCAzLjEzMmE2Ljc0IDYuNzQgMCAwIDEtNi41ODcgNS45NTdjLTUuMjQyLjI2NC03LjcwMi0zLjIxNy04LjA5My03LjIzNGExMS41OSAxMS41OSAwIDAgMSAxLjAyMS02LjM4MyA3LjEyIDcuMTIgMCAwIDEgNy40MTItMy45NzQgNi44MSA2LjgxIDAgMCAxIDYuMDQyIDUuMTgzIDM0Ljk3IDM0Ljk3IDAgMCAxIC41ODcgMy44M0g2Ny4zNjNjLS4yNTUgMy42NDIgMS43MDIgNi41NyA0LjQ3NiA3LjI3NiAzLjQ1NS44NSA2LjQwOC0uNjQ3IDcuNDgtMy45MzIuMjM4LS44NDMuNjcyLS45NjIgMS40MzgtLjcyM3ptLTEzLjM5NS0zLjc4N2gxMi4zMTRjLS4wNzctMy44OC0yLjQ5My02LjctNS43Ny02LjczMi0zLjctLjA2LTYuMzgzIDIuNjQ3LTYuNTQ0IDYuNzMyem0xNS45NCAzLjg3Mkg4NC41YTQuODQgNC44NCAwIDAgMCAyLjg0MiA0LjE3IDcuNDMgNy40MyAwIDAgMCA2LjQ1MS0uMTcgMi45IDIuOSAwIDAgMCAxLjcwMi0yLjg1MSAyLjYzIDIuNjMgMCAwIDAtMS43Ny0yLjYzYy0xLjMyOC0uNDk0LTIuNzQtLjc2Ni00LjA5My0xLjJhMzAgMzAgMCAwIDEtNC4xMTktMS41MDZjLTIuMTgtMS4wNjQtMi4zMTUtNS4yMDguMTUzLTYuNTJhOC42OSA4LjY5IDAgMCAxIDguMzA2LS4xMjhjMS41OTQuODggMi40NzUgMi42NTcgMi4yMTMgNC40Nkg5NS4xNWMwLS4wNS0uMDk0LS4wOTQtLjA5NC0uMTQ1LS4xMjgtMy4zLTIuOTAyLTQuMzMyLTUuODgtNC4wNDItLjkuMS0xLjc1My4zNzItMi41NTMuNzc0YTIuNTUgMi41NSAwIDAgMC0xLjQ4IDIuNTUzIDIuNTUgMi41NSAwIDAgMCAxLjcwMiAyLjRjMS4zLjQ3NyAyLjY4Ljc4MyA0LjAyNSAxLjE1N2wzLjI1Ljg1YTMuODQgMy44NCAwIDAgMSAyLjYzOCAzLjQ2NGMuMjYgMS43NDUtLjYzIDMuNDYtMi4yMDQgNC4yNTUtMi44NDIgMS42MDgtNy41MjMgMS4xODMtOS42MDgtLjg1LTEuMDY3LTEuMDczLTEuNjYyLTIuNTMtMS42NS00LjA0MnptMjguNzgtNi4zNzRoLTEuMTMyYzAtLjE1My0uMDYtLjMtLjA3Ny0uNDE3YTMuNyAzLjcgMCAwIDAtMy4wMTMtMy41NTcgNy40MyA3LjQzIDAgMCAwLTQuNzc0LjIzIDIuOSAyLjkgMCAwIDAtMi4xMDIgMi43NjYgMi42NyAyLjY3IDAgMCAwIDIuMDQyIDIuNjg5bDUuMTc0IDEuMzI4YTE0LjM5IDE0LjM5IDAgMCAxIDEuNjUuNTAyYzEuNjUuNiAyLjc3IDIuMTMyIDIuODIgMy44ODNhNC4yNSA0LjI1IDAgMCAxLTIuNiA0LjA0IDkuNDcgOS40NyAwIDAgMS03LjY1OS4wNzcgNS4zMSA1LjMxIDAgMCAxLTMuMi01LjE1N2gxLjEwNmMuNDE2IDIuMDA1IDEuNzkzIDMuNjc1IDMuNjgyIDQuNDY1czQuMDQ2LjU5NiA1Ljc2NC0uNTE2YTMuMDQgMy4wNCAwIDAgMCAxLjYzNC0yLjg0MiAyLjYzIDIuNjMgMCAwIDAtMS43OTYtMi42MTNjLTEuMzI4LS40OTQtMi43NC0uNzU3LTQuMDkzLTEuMmEzMC4xNSAzMC4xNSAwIDAgMS00LjE0NC0xLjQ4OWMtMi4xMjgtMS4wNDctMi4yOTgtNS4xNTcuMTI4LTYuNDY4YTguNTcgOC41NyAwIDAgMSA4LjQ0Mi0uMDk0IDQuNDUgNC40NSAwIDAgMSAyLjEzNiA0LjM2NnptLTc0LjEzIDExLjgzYTEuOTUgMS45NSAwIDAgMS0yLjQxNy0uOTE5bC00LjQtNi4wODUtLjYzOC0uODUtNS4xMDYgNi45NDRhMS44NyAxLjg3IDAgMCAxLTIuMjk4LjkwMmw2LjU3OC04LjgyNS02LjEyLTcuOTc0Yy45MDgtLjMyOCAxLjkyLjAyOCAyLjQyNS44NWw0LjU2IDYuMTYgNC41ODctNi4xMzZhMS44MyAxLjgzIDAgMCAxIDIuMjgxLS44NTFMMzUuMDIgMjEuOWwtMy4yMTcgNC4xODdhLjg1Ljg1IDAgMCAwIDAgMS4yNjhsNi4xMjcgOC4xNzh6bTI3LjkzLTE2Ljg5MnYxLjJhNi4xNyA2LjE3IDAgMCAwLTYuNTcgNi4zNzRxMCA0LjIwNCAwIDguNDA4di45NTNoLTEuMjE3di0xNi44NmgxLjJ2My40NTVjMS40NzItMi41MiAzLjc0NC0zLjQ1NSA2LjU5NS0zLjUyM3pNNy4zMzMgMjYuNTlsLjUzNi0yLjY0N2MxLjQ3Mi01LjIzNCA3LjQ3Mi03LjQxMiAxMS42LTQuMTcgMi40MTcgMS44OTggMy4wMiA0LjU4NyAyLjkwMiA3LjYxN0g4Ljc1NGMtLjIyIDUuNDEyIDMuNjg1IDguNjggOC42OCA3LjAxMiAxLjY0Ni0uNiAyLjg4NS0xLjk2OCAzLjI5My0zLjY2OC4yNjQtLjg1LjctLjk5NiAxLjQ5OC0uNzVhNi45MSA2LjkxIDAgMCAxLTMuMzAyIDUuMDQ3IDggOCAwIDAgMS05LjMxOS0xLjE5MWMtMS4yMTYtMS4zNjctMS45NS0zLjA5NS0yLjA5My00LjkyIDAtLjMtLjEtLjU4LS4xNy0uODVxLS4wMS0uNzU3LS4wMS0xLjQ4em0xLjQzOC0uMzY2aDEyLjMxNGMtLjA3Ny0zLjkyMy0yLjU1My02LjcwNi01Ljg1NS02LjczMi0zLjY3Ni0uMDUtNi4zMDYgMi42NzItNi40NjggNi43MTV6Ii8+PC9zdmc+Cg==
 
-  # Additional notes displayed in the template's detail view.
-  # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Apps & Services"
       content: "Node.js 10<br/>MariaDB 10.2"
 
-# This key describes the initialization call made to the master environment at
-# project creation time. This is part of the full v2 UI operation mode, which
-# places project schema/options selection early in the creation process, rather
-# than later as it exitss now. To allow this schema to be backwards-compatible,
-# this key also gets mapped to the appropriate location in project.settings so
-# that the current UI can have its own workflow overridden as well.
 initialize:
   repository: git://github.com/platformsh-templates/express.git@master
   config: null

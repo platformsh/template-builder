@@ -6,7 +6,9 @@
 </a>
 </p>
 
-This template builds a multi-app project using Gatsby as its frontend and a Strapi backend to store content using the Gatsby source plugin for Strapi.
+This template builds a two application project to deploy the Headless CMS pattern using Gatsby as its frontend and Strapi for its backend. The `gatsby-source-strapi` source plugin is used to pull data from Strapi during the `post_deploy` hook into the Gatsby Data Layer and build the frontend site. Gatsby utilizes the Platform.sh Configuration Reader library for Node.js to define the backend data source in its configuration. It is intended for you to use as a starting point and modify for your own needs.
+
+Note that there are several setup steps required after the first deploy to create your first content types and access permissions in Strapi. See the included README's post-install section for details.
 
 Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps, and Strapi is a Headless CMS framework written in Node.js.
 
@@ -16,6 +18,8 @@ Gatsby is a free and open source framework based on React that helps developers 
 * PostgreSQL 12
 * Automatic TLS certificates
 * npm-based build
+* Multi-app configuration
+* Delayed SSG build (post deploy hook)
 
 ## Post-install
 

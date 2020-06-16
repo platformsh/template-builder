@@ -20,6 +20,8 @@ Gatsby is a free and open source framework based on React that helps developers 
 * Automatic TLS certificates
 * npm-based build for Gatsby
 * Composer-based build for Wordpress
+* Multi-app configuration
+* Delayed SSG build (post deploy hook)
 
 ## Post-install
 

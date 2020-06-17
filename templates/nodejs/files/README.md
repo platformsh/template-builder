@@ -12,7 +12,7 @@ Node.js is an open-source JavaScript runtime built on Chrome's V8 JavaScript eng
 
 ## Features
 
-* Node.js 10
+* Node.js 14
 * MariaDB 10.4
 * Automatic TLS certificates
 * npm-based build

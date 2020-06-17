@@ -14,8 +14,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Python 3.7<br />
-          MariaDB 10.2<br />
+          Python 3.8<br />
+          MariaDB 10.4<br />
           Redis 5.0<br />
           Automatic TLS certificates<br />
           Pipfile-based build<br />

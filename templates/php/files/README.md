@@ -12,7 +12,7 @@ PHP is a high-performance scripting language especially well suited to web devel
 
 ## Features
 
-* PHP 7.3
+* PHP 7.4
 * Automatic TLS certificates
 * Composer-based build
 

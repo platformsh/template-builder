@@ -12,7 +12,7 @@ Moin Moin is a Python-based Wiki system that uses flat files on disk for storage
 
 ## Features
 
-* Python 2.7
+* Python 2.8
 * Automatic TLS certificates
 * Moinmoin downloaded on the fly during build
 

@@ -24,6 +24,10 @@ info:
           Multi-app configuration<br />
           Delayed SSG build (post deploy hook)<br />
 
+plans:
+    exclude:
+        - small
+
 initialize:
   repository: git://github.com/platformsh-templates/gatsby-strapi.git@master
   config: null

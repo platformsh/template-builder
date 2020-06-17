@@ -22,6 +22,10 @@ info:
           Automatic TLS certificates<br />
           Composer-based build<br />
 
+plans:
+    exclude:
+        - small
+
 initialize:
   repository: git://github.com/platformsh-templates/magento2ce.git@master
   config: null

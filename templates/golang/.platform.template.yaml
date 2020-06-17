@@ -14,7 +14,7 @@ info:
     - heading: "Features"
       content: |
           Go 1.14<br />
-          MariaDB 10.2<br />
+          MariaDB 10.4<br />
           Automatic TLS certificates<br />
           Git module-based build<br />
 

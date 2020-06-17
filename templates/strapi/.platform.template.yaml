@@ -15,8 +15,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 12<br />
-          PostgreSQL 11<br />
+          Node.js 14<br />
+          PostgreSQL 12<br />
           Automatic TLS certificates<br />
           npm-based build<br />
 

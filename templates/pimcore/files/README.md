@@ -13,7 +13,7 @@ Pimcore is a Symfony-based Digital Experience Platform.
 ## Features
 
 * PHP 7.4
-* MariaDB 10.2
+* MariaDB 10.4
 * Redis 5
 * Automatic TLS certificates
 * Composer-based build

@@ -5,7 +5,7 @@
 #
 # See https://docs.platform.sh/configuration/services.html
 db:
-  type: "mariadb:10.2"
+  type: "mariadb:10.4"
   disk: 2048
 
 cache:

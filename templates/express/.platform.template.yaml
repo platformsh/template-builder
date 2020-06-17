@@ -14,8 +14,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 10<br />
-          MariaDB 10.2<br />
+          Node.js 14<br />
+          MariaDB 10.4<br />
           Automatic TLS certificates<br />
           npm-based build<br />
 

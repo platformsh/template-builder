@@ -12,8 +12,8 @@ Express is a minimalist web framework written in Node.js.
 
 ## Features
 
-* Node.js 10
-* MariaDB 10.2
+* Node.js 14
+* MariaDB 10.4
 * Automatic TLS certificates
 * npm-based build
 

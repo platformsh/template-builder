@@ -14,8 +14,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Python 3.7<br />
-          PostgreSQL 10<br />
+          Python 3.8<br />
+          PostgreSQL 12<br />
           Automatic TLS certificates<br />
           Pipfile-based build<br />
 

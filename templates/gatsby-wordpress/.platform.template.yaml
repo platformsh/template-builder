@@ -16,8 +16,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 12<br />
-          PHP 7.3<br />
+          Node.js 14<br />
+          PHP 7.4<br />
           MariaDB 10.4<br />
           Automatic TLS certificates<br />
           npm-based build for Gatsby<br />

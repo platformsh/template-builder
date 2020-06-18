@@ -14,7 +14,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Python 3.8<br />
+          Python 2.7<br />
           Automatic TLS certificates<br />
           Moinmoin downloaded on the fly during build<br />
 

@@ -14,7 +14,7 @@ Symfony is a high-performance loosely-coupled PHP web development framework.
 
 ## Features
 
-* PHP 7.3
+* PHP 7.4
 * MariaDB 10.4
 * Automatic TLS certificates
 * Composer-based build

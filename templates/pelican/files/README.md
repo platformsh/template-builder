@@ -12,7 +12,7 @@ Pelican is a static site generator written in Python and using Jinja for templat
 
 ## Features
 
-* Python 3.7
+* Python 3.8
 * Automatic TLS certificates
 * Pipfile-based build
 

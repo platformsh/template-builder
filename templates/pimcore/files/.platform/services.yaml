@@ -3,7 +3,7 @@
 # Each service listed will be deployed
 # to power your Platform.sh project.
 db:
-  type: mariadb:10.2
+  type: mariadb:10.4
   disk: 2048
 
 cache:

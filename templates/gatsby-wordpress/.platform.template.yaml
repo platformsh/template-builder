@@ -16,14 +16,18 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 12<br />
-          PHP 7.3<br />
+          Node.js 14<br />
+          PHP 7.4<br />
           MariaDB 10.4<br />
           Automatic TLS certificates<br />
           npm-based build for Gatsby<br />
           Composer-based build for Wordpress<br />
           Multi-app configuration<br />
           Delayed SSG build (post deploy hook)<br />
+
+plans:
+    exclude:
+        - small
 
 initialize:
   repository: git://github.com/platformsh-templates/gatsby-wordpress.git@master

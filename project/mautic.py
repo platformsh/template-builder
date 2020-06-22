@@ -36,7 +36,7 @@ class Mautic(RemoteProject):
             composer['require']['twig/twig'] = "~1.42"
             composer['require']['platformsh/config-reader'] = "^2.3"
 
-            composer['config']['platform']['php'] = '7.2'
+            composer['config']['platform']['php'] = '7.2.30'
 
             with open('{0}/composer.json'.format(self.builddir), 'w') as out:
                 json.dump(composer, out, indent=2)

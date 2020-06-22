@@ -16,7 +16,7 @@ New projects should be built using Symfony 5, but this project is a reference fo
 
 ## Features
 
-* PHP 7.3
+* PHP 7.4
 * MariaDB 10.4
 * Automatic TLS certificates
 * Composer-based build

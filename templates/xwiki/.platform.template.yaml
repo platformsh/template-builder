@@ -19,10 +19,7 @@ info:
           Automatic TLS certificates<br />
           Maven-based build<br />
 
-## Sets the available plans in the same way:
 plans:
-  # Removes plans from the list and blocks them from being used for this
-  # project.
   exclude:
     - small
     - medium

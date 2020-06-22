@@ -12,7 +12,7 @@ Sculpin is a static site generator written in PHP and using the Twig templating 
 
 ## Features
 
-* PHP 7.3
+* PHP 7.4
 * Automatic TLS certificates
 * Composer-based build
 

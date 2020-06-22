@@ -7,7 +7,7 @@
 name: strapi
 
 # The runtime the application uses.
-type: nodejs:12
+type: nodejs:14
 
 dependencies:
   nodejs:

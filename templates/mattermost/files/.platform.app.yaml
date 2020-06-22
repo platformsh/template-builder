@@ -7,12 +7,20 @@ name: app
 # The runtime the application uses.
 type: 'golang:1.14'
 
+variables:
+    env:
+        MATTERMOST_VERSION: '5.24.0'
+
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
     build: !include
-      type: string
-      path: setup.sh
+        type: string
+        path: setup.sh
+    deploy: |
+        if [! -f config/config.json ]; then
+            cp config.default config/config.json
+        fi
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

@@ -7,7 +7,7 @@
 name: app
 
 # The runtime the application uses.
-type: nodejs:10
+type: nodejs:14
 
 # The relationships of the application with services or other applications.
 #

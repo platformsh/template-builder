@@ -6,6 +6,11 @@ name: 'app'
 # The type key specifies the language and version for your application.
 type: golang:1.14
 
+variables:
+    env:
+        # Controls the version of Hugo that build.sh will download.
+        HUGOVERSION: 0.72.0
+
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.

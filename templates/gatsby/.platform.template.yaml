@@ -13,7 +13,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 10<br />
+          Node.js 14<br />
           Automatic TLS certificates<br />
           yarn-based build<br />
 

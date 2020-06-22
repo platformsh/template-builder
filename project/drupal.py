@@ -17,7 +17,7 @@ class Drupal7_vanilla(BaseProject):
 
 
 class Drupal8(RemoteProject):
-    major_version = '8.8'
+    major_version = '8.9'
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property

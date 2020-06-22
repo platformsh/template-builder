@@ -12,8 +12,8 @@ Django is a Python-based web application framework with a built-in ORM.
 
 ## Features
 
-* Python 3.7
-* PostgreSQL 10
+* Python 3.8
+* PostgreSQL 12
 * Automatic TLS certificates
 * Pipfile-based build
 

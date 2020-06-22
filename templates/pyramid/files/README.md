@@ -12,9 +12,9 @@ Pyramid is a web framework written in Python.
 
 ## Features
 
-* Python 3.7
-* MariaDB 10.2
-* Redis 3.2
+* Python 3.8
+* MariaDB 10.4
+* Redis 5.0
 * Automatic TLS certificates
 * Pipfile-based build
 

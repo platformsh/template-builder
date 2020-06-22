@@ -13,7 +13,7 @@ Go is a statically typed, compiled language with an emphasis on easy concurrency
 ## Features
 
 * Go 1.14
-* MariaDB 10.2
+* MariaDB 10.4
 * Automatic TLS certificates
 * Git module-based build
 

@@ -2,7 +2,7 @@ from .remote import RemoteProject
 
 
 class Pimcore(RemoteProject):
-    major_version = 'v1'
+    major_version = 'v2'
     remote = 'https://github.com/pimcore/skeleton.git'
 
     @property

@@ -8,9 +8,12 @@
 name: apm
 type: golang:1.11
 
+variables:
+    env:
+        APM_VERSION: 7.2.1
+
 hooks:
         build: |
-                export APM_VERSION=7.2.1
                 wget https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz
                 tar -xzf apm-server-$APM_VERSION-linux-x86_64.tar.gz
                 mv apm-server-$APM_VERSION-linux-x86_64 apm-server

@@ -7,20 +7,21 @@
 
 name: kibana
 type: nodejs:10
+
+variables:
+    env:
+        KIBANA_PLATFORM: linux-x86_64
+        KIBANA_VERSION: 7.2.1
+        KIBANA_HOME: '/app/kibana'
+
 hooks:
     build: |
-        export KIBANA_PLATFORM=linux-x86_64
-        export KIBANA_VERSION=7.2.1
         ./download_and_install.sh
     deploy: |
         # this is just an optimization we copy over the optimize
         # files without clobbering
         mkdir -p kibana/optimize/bundles
         cp -n -r _kibana_optimize/* kibana/optimize/bundles
-
-variables:
-    env:
-        KIBANA_HOME: '/app/kibana'
 
 web:
     ## The commands section lists programs to start when the container is deployed,

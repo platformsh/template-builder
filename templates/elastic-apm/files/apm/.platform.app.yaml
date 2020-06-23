@@ -14,7 +14,7 @@ variables:
 
 hooks:
         build: |
-                wget https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz
+                wget --quiet https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz
                 tar -xzf apm-server-$APM_VERSION-linux-x86_64.tar.gz
                 mv apm-server-$APM_VERSION-linux-x86_64 apm-server
                 rm apm-server-$APM_VERSION-linux-x86_64.tar.gz

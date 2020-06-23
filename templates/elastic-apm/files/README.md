@@ -8,9 +8,13 @@
 
 This template builds Elastic APM (Application Performance Monitoring) with a Kibana front-end.  It is intended as a complete self-contained monitoring solution, although authentication needs to be configured for your specific application.
 
-## Services
+## Features
 
 * Elasticsearch 7.2
+* Kibana
+* Elastic APM
+* Automatic TLS certificates
+* APM and Kibana downloaded on-the-fly during build
 
 ## Post-install
 

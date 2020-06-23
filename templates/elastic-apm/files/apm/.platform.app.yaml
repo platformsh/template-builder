@@ -6,7 +6,7 @@
 # See https://docs.platform.sh/configuration/app-containers.html#configure-your-application
 
 name: apm
-type: golang:1.11
+type: 'golang:1.14'
 
 variables:
     env:
@@ -25,8 +25,7 @@ web:
     ## The commands section lists programs to start when the container is deployed,
     ## typically starting your application.
     commands:
-        start: ./apm-server/apm-server -c /app/apm-server.yml -E output.elasticsearch.username=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].username") -E output.elasticsearch.password=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].password")
-
+        start: ./apm-server/apm-server -c /app/apm-server.yml -E output.elasticsearch.username="$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].username")" -E output.elasticsearch.password="$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].password")"
 
 ## You can add services in .platform/services.yaml, to use them in your application
 ## you will need to create a relationship for example:

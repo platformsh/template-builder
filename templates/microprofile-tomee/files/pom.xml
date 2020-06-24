@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
- <modelVersion>4.0.0</modelVersion>
- <groupId>sh.platform.template</groupId>
- <artifactId>microprofile-tomee</artifactId>
- <name>CloudEE Duke</name>
- <version>1.0.0-SNAPSHOT</version>
- <packaging>war</packaging>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>sh.platform.template</groupId>
+    <artifactId>microprofile-tomee</artifactId>
+    <name>microprofile-tomee</name>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
- <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.microprofile>2.2</version.microprofile>
-    <tomee.version>8.0.1</tomee.version>
-    <platform.sh.version>2.2.3</platform.sh.version>
-    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-    <junit.version>5.6.0</junit.version>
-    <http.port>8888</http.port>
-    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-</properties>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.microprofile>2.2</version.microprofile>
+        <tomee.version>8.0.3</tomee.version>
+        <platform.sh.version>2.2.3</platform.sh.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <junit.version>5.6.0</junit.version>
+        <http.port>8888</http.port>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+    </properties>
 
-<build>
-    <finalName>ROOT</finalName>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.2.2</version>
-            <configuration>
-                <failOnMissingWebXml>false</failOnMissingWebXml>
-                <packagingExcludes>pom.xml</packagingExcludes>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.tomee.maven</groupId>
-            <artifactId>tomee-maven-plugin</artifactId>
-            <version>${tomee.version}</version>
-            <configuration>
-                <tomeeClassifier>microprofile</tomeeClassifier>
-                <tomeeHttpPort>${http.port}</tomeeHttpPort>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.plugin.version}</version>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <finalName>ROOT</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <packagingExcludes>pom.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee.version}</version>
+                <configuration>
+                    <tomeeClassifier>microprofile</tomeeClassifier>
+                    <tomeeHttpPort>${http.port}</tomeeHttpPort>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 
-<dependencies>
-    <dependency>
-        <groupId>org.eclipse.microprofile</groupId>
-        <artifactId>microprofile</artifactId>
-        <version>${version.microprofile}</version>
-        <type>pom</type>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>sh.platform</groupId>
-        <artifactId>config</artifactId>
-        <version>${platform.sh.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>${version.microprofile}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>sh.platform</groupId>
+            <artifactId>config</artifactId>
+            <version>${platform.sh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

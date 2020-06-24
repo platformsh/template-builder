@@ -13,7 +13,7 @@ disk: 1024
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
-    build: mvn -Dhttp.port=8888 clean install tomee:exec
+    build: mvn -Dhttp.port=8888 clean package tomee:exec
 
 mounts:
 

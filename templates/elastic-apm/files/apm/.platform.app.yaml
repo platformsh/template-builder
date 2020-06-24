@@ -19,14 +19,14 @@ hooks:
                 mv apm-server-$APM_VERSION-linux-x86_64 apm-server
                 rm apm-server-$APM_VERSION-linux-x86_64.tar.gz
         deploy: |
-                ./apm-server/apm-server setup -e
+                ./apm-server/apm-server setup -e  -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD -E setup.template.overwrite=false
 
 web:
     ## The commands section lists programs to start when the container is deployed,
     ## typically starting your application.
     # the environment variables for elasticsearch are defined in apm/.environment
     commands:
-        start: ./apm-server/apm-server -e -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD
+        start: ./apm-server/apm-server -e -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD -E setup.template.overwrite=false
 
 ## You can add services in .platform/services.yaml, to use them in your application
 ## you will need to create a relationship for example:

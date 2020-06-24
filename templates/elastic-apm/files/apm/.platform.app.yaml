@@ -24,8 +24,9 @@ hooks:
 web:
     ## The commands section lists programs to start when the container is deployed,
     ## typically starting your application.
+    # the environment variables for elasticsearch are defined in apm/.environment
     commands:
-        start: ./apm-server/apm-server -c /app/apm-server.yml -E output.elasticsearch.username="$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].username")" -E output.elasticsearch.password="$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".elasticsearch[0].password")"
+        start: ./apm-server/apm-server -e -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD
 
 ## You can add services in .platform/services.yaml, to use them in your application
 ## you will need to create a relationship for example:

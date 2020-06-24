@@ -18,7 +18,7 @@ server.host: "0.0.0.0"
 server.name: "Kibana for Elastic APM"
 
 # The URL of the Elasticsearch instance to use for all your queries.
-elasticsearch.hosts: ["http://elasticsearch.internal:9200"]
+# elasticsearch.hosts: ["http://essearch.internal:9200"]
 # When this setting's value is true Kibana uses the hostname specified in the server.host
 # setting. When the value of this setting is false, Kibana uses the hostname of the host
 # that connects to this Kibana instance.

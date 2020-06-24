@@ -32,7 +32,7 @@ web:
 ## you will need to create a relationship for example:
 #
 relationships:
-    elasticsearch: "elasticsearch:elasticsearch"
+    essearch: "searchelastic:elasticsearch"
     kibana: "kibana:http"
 
 # The size in megabytes of persistent disk space to reserve as part of this application.

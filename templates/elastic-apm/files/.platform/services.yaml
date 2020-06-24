@@ -7,7 +7,7 @@
 #
 # See https://docs.platform.sh/user_guide/reference/services-yaml.html for more information.
 
-elasticsearch:
+searchelastic:
     type: elasticsearch:7.2
     disk: 2048
     configuration:

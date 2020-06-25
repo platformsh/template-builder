@@ -1,0 +1,14 @@
+# The routes.yaml file describes how an incoming URL is going
+# to be processed by Platform.sh.  With the defaults below, all requests to
+# The the domain name configured in the UI will pass through to the application
+# and all requests to the www. prefix will be redirected to the bare domain.
+# To reverse that behavior, simply swap the definitions.
+#
+# See https://docs.platform.sh/user_guide/reference/routes-yaml.html for more information.
+
+"https://apm.{default}/":
+    type: upstream
+    upstream: "apm:http"
+"https://{default}/":
+    type: upstream
+    upstream: "kibana:http"

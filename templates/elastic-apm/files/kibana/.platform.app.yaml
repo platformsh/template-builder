@@ -1,0 +1,67 @@
+# This file defines one application within your project. Each application is rooted
+# at the directory where this file exists, and will produce a single application
+# container to run your code.  The basic file below contains only the required
+# options. To get to a running application you'll need at least to supply
+# a real "start" command.
+# See https://docs.platform.sh/configuration/app-containers.html#configure-your-application
+
+name: kibana
+type: nodejs:10
+
+variables:
+    env:
+        KIBANA_PLATFORM: linux-x86_64
+        KIBANA_VERSION: 7.2.1
+        KIBANA_HOME: '/app/kibana'
+
+hooks:
+    build: |
+        ./download_and_install.sh
+    deploy: |
+        # this is just an optimization we copy over the optimize
+        # files without clobbering
+        mkdir -p kibana/optimize/bundles
+        cp -n -r _kibana_optimize/* kibana/optimize/bundles
+
+web:
+    ## The commands section lists programs to start when the container is deployed,
+    ## typically starting your application.
+    commands:
+        start: ./kibana/bin/kibana --verbose  -c /app/kibana/config/kibana.yml --elasticsearch.hosts=$ELASTICSEARCH_HOSTS --elasticsearch.username=$ELASTICSEARCH_USERNAME --elasticsearch.password=$ELASTICSEARCH_PASSWORD
+    locations:
+        "/":
+            passthru: true
+        "/app/kibana":
+            passthru: true
+        "/bundles":
+            passthru: true
+        "/status":
+            passthru: true
+        "/plugins":
+            passthru: true
+
+## You can add services in .platform/services.yaml, to use them in your application
+## you will need to create a relationship for example:
+#
+relationships:
+    essearch: "searchelastic:elasticsearch"
+
+# The size in megabytes of persistent disk space to reserve as part of this application.
+disk: 1024
+
+## Each mount is a pairint of the local path on the application container to
+## the persistent mount where it lives. At this time, only 'shared:files' is
+## a supported mount.
+mounts:
+    "/run":
+        source: local
+        source_path: "run"
+    "/kibana/data":
+        source: local
+        source_path: "data"
+    "/kibana/optimize":
+        source: local
+        source_path: "optimize"
+    "/kibana/plugins":
+        source: local
+        source_path: "plugins"

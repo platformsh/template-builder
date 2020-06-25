@@ -1,0 +1,50 @@
+# This file defines one application within your project. Each application is rooted
+# at the directory where this file exists, and will produce a single application
+# container to run your code.  The basic file below contains only the required
+# options. To get to a running application you'll need at least to supply
+# a real "start" command.
+# See https://docs.platform.sh/configuration/app-containers.html#configure-your-application
+
+name: apm
+type: 'golang:1.14'
+
+variables:
+    env:
+        APM_VERSION: 7.2.1
+
+hooks:
+        build: |
+                wget --quiet https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz
+                tar -xzf apm-server-$APM_VERSION-linux-x86_64.tar.gz
+                mv apm-server-$APM_VERSION-linux-x86_64 apm-server
+                rm apm-server-$APM_VERSION-linux-x86_64.tar.gz
+        deploy: |
+                ./apm-server/apm-server setup -e  -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD -E setup.template.overwrite=false
+
+web:
+    ## The commands section lists programs to start when the container is deployed,
+    ## typically starting your application.
+    # the environment variables for elasticsearch are defined in apm/.environment
+    commands:
+        start: ./apm-server/apm-server -e -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD -E setup.template.overwrite=false
+
+## You can add services in .platform/services.yaml, to use them in your application
+## you will need to create a relationship for example:
+#
+relationships:
+    essearch: "searchelastic:elasticsearch"
+    kibana: "kibana:http"
+
+# The size in megabytes of persistent disk space to reserve as part of this application.
+disk: 1024
+
+## Each mount is a pairing of the local path on the application container to
+## the persistent mount where it lives. At this time, only 'shared:files' is
+## a supported mount.
+mounts:
+    "/apm-server/logs":
+        source: local
+        source_path: "logs"
+    "/apm-server/data":
+        source: local
+        source_path: "data"

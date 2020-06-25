@@ -14,21 +14,19 @@ $platformsh = new \Platformsh\ConfigReader\Config();
 
 
 // Configure the database.
-$creds = $platformsh->credentials($platformsh_subsite_id);
-if ($creds) {
-  $databases['default']['default'] = [
-    'driver' => $creds['scheme'],
-    'database' => $creds['path'],
-    'username' => $creds['username'],
-    'password' => $creds['password'],
-    'host' => $creds['host'],
-    'port' => $creds['port'],
-    'pdo' => [PDO::MYSQL_ATTR_COMPRESS => !empty($creds['query']['compression'])]
-  ];
-}
-
-if (!$platformsh->inRuntime()) {
-  return;
+if ($platformsh->hasRelationship($platformsh_subsite_id)) {
+  $creds = $platformsh->credentials($platformsh_subsite_id);
+  if ($creds) {
+    $databases['default']['default'] = [
+      'driver' => $creds['scheme'],
+      'database' => $creds['path'],
+      'username' => $creds['username'],
+      'password' => $creds['password'],
+      'host' => $creds['host'],
+      'port' => $creds['port'],
+      'pdo' => [PDO::MYSQL_ATTR_COMPRESS => !empty($creds['query']['compression'])]
+    ];
+  }
 }
 
 // Enable Redis caching.
@@ -89,22 +87,31 @@ if ($platformsh->hasRelationship('rediscache') && !InstallerKernel::installation
 }
 
 // Configure file paths.
-if (!isset($settings['file_public_path'])) {
-  $settings['file_public_path'] = 'files/' . $platformsh_subsite_id;
-}
-if (!isset($settings['file_private_path'])) {
-  $settings['file_private_path'] = $platformsh->appDir . '/private/' . $platformsh_subsite_id;
-}
-if (!isset($config['file_temp_path'])) {
-  $config['file_temp_path'] = $platformsh->appDir . '/tmp/' . $platformsh_subsite_id;
-}
+if ($platformsh->inRuntime()) {
+  if (!isset($settings['file_public_path'])) {
+    $settings['file_public_path'] = 'files/' . $platformsh_subsite_id;
+  }
+  if (!isset($settings['file_private_path'])) {
+    $settings['file_private_path'] = $platformsh->appDir . '/private/' . $platformsh_subsite_id;
+  }
+  if (!isset($config['file_temp_path'])) {
+    $config['file_temp_path'] = $platformsh->appDir . '/tmp/' . $platformsh_subsite_id;
+  }
 
-// Configure the default PhpStorage and Twig template cache directories.
-if (!isset($settings['php_storage']['default'])) {
-  $settings['php_storage']['default']['directory'] = $settings['file_private_path'];
-}
-if (!isset($settings['php_storage']['twig'])) {
-  $settings['php_storage']['twig']['directory'] = $settings['file_private_path'];
+  // Configure the default PhpStorage and Twig template cache directories.
+  if (!isset($settings['php_storage']['default'])) {
+    $settings['php_storage']['default']['directory'] = $settings['file_private_path'];
+  }
+  if (!isset($settings['php_storage']['twig'])) {
+    $settings['php_storage']['twig']['directory'] = $settings['file_private_path'];
+  }
+
+  // Set the project-specific entropy value, used for generating one-time
+  // keys and such.
+  $settings['hash_salt'] = $settings['hash_salt'] ?? $platformsh->projectEntropy . $platformsh_subsite_id;
+
+  // Set the deployment identifier, which is used by some Drupal cache systems.
+  $settings['deployment_identifier'] = $settings['deployment_identifier'] ?? $platformsh->treeId;
 }
 
 // The 'trusted_hosts_pattern' setting allows an admin to restrict the Host header values
@@ -153,11 +160,3 @@ foreach ($platformsh->variables() as $name => $value) {
       break;
   }
 }
-
-
-// Set the project-specific entropy value, used for generating one-time
-// keys and such.
-$settings['hash_salt'] = $settings['hash_salt'] ?? $platformsh->projectEntropy . $platformsh_subsite_id;
-
-// Set the deployment identifier, which is used by some Drupal cache systems.
-$settings['deployment_identifier'] = $settings['deployment_identifier'] ?? $platformsh->treeId;

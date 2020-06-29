@@ -13,8 +13,7 @@ disk: 1024
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
-    build: |
-      mvn clean install
+    build: mvn clean package
 
 # The relationships of the application with services or other applications.
 #
@@ -27,5 +26,4 @@ hooks:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start: |
-          java -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -jar target/micronaut-1.0-SNAPSHOT.jar
+        start: java -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -jar target/micronaut-1.0-SNAPSHOT.jar

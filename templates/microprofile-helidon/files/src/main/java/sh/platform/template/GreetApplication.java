@@ -16,11 +16,10 @@
 
 package sh.platform.template;
 
-import io.helidon.common.CollectionsHelper;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -32,6 +31,6 @@ public class GreetApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        return CollectionsHelper.setOf(HelloWorldResource.class);
+        return Collections.singleton(HelloWorldResource.class);
     }
 }

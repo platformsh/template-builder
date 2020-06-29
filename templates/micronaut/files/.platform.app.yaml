@@ -26,5 +26,4 @@ hooks:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start: |
-          java -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -jar target/micronaut-1.0-SNAPSHOT.jar
+        start: java -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError -jar target/micronaut-1.0-SNAPSHOT.jar

@@ -3,7 +3,7 @@ import os.path
 import json
 from glob import glob
 from collections import OrderedDict
-
+import time
 import requests
 
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +28,11 @@ class BaseProject(object):
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
     }
+    
+    '''Amount of seconds to delay test execution after target_url is available.
+    This is due to the fact that some apps take longer to really deploy than what is reported back to the status check.
+    '''
+    TEST_DELAY = 10
 
     def composer_defaults(self):
         """
@@ -55,6 +60,9 @@ class BaseProject(object):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
         self.github_token = os.getenv('GITHUB_TOKEN', None) # Maybe add a validation logic to raise an error if not present ?
+       
+        # A list containing function references which will be executed against a test url, bootstrapped with a basic smoke test.
+        self.TEST_FUNCTIONS = [self.basic_smoke_test]
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
@@ -144,12 +152,19 @@ class BaseProject(object):
 
     def test(self):
         """
-        Wraps single_test for all pull requests.
+        Calls all the tests defined in self.TEST_FUNCTIONS on the test urls.
         """
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
-        return all([self.single_test(self.test_request(url)) for url in urls_to_test])
+
+        results = []
+        print(f"Running {len(self.TEST_FUNCTIONS)} tests.")
+        for test in self.TEST_FUNCTIONS:
+            for url in urls_to_test:
+                results.append(test(url))
+
+        return all(results)
 
     def merge_pull_request(self):
         """
@@ -167,20 +182,19 @@ class BaseProject(object):
 
 
     @staticmethod
-    def single_test(response):
+    def basic_smoke_test(url):
         """
-        Basic smoke test for a single PR. Override for specific projects
+        Basic smoke test for a single PR. Only checks for a 200 OK response.
         """
+        try:
+            response = requests.get(url)
+        except requests.exceptions.SSLError:
+            response = requests.get(url, verify=False)
+
         if response.status_code != 200:
             print("Test failed on {0} with code {1}".format(response.url, response.status_code))
         return response.status_code == 200
 
-    @staticmethod
-    def test_request(url):
-        try:
-            return requests.get(url)
-        except requests.exceptions.SSLError:
-            return requests.get(url, verify=False)
 
 >>>>>>> WIP add steps to test and merge update pull requests
     def package_update_actions(self):
@@ -237,5 +251,11 @@ class BaseProject(object):
 
                 except Exception as e:
                     print("Pull request {0} was not built on Platform.sh".format(pull["url"]))
+            
+            print(f"Pull request {url} has finished building on Platform.sh")
             urls.append(url)
+        
+        # Delays execution by specified amount of seconds    
+        print(f"Delaying execution of tests by {self.TEST_DELAY} seconds.")
+        time.sleep(self.TEST_DELAY)
         return urls

@@ -9,7 +9,6 @@ import requests
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
-
 class BaseProject(object):
     '''
     Base class storing task actions.
@@ -55,6 +54,7 @@ class BaseProject(object):
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        self.github_token = os.getenv('GITHUB_TOKEN', None) # Maybe add a validation logic to raise an error if not present ?
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
@@ -134,7 +134,7 @@ class BaseProject(object):
         """
         Creates a pull request from the "update" branch to master.
         """
-        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+        authorization_header = {"Authorization": "token " + self.github_token}
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
 
@@ -149,13 +149,13 @@ class BaseProject(object):
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
-        return all([self.single_test(self.test_request(url)) for url in self.get_test_urls()])
+        return all([self.single_test(self.test_request(url)) for url in urls_to_test])
 
     def merge_pull_request(self):
         """
         Merges latest pull request.
         """
-        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+        authorization_header = {"Authorization": "token " + self.github_token}
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
         pull = requests.get(pulls_api_url, headers=authorization_header).json()[0]
@@ -172,7 +172,7 @@ class BaseProject(object):
         Basic smoke test for a single PR. Override for specific projects
         """
         if response.status_code != 200:
-            print("Test failed on {0}".format(response.url))
+            print("Test failed on {0} with code {1}".format(response.url, response.status_code))
         return response.status_code == 200
 
     @staticmethod
@@ -217,8 +217,7 @@ class BaseProject(object):
         """
         Returns URLs of environments integrated to active pull requests.
         """
-        # TODO get rid of this hardcode
-        authorization_header = {"Authorization": "token a1db101a8b88a4062a5512ba310e346e68bcb302"}
+        authorization_header = {"Authorization": "token " + self.github_token}
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
         pulls = requests.get(pulls_api_url, headers=authorization_header)
@@ -229,7 +228,13 @@ class BaseProject(object):
             while not url:
                 status = requests.get(statuses_api_url, headers=authorization_header)
                 try:
-                    url = status.json()[0]["target_url"]
+                    data = status.json()[0]
+                    url = data["target_url"]
+
+                    if data["status"] != "success":
+                        print("Pull request {0} is still building on Platform.sh".format(pull["url"]))
+                        url = ""
+
                 except Exception as e:
                     print("Pull request {0} was not built on Platform.sh".format(pull["url"]))
             urls.append(url)

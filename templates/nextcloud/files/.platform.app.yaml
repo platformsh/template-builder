@@ -54,6 +54,7 @@ relationships:
 runtime:
     extensions:
         - apcu
+        - imagick
     sizing_hints:
         request_memory: 11
 

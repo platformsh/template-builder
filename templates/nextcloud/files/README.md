@@ -44,7 +44,15 @@ The following changes have been made relative to Nextcloud as it is downloaded f
 
 Nextcloud features an in-application app store and app updating functionality.  Those features require a writeable disk at runtime, while Platform.sh offers only a read-only disk for security reasons.
 
-Instead, applications can be installed via Git.
+Instead, applications can be installed via Git.  There are two alternatives:
+
+1. Locate an application  you wish to install on the [Nextcloud Apps](https://apps.nextcloud.com/) site.
+2. Get the download link for the desired version.
+3. Place that link on its own line in the `apps.txt` file in the project root.
+
+The app will be downloaded automatically as part of the build process.
+
+Alternatively, if you prefer to commit the app to the repository directly (such as if it is not publicly available):
 
 1. Locate an application  you wish to install on the [Nextcloud Apps](https://apps.nextcloud.com/) site.
 2. Download the latest version for the appropriate verison of Nextcloud.
@@ -52,7 +60,9 @@ Instead, applications can be installed via Git.
 
 As part of the build process, applications and themes will be copied from the `_apps` and `_themes` directories to the appropriate directories in the codebase.  (The code to do so is in the `hooks.build` section of `.platform.app.yaml`.)  They can then be enabled through the Nextcloud UI as normal.
 
-This separate setup allows the `update.sh` script to update Nextcloud itself without losing the code for any extensions you have added.
+## Updating Nextcloud
+
+To update to a new release of Nextcloud, modify the `.platform.app.yaml` file and change the NEXTCLOUD_VERSION environment variable.  The version listed there is the version that will be downloaded in the build process.
 
 ## Using Amazon S3 for storage
 

@@ -22,11 +22,13 @@ variables:
         opcache.memory_consumption: 128
         opcache.save_comments: 1
         opcache.revalidate_freq: 1
+        apc.enable_cli: 1
 
 hooks:
     build: |
         ./install-redis.sh $PHPREDIS_VERSION
         ./download-nextcloud.sh $NEXTCLOUD_VERSION
+        ./download-apps.sh
         chmod +x src/occ
         cp -R _themes/* src/themes/
         cp -R _apps/* src/apps/
@@ -55,6 +57,7 @@ runtime:
     extensions:
         - apcu
         - imagick
+        - gmp
     sizing_hints:
         request_memory: 11
 

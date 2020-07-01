@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Generic "download from remote source" script for Platform.sh.
 # This script should be run during build to obtain a specific version
 # of a Git repository at build time.

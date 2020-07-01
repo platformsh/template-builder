@@ -32,7 +32,7 @@ ensure_download() {
     # Ensure that the source code is available and up to date.
     if [ ! -f "${PLATFORM_CACHE_DIR}/${APP_NAME}-${2}.tar.bz2" ]; then
         echo "Downloading ${APP_LABEL} archive."
-        wget "$1"
+        wget --quiet "$1"
         # If the version has changed, we'll want to make sure to not confuse it with the old one.
         rm "${APP_NAME}"
     fi

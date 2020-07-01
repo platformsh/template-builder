@@ -11,10 +11,16 @@ type: "php:7.4"
 build:
     flavor: none
 
+variables:
+    env:
+        NEXTCLOUD_VERSION: 19.0.0
+        PHPREDIS_VERSION: 5.2.1
+        front_controller_active: true
+
 hooks:
     build: |
-        ./install-redis.sh 5.2.1
-        ./download-nextcloud.sh 18.0.3
+        ./install-redis.sh $PHPREDIS_VERSION
+        ./download-nextcloud.sh $NEXTCLOUD_VERSION
         chmod +x src/occ
         cp -R _themes/* src/themes/
         cp -R _apps/* src/apps/
@@ -30,10 +36,6 @@ hooks:
         ./occ db:add-missing-indice
         ./occ maintenance:mode --off
         ./occ app:enable previewgenerator
-
-variables:
-    env:
-        front_controller_active: true
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

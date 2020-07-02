@@ -30,8 +30,8 @@ hooks:
         ./download-nextcloud.sh $NEXTCLOUD_VERSION
         ./download-apps.sh
         chmod +x src/occ
-        cp -R _themes/* src/themes/
-        cp -R _apps/* src/apps/
+        cp -R _themes/* src/themes/ || true
+        cp -R _apps/* src/apps/ || true
     deploy: |
         mkdir -p /tmp/nextcloudtemp /tmp/cache /tmp/logs
         # Only launch installation script if config does not exist

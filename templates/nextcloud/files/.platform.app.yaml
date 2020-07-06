@@ -16,14 +16,22 @@ variables:
         NEXTCLOUD_VERSION: 19.0.0
         PHPREDIS_VERSION: 5.2.1
         front_controller_active: true
+    php:
+        opcache.interned_strings_buffer: 8
+        opcache.max_accelerated_files: 10000
+        opcache.memory_consumption: 128
+        opcache.save_comments: 1
+        opcache.revalidate_freq: 1
+        apc.enable_cli: 1
 
 hooks:
     build: |
         ./install-redis.sh $PHPREDIS_VERSION
         ./download-nextcloud.sh $NEXTCLOUD_VERSION
+        ./download-apps.sh
         chmod +x src/occ
-        cp -R _themes/* src/themes/
-        cp -R _apps/* src/apps/
+        cp -R _themes/* src/themes/ || true
+        cp -R _apps/* src/apps/ || true
     deploy: |
         mkdir -p /tmp/nextcloudtemp /tmp/cache /tmp/logs
         # Only launch installation script if config does not exist
@@ -48,6 +56,8 @@ relationships:
 runtime:
     extensions:
         - apcu
+        - imagick
+        - gmp
     sizing_hints:
         request_memory: 11
 

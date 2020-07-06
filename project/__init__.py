@@ -59,7 +59,9 @@ class BaseProject(object):
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
-        self.github_token = os.getenv('GITHUB_TOKEN', None) # Maybe add a validation logic to raise an error if not present ?
+        # Parses the github authorization token from env var by default.
+        self.github_token = os.getenv('GITHUB_TOKEN', None)
+
        
         # A list containing function references which will be executed against a test url, bootstrapped with a basic smoke test.
         self.TEST_FUNCTIONS = [self.basic_smoke_test]
@@ -136,12 +138,12 @@ class BaseProject(object):
             self.builddir)
         ]
 
-<<<<<<< HEAD
-=======
-    def pull_request(self):
+    def pull_request(self, token=None):
         """
         Creates a pull request from the "update" branch to master.
         """
+        self.set_github_token(token)
+
         authorization_header = {"Authorization": "token " + self.github_token}
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
@@ -150,10 +152,12 @@ class BaseProject(object):
         response = requests.post(pulls_api_url, headers=authorization_header, data=json.dumps(body))
         return response.status_code in [201, 422]
 
-    def test(self):
+    def test(self, token=None):
         """
         Calls all the tests defined in self.TEST_FUNCTIONS on the test urls.
         """
+        self.set_github_token(token)
+
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
@@ -166,10 +170,12 @@ class BaseProject(object):
 
         return all(results)
 
-    def merge_pull_request(self):
+    def merge_pull_request(self, token=None):
         """
         Merges latest pull request.
         """
+        self.set_github_token(token)
+
         authorization_header = {"Authorization": "token " + self.github_token}
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
@@ -196,7 +202,6 @@ class BaseProject(object):
         return response.status_code == 200
 
 
->>>>>>> WIP add steps to test and merge update pull requests
     def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
@@ -259,3 +264,11 @@ class BaseProject(object):
         print(f"Delaying execution of tests by {self.TEST_DELAY} seconds.")
         time.sleep(self.TEST_DELAY)
         return urls
+   
+    def set_github_token(self, token):
+       # CMD line token overrides env var token.
+       if token is not None:
+           self.github_token = token
+       # If token is still not set, alert user. Pd: Cannot failt gracefully as it is not on main task code.
+       if self.github_token is None:
+           print("Github token not provided. Please provide via --token argument or via GITHUB_TOKEN env var.")

@@ -129,6 +129,13 @@ def task_pull_request():
         yield {
             'name': project.name,
             'actions': [project.pull_request],
+            'params': [{
+                'name': 'token',
+                'short': 't',
+                'long': 'token',
+                'default': None,
+                'help': 'Parses the github token from the commandline, overriding the GITHUB_TOKEN env var.'
+                }]
         }
 
 def task_push():
@@ -169,6 +176,13 @@ def task_test():
         yield {
             'name': project.name,
             'actions': [project.test],
+            'params': [{
+                'name': 'token',
+                'short': 't',
+                'long': 'token',
+                'default': None,
+                'help': 'Parses the github token from the commandline, overriding the GITHUB_TOKEN env var.'
+                }]
         }
 
 def task_merge():
@@ -181,6 +195,13 @@ def task_merge():
         yield {
             'name': project.name,
             'actions': [project.merge_pull_request],
+            'params': [{
+                'name': 'token',
+                'short': 't',
+                'long': 'token',
+                'default': None,
+                'help': 'Parses the github token from the commandline, overriding the GITHUB_TOKEN env var.'
+                }]
         }
 
 def task_full():
@@ -196,4 +217,11 @@ def task_full():
                          for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push', 'pull_request', 'test', 'merge']
                          ],
             'actions': [],
+            'params': [{
+                'name': 'token',
+                'short': 't',
+                'long': 'token',
+                'default': None,
+                'help': 'Parses the github token from the commandline, overriding the GITHUB_TOKEN env var.'
+                }]
         }

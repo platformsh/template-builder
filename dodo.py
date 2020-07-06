@@ -187,9 +187,9 @@ def task_test():
 
 def task_merge():
     """
-    DoIt Task: Runs smoke tests against branches on GitHub.
+    DoIt Task: Merges the latest project MR from update into master.
 
-    Usage: doit test:<project> 
+    Usage: doit merge:<project> 
     """
     for project in ALL_PROJECTS:
         yield {

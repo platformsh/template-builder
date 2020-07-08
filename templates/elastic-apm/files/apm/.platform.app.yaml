@@ -14,10 +14,8 @@ variables:
 
 hooks:
         build: |
-                wget --quiet https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz
-                tar -xzf apm-server-$APM_VERSION-linux-x86_64.tar.gz
+                wget --quiet -c https://artifacts.elastic.co/downloads/apm-server/apm-server-$APM_VERSION-linux-x86_64.tar.gz -O - | tar -xz
                 mv apm-server-$APM_VERSION-linux-x86_64 apm-server
-                rm apm-server-$APM_VERSION-linux-x86_64.tar.gz
         deploy: |
                 ./apm-server/apm-server setup -e  -E output.elasticsearch.hosts=$ELASTICSEARCH_HOSTS -E output.elasticsearch.username=$ELASTICSEARCH_USERNAME -E output.elasticsearch.password=$ELASTICSEARCH_PASSWORD -E setup.template.overwrite=false
 

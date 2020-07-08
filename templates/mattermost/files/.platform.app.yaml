@@ -16,7 +16,7 @@ hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
     build: !include
         type: string
-        path: setup.sh
+        path: build.sh
     deploy: |
         if [! -f config/config.json ]; then
             cp config.default config/config.json

@@ -17,10 +17,9 @@ hooks:
     build: !include
         type: string
         path: build.sh
-    deploy: |
-        if [! -f config/config.json ]; then
-            cp config.default config/config.json
-        fi
+    deploy: !include
+        type: string
+        path: deploy.sh
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

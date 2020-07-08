@@ -1,0 +1,4 @@
+# Expose the Elasticsearch credentials via the environment to make them easier to reference in deploy and start hooks.
+export ELASTICSEARCH_HOSTS=$(echo [\"$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].scheme")://$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host"):$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")\"])
+export ELASTICSEARCH_USERNAME=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].username")
+export ELASTICSEARCH_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].password")

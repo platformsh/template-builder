@@ -16,11 +16,10 @@ hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
     build: !include
         type: string
-        path: setup.sh
-    deploy: |
-        if [! -f config/config.json ]; then
-            cp config.default config/config.json
-        fi
+        path: build.sh
+    deploy: !include
+        type: string
+        path: deploy.sh
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

@@ -16,7 +16,7 @@ variables:
 
 hooks:
     build: |
-        ./download_and_install.sh
+        bash ./build.sh
     deploy: |
         # this is just an optimization we copy over the optimize
         # files without clobbering

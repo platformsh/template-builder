@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>ps_searchbar</name>
+	<displayName><![CDATA[Search bar]]></displayName>
+	<version><![CDATA[2.0.1]]></version>
+	<description><![CDATA[Adds a quick search bar to your website.]]></description>
+	<author><![CDATA[PrestaShop]]></author>
+	<is_configurable>0</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

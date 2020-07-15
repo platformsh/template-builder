@@ -1,0 +1,6 @@
+{
+  "name": "guzzle-bundle",
+  "dependencies": {
+    "prism": "gh-pages"
+  }
+}

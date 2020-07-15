@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ps_themecusto</name>
+    <displayName><![CDATA[Theme Customization]]></displayName>
+    <version><![CDATA[1.0.9]]></version>
+    <description><![CDATA[Easily configure and customize your homepage’s theme and main native modules. Feature available on Design > Theme & Logo page.]]></description>
+    <author><![CDATA[PrestaShop]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>0</need_instance>
+	  <limited_countries></limited_countries>
+</module>

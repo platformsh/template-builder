@@ -1,0 +1,65 @@
+@import "~bourbon/app/assets/stylesheets/bourbon";
+@import "settings";
+
+@import 'advancement';
+@import 'navbar';
+@import 'tooltip';
+@import 'popup';
+
+#onboarding-welcome {
+  .final-link {
+    display: block;
+    border: 1px solid #BBCDD2;
+    border-radius: rem(3px);
+    padding: rem(20px);
+    margin: rem(7px) 0;
+    text-decoration: none;
+
+    > i {
+      color: #BBCDD2;
+      font-size: rem(64px);
+      margin-bottom: rem(24px);
+    }
+  }
+}
+
+.btn {
+  &.with-spinner {
+    position: relative;
+  }
+  &.with-spinner.animated {
+    border-color: white;
+    background: white;
+    outline-color: white;
+
+    &:hover {
+      border-color: white;
+      background: white;
+    }
+
+    &:after {
+      position: absolute;
+      width: rem(30px);
+      height: rem(30px);
+      left: 50%;
+      top: 50%;
+      margin: {
+        top: rem(-15px);
+        left: rem(-15px);
+      }
+      display: block;
+      border: 3px solid $primary-color;
+      border-top-color: transparent;
+      border-radius: rem(50px);
+      background: transparent;
+      content: '';
+      -webkit-animation:spin 4s linear infinite;
+      -moz-animation:spin 4s linear infinite;
+      animation:spin 4s linear infinite;
+    }
+  }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

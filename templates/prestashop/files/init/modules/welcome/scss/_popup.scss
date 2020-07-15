@@ -1,0 +1,185 @@
+.onboarding-popup {
+  position: fixed;
+  top:    0;
+  left:   0;
+  right:  0;
+  bottom: 0;
+  background: rgba($dark-color, 0.5);
+
+  z-index: $minimum-z-index;
+
+  > .content {
+    position: absolute;
+
+    width: $popup-width;
+    left: 50%;
+    margin-left: -$popup-width / 2;
+    top: 2.5rem;
+
+    padding: 0;
+
+    background: white;
+    box-shadow: rem(2px) rem(2px) rem(3px) 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.onboarding-welcome {
+
+  .welcome {
+    background: url('../images/preston-clouds.png') top no-repeat;
+    background-size: rem(560px) rem(164px);
+    padding-top: 164px;
+    height: rem(52px);
+    color: black;
+    font-size: rem(24px);
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  > .content {
+    padding-bottom: rem(90px);
+    min-height: rem(200px);
+    font-size: rem(14px);
+    background: url('../images/balloons.png') bottom no-repeat;
+    background-size: rem(240px) rem(81px);
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      display: flex;
+      text-align: center;
+      align-self: center;
+      width: rem(400px);
+    }
+  }
+
+  .started {
+    display: flex;
+    font-weight: 600;
+    font-size: rem(17px);
+    justify-content: center;
+  }
+
+  > .content {
+    margin-bottom: rem(20px);
+  }
+
+  > .material-icons {
+    color: $background-tertiary-color;
+    position: absolute;
+    top: rem(10px);
+    right: rem(15px);
+    cursor: pointer;
+    font-size: rem(30px);
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: rem(25px);
+  }
+
+  .btn-primary.blue-balloon {
+    background-color: $blue-balloon;
+  }
+
+  .btn-tertiary-outline {
+    background: none;
+    color: $blue-balloon;
+    border: 2px solid $blue-balloon;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    padding: 9px 16px;
+    margin-right: 20px;
+  }
+
+}
+
+.onboarding-popup {
+  h2 {
+    font-size: rem(24px);
+  }
+
+  #onboarding-welcome {
+    &.modal-header {
+      padding: rem(24px);
+
+      .close {
+        color: #000;
+        font-size: 2.5rem;
+        margin-top: -14px;
+        margin-right: -5px;
+        opacity: 0.4;
+      }
+    }
+
+    .btn {
+      background-color: $blue-balloon;
+      font-size: rem(15px);
+      font-weight: normal;
+      letter-spacing: normal;
+    }
+
+    .link-container {
+
+      .close {
+        color: #000;
+        font-size: 40px;
+        margin-top: -15px;
+      }
+
+      .starter-guide,
+      .video-tutorial,
+      .forum,
+      .training {
+        width: rem(150px);
+        height: rem(130px);
+      }
+
+      .starter-guide {
+        background: url('../images/starter-guide.png') no-repeat;
+      }
+
+      .video-tutorial {
+        background: url('../images/video-tutorial.png') no-repeat;
+      }
+
+      .forum {
+        background: url('../images/forum.png') no-repeat;
+      }
+
+      .training {
+        background: url('../images/training.png') no-repeat;
+      }
+
+      .final-link {
+        border-width: 0;
+        color: #363a41;
+        display: block;
+        font-weight: 600;
+        justify-content: center;
+        padding: 0;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: rem(150px);
+
+        &:hover {
+          box-shadow: rem(2px) rem(2px) rem(4px) 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .link {
+          bottom: 0;
+          line-height: 16px;
+          position: absolute;
+          padding: 10px;
+          display: block;
+          text-align: center;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

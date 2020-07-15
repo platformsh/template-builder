@@ -1,0 +1,44 @@
+parameters:
+  tactician.commandbus.class: League\Tactician\CommandBus
+
+services:
+    tactician.handler.locator.symfony:
+        class: League\Tactician\Bundle\Handler\ContainerBasedHandlerLocator
+        arguments:
+            - "@service_container"
+
+    # The standard middleware
+    tactician.middleware.command_handler:
+        class: League\Tactician\Handler\CommandHandlerMiddleware
+        arguments:
+            - "@tactician.handler.command_name_extractor.class_name"
+            - "@tactician.handler.locator.symfony"
+            - "@tactician.handler.method_name_inflector.handle"
+
+    tactician.middleware.locking:
+        class: League\Tactician\Plugins\LockingMiddleware
+
+    tactician.middleware.validator:
+        class: League\Tactician\Bundle\Middleware\ValidatorMiddleware
+        arguments:
+            - "@?validator"
+
+    # The standard Handler method name inflectors
+    tactician.handler.method_name_inflector.handle:
+        class: League\Tactician\Handler\MethodNameInflector\HandleInflector
+
+    tactician.handler.method_name_inflector.handle_class_name:
+        class: League\Tactician\Handler\MethodNameInflector\HandleClassNameInflector
+
+    tactician.handler.method_name_inflector.handle_class_name_without_suffix:
+        class: League\Tactician\Handler\MethodNameInflector\HandleClassNameWithoutSuffixInflector
+
+    tactician.handler.method_name_inflector.invoke:
+        class: League\Tactician\Handler\MethodNameInflector\InvokeInflector
+
+    # The CommandNameExtractors in Tactician core
+    tactician.handler.command_name_extractor.class_name:
+        class: League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor
+
+    tactician.plugins.named_command.extractor:
+        class: League\Tactician\Plugins\NamedCommand\NamedCommandExtractor

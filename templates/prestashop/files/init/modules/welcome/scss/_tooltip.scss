@@ -1,0 +1,149 @@
+.onboarding-tooltip {
+
+  @mixin addTriangle($size, $color) {
+    left: 100%;
+    top: 50%;
+    border: $size solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-left-color: $color;
+    margin-top: -$size;
+  }
+
+  @mixin addTriangleDown($size, $color) {
+    @include addTriangle($size, $color);
+    left: 50%;
+    top: 100%;
+    margin-top: 0;
+    transform: rotate(90deg);
+  }
+
+  @mixin addPreston($url, $width, $height, $offset) {
+    content: " ";
+    position: absolute;
+    top: rem(10px);
+    width: $width;
+    height: $height;
+    background: url($url) no-repeat;
+    background-size: $width $height;
+    left: $offset;
+    z-index: 1;
+  }
+
+  font-family: Open Sans,sans-serif; // Forced because of old theme
+  font-size: rem(14px); // Forced because of old theme
+  position: absolute;
+  box-sizing: border-box;
+  opacity: 1;
+  padding: rem(10px) rem(10px) rem(50px) rem(38px);
+  width: rem(290px);
+  min-height: rem(150px);
+
+  z-index: $minimum-z-index + 2;
+
+  background: $background-color;
+  border-radius: $tooltip-radius;
+  border: $tooltip-border $primary-color;
+
+  &.-left {
+    margin-left: rem(-12px);
+    > .content {
+      &:before {
+        @include addPreston('../images/preston-right.png', rem(88px), rem(153px), rem(-61px));
+      }
+    }
+    &:after {
+      @include addTriangle(rem(12px), $background-color);
+    }
+
+    &:before {
+      @include addTriangle(rem(13px), $primary-color);
+    }
+  }
+
+  &.-right {
+    margin-left: rem(69px);
+    > .content {
+      &:before {
+        @include addPreston('../images/preston-left.png', rem(104px), rem(153px), rem(-70px));
+      }
+    }
+  }
+
+  &.-top {
+    margin-top: rem(-43px);
+    margin-left: rem(45px);
+    > .content {
+      &:before {
+        @include addPreston('../images/preston-right.png', rem(104px), rem(153px), rem(-70px));
+      }
+    }
+
+    &:after {
+      @include addTriangleDown(rem(12px), $dark-color);
+    }
+
+    &:before {
+      @include addTriangleDown(rem(13px), $primary-color);
+    }
+  }
+
+  > .btn-primary {
+    text-transform: uppercase;
+    position: absolute;
+    bottom: rem(5px);
+    right: rem(5px);
+    padding: /* rem(3px) */ 0 rem(8px);
+    background: $primary-color; // Forced because of old theme
+    color: white; // Forced because of old theme
+    font-size: rem(12px); // Forced because of old theme
+    border-radius: rem(3px); // Forced because of old theme
+    border: none; // Forced because of old theme
+    vertical-align: middle; // Forced because of old theme
+    height: rem(25px); // Forced because of old theme
+    line-height: rem(25px); // Forced because of old theme
+  }
+}
+
+.onboarding-tooltipsteps {
+  position: absolute;
+  height: rem(40px);
+  line-height: rem(40px);
+  vertical-align: middle;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $dark-color;
+  padding-left: rem(50px);
+
+  > .total {
+    color: $primary-color;
+    font-size: rem(10px);
+  }
+
+  > .bulls {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  > .bulls > .bull {
+    height: rem(6px);
+    width: rem(6px);
+    border-radius: rem(6px);
+    background: $background-secondary-color;
+    display: inline-block;
+    margin: 0 rem(1px) rem(1px) rem(1px);
+  }
+  > .bulls > .bull.-current {
+    background: $primary-color;
+  }
+  > .bulls > .bull.-done {
+    background: $dark-light-color;
+  }
+}

@@ -1,0 +1,6 @@
+"https://{all}/":
+  type: upstream
+  upstream: "app:http"
+"http://{all}/":
+  type: upstream
+  upstream: "app:http"

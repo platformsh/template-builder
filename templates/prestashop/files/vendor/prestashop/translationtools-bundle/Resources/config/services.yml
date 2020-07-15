@@ -1,0 +1,58 @@
+services:
+    prestashop.smarty:
+        class: PrestaShop\TranslationToolsBundle\Smarty
+        calls:
+            - [setCompileDir, ['%kernel.cache_dir%/smarty']]
+            - [forceCompile, [true]]
+
+    prestashop.compiler.smarty.template:
+        class: PrestaShop\TranslationToolsBundle\Translation\Compiler\Smarty\TranslationTemplateCompiler
+        arguments:
+            - "Smarty_Internal_Templatelexer"
+            - "Smarty_Internal_Templateparser"
+            - "@prestashop.smarty"
+            
+    prestashop.translation.parser.crowdin_php_parser:
+        class: PrestaShop\TranslationToolsBundle\Translation\Parser\CrowdinPhpParser
+            
+    prestashop.translation.manager.original_string_manager:
+        class: PrestaShop\TranslationToolsBundle\Translation\Manager\OriginalStringManager
+        arguments:
+            - "@prestashop.translation.parser.crowdin_php_parser"
+            
+    prestashop.translation.manager.translation_manager:
+        class: PrestaShop\TranslationToolsBundle\Translation\Manager\TranslationManager
+        arguments:
+            - "@prestashop.translation.parser.crowdin_php_parser"
+
+    prestashop.translation.extractor.crowdin.php:
+        class: PrestaShop\TranslationToolsBundle\Translation\Extractor\CrowdinPhpExtractor
+        arguments:
+            - "@prestashop.translation.parser.crowdin_php_parser"
+            - "@prestashop.translation.manager.original_string_manager"
+        
+    prestashop.translation.chainextractor:
+        class:  PrestaShop\TranslationToolsBundle\Translation\Extractor\ChainExtractor
+
+    prestashop.translation.extractor.php:
+        class: PrestaShop\TranslationToolsBundle\Translation\Extractor\PhpExtractor
+        tags:
+          - { name: prestashop.translation.extractor, format: php }
+
+    prestashop.translation.extractor.twig:
+        class: PrestaShop\TranslationToolsBundle\Translation\Extractor\TwigExtractor
+        arguments:
+            - "@twig"
+        tags:
+          - { name: prestashop.translation.extractor, format: twig }
+
+    prestashop.translation.extractor.smarty:
+        class: PrestaShop\TranslationToolsBundle\Translation\Extractor\SmartyExtractor
+        arguments:
+            - "@prestashop.compiler.smarty.template"
+
+        tags:
+          - { name: prestashop.translation.extractor, format: smarty }
+
+    prestashop.dumper.xliff:
+        class: PrestaShop\TranslationToolsBundle\Translation\Dumper\XliffFileDumper

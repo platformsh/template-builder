@@ -16,7 +16,6 @@ info:
           PHP 7.4<br />
           Prestashop<br />
           Automatic TLS certificates<br />
-          Composer-based build<br />
 
 initialize:
   repository: git://github.com/platformsh-templates/prestashop.git@master

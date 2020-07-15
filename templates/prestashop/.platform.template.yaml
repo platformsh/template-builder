@@ -14,7 +14,7 @@ info:
     - heading: "Features"
       content: |
           PHP 7.4<br />
-          PHP Prestashop<br />
+          Prestashop<br />
           Automatic TLS certificates<br />
           Composer-based build<br />
 

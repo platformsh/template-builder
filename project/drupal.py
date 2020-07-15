@@ -23,8 +23,7 @@ class Drupal8(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis --ignore-platform-reqs'.format(
-                self.builddir)
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis --ignore-platform-reqs'.format(self.builddir)
         ]
 
 class Drupal9(RemoteProject):
@@ -47,21 +46,22 @@ class Drupal8_opigno(Drupal8):
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
 
-class Drupal8_govcms8(Drupal8):
-    major_version = '8.x'
+class Drupal8_govcms8(RemoteProject):
+    major_version = '1'
     remote = 'https://github.com/govCMS/govCMS8.git'
-
 
     @property
     def platformify(self):
-        def govcms_remove_phing(composer):
-            """
-            The default GovCMS8 composer.json file runs a phing task that copies the site
-            within itself.  It's not clear why, but it's unnecessary. Skip that.
-            """
-
-            composer['scripts']['post-install-cmd'].remove('@composer push')
-            composer['scripts']['post-update-cmd'].remove('@composer push')
-            return composer
-
-        return [(self.modify_composer, [govcms_remove_phing])] + super(Drupal8, self).platformify
+       return super(Drupal8_govcms8, self).platformify + [
+           # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but
+           # drupal/console only works with the 3.x version, and therefore will fail.
+           # It should work to remove the lock file first, but for some reason that is still failing.
+           # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
+           'cd {0} && rm composer.lock'.format(self.builddir),
+           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis '
+           '--ignore-platform-reqs'.format(self.builddir),
+           "rm -rf {0}.github || true".format(self.builddir),
+           "rm -rf {0}.circleci || true".format(self.builddir),
+           "rm -rf {0}.tugboat || true".format(self.builddir),
+           "rm -rf {0}.travisci || true".format(self.builddir),
+        ]

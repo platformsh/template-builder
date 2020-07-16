@@ -10,6 +10,12 @@ This template builds a multi-app project using Gatsby as its frontend and a Drup
 
 Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and Drupal is a flexible and extensible PHP-based CMS framework.
 
+This template builds a two application project to deploy the Headless CMS pattern using Gatsby as its frontend and Drupal for its backend. The `gatsby-source-drupal` source plugin is used to pull data from Drupal during the `post_deploy` hook into the Gatsby Data Layer and build the frontend site. Gatsby utilizes the Platform.sh Configuration Reader library for Node.js to define the backend data source in its configuration. It is intended for you to use as a starting point and modify for your own needs.
+
+Note that after you have completed the Drupal installation and included a few articles, the project will require a redeploy to build and deploy Gatsby for the first time. See the included README's post-install section for details.
+
+Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and Drupal is a flexible and extensible PHP-based CMS framework.
+
 > **Note:** This project will require at least a Medium plan.
 
 ## Services
@@ -46,20 +52,21 @@ Gatsby is a free and open source framework based on React that helps developers 
 
 5. With the above steps completed, redeploy the environment with `platform redeploy -p <PROJECT ID> -e master`. The environment will redploy, and the Gatsby site will pull data from the backend Drupal API.
 
-### Enabling Gatsby Live Preview
+### [Beta] Enabling Gatsby Live Preview (manual configuration)
 
 > **Note:** Live Preview is not enabled by default on *Master* environments, but it can be set up manually on your development environments.
 > **Note:** After Live Preview is enabled, you will be able to edit content within Drupal, which will cause that content to update on Gatsby automatically for changes to its title, summary and body. Make sure to have at least two articles in Drupal before attempting to update an article's image. Gatsby temporarily is not able to locate the article during the update, and the environment will have to be redeployed. As long as there is more than one article present, this problem will not be encountered.  
 
-1. On the **Configuration** panel, click on *Gatsby Settings* in the **Web Services** section.
+0. Branch off of master a new development environment.
+1. Within the Drupal admin on that development envirnonment, click on *Gatsby Settings* in **Configuration**/**Web Services** section.
 2. Update the following fields and save the new configuration:
-  - Gatsby Preview Server URL: the root url for your environment (`https://master-<hash>-<projectId>.<region>.platformsh.site/`)
+  - Gatsby Preview Server URL: the root url for your environment (`https://<dev-env-name>-<hash>-<projectId>.<region>.platformsh.site/`)
   - Incremental Build Server Callback Hook(s): `<root-url-above>/__refresh`
   - Entity types to send to Gatsby Preview and Build Server:
       - File
       - Content
       - URL alias
-3. Update an Article. Go to one of your articles, and update any of the fields.
+3. Update an Article. Go to one of your articles, and update any of the fields. You can open a new tab to the frontend Gatsby site, and see your live updates on each article.
 
 ## Customizations
 
@@ -67,7 +74,7 @@ The following files and additions make the framework work.  If using this projec
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * Additional Platform.sh configuration reader modules for both [PHP](https://github.com/platformsh/config-reader-php) and [Node.js](https://github.com/platformsh/config-reader-nodejs) have been added. They provide convenience wrappers for accessing the Platform.sh environment variables.
-* `gatsby-config.js` has been modified to read the Wordpress backend url and assign it to the `baseUrl` attribute for the `gatsby-source-wordpress` plugin. Since routes are not available during the build hook, and since we want this value to be generated and unique on each environment, `gatsby build` runs and pulls in content from the Wordpress app during the `post_deploy` hook on the mounted `public` directory. `gatbsby-source-wordpress` can have additional parameters set to modify your configuration, so consult the [documentation](https://www.gatsbyjs.org/packages/gatsby-source-wordpress/#how-to-use).
+* `gatsby-config.js` has been modified to read the Drupal backend url and assign it to the `backend_route` attribute for the `gatsby-source-drupal` plugin using the Node.js Configuration Reader library. Since routes are not available during the build hook, and since we want this value to be generated and unique on each environment, `gatsby build` runs and pulls in content from the Wordpress app during the `post_deploy` hook on the mounted `public` directory. `gatbsby-source-drupal` can have additional parameters set to modify your configuration, so consult the [documentation](https://www.gatsbyjs.org/packages/gatsby-source-drupal).
 
 ## References
 

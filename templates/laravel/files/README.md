@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions using a Laravel-specific bridge library that runs during Composer autoload.  It is intended for you to use as a starting point and modify for your own needs.
+This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions using a Laravel-specific bridge library that runs during Composer autoload.  The public files symlink is also replaced with a custom web path definition so it is unnecessary.  It is intended for you to use as a starting point and modify for your own needs.
 
 Laravel is an opinionated, integrated rapid-application-development framework for PHP.
 

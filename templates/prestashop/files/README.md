@@ -14,6 +14,7 @@ PrestaShop is a freemium, open source e-commerce solution written in PHP.
 
 * PHP 7.4
 * MariaDB 10.4
+* Composer-based build
 * Automatic TLS certificates
 
 ## Customizations

@@ -17,6 +17,9 @@ info:
     - heading: "Features"
       content: "PHP 7.2<br/>MySQL 5.7<br/>Elasticsearch 6.5"
 
+plans:
+    exclude:
+        - small
 
 initialize:
   repository: git://github.com/platformsh-templates/akeneo.git@master

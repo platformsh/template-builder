@@ -6,12 +6,9 @@
 </a>
 </p>
 
-This template demonstrates building a Spring Boot application. It uses Gradle to build the application and deploy it to Platform.sh.
-
 This template builds Prestashop project.  It is pre-configured to use MariaDB.
 
-PrestaShop is a freemium, open source e-commerce solution. The software is published under the Open Software License. It is written in the PHP programming language with support for the MySQL database management system. PrestaShop is currently used by 300,000 shops worldwide and is available in 60 different languages.
-
+PrestaShop is a freemium, open source e-commerce solution written in PHP.
 
 ## Features
 
@@ -21,7 +18,7 @@ PrestaShop is a freemium, open source e-commerce solution. The software is publi
 
 ## Customizations
 
-The following files and additions make the framework work.  If using this project as a reference for your own existing project, replicate the changes below to your project.
+The following changes have been made relative to Prestashop as it is downloaded from Prestashop.com. If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * [.platform/routes.yaml](.platform/routes.yaml): Platform.sh allows you to define the [routes](https://docs.platform.sh/configuration/routes.html).
 * [.platform/services.yaml](.platform/services.yaml):  Platform.sh allows you to completely define and configure the topology and [services you want to use on your project](https://docs.platform.sh/configuration/services.html).

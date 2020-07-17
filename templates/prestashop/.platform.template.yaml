@@ -15,6 +15,7 @@ info:
       content: |
           PHP 7.4<br />
           Prestashop<br />
+          Composer-based build<br />
           Automatic TLS certificates<br />
 
 initialize:

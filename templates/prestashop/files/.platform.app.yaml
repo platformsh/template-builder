@@ -32,7 +32,7 @@ hooks:
         rsync -a init/resources-translations/* app/Resources/translations/
         rsync -a init/app-config/* app/config/
         rsync -a init/themes/* themes/
-        rsync -a init/admin-fwp/import/* admin-fwp/import/
+        rsync -a init/admin-dev/import/* admin-dev/import/
         rsync -a init/mails/* mails/
         rm -rf var/cache/*
         if [ ! -f var/writeable/installed.lock ]; then
@@ -47,14 +47,13 @@ hooks:
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
-
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 # The keys are directory paths relative to the application root. The values are a
 # mount definition. In this case, `web-files` is just a unique name for the mount.
 mounts:
-    'admin-fwp/import':
+    'admin-dev/import':
         source: local
-        source_path: 'admin-fwp-import'
+        source_path: 'admin-dev-import'
     'mails':
         source: local
         source_path: 'mails'
@@ -107,9 +106,9 @@ web:
             # The front-controller script which determines where to send
             # non-static requests.
             passthru: '/index.php'
-        '/admin-fwp':
+        '/admin-dev':
             # The public directory of the application relative to its root.
-            root: 'admin-fwp'
+            root: 'admin-dev'
             # The front-controller script which determines where to send
             # non-static requests.
-            passthru: '/admin-fwp/index.php'
+            passthru: '/admin-dev/index.php'

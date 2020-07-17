@@ -1,6 +1,0 @@
-services:
-    _defaults:
-        public: true
-
-    prestashop.adapter.contact.repository:
-        class: 'PrestaShop\PrestaShop\Adapter\Support\ContactRepository'

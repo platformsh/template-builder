@@ -20,7 +20,7 @@ runtime:
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     database: "db:mysql"
-    elasticsearch: "search:elasticsearch"
+    essearch: "search:elasticsearch"
 
 # The configuration of app when it is exposed to the web.
 web:

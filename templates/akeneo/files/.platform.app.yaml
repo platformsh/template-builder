@@ -12,6 +12,7 @@ runtime:
         - apcu
         - imagick
         - memcached
+        - intl
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -34,6 +35,8 @@ disk: 3072
 variables:
     env:
         APP_ENV: 'prod'
+    php:
+        apc.enable_cli: 1
 
 # The mounts that will be performed when the package is deployed.
 mounts:
@@ -71,7 +74,6 @@ hooks:
         NO_DOCKER=true make node_modules
         NO_DOCKER=true make assets
         NO_DOCKER=true make javascript-prod
-
 
         # run yarn to install frontend
         #yarn install

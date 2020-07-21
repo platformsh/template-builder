@@ -71,31 +71,23 @@ hooks:
         # install node 14 (currently latest LTS)
         nvm install 14
 
+        # These have to be structured differently than the general `make prod` command
+        # so we call them individually.
         NO_DOCKER=true make node_modules
         NO_DOCKER=true make assets
         NO_DOCKER=true make javascript-prod
 
-        # run yarn to install frontend
-        #yarn install
-        #yarn run webpack
-
-        # remove dev file
-        #rm web/app_dev.php
-
     # We run the deploy hook after your application has been deployed and started.
     deploy: |
-        rm -rf var/cache/* && php bin/console cache:warmup
-
-        # clear caches
-        #bin/console cache:clear --no-warmup --env=prod
-
-        # create tmp folders
-        #mkdir -p /tmp/pim/file_storage
-        #mkdir -p /tmp/pim/upload_tmp_dir
+        # Clear caches
+        rm -rf var/cache/*
+        php bin/console cache:warmup
 
         # run installer if no lockfile exists
         if [ ! -f installer/.platform.installed ]; then
             bin/console pim:installer:db --env=prod --catalog vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures/minimal
+            # Change the user and password immediately after creating the site!
+            bin/console pim:user:create -n --admin admin admin admin@example.com Admin Istrator en_US
             touch installer/.platform.installed
         fi
 

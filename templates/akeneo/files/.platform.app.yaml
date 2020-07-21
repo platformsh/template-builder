@@ -40,21 +40,21 @@ variables:
 
 # The mounts that will be performed when the package is deployed.
 mounts:
-    "var/logs":
+    "var":
         source: local
-        source_path: "app-logs"
-    "var/cache":
-        source: local
-        source_path: "app-cache"
-    "var/uploads":
-        source: local
-        source_path: "app-uploads"
+        source_path: "var"
+    # Used to control the Platform.sh install process. Do not delete the file inside it.
     "installer":
         source: local
         source_path: "installer"
-    "web/media":
+    "web":
         source: local
-        source_path: "media-cache"
+        source_path: "web"
+    # This mount is not listed in the Akeneo documentation, but is required for the
+    # Doctrine portion of the installer.
+    "upgrades":
+        source: local
+        source_path: "upgrades"
 
 dependencies:
     nodejs:

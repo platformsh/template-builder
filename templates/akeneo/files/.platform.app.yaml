@@ -35,6 +35,8 @@ disk: 3072
 variables:
     env:
         APP_ENV: 'prod'
+        APP_DEBUG: 0
+        APP_DEFAULT_LOCALE: 'en'
     php:
         apc.enable_cli: 1
 

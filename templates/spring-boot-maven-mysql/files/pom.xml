@@ -9,13 +9,13 @@
 
    <properties>
     <platform.sh.version>2.2.3</platform.sh.version>
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
 </properties>
 
 <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.0.RELEASE</version>
+    <version>2.3.1.RELEASE</version>
 </parent>
 
 <dependencies>

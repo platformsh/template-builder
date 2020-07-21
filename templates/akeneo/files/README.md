@@ -6,15 +6,15 @@
 </a>
 </p>
 
-This template builds the Akeneo PIM system for Platform.sh.  It requires at least a Medium plan as it uses a Worker instance for queue processing.
+This template builds the Akeneo PIM system for Platform.sh.  By default it uses the "minimal" install profile.  It requires at least a Medium plan as it uses a Worker instance for queue processing.
 
 Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.
 
 ## Services
 
-* PHP 7.2
-* MySQL 5.7
-* Elasticsearch 6.5
+* PHP 7.3
+* MySQL 8.0
+* Elasticsearch 7.7
 
 ## Post-install
 

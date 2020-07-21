@@ -1,13 +1,22 @@
+# This is necessary for nvm to work.
+unset NPM_CONFIG_PREFIX
+# Disable npm update notifier; being a read only system it will probably annoy you.
+export NO_UPDATE_NOTIFIER=1
+# This loads nvm for general usage.
+export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 # Set a "null" SMTP host if on an environment where SMTP is disabled.
 if [ -z "${PLATFORM_SMTP_HOST}" ] ; then
     export PLATFORM_SMTP_HOST="null://localhost:25/"
 fi
 
+# Set databases environment variables for Akeneo
 export APP_DATABASE_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
 export APP_DATABASE_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
 export APP_DATABASE_NAME=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].path")
 export APP_DATABASE_USER=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].username")
 export APP_DATABASE_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].password")
 
-#export APP_INDEX_HOSTS=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host"):$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")
-export APP_INDEX_HOSTS=$(echo [\"$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].scheme")://$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host"):$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")\"])
+# Set Elasticsearch environment variable for Akeneo
+export APP_INDEX_HOSTS=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host"):$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")

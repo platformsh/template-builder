@@ -8,7 +8,7 @@
 
    <properties>
     <micronaut.version>2.0.0</micronaut.version>
-    <jdk.version>1.8</jdk.version>
+    <jdk.version>11</jdk.version>
     <maven.compiler.target>${jdk.version}</maven.compiler.target>
     <maven.compiler.source>${jdk.version}</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

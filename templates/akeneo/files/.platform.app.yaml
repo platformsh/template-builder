@@ -37,6 +37,7 @@ variables:
         APP_ENV: 'prod'
         APP_DEBUG: 0
         APP_DEFAULT_LOCALE: 'en'
+        APP_PRODUCT_AND_PRODUCT_MODEL_INDEX_NAME: 'akeneo_pim_product_and_product_model'
     php:
         apc.enable_cli: 1
 
@@ -57,6 +58,22 @@ mounts:
     "upgrades":
         source: local
         source_path: "upgrades"
+    # Required by the cache warmup process.  Why cache warmup needs to write config secrets is
+    # unclear, but probably a bug in Akeneo.  It creates an empty js/prod directory but does not
+    # do anything with it.
+    "config/secrets":
+        source: local
+        source_path: "config-secrets"
+    # Required by the dump-required-paths command. Why that needs to run in deploy rather than build
+    # is unclear, but is likely a bug in Akeneo. The directory is still empty after install.
+    "public/js":
+        source: local
+        source_path: "public-js"
+    # Required by the make assets command.  Why that needs to run in deploy rather than build is unclear,
+    # but is likely a bug in Akeneo.
+    "public/bundles":
+        source: local
+        source_path: "public-bundles"
 
 dependencies:
     nodejs:
@@ -68,6 +85,7 @@ hooks:
         set -e
 
         # install nvm to use newer version of node
+        echo "Updating Node version"
         unset NPM_CONFIG_PREFIX
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | dash
         export NVM_DIR="$HOME/.nvm"
@@ -77,17 +95,13 @@ hooks:
 
         # These have to be structured differently than the general `make prod` command
         # so we call them individually.
+        echo "Running make node_modules"
         NO_DOCKER=true make node_modules
-        NO_DOCKER=true make assets
-        NO_DOCKER=true make javascript-prod
+
 
     # We run the deploy hook after your application has been deployed and started.
     deploy: |
-        set -e
-
-        # Clear caches
-        rm -rf var/cache/*
-        php bin/console cache:warmup
+        #set -e
 
         # run installer if no lockfile exists
         if [ ! -f installer/.platform.installed ]; then
@@ -97,6 +111,26 @@ hooks:
             bin/console pim:user:create -n --admin admin admin admin@example.com Admin Istrator en_US
             touch installer/.platform.installed
         fi
+
+        # Clear caches
+        #rm -rf var/cache/*
+
+        echo "Running cache warmup"
+        php bin/console cache:warmup
+
+        echo "Running dump-require-paths"
+        bin/console pim:installer:dump-require-paths
+
+        echo "JS routing dump"
+        php bin/console --ansi fos:js-routing:dump --target=public/js/routes.js
+
+        echo "Running make javascript-prod"
+        NO_DOCKER=true make javascript-prod
+
+        echo "Running make assets"
+        NO_DOCKER=true make assets
+
+
 
 crons:
     refresh:

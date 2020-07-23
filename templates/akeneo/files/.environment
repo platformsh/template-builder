@@ -11,6 +11,8 @@ if [ -z "${PLATFORM_SMTP_HOST}" ] ; then
     export PLATFORM_SMTP_HOST="null://localhost:25/"
 fi
 
+export MAILER_URL=$PLATFORM_SMTP_HOST
+
 # Set databases environment variables for Akeneo
 export APP_DATABASE_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
 export APP_DATABASE_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
@@ -20,3 +22,6 @@ export APP_DATABASE_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | 
 
 # Set Elasticsearch environment variable for Akeneo
 export APP_INDEX_HOSTS=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host"):$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")
+
+# Set the Symfony App Secret
+export APP_SECRET=$PLATFORM_PROJECT_ENTROPY

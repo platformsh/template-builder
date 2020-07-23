@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 
 class Akeneo(RemoteProject):
-    major_version = 'v4'
+    major_version = 'v4.0'
     remote = 'https://github.com/akeneo/pim-community-standard.git'
 
     @property
@@ -11,11 +11,11 @@ class Akeneo(RemoteProject):
 
         def akeneo_modify_composer(composer):
             """
-            akeneo/pim-community-standard requires PHP 7.2, but it's dependency ocramius/package-versions requires 7.3
-            with the previous default configuration (1.5.1). This resolves that problem.
+            akeneo/pim-community-standard requires PHP 7.3, but it's dependency ocramius/package-versions requires 7.4
+            in its latest version. This resolves that problem.
             """
 
-            composer['require']['ocramius/package-versions'] = ">=1.4.0 <1.5.0"
+            composer['require']['ocramius/package-versions'] = "1.5.1"
 
             return composer
 

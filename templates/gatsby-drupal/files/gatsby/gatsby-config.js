@@ -1,37 +1,26 @@
-
 const config = require("platformsh-config").config();
 
-var backend_route = "";
-if ( config.isValidPlatform() ) {
-  require("dotenv").config({
-    path: `.env.${process.env.NODE_ENV}`,
-  })
-  backend_route = `http://${config.credentials("drupal")["host"]}`
-} else {
-  require("dotenv").config()
-  backend_route = process.env.API_URL;
-}
+backend_route = `http://${config.credentials("drupal")["host"]}`;
 
 module.exports = {
   siteMetadata: {
-    title: `Drupal-Gatsby website on Platform.sh`,
-    description: `Platform.sh implementation of a Gatsby Decoupled Drupal setup`,
-    author: `Platform.sh`,
+    title: `Gatsby Default Starter`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        baseUrl: backend_route
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-source-drupal`,
-      options: {
-        baseUrl: backend_route,
-        apiBase: 'jsonapi',
       },
     },
     `gatsby-transformer-sharp`,

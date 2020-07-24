@@ -17,15 +17,15 @@
     "require": {
         "composer/installers": "^1.2",
         "drupal/console": "^1.9",
-        "drupal/core-composer-scaffold": "^8.8.6",
-        "drupal/core-project-message": "^8.8.6",
-        "drupal/core-recommended": "^8.8.6",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-project-message": "^8.8",
+        "drupal/core-recommended": "^8.8",
+        "drupal/redis": "^1.4",
+        "drush/drush": "^10.3",
+        "platformsh/config-reader": "^2.3",
         "drupal/gatsby": "^1.0@rc",
         "drupal/jsonapi_extras": "^3.14",
-        "drupal/pathauto": "^1.8",
-        "drupal/redis": "^1.4",
-        "drush/drush": "^10.2",
-        "platformsh/config-reader": "^2.3"
+        "drupal/pathauto": "^1.8"
     },
     "conflict": {
         "drupal/drupal": "*"

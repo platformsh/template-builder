@@ -8,7 +8,7 @@ import SEO from "../components/seo"
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hello world!</h1>
+    <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>
     <p>It is now pulling data from your backend Drupal 8 application container on Platform.sh.</p>
     <Link to="/articles/">

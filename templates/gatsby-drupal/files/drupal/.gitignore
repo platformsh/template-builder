@@ -22,7 +22,3 @@ console/
 
 # Ignore .env files as they are personal
 /.env
-/.editorconfig
-/.gitattributes
-
-config/sync/gatsby.settings.yml

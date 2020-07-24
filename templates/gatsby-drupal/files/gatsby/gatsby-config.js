@@ -4,9 +4,9 @@ backend_route = `http://${config.credentials("drupal")["host"]}`;
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Gatsby + Drupal on Platform.sh`,
+    description: `This template builds a two application project to deploy the Headless CMS pattern using Gatsby as its frontend and Drupal for its backend.`,
+    author: `@platformsh`,
   },
   plugins: [
     {

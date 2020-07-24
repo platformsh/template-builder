@@ -9,7 +9,7 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
+    <p>Welcome to your new Gatsby site, content courtesy of Drupal!</p>
     <p>It is now pulling data from your backend Drupal 8 application container on Platform.sh.</p>
     <Link to="/articles/">
       <h4>View your Drupal articles</h4>

@@ -58,22 +58,31 @@ mounts:
     "upgrades":
         source: local
         source_path: "upgrades"
-    # Required by the cache warmup process.  Why cache warmup needs to write config secrets is
-    # unclear, but probably a bug in Akeneo.  It creates an empty js/prod directory but does not
-    # do anything with it.
-    "config/secrets":
+    # The following paths are required for the deploy-side bonus build.  Those steps
+    # shouldn't really be in deploy, but due to an Akeneo bug they require a database
+    # connection.
+    "config/secrets":  # For cache warmup
         source: local
         source_path: "config-secrets"
-    # Required by the dump-required-paths command. Why that needs to run in deploy rather than build
-    # is unclear, but is likely a bug in Akeneo. The directory is still empty after install.
     "public/js":
         source: local
         source_path: "public-js"
-    # Required by the make assets command.  Why that needs to run in deploy rather than build is unclear,
-    # but is likely a bug in Akeneo.
+    "public/css":
+        source: local
+        source_path: "public-css"
+    "public/cache":
+        source: local
+        source_path: "public-cache"
     "public/bundles":
         source: local
         source_path: "public-bundles"
+    "public/dist":
+        source: local
+        source_path: "public-dist"
+    # Yarn cache, because yarn is running in deploy not build.
+    "/.cache":
+        source: local
+        source_path: "dot-cache"
 
 dependencies:
     nodejs:
@@ -93,15 +102,31 @@ hooks:
         # install node 14 (currently latest LTS)
         nvm install 14
 
-        # These have to be structured differently than the general `make prod` command
-        # so we call them individually.
-        echo "Running make node_modules"
-        NO_DOCKER=true make node_modules
+        echo "Installing Node dependencies"
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
 
     # We run the deploy hook after your application has been deployed and started.
     deploy: |
         #set -e
+
+        # These require the database be defined, even though they run before the
+        # installer. This is most likely an Akeneo bug.
+
+        echo "Warming cache"
+        rm -rf var/cache/*
+        php bin/console cache:warmup
+
+        echo "Installing assets"
+        rm -rf public/bundles/* public/js/*
+        php bin/console pim:installer:assets --symlink
+
+        echo "Running webpack"
+        rm -rf public/dist/*
+        # This is running into an OOM problem and getting killed.
+        # It can't run in build because it has to run after the asset installer,
+        # which requires a database connection even if it doesn't use it.
+        yarn run webpack
 
         # run installer if no lockfile exists
         if [ ! -f installer/.platform.installed ]; then
@@ -111,26 +136,6 @@ hooks:
             bin/console pim:user:create -n --admin admin admin admin@example.com Admin Istrator en_US
             touch installer/.platform.installed
         fi
-
-        # Clear caches
-        #rm -rf var/cache/*
-
-        echo "Running cache warmup"
-        php bin/console cache:warmup
-
-        echo "Running dump-require-paths"
-        bin/console pim:installer:dump-require-paths
-
-        echo "JS routing dump"
-        php bin/console --ansi fos:js-routing:dump --target=public/js/routes.js
-
-        echo "Running make javascript-prod"
-        NO_DOCKER=true make javascript-prod
-
-        echo "Running make assets"
-        NO_DOCKER=true make assets
-
-
 
 crons:
     refresh:

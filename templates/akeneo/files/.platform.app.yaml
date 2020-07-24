@@ -58,31 +58,6 @@ mounts:
     "upgrades":
         source: local
         source_path: "upgrades"
-    # The following paths are required for the deploy-side bonus build.  Those steps
-    # shouldn't really be in deploy, but due to an Akeneo bug they require a database
-    # connection.
-    "config/secrets":  # For cache warmup
-        source: local
-        source_path: "config-secrets"
-    "public/js":
-        source: local
-        source_path: "public-js"
-    "public/css":
-        source: local
-        source_path: "public-css"
-    "public/cache":
-        source: local
-        source_path: "public-cache"
-    "public/bundles":
-        source: local
-        source_path: "public-bundles"
-    "public/dist":
-        source: local
-        source_path: "public-dist"
-    # Yarn cache, because yarn is running in deploy not build.
-    "/.cache":
-        source: local
-        source_path: "dot-cache"
 
 dependencies:
     nodejs:
@@ -105,28 +80,31 @@ hooks:
         echo "Installing Node dependencies"
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
-
-    # We run the deploy hook after your application has been deployed and started.
-    deploy: |
-        #set -e
-
-        # These require the database be defined, even though they run before the
-        # installer. This is most likely an Akeneo bug.
-
-        echo "Warming cache"
-        rm -rf var/cache/*
-        php bin/console cache:warmup
+        # The PHP parts of the installer require booting Akeneo, which requires all
+        # of these be set even though they're never used. This is an Akeneo bug but
+        # one that is easy enough to work around.
+        export APP_DATABASE_HOST='database.local'
+        export APP_DATABASE_PORT=3600
+        export APP_DATABASE_NAME=main
+        export APP_DATABASE_USER=main
+        export APP_DATABASE_PASSWORD=''
+        export APP_INDEX_HOSTS='essearch.local'
+        export APP_SECRET=$PLATFORM_PROJECT_ENTROPY
 
         echo "Installing assets"
-        rm -rf public/bundles/* public/js/*
         php bin/console pim:installer:assets --symlink
 
         echo "Running webpack"
         rm -rf public/dist/*
-        # This is running into an OOM problem and getting killed.
-        # It can't run in build because it has to run after the asset installer,
-        # which requires a database connection even if it doesn't use it.
         yarn run webpack
+
+    # We run the deploy hook after your application has been deployed and started.
+    deploy: |
+        set -e
+
+        echo "Warming cache"
+        rm -rf var/cache/*
+        php bin/console cache:warmup
 
         # run installer if no lockfile exists
         if [ ! -f installer/.platform.installed ]; then

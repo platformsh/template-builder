@@ -1,0 +1,13 @@
+INSTALL.txt
+README.txt
+example.gitignore
+/.csslintrc
+/.eslintignore
+/.eslintrc.json
+/.ht.router.php
+/.htaccess
+/autoload.php
+/index.php
+/robots.txt
+/update.php
+/web.config

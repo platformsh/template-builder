@@ -15,7 +15,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Java 11<br />
+          Java 8<br />
           Automatic TLS certificates<br />
           Maven-based build<br />
 

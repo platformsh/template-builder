@@ -12,7 +12,7 @@ Thorntail offers an innovative approach to packaging and running Java EE applica
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

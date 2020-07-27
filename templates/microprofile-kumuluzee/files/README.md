@@ -12,7 +12,7 @@ KumuluzEE is a lightweight framework for developing microservices using standard
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

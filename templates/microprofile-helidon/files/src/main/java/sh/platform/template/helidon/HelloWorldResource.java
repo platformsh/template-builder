@@ -1,4 +1,4 @@
-package sh.platform.template;
+package sh.platform.template.helidon;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.GET;

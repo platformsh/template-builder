@@ -12,7 +12,7 @@ Eclipse Jetty is used in a wide variety of projects and products, both in develo
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

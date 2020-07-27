@@ -16,7 +16,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Java 8<br />
+          Java 11<br />
           MySQL 8.0<br />
           Automatic TLS certificates<br />
           Maven-based build<br />

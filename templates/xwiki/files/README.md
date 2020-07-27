@@ -12,7 +12,7 @@ XWiki is a free wiki software platform written in Java with a design emphasis on
 
 ## Features
 
-* Java 8
+* Java 11
 * PostgreSQL 11
 * Automatic TLS certificates
 * Maven-based build

@@ -12,7 +12,7 @@ Open Liberty is a highly composable, fast to start, dynamic application server r
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

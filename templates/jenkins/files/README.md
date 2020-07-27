@@ -12,7 +12,7 @@ Jenkins is an open source automation server written in Java. Jenkins helps to au
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Jenkins downloaded on the fly during build
 

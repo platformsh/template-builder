@@ -12,7 +12,7 @@ Payara Micro is an Open Source, lightweight Java EE (Jakarta EE) microservices d
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

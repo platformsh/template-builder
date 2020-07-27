@@ -12,7 +12,7 @@ Micronaut is a modern, JVM-based, full-stack framework for building modular, eas
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

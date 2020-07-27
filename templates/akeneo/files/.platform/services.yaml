@@ -3,8 +3,8 @@
 # Each service listed will be deployed to power your project.
 
 db:
-    type: oracle-mysql:5.7
+    type: oracle-mysql:8.0
     disk: 1024
 search:
-    type: elasticsearch:6.5
+    type: elasticsearch:7.7
     disk: 512

@@ -4,7 +4,7 @@ info:
   id: platformsh/akeneo
   name: Akeneo PIM Community Edition
   description: |
-      <p>This template builds the Akeneo PIM system for Platform.sh.  It requires at least a Medium plan as it uses a Worker instance for queue processing.</p>
+      <p>This template builds the Akeneo PIM system for Platform.sh.  By default it uses the "minimal" install profile.  It requires at least a Medium plan as it uses a Worker instance for queue processing.</p>
       <p>Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.</p>
   tags:
   - PHP
@@ -15,8 +15,11 @@ info:
 
   notes:
     - heading: "Features"
-      content: "PHP 7.2<br/>MySQL 5.7<br/>Elasticsearch 6.5"
+      content: "PHP 7.3<br/>MySQL 8.0<br/>Elasticsearch 7.7"
 
+plans:
+    exclude:
+        - small
 
 initialize:
   repository: git://github.com/platformsh-templates/akeneo.git@master

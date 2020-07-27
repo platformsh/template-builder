@@ -47,7 +47,7 @@ info:
           Redis 5.0<br/>
           Automatic TLS certificates<br />
           npm-based build for Gatsby<br />
-          Composer-based build for Wordpress<br />
+          Composer-based build for Drupal<br />
           Multi-app configuration<br />
           Delayed SSG build (post deploy hook)<br />
 

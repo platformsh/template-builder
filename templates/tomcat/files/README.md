@@ -12,7 +12,7 @@ Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer P
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

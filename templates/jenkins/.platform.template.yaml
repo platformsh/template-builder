@@ -14,7 +14,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Java 8<br />
+          Java 11<br />
           Automatic TLS certificates<br />
           Jenkins downloaded on the fly during build<br />
 

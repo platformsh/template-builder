@@ -14,7 +14,7 @@ Helidon is designed to be simple to use, with tooling and examples to get you go
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

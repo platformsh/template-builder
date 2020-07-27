@@ -15,7 +15,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Java 8<br />
+          Java 11<br />
           Oracle MySQL 8.0<br />
           Automatic TLS certificates<br />
           Gradle-based build<br />

@@ -12,7 +12,7 @@ A sample Hello World application is provided as a starting point.  It includes a
 
 ## Features
 
-* Java 8
+* Java 11
 * MongoDB 3.6
 * Automatic TLS certificates
 * Maven-based build

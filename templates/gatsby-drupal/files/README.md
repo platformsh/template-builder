@@ -50,8 +50,7 @@ Gatsby is a free and open source framework based on React that helps developers 
 
 ### Enabling Gatsby Live Preview (manual configuration)
 
-> **Note:** Live Preview is not enabled by default on *Master* environments, but it can be set up manually on your development environments.
-> **Note:** After Live Preview is enabled, you will be able to edit content within Drupal, which will cause that content to update on Gatsby automatically for changes to its title, summary and body. Make sure to have at least two articles in Drupal before attempting to update an article's image. Gatsby temporarily is not able to locate the article during the update, and the environment will have to be redeployed. As long as there is more than one article present, this problem will not be encountered.  
+Live Preview is not enabled by default on *Master* environments, but it can be set up manually on your development environments. After Live Preview is enabled, you will be able to edit content within Drupal, which will cause that content to update on Gatsby automatically for changes to its title, summary and body. Make sure to have at least two articles in Drupal before attempting to update an article's image. Gatsby temporarily is not able to locate the article during the update, and the environment will have to be redeployed. As long as there is more than one article present, this problem will not be encountered.  
 
 0. Branch off of master a new development environment.
 1. Within the Drupal admin on that development envirnonment, click on *Gatsby Settings* in **Configuration**/**Web Services** section.
@@ -71,7 +70,7 @@ The following files and additions make the framework work.  If using this projec
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * Additional Platform.sh configuration reader modules for both [PHP](https://github.com/platformsh/config-reader-php) and [Node.js](https://github.com/platformsh/config-reader-nodejs) have been added. They provide convenience wrappers for accessing the Platform.sh environment variables.
 * `gatsby-config.js` has been modified to read the Drupal backend url and assign it to the `backend_route` attribute for the `gatsby-source-drupal` plugin using the Node.js Configuration Reader library. Since routes are not available during the build hook, and since we want this value to be generated and unique on each environment, `gatsby build` runs and pulls in content from the Wordpress app during the `post_deploy` hook on the mounted `public` directory. `gatbsby-source-drupal` can have additional parameters set to modify your configuration, so consult the [documentation](https://www.gatsbyjs.org/packages/gatsby-source-drupal).
-* `gatsby/src/pages/articles.js` and `gatsby/src/templates/article.js` have been included to actually display the Drupal articles within Gatsby using GraphQL, with much appreciated assistance from the tutorials created on [CodeKarate](https://www.youtube.com/playlist?list=PLlzlpMzp4eR3EORfm3lwJ_gV5egTa2caF).
+* `gatsby/src/pages/articles.js` and `gatsby/src/templates/article.js` have been included to actually display the Drupal articles within Gatsby using GraphQL, heavily based on the tutorials available from [CodeKarate](https://www.youtube.com/playlist?list=PLlzlpMzp4eR3EORfm3lwJ_gV5egTa2caF).
 
 ## References
 
@@ -79,7 +78,7 @@ The following files and additions make the framework work.  If using this projec
 * [Gatsby for Drupal 8 CodeKarate tutorials](https://www.youtube.com/playlist?list=PLlzlpMzp4eR3EORfm3lwJ_gV5egTa2caF)
 * [Gatsby](https://www.gatsbyjs.org/)
 * [gatsby-source-drupal](https://www.gatsbyjs.org/packages/gatsby-source-drupal/)
-* [Dedcoupled Drupal by Lullabot](https://www.google.com/search?client=safari&rls=en&q=gatsby+drupal&ie=UTF-8&oe=UTF-8)
+* [Dedcoupled Drupal by Lullabot](https://www.lullabot.com/articles/decoupled-drupal-getting-started-gatsby-and-jsonapi)
 * [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)
 * [Drupal](https://drupal.org/)
 * [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal.html)

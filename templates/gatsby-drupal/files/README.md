@@ -14,7 +14,7 @@ Gatsby is a free and open source framework based on React that helps developers 
 
 > **Note:** This project will require at least a Medium plan.
 
-## Services
+## Features
 
 * Node.js 12
 * PHP 7.4

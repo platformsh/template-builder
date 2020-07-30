@@ -1,1 +1,9 @@
 node_modules
+
+# Ignore mounts
+.tmp
+.cache
+api
+components
+public/uploads
+extensions

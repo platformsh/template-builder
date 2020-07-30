@@ -16,7 +16,6 @@ hooks:
     build: mvn -Dhttp.port=8888 clean package tomee:exec
 
 mounts:
-
     '/.distribution':
         source: local
         source_path: tomee_source

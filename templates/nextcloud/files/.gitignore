@@ -38,3 +38,8 @@ Temporary Items
 
 # This will be populated during the build phase.
 src
+
+# Ignore mounts
+apps
+src/data
+src/config

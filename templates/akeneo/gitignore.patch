@@ -2,7 +2,7 @@ diff --git a/.gitignore b/.gitignore
 index ddf1054..9bbe0a0 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -44,3 +44,8 @@ coverage/*
+@@ -44,3 +44,9 @@ coverage/*
  ###< symfony/web-server-bundle ###
 
  .env

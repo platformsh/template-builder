@@ -9,3 +9,6 @@
 /gotoa.bat
 .metadata
 /bin/
+
+# Ignore mounts
+server

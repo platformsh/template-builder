@@ -6,3 +6,6 @@ npm-debug.log
 coverage
 run/
 scratch
+
+# Ignore mounts
+registration

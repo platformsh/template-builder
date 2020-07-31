@@ -42,3 +42,7 @@
 !/wordpress/wp-content/plugins/README.md
 /wordpress/wp-content/themes/*
 !/wordpress/wp-content/themes/README.md
+
+# Ignore mounts
+wordpress/wp-content/cache
+wordpress/wp-content/uploads

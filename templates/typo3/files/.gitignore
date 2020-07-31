@@ -8,3 +8,8 @@ public/typo3conf/*
 /vendor/
 /var/
 config/platform-temp-bridge
+
+# Ignore mounts
+public/typo3temp
+public/fileadmin
+var

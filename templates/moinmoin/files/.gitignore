@@ -105,3 +105,10 @@ venv.bak/
 .mypy_cache/
 .platform/local
 .idea/*
+
+# Ignore mounts
+moinmoin/wiki/data/user
+moinmoin/wiki/data/pages
+moinmoin/wiki/data/cache
+moinmoin/wiki/data/logging
+moinmoin/wiki/underlay

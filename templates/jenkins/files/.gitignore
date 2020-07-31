@@ -1,0 +1,3 @@
+# Ignore mounts
+.jenkins
+.m2

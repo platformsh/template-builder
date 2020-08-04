@@ -12,7 +12,7 @@ Apache TomEE is the Eclipse MicroProfile  implementation that uses several Apach
 
 ## Features
 
-* Java 8
+* Java 11
 * Automatic TLS certificates
 * Maven-based build
 

@@ -48,7 +48,7 @@ class Drupal8_opigno(Drupal8):
 
 class Drupal8_govcms8(RemoteProject):
     major_version = '1'
-    remote = 'https://github.com/govCMS/govCMS8.git'
+    remote = 'https://github.com/govCMS/govCMS8-project.git'
 
     @property
     def platformify(self):
@@ -57,11 +57,5 @@ class Drupal8_govcms8(RemoteProject):
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
-           'cd {0} && rm composer.lock'.format(self.builddir),
-           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis '
-           '--ignore-platform-reqs'.format(self.builddir),
-           "rm -rf {0}.github || true".format(self.builddir),
-           "rm -rf {0}.circleci || true".format(self.builddir),
-           "rm -rf {0}.tugboat || true".format(self.builddir),
-           "rm -rf {0}.travisci || true".format(self.builddir),
+           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis --ignore-platform-reqs'.format(self.builddir),
         ]

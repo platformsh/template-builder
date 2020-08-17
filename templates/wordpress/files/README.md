@@ -59,3 +59,5 @@ The following changes have been made relative to WordPress as it is downloaded f
 * [WordPress](https://wordpress.org/)
 * [WordPress on Platform.sh](https://docs.platform.sh/frameworks/wordpress.html)
 * [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)
+* [How to install Wordpress plugins and themes with Composer](https://community.platform.sh/t/how-to-install-wordpress-plugins-and-themes-with-composer/507)
+* [How to install custom/private Wordpress plugins and themes with Composer](https://community.platform.sh/t/how-to-install-custom-private-wordpress-plugins-and-themes-with-composer/622)

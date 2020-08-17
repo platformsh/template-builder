@@ -12,9 +12,9 @@ GovCMS is a Drupal distribution built for the Australian government, and include
 
 ## Features
 
-* PHP 7.2
-* MariaDB 10.2
-* Redis 5
+* PHP 7.4
+* MariaDB 10.4
+* Redis 6
 * Drush and Drupal Console included
 * Automatic TLS certificates
 * Composer-based build

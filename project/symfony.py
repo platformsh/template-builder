@@ -18,7 +18,7 @@ class Symfony3(RemoteProject):
             # 2.x gets installed.  That's explicitly not compatible with Symfony < 5, however.  Instead, force
             # an extra dependency on Monolog 1 to sidestep that issue.  It has to be done in a single install
             # step to avoid issues with Symfony's install script failing if either of these packages are missing.
-            'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22 --ignore-platform-reqs && composer update --no-plugins'.format(
+            'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22 --ignore-platform-reqs && composer update'.format(
                 self.builddir),
         ]
 

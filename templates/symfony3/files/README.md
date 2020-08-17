@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template provides a basic Symfony 4 skeleton.  It comes pre-configured to use a MariaDB database via a custom config file.  It is intended for you to use as a starting point and modify for your own needs.
+This template provides a basic Symfony 3 skeleton.  It comes pre-configured to use a MariaDB database via a custom config file.  It is intended for you to use as a starting point and modify for your own needs.
 
 It is configured for Production mode by default, so the usual Symfony "welcome" page will not appear.  Instead, you will see a 404 page after the site first deploys, which is normal.  You may switch it into dev mode via `.platform.app.yaml` if desired.
 

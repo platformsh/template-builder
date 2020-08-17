@@ -1,24 +1,16 @@
 diff --git a/.gitignore b/.gitignore
-index 0bf9e638..9bf0a050 100644
+index cd3db77e..756f6176 100644
 --- a/.gitignore
 +++ b/.gitignore
 @@ -3,7 +3,6 @@
-
+ 
  # symfony default
  /.web-server-pid
 -/app/config/parameters.yml
  /build/
  /phpunit.xml
  /web/bundles/
-@@ -47,7 +46,6 @@
- /composer.local.json
-
- # composer
--/composer.lock
- /vendor/
-
- # PhpStorm / IDEA
-@@ -58,3 +58,10 @@ nbproject
+@@ -61,3 +60,10 @@ nbproject
  /tools/
  /website/
  .temp
@@ -29,3 +21,4 @@ index 0bf9e638..9bf0a050 100644
 +pimcore
 +web/pimcore
 +web/bundles
+diff --git a/gitignore.patch b/gitignore.patch

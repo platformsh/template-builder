@@ -13,7 +13,7 @@ build:
 
 variables:
     env:
-        NEXTCLOUD_VERSION: 19.0.0
+        NEXTCLOUD_VERSION: 19.0.1
         PHPREDIS_VERSION: 5.2.1
         front_controller_active: true
     php:

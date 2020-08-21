@@ -14,7 +14,7 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.microprofile>2.2</version.microprofile>
-        <tomee.version>8.0.3</tomee.version>
+        <tomee.version>8.0.4</tomee.version>
         <platform.sh.version>2.2.3</platform.sh.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <junit.version>5.6.0</junit.version>

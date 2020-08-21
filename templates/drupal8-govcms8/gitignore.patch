@@ -1,0 +1,13 @@
+diff --git a/.gitignore b/.gitignore
+index 51f1e9f..6dd9675 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,7 +11,7 @@ bin/*
+ reports
+ 
+ # Composer vendor
+-composer.lock
++#composer.lock
+ vendor/
+ vendor/.git
+ 

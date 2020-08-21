@@ -1,0 +1,16 @@
+diff --git a/.gitignore b/.gitignore
+index 9e884e7..d96496a 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -42,9 +42,7 @@ coverage/*
+ ###> symfony/web-server-bundle ###
+ /.web-server-pid
+ ###< symfony/web-server-bundle ###
+-
+ .env
+-
+ # Ignore mounts
+ var
+ installer
+ web 
+ upgrades

@@ -53,6 +53,9 @@ mounts:
     "/web/bundles":
       source: "local"
       source_path: "web_bundles"
+    "/app/config/local":
+      source: "local"
+      source_path: "config_local"
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -90,7 +93,7 @@ hooks:
         # after the site is installed.
         export PIMCORE_INSTALL_ADMIN_USERNAME='admin'
         export PIMCORE_INSTALL_ADMIN_PASSWORD='admin'
-        vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
+        ./vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
         touch web/var/.platform.installed
     fi
 

@@ -1,0 +1,22 @@
+# .platform.app.yaml
+
+# The name of this application, which must be unique within a project.
+name: app
+
+# The type key specifies the language and version for your application.
+type: 'nodejs:14'
+
+dependencies:
+    nodejs:
+        yarn: "^1.22.0"
+
+# The hooks that will be triggered when the package is deployed.
+hooks:
+    build: |
+        yarn
+        yarn build
+
+# The configuration of the application when it is exposed to the web.
+web:
+    commands:
+        start: yarn start -p $PORT

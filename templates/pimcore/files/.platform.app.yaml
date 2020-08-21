@@ -93,7 +93,7 @@ hooks:
         # after the site is installed.
         export PIMCORE_INSTALL_ADMIN_USERNAME='admin'
         export PIMCORE_INSTALL_ADMIN_PASSWORD='admin'
-        ./vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug --admin-username admin --admin-password admin
+        ./vendor/bin/pimcore-install --no-interaction --ignore-existing-config --no-debug
         touch web/var/.platform.installed
     fi
 

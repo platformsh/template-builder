@@ -22,20 +22,12 @@ disk: 1024
 web:
     commands:
         start: |
-            # Run a no-op process that uses no CPU resources, since this is a static site on master.
             if [ "$PLATFORM_BRANCH" = master ]; then
-               sleep infinity
+               npm run serve 
             # Run development server on non-production environments.
             else
                npm run develop
             fi
-    locations:
-        '/':
-            # The public directory of the application relative to its root.
-            root: 'public'
-            index: ['index.html']
-            scripts: false
-            allow: true
 
 mounts:
     '/.cache':

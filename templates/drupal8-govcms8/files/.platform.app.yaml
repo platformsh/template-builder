@@ -16,8 +16,7 @@ type: 'php:7.4'
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     database: 'db:mysql'
-## Uncomment this line to enable Redis caching for Drupal.
-#    redis: 'cache:redis'
+    redis: 'cache:redis'
 
 # Add additional PHP extensions.
 runtime:
@@ -58,10 +57,14 @@ hooks:
     deploy: |
         set -e
         php ./drush/platformsh_generate_drush_yml.php
-        cd docroot
-        drush -y cache-rebuild
-        drush -y updatedb
-        drush -y config-import
+        if [ -f docroot/sites/default/files/platform.installed ]; then
+            cd docroot
+            drush -y cache-rebuild
+            drush -y updatedb
+            drush -y config-import
+        else
+            touch docroot/sites/default/files/platform.installed
+        fi
 
 # The configuration of app when it is exposed to the web.
 web:

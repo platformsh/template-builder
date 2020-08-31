@@ -54,8 +54,6 @@ hooks:
   # assembling the codebase.
   build: |
     pipenv install --system --deploy
-    pip install wagtail
-
     mkdir logs
     python manage.py collectstatic
     rm -rf logs

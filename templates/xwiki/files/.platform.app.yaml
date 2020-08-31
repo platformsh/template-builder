@@ -20,15 +20,18 @@ relationships:
     database: "db:postgresql"
 
 # The hooks executed at various points in the lifecycle of the application.
+variables:
+    env:
+        XWIKI_VERSION: 12.7
 hooks:
     build: |
          echo "Downloading xwiki"
-         wget -q http://nexus.xwiki.org/nexus/content/groups/public/org/xwiki/platform/xwiki-platform-distribution-jetty-hsqldb/11.10.2/xwiki-platform-distribution-jetty-hsqldb-11.10.2.zip -O xwiki.zip
+         wget -q http://nexus.xwiki.org/nexus/content/groups/public/org/xwiki/platform/xwiki-platform-distribution-jetty-hsqldb/${XWIKI_VERSION}/xwiki-platform-distribution-jetty-hsqldb-${XWIKI_VERSION}.zip -O xwiki.zip
          echo "Downloading PostgreSQL connector"
          wget -q https://jdbc.postgresql.org/download/postgresql-42.2.9.jar -O postgresql-connector-java.jar
          echo "unzip xwiki"
          unzip -q xwiki.zip
-         mv xwiki-platform-distribution-jetty-hsqldb-11.10.2 xwiki
+         mv xwiki-platform-distribution-jetty-hsqldb-${XWIKI_VERSION} xwiki
          cp postgresql-connector-java.jar xwiki/webapps/xwiki/WEB-INF/lib/postgresql-connector-java.jar
          cp hibernate.cfg.xml xwiki/webapps/xwiki/WEB-INF/hibernate.cfg.xml
 

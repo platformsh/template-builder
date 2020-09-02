@@ -24,6 +24,7 @@ class BaseProject(object):
         'Pipfile': 'pipenv update',
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
+        'go.mod': 'go get -u all',
     }
 
     def __init__(self, name):

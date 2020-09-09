@@ -2,7 +2,7 @@ from .remote import RemoteProject
 
 
 class Laravel(RemoteProject):
-    major_version = 'v7'
+    major_version = 'v8'
     remote = 'https://github.com/laravel/laravel.git'
 
     @property

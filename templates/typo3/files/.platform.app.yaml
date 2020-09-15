@@ -1,11 +1,17 @@
 # This file describes an application. You can have multiple applications
 # in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
 
 # The name of this app. Must be unique within a project.
 name: app
 
-# The type of the application to build.
+# The runtime the application uses.
 type: php:7.4
+
+# Composer build tasks run prior to build hook, which runs 
+# composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader
+# if composer.json is detected. 
 build:
     flavor: composer
 
@@ -14,19 +20,33 @@ build:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
+    # MariaDB/MySQL will then be accessible to the app from 'database'  relationship.
     database: 'db:mysql'
+    
+    # Redis will then be accessible to the app from 'rediscache'  relationship.
     rediscache: 'cache:redis'
 
 # The configuration of app when it is exposed to the web.
 web:
+    # How the application container responds to incoming requests.
     locations:
+        # All requests not otherwise specified follow these rules.
         '/':
-            # The public directory of the app, relative to its root.
+            # The folder from which to serve static assets, for this location.
+            # This is a filesystem path, relative to the application root.
             root: 'public'
+            
+            # Redirect any incoming request to TYPO3's front controller.
             passthru: '/index.php'
+
+            # The files to consider first when serving requests for a directory.
             index:
                 - 'index.php'
+            
+            # Deny access to all static files, except those specifically allowed below.
             allow: false
+
+            # Rules for specific URI patterns.
             rules:
                 # Allow access to common static files.
                 '\.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
@@ -35,32 +55,45 @@ web:
                     allow: true
                 '^/sitemap\.xml$':
                     allow: true
+
+        # 
         '/fileadmin':
             root: 'public/fileadmin'
+            # Do not execute PHP scripts from the writeable mount.
             scripts: false
             allow: true
             passthru: '/index.php'
+
+        # 
         '/typo3temp/assets':
             root: 'public/typo3temp/assets'
+            # Do not execute PHP scripts from the writeable mount.
             scripts: false
             allow: true
             passthru: '/index.php'
+
+        #  
         '/typo3conf/LocalConfiguration.php':
             allow: false
+
+        # 
         '/typo3conf/AdditionalConfiguration.php':
             allow: false
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-# The mounts that will be performed when the package is deployed.
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
+    # 
     "public/typo3temp":
         source: local
         source_path: "typo3temp"
+    # 
     "public/fileadmin":
         source: local
         source_path: "fileadmin"
+    # 
     "var":
         source: local
         source_path: "var"
@@ -68,6 +101,7 @@ mounts:
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
+        # 
         set -e
 
         # Install the PhpRedis extension
@@ -90,10 +124,14 @@ hooks:
             rm public/FIRST_INSTALL
         fi;
     deploy: |
+        #
         set -e
+
+        # Set TYPO3 site defaults on first deploy.
         if [ ! -f var/platformsh.installed ]; then
             # copy the created LocalConfiguration into the writable location
             cp public/typo3conf/LocalConfiguration.FromSource.php var/LocalConfiguration.php
+
             # This creates the initial admin user with a default password.
             # *CHANGE THIS VALUE IMMEDIATELY AFTER INSTALLATION*
             php vendor/bin/typo3cms install:setup \
@@ -104,11 +142,15 @@ hooks:
                 --admin-password=password \
                 --skip-extension-setup \
                 --no-interaction
+
             php vendor/bin/typo3cms extension:setupactive || true
+            
+            # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
         fi;
 
 crons:
+     # Run TYPO3's cron tasks every 5 minutes.
     typo3:
         spec: "*/5 * * * *"
         cmd: "vendor/bin/typo3 scheduler:run"

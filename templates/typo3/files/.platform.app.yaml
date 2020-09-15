@@ -21,9 +21,11 @@ build:
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     # MariaDB/MySQL will then be accessible to the app from 'database'  relationship.
+    # The service name `db` must match the top-level attribute in `.platform/services.yaml`.
     database: 'db:mysql'
     
     # Redis will then be accessible to the app from 'rediscache'  relationship.
+    # The service name `cache` must match the top-level attribute in `.platform/services.yaml`.
     rediscache: 'cache:redis'
 
 # The configuration of app when it is exposed to the web.
@@ -132,6 +134,7 @@ hooks:
         if [ -f public/FIRST_INSTALL ]; then
             rm public/FIRST_INSTALL
         fi;
+
     # The deploy hook runs after your application has been deployed and started.
     # Code cannot be modified at this point but the database is available.
     # The site is not accepting requests while this script runs so keep it
@@ -164,7 +167,7 @@ hooks:
         fi;
 
 crons:
-     # Run TYPO3's cron tasks every 5 minutes.
+     # Run TYPO3's Scheduler tasks every 5 minutes.
     typo3:
         spec: "*/5 * * * *"
         cmd: "vendor/bin/typo3 scheduler:run"

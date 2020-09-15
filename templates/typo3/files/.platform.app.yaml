@@ -39,7 +39,7 @@ web:
             # Redirect any incoming request to TYPO3's front controller.
             passthru: '/index.php'
 
-            # The files to consider first when serving requests for a directory.
+            # File to consider first when serving requests for a directory.
             index:
                 - 'index.php'
             
@@ -56,7 +56,8 @@ web:
                 '^/sitemap\.xml$':
                     allow: true
 
-        # 
+        # Default Storage location where TYPO3 expects media resources to be located.
+        # Writable at runtime with the mount `public/fileadmin`.
         '/fileadmin':
             root: 'public/fileadmin'
             # Do not execute PHP scripts from the writeable mount.
@@ -64,7 +65,8 @@ web:
             allow: true
             passthru: '/index.php'
 
-        # 
+        # Directory for temporary files that should be publicly available (e.g. generated images).
+        # Writable at runtime with the mount `publi/typo3temp`.
         '/typo3temp/assets':
             root: 'public/typo3temp/assets'
             # Do not execute PHP scripts from the writeable mount.
@@ -72,11 +74,11 @@ web:
             allow: true
             passthru: '/index.php'
 
-        #  
+        # Local TYPO3 installation settings. 
         '/typo3conf/LocalConfiguration.php':
             allow: false
 
-        # 
+        # Additional TYPO3 installation settings.
         '/typo3conf/AdditionalConfiguration.php':
             allow: false
 
@@ -85,54 +87,65 @@ disk: 2048
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    # 
+    # Directory for temporary files. It contains subdirectories (see below) for 
+    # temporary files of extensions and TYPO3 components.
     "public/typo3temp":
         source: local
         source_path: "typo3temp"
-    # 
+    # Default Storage location where TYPO3 expects media resources to be located.
     "public/fileadmin":
         source: local
         source_path: "fileadmin"
-    # 
+    # Contains system files, like caches, logs, sessions
     "var":
         source: local
         source_path: "var"
 
 # The hooks that will be performed when the package is deployed.
 hooks:
+    # The build hook runs after Composer to finish preparing up your code.
+    # No services are available but the disk is writeable.
     build: |
-        # 
+        # Exit hook immediately if a command exits with a non-zero status.
         set -e
 
-        # Install the PhpRedis extension
+        # Install the PhpRedis extension.
         bash install-redis.sh 5.1.1
 
+        # Start the installation with no interaction or extension setup, using `SetupConfiguration.yaml`.
         php vendor/bin/typo3cms install:setup --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup
+
+        # Generates the `PackageStates.php` file from the `composer.json` configuration
         php vendor/bin/typo3cms install:generatepackagestates
 
-        # Enable the install tool for 60mins after deployment
+        # Enable the install tool for 60mins after deployment.
         touch public/typo3conf/ENABLE_INSTALL_TOOL
 
         # Keep the checked-in LocalConfiguration available, but make the actual file writable later-on
-        # by creating a symlink which will be accesible below
+        # by creating a symlink which will be accesible below.
         if [ -f public/typo3conf/LocalConfiguration.php ]; then
             mv public/typo3conf/LocalConfiguration.php public/typo3conf/LocalConfiguration.FromSource.php
             ln -sf ../../var/LocalConfiguration.php public/typo3conf/LocalConfiguration.php
         fi;
-        # Clean up the FIRST_INSTALL file, that was created
+
+        # Clean up the FIRST_INSTALL file, that was created.
         if [ -f public/FIRST_INSTALL ]; then
             rm public/FIRST_INSTALL
         fi;
+    # The deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # The site is not accepting requests while this script runs so keep it
+    # fast.
     deploy: |
-        #
+        # Exit hook immediately if a command exits with a non-zero status.
         set -e
 
         # Set TYPO3 site defaults on first deploy.
         if [ ! -f var/platformsh.installed ]; then
-            # copy the created LocalConfiguration into the writable location
+            # Copy the created LocalConfiguration into the writable location.
             cp public/typo3conf/LocalConfiguration.FromSource.php var/LocalConfiguration.php
 
-            # This creates the initial admin user with a default password.
+            # On first install, create an inital admin user with a default password.
             # *CHANGE THIS VALUE IMMEDIATELY AFTER INSTALLATION*
             php vendor/bin/typo3cms install:setup \
                 --install-steps-config=src/SetupDatabase.yaml \
@@ -143,8 +156,9 @@ hooks:
                 --skip-extension-setup \
                 --no-interaction
 
+            # Sets up all extensions that are marked as active in the system.
             php vendor/bin/typo3cms extension:setupactive || true
-            
+
             # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
         fi;

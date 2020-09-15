@@ -13,7 +13,11 @@
     # where the `name` attribute from `.platform.app.yaml` is used.
     upstream: "app:http"
 
-    # Optional route identifier; constant across all environments.
+    # Optional route identifier; constant across all environments. 
+    # 
+    # For TYPO3, the id "main" is used within `public/typo3conf/PlatformshConfig.php` 
+    # to set the `base` attribute for the site (in `config/sites/main/config.yaml`) from the 
+    # Platform.sh environment variable `PLATFORM_ROUTES`.
     id: "main"
 
     # HTTP cache configuration.

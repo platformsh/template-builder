@@ -11,20 +11,32 @@ declare(strict_types=1);
 
 use Platformsh\ConfigReader\Config;
 
+// Leverages the Platform.sh Configuration Reader library for PHP.
+// 
+// See https://github.com/platformsh/config-reader-php.
 $platformConfig = new Config();
 
+// Ensures script does not run if not on Platform.sh.
 if (!$platformConfig->isValidPlatform()) {
     return;
 }
 
+// Ensures script does not run during builds, when relationships
+// are not available.
 if ($platformConfig->inBuild()) {
     return;
 }
 
 // Workaround to set the proper env variable for the main route (found in config/sites/main/config.yaml)
+// Relies on the `id: "main"` configuration set in `.platform/routes.yaml`.
 putenv('PLATFORM_ROUTES_MAIN=' . $platformConfig->getRoute('main')['url']);
 
-// Configure the database based on the Platform.sh relationships.
+// Configure the database for `doctrine-dbal` for TYPO3 based on the Platform.sh relationships. 
+// 
+// See https://docs.typo3.org/m/typo3/reference-coreapi/9.5/en-us/ApiOverview/Database/Configuration/Index.html.
+// 
+// These lines depend on the database relationship being named `database`. If updating the name to 
+// something else below, be sure to update `.platform.app.yaml` to match.
 if ($platformConfig->hasRelationship('database')) {
     $databaseConfig = $platformConfig->credentials('database');
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['driver'] = 'mysqli';
@@ -35,7 +47,8 @@ if ($platformConfig->hasRelationship('database')) {
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = $databaseConfig['password'];
 }
 
-// Configure Redis as the cache backend if available.
+// Configure Redis as the cache backend if available. These lines depend on the Redis relationship
+// being named `rediscache`. If updating the name to something else below, be sure to update `.platform.app.yaml` to match.
 if ($platformConfig->hasRelationship('rediscache')) {
     $redisConfig = $platformConfig->credentials('rediscache');
     $redisHost = $redisConfig['host'];

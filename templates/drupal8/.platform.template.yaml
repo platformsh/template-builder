@@ -18,7 +18,7 @@ info:
       content: |
         PHP 7.4<br />
         MariaDB 10.4<br />
-        Redis 5<br />
+        Redis 6<br />
         Automatic TLS certificates<br />
         Composer-based build<br />
 

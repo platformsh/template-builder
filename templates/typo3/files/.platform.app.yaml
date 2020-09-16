@@ -9,6 +9,11 @@ name: app
 # The runtime the application uses.
 type: php:7.4
 
+runtime:
+    # Enable the redis extension so TYPO3 can communicate with the Redis cache.
+    extensions:
+        - redis
+
 # Composer build tasks run prior to build hook, which runs 
 # composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader
 # if composer.json is detected. 
@@ -113,9 +118,6 @@ hooks:
     build: |
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
-
-        # Install the PhpRedis extension.
-        bash install-redis.sh 5.1.1
 
         # Start the installation with no interaction or extension setup, using `SetupConfiguration.yaml`.
         php vendor/bin/typo3cms install:setup --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup

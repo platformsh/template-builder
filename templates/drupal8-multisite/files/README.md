@@ -16,7 +16,7 @@ Drupal is a flexible and extensible PHP-based CMS framework capable of hosting m
 
 * PHP 7.4
 * MariaDB 10.4
-* Redis 5
+* Redis 6
 * Drush and Drupal Console included
 * Pre-configured for multiple sites
 * Automatic TLS certificates
@@ -33,7 +33,6 @@ The following changes have been made relative to Drupal 8 as it is downloaded fr
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.  However, the multi-site logic will only work if the conventions documented below are retained.
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * Drush and Drupal Console have been pre-included in `composer.json`.  You are free to remove one or both if you do not wish to use them.  (Note that the default cron and deploy hooks make use of Drush commands, however.)
-* The build hook uses the included [`install-redis.sh`](install-redis.sh) script to custom compile the Redis extension at a specified version and enable it through a `php.ini` file.
 * The Drupal Redis module comes pre-installed.  The placeholder module is not pre-installed, but it is enabled via `settings.platformsh.php` out of the box.
 * The `sites/sites.php` file has been modified to dynamically build a `$sites` index based on the available routes.  If you wish to alter the subsite logic you will need to change the contents of the `foreach()` loop in that file.
 * The `sites/settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See the documentation for more examples of common snippets to include here.  It uses the Config Reader library.

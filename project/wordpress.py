@@ -28,6 +28,13 @@ class Wordpress(RemoteProject):
                     r'wordpress/wp-content/mu-plugins/{$name}': ['type:wordpress-muplugin'],
                 }
             }
+
+            composer['repositories'] = [
+                {
+                    "type": "composer",
+                    "url": "https://wpackagist.org"
+                }
+            ]
             return composer
 
         return super(Wordpress, self).platformify + [

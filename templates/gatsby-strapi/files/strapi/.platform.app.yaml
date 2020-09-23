@@ -1,24 +1,54 @@
 # This file describes an application. You can have multiple applications
 # in the same project.
 #
-# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+# See https://docs.platform.sh/configuration/app.html
 
 # The name of this app. Must be unique within a project.
 name: strapi
 
-# The runtime the application uses.
-type: nodejs:14
+# The runtime the application uses. Strapi not yet suppported with NodeJS 14.
+type: nodejs:12
 
+# Build dependencies. 
 dependencies:
-  nodejs:
-    yarn: "1.19.2"
+    nodejs:
+        yarn: "1.22.5"
 
-# The hooks that will be triggered when the package is deployed.
+# The hooks executed at various points in the lifecycle of the application.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
-    build: !include
-      type: string
-      path: build.sh
+    # The build hook runs after build dependencies (yarn) are downloaded.
+    # No services are available but the disk is writeable.
+    build: |
+        # Create Strapi quickstart app.
+        yarn create strapi-app tmp-strapi --quickstart --no-run
+
+        # Can only create Strapi app within an empty dir. This is a workaround. 
+        mv tmp-strapi/* . && rm -rf tmp-strapi
+
+        # Install additional dependencies.
+        yarn add platformsh-config
+        yarn add pg
+        yarn strapi install graphql
+        yarn strapi install documentation
+
+        # Override with Platform.sh-specific configuration.
+        cp platformsh/database.js config/database.js
+        cp platformsh/server.js config/server.js
+
+    # The deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # The site is not accepting requests while this script runs so keep it fast.
+    deploy: |
+        # Only perform a full production build on `master` environment.
+        if [ "$PLATFORM_BRANCH" = master ]; then
+            yarn build
+        fi
+
+        # Customize the Swagger/OpenAPI documentation and move into auto-generate path.
+        if [ ! -d extensions/documentation/config ]; then
+            mkdir extensions/documentation/config
+        fi
+        cp platformsh/openapi.json extensions/documentation/config/settings.json
 
 # The relationships of the application with services or other applications.
 #
@@ -30,28 +60,45 @@ relationships:
 
 # The configuration of app when it is exposed to the web.
 web:
-  commands:
-    start: ./start.sh
+    locations:
+        # For serving the generated OpenAPI specification as part of the documentation.
+        "/docs/spec":
+            root: "extensions/documentation/documentation/1.0.0"
+            allow: true
+            scripts: false
+            index:
+                - full_documentation.json
+    commands:
+        start: |
+            # Production start on `master`, development server otherwise.
+            if [ "$PLATFORM_BRANCH" = master ]; then
+                NODE_ENV=production yarn start
+            else
+                yarn develop
+            fi
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    '/.tmp':
-        source: local
-        source_path: tmp
+    # Strapi's cache directory.
     '/.cache':
         source: local
         source_path: cache
+    # Allow for updates to the API (new JSONs) at runtime.
     'api':
         source: local
         source_path: api
-    'components':
-        source: local
-        source_path: components
+    # Allow for media uploads at runtime.
     'public/uploads':
         source: local
         source_path: uploads
+    # Allow extensions to be configurable at runtime.
     'extensions':
         source: local
         source_path: extensions
+    # Allow GraphQL schema updates (JSON) at runtime.
+    'exports':
+        source: local
+        source_path: exports

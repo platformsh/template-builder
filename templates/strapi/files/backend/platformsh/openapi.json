@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Strapi API Documentation",
+      "description": "Here is the generated documentation for your Strapi application on Platform.sh. The <code>strapi-plugin-documentation</code> module creates this page, using an OpenAPI specification generated during the build. That specification (and these docs) are regenerated each time your API is updated. You can update this front matter from the <code>platformsh/openapi.json</code> file, and view the full specification at <a href=\"/docs/spec\"><code>/docs/spec</code></a>.",
+      "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
+      "contact": {
+        "name": "Platform.sh",
+        "email": "contact-email@something.io",
+        "url": "https://platform.sh"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "x-strapi-config": {
+      "path": "/docs",
+      "showGeneratedFiles": true,
+      "generateDefaultResponse": true
+    },
+    "servers": [
+      {
+        "url": "Development",
+        "description": "Staging server"
+      },
+      {
+        "url": "Production",
+        "description": "Production server"
+      }
+    ],
+    "externalDocs": {
+      "description": "Find out more about Strapi",
+      "url": "https://strapi.io/documentation/v3.x/"
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ]
+  }
+  

@@ -21,14 +21,18 @@
       "generateDefaultResponse": true
     },
     "servers": [
-      {
-        "url": "Development",
-        "description": "Staging server"
-      },
-      {
-        "url": "Production",
-        "description": "Production server"
-      }
+        {
+          "url": "http://localhost:1337",
+          "description": "Development server"
+        },
+        {
+          "url": "YOUR_STAGING_SERVER",
+          "description": "Staging server"
+        },
+        {
+          "url": "YOUR_PRODUCTION_SERVER",
+          "description": "Production server"
+        }
     ],
     "externalDocs": {
       "description": "Find out more about Strapi",

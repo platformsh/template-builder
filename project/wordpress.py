@@ -40,6 +40,5 @@ class Wordpress(RemoteProject):
         return super(Wordpress, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
-            'cd {0} && composer require platformsh/config-reader --ignore-platform-reqs'.format(
-                self.builddir),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --ignore-platform-reqs'.format(self.builddir),
         ]

@@ -28,6 +28,6 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.3.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.4.RELEASE")
     }
 }

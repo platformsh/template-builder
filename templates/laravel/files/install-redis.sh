@@ -8,15 +8,8 @@ run() {
         compile_source
     fi
 
-    # Copy and enable the redis library, but only if we have to
-    # NOTE: these guards are primarily for the local use case where we cannot
-    # assume a build is happening from a "clean slate"
-    if [ ! -f "${PLATFORM_APP_DIR}/redis.so" ]; then
-        copy_lib
-    fi
-    if ! grep "extension=${PLATFORM_APP_DIR}/redis.so" $PLATFORM_APP_DIR/php.ini -q; then
-        enable_lib
-    fi
+    copy_lib
+    enable_lib
 }
 
 enable_lib() {

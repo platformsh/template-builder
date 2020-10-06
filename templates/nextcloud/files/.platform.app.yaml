@@ -7,14 +7,22 @@ name: app
 # The runtime the application uses.
 type: "php:7.4"
 
+runtime:
+    extensions:
+        - apcu
+        - imagick
+        - gmp
+        - redis
+    sizing_hints:
+        request_memory: 11
+
 # Configuration of the build of the application.
 build:
     flavor: none
 
 variables:
     env:
-        NEXTCLOUD_VERSION: 19.0.1
-        PHPREDIS_VERSION: 5.2.1
+        NEXTCLOUD_VERSION: 20.0.0
         front_controller_active: true
     php:
         opcache.interned_strings_buffer: 8
@@ -26,7 +34,6 @@ variables:
 
 hooks:
     build: |
-        ./install-redis.sh $PHPREDIS_VERSION
         ./download-nextcloud.sh $NEXTCLOUD_VERSION
         ./download-apps.sh
         chmod +x src/occ
@@ -52,15 +59,6 @@ hooks:
 relationships:
     database: "database:mysql"
     cache: "redis:redis"
-
-runtime:
-    extensions:
-        - apcu
-        - imagick
-        - gmp
-    sizing_hints:
-        request_memory: 11
-
 
 # The configuration of app when it is exposed to the web.
 web:

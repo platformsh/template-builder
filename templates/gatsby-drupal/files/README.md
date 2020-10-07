@@ -63,6 +63,18 @@ Live Preview is not enabled by default on *Master* environments, but it can be s
       - URL alias
 3. Update an Article. Go to one of your articles, and update any of the fields. You can open a new tab to the frontend Gatsby site, and see your live updates on each article.
 
+## Local development
+
+`gatsby-config.js` has been modified to set the `gatsby-source-drupal` plugin's `baseURL` attribute automatically on a Platform.sh environment.
+
+If developing your Gatsby app locally, this value will instead be set to a url string set to the `API_URL` variable in your local `.env` file:
+
+```bash
+# .env
+
+API_URL="https://www.backend.pr-1-djjnuwy-muwzogvpcpoe2.eu-3.platformsh.site"
+```
+
 ## Customizations
 
 The following files and additions make the framework work.  If using this project as a reference for your own existing project, replicate the changes below to your project.

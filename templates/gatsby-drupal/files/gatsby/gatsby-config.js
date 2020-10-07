@@ -1,6 +1,15 @@
 const config = require("platformsh-config").config();
 
-backend_route = `http://${config.credentials("drupal")["host"]}`;
+var backend_route = "";
+if ( config.isValidPlatform() ) {
+  require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+  })
+    backend_route = `http://${config.credentials("drupal")["host"]}`;
+} else {
+  require("dotenv").config()
+    backend_route = process.env.API_URL;
+}
 
 module.exports = {
   siteMetadata: {

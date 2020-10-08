@@ -6,3 +6,4 @@ class Gatsby(RemoteProject):
     updateCommands = {
         'yarn.lock': 'yarn upgrade'
     }
+    

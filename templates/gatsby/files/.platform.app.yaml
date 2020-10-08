@@ -6,6 +6,10 @@ name: 'app'
 # The type key specifies the language and version for your application.
 type: 'nodejs:14'
 
+# Use Yarn instead of npm.
+build:
+    flavor: none
+
 # Build dependencies. 
 dependencies:
     nodejs:
@@ -15,6 +19,7 @@ dependencies:
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
     build: |
+        yarn
         yarn build
 
 # The size of the persistent disk of the application (in MB).

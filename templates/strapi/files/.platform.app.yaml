@@ -9,6 +9,15 @@ name: app
 # The runtime the application uses. Strapi not yet suppported with NodeJS 14.
 type: nodejs:12
 
+# Limit memory usage.
+variables:
+    env:
+        NODE_OPTIONS: --max_old_space_size=1536
+
+# # Use Yarn instead of npm.
+build:
+    flavor: none
+
 # Build dependencies. 
 dependencies:
     nodejs:
@@ -16,39 +25,9 @@ dependencies:
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
-    # The build hook runs after build dependencies (yarn) are downloaded.
-    # No services are available but the disk is writeable.
     build: |
-        # Create Strapi quickstart app.
-        yarn create strapi-app tmp-strapi --quickstart --no-run
-
-        # Can only create Strapi app within an empty dir. This is a workaround. 
-        mv tmp-strapi/* . && rm -rf tmp-strapi
-
-        # Install additional dependencies.
-        yarn add platformsh-config
-        yarn add pg
-        yarn strapi install graphql
-        yarn strapi install documentation
-
-        # Override with Platform.sh-specific configuration.
-        cp platformsh/database.js config/database.js
-        cp platformsh/server.js config/server.js
-
-    # The deploy hook runs after your application has been deployed and started.
-    # Code cannot be modified at this point but the database is available.
-    # The site is not accepting requests while this script runs so keep it fast.
-    deploy: |
-        # Only perform a full production build on `master` environment.
-        if [ "$PLATFORM_BRANCH" = master ]; then
-            yarn build
-        fi
-
-        # Customize the Swagger/OpenAPI documentation and move into auto-generate path.
-        if [ ! -d extensions/documentation/config ]; then
-            mkdir extensions/documentation/config
-        fi
-        cp platformsh/openapi.json extensions/documentation/config/settings.json
+        yarn
+        yarn build
 
 # The relationships of the application with services or other applications.
 #
@@ -90,16 +69,21 @@ mounts:
     'api':
         source: local
         source_path: api
-    # Allow for media uploads at runtime.
-    'public/uploads':
-        source: local
-        source_path: uploads
-    # Allow extensions to be configurable at runtime.
-    'extensions':
-        source: local
-        source_path: extensions
     # Allow GraphQL schema updates (JSON) at runtime.
     'exports':
         source: local
         source_path: exports
+    # Give write access for the generated documentation json.
+    'extensions/documentation/documentation':
+        source: local
+        source_path: ext-documentation
+    'extensions/documentation/public':
+        source: local
+        source_path: ext-documentation-public
+    # Allow for media uploads at runtime.
+    'public/uploads':
+        source: local
+        source_path: uploads
+
+
         

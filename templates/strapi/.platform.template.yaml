@@ -20,6 +20,8 @@ info:
           PostgreSQL 12<br />
           Automatic TLS certificates<br />
           npm-based build<br />
+          OpenAPI spec generation<br />
+          Automatic public API documentatoin<br />
 
 initialize:
   repository: git://github.com/platformsh-templates/strapi.git@master

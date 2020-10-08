@@ -4,6 +4,6 @@ class Gatsby(RemoteProject):
     upstream_branch = "master"
     remote = 'https://github.com/gatsbyjs/gatsby-starter-blog.git'
     updateCommands = {
-        'yarn.lock': 'yarn upgrade'
+        'package.json': 'yarn upgrade'
     }
     

@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds a Strapi backend for Platform.sh, which can be used to quickly create an API that can be served by itself or as a Headless CMS data source for another frontend application in the same project. This repository not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's `.platform.app.yaml` file.
+This template builds a Strapi backend for Platform.sh, which can be used to quickly create an API that can be served by itself or as a Headless CMS data source for another frontend application in the same project. This repository does not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's `.platform.app.yaml` file.
 
 Strapi is a Headless CMS framework written in Node.js.
 
@@ -17,7 +17,7 @@ Strapi is a Headless CMS framework written in Node.js.
 * Automatic TLS certificates
 * npm-based build
 * OpenAPI spec generation
-* Automatic public API documentatoin
+* Automatic public API documentation
 
 ## Post-install
 
@@ -31,8 +31,9 @@ Strapi is a Headless CMS framework written in Node.js.
 The following changes have been made relative to the [quickstart Strapi project](https://strapi.io/documentation/v3.x/getting-started/quick-start.html) to run on Platform.sh.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added. These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The `.platform.app.yaml` file has been configured to run your production Strapi server on the `master` environment, and development servers on all other environments. While you will be able to add content to an existing Content Type on `master`, you will only be able to create new Content Types on development environments.
 * There are a few modules that have been added to support Strapi:
-    * [config-reader-nodejs](https://github.com/platformsh/config-reader-nodejs): Provides convenience wrappers for accessing the Platform.sh environment variables.
+    * [`config-reader-nodejs`](https://github.com/platformsh/config-reader-nodejs): Provides convenience wrappers for accessing the Platform.sh environment variables.
     * `pg`: supports connection with PostgreSQL.
     * [`graphql`](https://strapi.io/documentation/v3.x/plugins/graphql.html): supports GraphQL queries.
     * [`documentation`](https://github.com/strapi/strapi/tree/master/packages/strapi-plugin-documentation): generates an OpenAPI specification and Swagger documentation from your models. You can view the documentation at `/docs`, and the final spec at `/docs/spec`. 
@@ -48,7 +49,7 @@ The `config/database.js` file is set up to detect whether Strapi is running on P
 
 You can add additional plugins for Strapi locally by adding them as dependencies using Yarn. In most cases, official Strapi modules can be added with `yarn strapi install <plugin-name>`. 
 
-Customizing modules will differ slightly for each plugin. The `strapi-plugin-documentation` plugin for example generates an OpenAPI specification from your API and public Swagger documentation `<your-domain>/docs`, and overrides are applied to that process using the `extensions/documentation/config/settings.json` file in this repository. In other cases, there will be an `overrides` subdirectory within `extensions/<plugin-name>` you will need to use. Be aware of whether the plugin needs runtime write access, and be sure to define matching mounts in your `.platform.app.yaml` file if necessary.  
+Customizing modules will differ slightly for each plugin. The `strapi-plugin-documentation` plugin for example generates an OpenAPI specification from your API and public Swagger documentation at `<your-domain>/docs`. Overrides are applied to that process using the `extensions/documentation/config/settings.json` file in this repository. In other cases, there will be a specific `overrides` subdirectory within `extensions/<plugin-name>` you will need to use, so check that plugin's documentation for details. Be aware of whether the plugin needs write access at runtime, and be sure to define matching mounts in your `.platform.app.yaml` file if necessary.  
 
 ## References
 

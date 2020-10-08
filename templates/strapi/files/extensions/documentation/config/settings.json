@@ -20,20 +20,6 @@
     "showGeneratedFiles": true,
     "generateDefaultResponse": true
   },
-  "servers": [
-      {
-        "url": "/",
-        "description": "Strapi server"
-      },
-      {
-        "url": "YOUR_STAGING_SERVER",
-        "description": "Staging server"
-      },
-      {
-        "url": "YOUR_PRODUCTION_SERVER",
-        "description": "Production server"
-      }
-  ],
   "externalDocs": {
     "description": "Find out more about Strapi",
     "url": "https://strapi.io/documentation/v3.x/"

@@ -4,7 +4,7 @@ class Strapi(BaseProject):
 
     # Keeps package-lock.json out of the repo as recommended. See project/nextjs.py for more info.
     updateCommands = {
-        'yarn.lock': 'yarn upgrade'
+        'package.json': 'yarn upgrade'
     }
 
     @property
@@ -15,7 +15,7 @@ class Strapi(BaseProject):
 
         return [
             # Create a quickstart Strapi app using Yarn. There's no dedicated upstream repo, so best way to get up-to-date version.
-            'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(self.builddir, projectName),
+            'cd {0} && yarn create strapi-app {1} --quickstart --no-run --build-from-source'.format(self.builddir, projectName),
             # Strapi prevents you from creating a new project in a nonempty dir. This moves the project into the builddir.
             'cd {0} && cp -r {1}/ {0} && rm -rf {1}'.format(self.builddir, projectName),           
         ] + super(Strapi, self).update
@@ -24,8 +24,6 @@ class Strapi(BaseProject):
     def platformify(self):
 
         return super(Strapi, self).platformify + [
-            'cd {0} && rm -rf backend'.format(self.builddir),
             # Add dependencies. 
-            'cd {0} && yarn add platformsh-config',
-            # 'cd {0} && yarn add platformsh-config pg && yarn strapi install graphql documentation'.format(self.builddir),  
+            'cd {0} && yarn add platformsh-config pg && yarn strapi install graphql documentation'.format(self.builddir),  
         ]

@@ -8,13 +8,13 @@ This file contains more detailed information about the way `template-builder` fu
 
 > **Relevant to:**
 > 
-> * Gatsby (`project/gatsby.py`)
-> * Next.js (`project/nextjs.py`)
-> * Strapi (`project/strapi.py`)
+> * Gatsby ([`project/gatsby.py`](project/gatsby.py))
+> * Next.js ([`project/nextjs.py`](project/nextjs.py))
+> * Strapi ([`project/strapi.py`](project/strapi.py))
 
-The `BaseProject` `update` task will loop through a list of `updateCommands` for a number of different package managers and run them if their respective depedency files (i.e. `package.json`) are present. 
+The `BaseProject` `update` task will [loop through a list of `updateCommands`](project/__init__.py) for a number of different package managers and run them if their respective depedency files (i.e. `package.json`) are present. 
 
-Node.js has two popular package mangers - npm and Yarn. Both use package.json to define dependencies, but resolve to different lock files (`package-lock.json` & `yarn.lock`). When deployed, we'll only be using one of them, and it's generally recommended to not have lock files from both package managers present in the same repo. 
+Node.js has two popular package mangers - npm and Yarn. Both use `package.json` to define dependencies, but resolve to different lock files (`package-lock.json` & `yarn.lock`). When deployed, we'll only be using one of them, and it's generally recommended to not have lock files from both package managers present in the same repo. 
 
 Because `update` loops through `updateCommands`, simply adding an upgrade command for Yarn will result in that exact situation we'd like to avoid. So, `updateCommands` is redefined here for a few templates to prioritize Yarn and avoid it altogether:
 

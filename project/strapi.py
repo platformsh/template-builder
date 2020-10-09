@@ -15,8 +15,8 @@ class Strapi(BaseProject):
 
         return [
             # Create a quickstart Strapi app using Yarn, since there's no dedicated upstream repo for it. Strapi prevents you 
-            # from creating a new project in a nonempty dir, so the quickstart project in projectName is made before its contents
-            # are copied into builddir. 
+            # from creating a new project in a nonempty dir, so the quickstart project is made in projectName before its
+            # contents are copied into builddir. 
             'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(self.builddir, projectName),
             'cd {0} && cp -r {1}/ {0}'.format(self.builddir, projectName),
             'cd {0} && rm -rf {1}'.format(self.builddir, projectName),              

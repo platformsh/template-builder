@@ -24,5 +24,4 @@ This template customizes the [Gatsby starter blog](https://github.com/gatsbyjs/g
 ## References
 
 * [Gatsby](https://www.gatsbyjs.org/)
-* [Node.js http](https://nodejs.org/api/http.html#http_http)
 * [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)

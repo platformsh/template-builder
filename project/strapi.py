@@ -14,10 +14,12 @@ class Strapi(BaseProject):
         projectName = "strapi-quickstart-platformsh"
 
         return [
-            # Create a quickstart Strapi app using Yarn. There's no dedicated upstream repo, so best way to get up-to-date version.
-            'cd {0} && yarn create strapi-app {1} --quickstart --no-run --build-from-source'.format(self.builddir, projectName),
-            # Strapi prevents you from creating a new project in a nonempty dir. This moves the project into the builddir.
-            'cd {0} && cp -r {1}/ {0} && rm -rf {1}'.format(self.builddir, projectName),           
+            # Create a quickstart Strapi app using Yarn, since there's no dedicated upstream repo for it. Strapi prevents you 
+            # from creating a new project in a nonempty dir, so the quickstart project in projectName is made before its contents
+            # are copied into builddir. 
+            'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(self.builddir, projectName),
+            'cd {0} && cp -r {1}/ {0}'.format(self.builddir, projectName),
+            'cd {0} && rm -rf {1}'.format(self.builddir, projectName),              
         ] + super(Strapi, self).update
 
     @property

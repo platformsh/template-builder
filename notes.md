@@ -16,12 +16,12 @@ The `BaseProject` `update` task will [loop through a list of `updateCommands`](p
 
 Node.js has two popular package mangers - npm and Yarn. Both use `package.json` to define dependencies, but resolve to different lock files (`package-lock.json` & `yarn.lock`). When deployed, we'll only be using one of them, and it's generally recommended to not have lock files from both package managers present in the same repo. 
 
-Because `update` loops through `updateCommands`, simply adding an upgrade command for Yarn will result in that exact situation we'd like to avoid: both `npm update` and `yarn upgrade` will be run, resulting in two lock files. So, `updateCommands` is redefined here for a few templates to prioritize Yarn and avoid it altogether:
+Because `update` loops through `updateCommands`, simply adding an upgrade command for Yarn to `BaseProject` would result in that exact situation we'd like to avoid: both `npm update` and `yarn upgrade` will be run, resulting in two lock files. So, `updateCommands` is redefined here for a few templates to prioritize Yarn and avoid it altogether:
 
 ```py
-from . import BaseProject/RemoteProject
+from . import BaseProject
 
-class Template(BaseProject/RemoteProject):
+class Template(BaseProject):
 
     updateCommands = {
         'package.json': 'yarn upgrade'

@@ -2,7 +2,7 @@ from . import BaseProject
 
 class Strapi(BaseProject):
 
-    # Keeps package-lock.json out of the repo as recommended. See project/nextjs.py for more info.
+    # Keeps package-lock.json out of repo. See notes.md (Yarn - Overwriting updateCommands) for more details.
     updateCommands = {
         'package.json': 'yarn upgrade'
     }

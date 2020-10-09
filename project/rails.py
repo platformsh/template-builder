@@ -1,5 +1,5 @@
 from . import BaseProject
-
+from .remote import RemoteProject
 
 class Rails(BaseProject):
 
@@ -26,3 +26,14 @@ class Rails(BaseProject):
             # Make bootsnap use the /tmp folder
             'cd {0} && if ! grep -q platform_sh config/boot.rb; then cat ../files/_boot.rb >> config/boot.rb; fi; rm _boot.rb'.format(self.builddir),
         ]
+
+#class Discourse(RemoteProject):
+#    major_version = 'v2.4'
+#    remote = 'https://github.com/discourse/discourse.git'
+
+#    @property
+#    def platformify(self):
+#        return super(Discourse, self).platformify + [
+#            # Remove Discourse's CI config file as it won't work for us anyway.
+#            'cd {0} && rm -rf .github'.format(self.builddir),
+#        ]

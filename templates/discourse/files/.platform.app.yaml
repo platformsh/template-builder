@@ -1,0 +1,111 @@
+name: app
+
+type: "ruby:2.6"
+
+variables:
+    env:
+        # These get used by the build and deploy scripts
+        # to control the version of Node and NVM to install.
+        NVM_VERSION: "v0.35.3"
+        NODE_VERSION: "12.16.3"
+
+        # Tell Rails to use the system tmp directory
+        RAILS_TMP: "/tmp"
+
+size: M
+
+resources:
+   base_memory: 1001 # between 64 and 1024 max
+   memory_ratio: 512 # integer between 128 and 1024 max
+
+relationships:
+    database: "database:postgresql"
+    cache: "cache:redis"
+
+dependencies:
+    nodejs:
+        svgo: '*'
+        yarn: '*'
+        gifsicle: '4.0.1'
+        uglify: '<3'
+
+hooks:
+    build: bash build.sh
+    deploy: bash deploy.sh
+    post_deploy: bash post_deploy.sh
+
+disk: 1024
+
+mounts:
+    'install':    # This is just for the deploy/post-deploy hooks. Do not remove the touch-file inside it.
+        source: service
+        service: files
+        source_path: install
+    'discourse/app/assets/javascripts/plugins':
+        source: service
+        service: files
+        source_path: files/app/assets/javascripts/plugins
+    'discourse/public/':
+        source: service
+        service: files
+        source_path: files/public/
+    'discourse/vendor/data':
+        source: service
+        service: files
+        source_path: files/vendor/data
+    # This is here because discourse doesn't respect RAILS_LOG_TO_STDOUT
+    'discourse/log':
+        source: local
+        source_path: shared:files/log
+
+web:
+  upstream:
+      socket_family: unix
+  commands:
+      start: "cd discourse && RAILS_ENV=production bundle exec unicorn -l $SOCKET -E production config.ru"
+  locations:
+      "/":
+          root: "discourse/public"
+          passthru: true
+          expires: 1h
+          allow: true
+      "/assets":
+          root: "discourse/public/assets"
+          expires: 1y
+          allow: true
+      "/plugins":
+          root: "discourse/public/plugins"
+          expires: 1y
+          allow: true
+      "/images/emoji":
+          root: "discourse/public/images/emoji"
+          expires: 1y
+          allow: true
+
+# Optionally Enable Crons
+#crons:
+#  auto_snapshot:
+#    # The cron task will run everyday at 4 am (UTC)
+#    spec: '0 4 * * *'
+#    cmd: |
+#      if [ "$PLATFORM_BRANCH" = master ]; then
+#           platform snapshot:create --yes --no-wait
+#      fi
+#  auto_renewcert:
+#     # Force a redeploy at 10 am (UTC) on the 1st and 15th of every month.
+#     spec: '0 10 1,15 * *'
+#     cmd: |
+#       if [ "$PLATFORM_BRANCH" = master ]; then
+#           platform redeploy --yes --no-wait
+#       fi
+#
+
+# Put Sidkiq in its own container to run background tasks.
+workers:
+  sidekick:
+      size: S
+      resources:
+          base_memory: 64 # between 64 and 1024 max
+          memory_ratio: 256 # integer between 128 and 1024 max
+      commands:
+          start: cd discourse && RAILS_ENV=production bundle exec sidekiq  -c 4 -e production -q critical -q low -q default

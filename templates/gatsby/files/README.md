@@ -16,7 +16,7 @@ This template builds a simple application using Gatsby.  Gatsby is a free and op
 
 ## Customizations
 
-The following files and additions make the framework work.  If using this project as a reference for your own existing project, replicate the changes below to your project.
+This template customizes the [Gatsby starter blog](https://github.com/gatsbyjs/gatsby-starter-blog) boilerplate project, but the changes will be very similar for most Gatsby projects. If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * An additional module, [`config-reader-nodejs`](https://github.com/platformsh/config-reader-nodejs), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.

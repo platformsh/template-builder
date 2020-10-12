@@ -1,7 +1,7 @@
 const config = require("platformsh-config").config();
 
 var backend_route = "";
-if ( config.isValidPlatform() ) {
+if ( config.isValidPlatform() && !config.inBuild()) {
   require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
   })

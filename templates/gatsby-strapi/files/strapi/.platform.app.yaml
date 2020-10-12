@@ -1,24 +1,35 @@
 # This file describes an application. You can have multiple applications
 # in the same project.
 #
-# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+# See https://docs.platform.sh/configuration/app.html
 
 # The name of this app. Must be unique within a project.
 name: strapi
 
-# The runtime the application uses.
-type: nodejs:14
+# The runtime the application uses. Strapi not yet suppported with NodeJS 14.
+type: nodejs:12
 
+# Use Yarn instead of npm.
+build:
+    flavor: none
+
+# Build dependencies. 
 dependencies:
-  nodejs:
-    yarn: "1.19.2"
+    nodejs:
+        yarn: "1.22.5"
 
-# The hooks that will be triggered when the package is deployed.
+# The hooks executed at various points in the lifecycle of the application.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
-    build: !include
-      type: string
-      path: build.sh
+    build: |
+        # Download dependencies and build Strapi.
+        yarn
+        yarn build
+
+        # Move extension overrides out of soon to be mounts.
+        mkdir extensions-temp && mv extensions/* extensions-tmp
+    deploy: |
+        # Copy extension overrides back to where they need to be.
+        cp -r extensions-tmp/* extensions
 
 # The relationships of the application with services or other applications.
 #
@@ -30,28 +41,48 @@ relationships:
 
 # The configuration of app when it is exposed to the web.
 web:
-  commands:
-    start: ./start.sh
+    locations:
+        # For serving the generated OpenAPI specification as part of the documentation.
+        "/documentation/spec":
+            root: "extensions/documentation/documentation/1.0.0"
+            allow: true
+            scripts: false
+            index:
+                - full_documentation.json
+    commands:
+        start: |
+            # Production start on `master`, development server otherwise.
+            if [ "$PLATFORM_BRANCH" = master ]; then
+                NODE_ENV=production yarn start
+            else
+                yarn develop
+            fi
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    '/.tmp':
-        source: local
-        source_path: tmp
+    # Strapi's cache directory.
     '/.cache':
         source: local
         source_path: cache
+    # Allow for updates to the API (new JSONs) at runtime.
     'api':
         source: local
         source_path: api
-    'components':
+    # Allow GraphQL schema updates (JSON) at runtime.
+    'exports':
         source: local
-        source_path: components
-    'public/uploads':
-        source: local
-        source_path: uploads
+        source_path: exports
+    # Give write access for extension configuration JSONs.
     'extensions':
         source: local
         source_path: extensions
+    # Allow for media uploads at runtime.
+    'public/uploads':
+        source: local
+        source_path: uploads
+
+
+        

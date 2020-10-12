@@ -53,17 +53,17 @@ In the Admin Panel, create your first content/collection type (Display name: `ar
   - Advanced Settings: `Required field`
 - **Date**
   - Base Settings:
-    - Name: `published_at`
+    - Name: `published`
     - Type: `date`
   - Advanced Settings: `Required field`
 
 Save those changes (the server will restart).
 
-Then, visit the `Articles` Collection, and `Add a New Article` to test. Include the required `title`, `content`, and `image`, and select a date for the post. Save it.
+Then, visit the `Articles` Collection, and `Add a New Article` to test. Include the required `title`, `content`, and `image`, and select a date for the post. Save and Publish the article.
 
 #### Categories
 
-Return to the Content-Types Builder, and `Create a new collection type` called (Display name) `category` with two  fields:
+Return to the Content-Types Builder, and `Create a new collection type` called (Display name) `category` with two fields:
 
 - **Text**
   - Base Settings:
@@ -80,11 +80,11 @@ Return to the Content-Types Builder, and add a new field to the `Articles` colle
   - On the right hand dropdown, select Category
   - Then select the "many-to-one" icon, which will read `Category has many Articles` when selected.
 
-Visit the `Category` collection in the upper left section of the sidebar, and then click `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save.
+Visit the `Category` collection in the upper left section of the sidebar, and then click `Add New Category`. Name it whatever you'd like. On the right hand side in the `Articles` dropdown menu, select the article you created, then click Save and then Publish.
 
 #### Permissions
 
-Visit `Roles & Permissions` in the sidebar, and select `Public` permissions. Then adjust the permissions for your two collections:
+Visit `Settings` in the sidebar, and select `Roles` and then `Public` permissions. Adjust the permissions for your two collections:
 
   - `Category`: select `find` and `findone`
   - `Article`: select `find` and `findone`

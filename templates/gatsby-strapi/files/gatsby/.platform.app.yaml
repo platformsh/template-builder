@@ -1,16 +1,34 @@
 # .platform.app.yaml
 
 # The name of this application, which must be unique within a project.
-name: gatsby
+name: 'gatsby'
 
 # The type key specifies the language and version for your application.
 type: 'nodejs:14'
 
+# Use Yarn instead of npm.
+build:
+    flavor: none
+
+# Restrict Yarn memory use when running during post deploy hook.
+variables:
+    env:
+        NODE_OPTIONS: --max_old_space_size=1536
+
+# Build dependencies. 
+dependencies:
+    nodejs:
+        yarn: "1.22.5"
+
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.
-    post_deploy: |
-      npm run build
+    build: |
+        yarn
+    # Delay Gatsby's build until the post deploy hook, when Strapi's content is accessible.
+    deploy: |
+        yarn build    
+
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 

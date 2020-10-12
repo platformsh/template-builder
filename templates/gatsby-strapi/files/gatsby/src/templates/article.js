@@ -12,7 +12,7 @@ export const query = graphql`
       strapiId
       title
       content
-      published_at
+      published
       image {
         publicURL
       }
@@ -39,7 +39,7 @@ const Article = ({ data }) => {
           <div className="uk-container uk-container-small">
             <ReactMarkdown source={article.content} />
             <p>
-              <Moment format="MMM Do YYYY">{article.published_at}</Moment>
+              <Moment format="MMM Do YYYY">{article.published}</Moment>
             </p>
           </div>
         </div>

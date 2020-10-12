@@ -26,7 +26,7 @@ hooks:
     build: |
         yarn
     # Delay Gatsby's build until the post deploy hook, when Strapi's content is accessible.
-    deploy: |
+    post_deploy: |
         yarn build    
 
 # The size of the persistent disk of the application (in MB).

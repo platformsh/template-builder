@@ -25,7 +25,7 @@ hooks:
         yarn
         yarn build
 
-        # Move extension overrides out of soon to be mounts.
+        # Move extension overrides to temp directory so not overwritten when mount is added.
         mkdir extensions-temp && mv extensions/* extensions-tmp
     deploy: |
         # Copy extension overrides back to where they need to be.
@@ -83,6 +83,3 @@ mounts:
     'public/uploads':
         source: local
         source_path: uploads
-
-
-        

@@ -6,24 +6,13 @@ name: 'gatsby'
 # The type key specifies the language and version for your application.
 type: 'nodejs:14'
 
-# # Use Yarn instead of npm.
-# build:
-#     flavor: none
-
 # Restrict Yarn memory use when running during post deploy hook.
 variables:
     env:
         NODE_OPTIONS: --max_old_space_size=1536
 
-# # Build dependencies. 
-# dependencies:
-#     nodejs:
-#         yarn: "1.22.5"
-
 # The hooks that will be triggered when the package is deployed.
 hooks:
-    # build: |
-    #     yarn
     # Post deploy hook builds Gatsby frontend now that backend content is available.
     post_deploy: |
         npm run build
@@ -44,7 +33,6 @@ web:
             scripts: false
             allow: true
 
-# public/page-data
 mounts:
   '/.cache':
       source: local

@@ -8,4 +8,5 @@ class Gatsby(RemoteProject):
     updateCommands = {
         'package.json': 'yarn upgrade'
     }
+
     

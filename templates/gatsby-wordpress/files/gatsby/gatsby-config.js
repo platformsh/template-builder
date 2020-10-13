@@ -1,5 +1,16 @@
 const config = require("platformsh-config").config();
 
+var backend_route = "";
+if ( config.isValidPlatform() && !config.inBuild()) {
+  require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+  })
+  backend_route = config.credentials("wordpress")["host"]
+} else {
+  require("dotenv").config()
+  backend_route = process.env.API_URL;
+}
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby + Wordpress on Platform.sh`,
@@ -19,7 +30,7 @@ module.exports = {
          * The base URL of the WordPress site without the trailingslash and the protocol. This is required.
          * Example : 'demo.wp-api.org' or 'www.example-site.com'
          */
-        baseUrl: config.credentials("wordpress")["host"],
+        baseUrl: backend_route,
         // The protocol. This can be http or https.
         protocol: `http`,
         // Indicates whether the site is hosted on wordpress.com.

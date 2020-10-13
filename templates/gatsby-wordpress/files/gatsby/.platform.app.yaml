@@ -6,11 +6,16 @@ name: 'gatsby'
 # The type key specifies the language and version for your application.
 type: 'nodejs:14'
 
+# Restrict Yarn memory use when running during post deploy hook.
+variables:
+    env:
+        NODE_OPTIONS: --max_old_space_size=1536
+
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Post deploy hook builds Gatsby frontend now that backend content is available.
     post_deploy: |
-      npm run build
+        npm run build
 
 relationships:
     wordpress: "wordpress:http"
@@ -28,7 +33,6 @@ web:
             scripts: false
             allow: true
 
-# public/page-data
 mounts:
   '/.cache':
       source: local

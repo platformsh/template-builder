@@ -19,6 +19,7 @@ from project.laravel import Laravel
 from project.magento import Magento2ce
 from project.mautic import Mautic
 from project.nextjs import Nextjs
+from project.nuxtjs import Nuxtjs
 from project.rails import Rails
 from project.sculpin import Sculpin
 from project.strapi import Strapi

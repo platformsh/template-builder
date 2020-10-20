@@ -8,6 +8,10 @@ In this document we use the fictional term "spiffy" as an example of a template 
 
 In this README we first focus on the workflow to update an existing template, then we describe how to create a new one.
 
+> **Note:** 
+>
+> For additional information about how specific similar templates are defined, see [notes.md](/notes.md).
+
 ## Dependencies
 
 * [DoIt](http://pydoit.org/install.html)

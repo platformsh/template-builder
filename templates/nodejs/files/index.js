@@ -1,11 +1,11 @@
-const mysql = require("mysql2/promise");
-const config = require("platformsh-config").config();
 const http = require("http");
 
-// Connect to MariaDB.
-async function openConnection() {
+const config = require("platformsh-config").config();
+const mysql = require("mysql2/promise");
+
+function openConnection() {
   const credentials = config.credentials("database");
-  return await mysql.createConnection({
+  return mysql.createConnection({
     host: credentials.host,
     port: credentials.port,
     user: credentials.username,
@@ -14,22 +14,8 @@ async function openConnection() {
   });
 }
 
-// Drop the table and retrieve result information.
-function dropTable(connection) {
-  let results = connection.execute("DROP TABLE platforminfo").then(result => {
-    return result;
-  });
-  return results;
-}
-
-// Configure the HTTP server.
-var server = http.createServer(async function(request, response) {
-
-  // Connect to MariaDB.
-  let connection = await openConnection();
-
-  // Create the table.
-  connection.execute(
+function createTable(connection) {
+  return connection.execute(
     `CREATE TABLE IF NOT EXISTS platforminfo (
       uid INT(10) NOT NULL AUTO_INCREMENT,
       username VARCHAR(64) NULL DEFAULT NULL,
@@ -38,20 +24,35 @@ var server = http.createServer(async function(request, response) {
       PRIMARY KEY (uid)
     ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;`
   );
+}
 
-  // Insert data.
-  connection.execute(
+function insertData(connection) {
+  return connection.execute(
     "INSERT INTO platforminfo (username, departname, created) VALUES ('platform', 'Deploy Friday', '2019-06-17')"
   );
+}
 
-  // Read the data.
-  let [rows] = await connection.query("SELECT * FROM platforminfo");
+function readData(connection) {
+  return connection.query("SELECT * FROM platforminfo");
+}
 
-  // Drop the table.
-  let dropped_result = await dropTable(connection);
+function dropTable(connection) {
+  return connection.execute("DROP TABLE platforminfo");
+}
+
+const server = http.createServer(async function(_request, response) {
+  // Connect to MariaDB.
+  const connection = await openConnection();
+
+  await createTable(connection);
+  await insertData(connection);
+
+  const [rows] = await readData(connection); 
+
+  const droppedResult = await dropTable(connection);
 
   // Make the output.
-  let outputString = `Hello, World! - A simple Node.js template for Platform.sh
+  const outputString = `Hello, World! - A simple Node.js template for Platform.sh
 MariaDB Tests:
 * Connect and add row:
   - Row ID (1): ${rows[0].uid}
@@ -59,7 +60,7 @@ MariaDB Tests:
   - Department (Deploy Friday): ${rows[0].departname}
   - Created (2019-06-17): ${rows[0].created}
 * Delete row:
-  - Status (0): ${dropped_result[0].warningStatus}`;
+  - Status (0): ${droppedResult[0].warningStatus}`;
 
   response.writeHead(200, { "Content-Type": "text/plain" });
   response.end(outputString);

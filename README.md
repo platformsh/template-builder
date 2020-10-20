@@ -8,7 +8,7 @@ In this document we use the fictional term "spiffy" as an example of a template 
 
 In this README we first focus on the workflow to update an existing template, then we describe how to create a new one.
 
-> **Note:** 
+> **Note:**
 >
 > For additional information about how specific similar templates are defined, see [notes.md](/notes.md).
 
@@ -27,22 +27,21 @@ pipenv install
 ```
 2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
 
-
 ## How it works
 
 Each template is composed of three things:
 
 * A repo to be kept up-to-date on https://github.com/platformsh-templates for example https://github.com/platformsh-templates/rails
 * A python class that has the specific logic on how to update it. For example `project/rails.py`
-* And a template directory, for example `templates/rails` that contains the extra files we would add.
+* A template directory, for example `templates/rails` that contains the extra files we would add.
 
-> It is worthy to note that currently the build itself will happen in a `build` subdirectory of, for example `templates/rails`. So once you run any of the commands expect the output to be in `templates/rails/build`.
+> Be aware that currently the build itself will happen in a `build` subdirectory of, for example `templates/rails`. So once you run any of the commands expect the output to be in `templates/rails/build`.
 
 This project is built using the Python DoIt library, which is required.  It consists of a series of build targets for each supported project.  Taken together, the build process can reproduce a Platform.sh-friendly version of any application or framework from its upstream source.
 
 ### Organization
 
-Each project is its own directory under `templates`, which corresponds to a `template-*` GitHub repository of the same name in the `platformsh` organization.  We'll use a fictional application called `spiffy` for this example.  The basic outline looks like this:
+Each project is its own directory under `templates`, which corresponds to a GitHub repository of the same name in the `platformsh-templates` organization.  We'll use a fictional application called `spiffy` for this example.  The basic outline looks like this:
 
 ```text
 /
@@ -64,7 +63,7 @@ Only the `files` directory, patches, and `.platform.template.yaml` are checked i
 
 The `files` directory contains all the files that should be added wholesale to the upstream source of `spiffy`.  The patches will be applied to the the source to modify it.  Patches are optional and `files` could be as simple as just the Platform.sh configuration files, or it could be the entire repository with no upstream at all.
 
-Additionally, each project has a Python class defined in the `project` directory that controls its build process.  In most cases it only needs to specify an upstream source and possibly some custom build steps.  See the `BaseProject` and `RemoteProject` classes for further details.
+Additionally, each project may have a Python class defined in the `project` directory that controls its build process.  In most cases it only needs to specify an upstream source and possibly some custom build steps.  Projects with no upstream will often have no custom class at all.  See the `BaseProject` and `RemoteProject` classes for further details.
 
 ### Build tasks
 
@@ -112,18 +111,17 @@ If you would like to contribute to the list of Platform.sh's maintained template
 
 Let's use the previous example: you have created a new application that uses the framework Spiffy that you think would be a useful template.
 
-1. Create a repository under the [Platform.sh Github organization](https://github.com/platformsh/) for the template. Officially maintained templates begin with the `template-` prefix, so name it `template-spiffy`, and initialize it with an empty `README.md`.
-2. Add the "Examples and Templates team" as `Admin` collaborators in the `platformsh/template-spiffy` repository settings.
-3. Integrations: The DevRel team will create an integration during the review process, so you don't need to worry about having one set up, so long as you have given the "Examples and Templates team" "Admin" access to the repository.
-4. Clone the [`template-builder` repository](https://github.com/platformsh/template-builder) locally. Create and checkout a new branch called `add-spiffy`.
-5. Each template project is in its own directory within `templates`, which corresponds to a GitHub repository with the `template-` prefix. Create the directories `templates/spiffy` and `templates/spiffy/files/` on the `add-spiffy` branch.
-6. Add only the files for `template-spiffy` into `templates/spiffy/files`, as dependency downloads and linking to an upstream repository can be handled by the Python build process. For example, the Drupal 8 template links to its upstream [here](https://github.com/platformsh/template-builder/blob/new-template-instructions/project/drupal.py). If your application requires any patches to deploy on Platform.sh, copy them into `templates/spiffy/`.
-7. Include or update the `README.md` so that it is similar to other templates. Address any information specific to running the application on Platform.sh you think the customer should know.
-8. Each template comes with a file called `.platform.template.yaml`, which is used to define how the template repository will appear in and initialize from the management console. See the example in the [external templates](https://github.com/platformsh/templates-external/blob/master/template-definition.yaml) repo for instructions.
+1. Create a repository under the [Platform.sh Templates organization](https://github.com/platformsh-templates/) for the template.  Create a repository named `spiffy`, but do not initialize it with anything.  Then manually push a dummy `README.md` file to the `master` branch, not `main` branch, to initialize it.  If you don't have access, ping someone on the DevRel team to create it for you.
+2. Integrations: The DevRel team will create an integration during the review process, so you don't need to worry about having one set up.
+3. Clone the [`template-builder` repository](https://github.com/platformsh/template-builder) locally. Create and checkout a new branch called `add-spiffy`.
+4. Each template project is in its own directory within `templates`, which corresponds to a GitHub repository with the `template-` prefix. Create the directories `templates/spiffy` and `templates/spiffy/files/` on the `add-spiffy` branch.
+5. Add only the files for `spiffy` into `templates/spiffy/files`, as dependency downloads and linking to an upstream repository can be handled by the Python build process. For example, the Drupal 9 template links to its upstream [here](https://github.com/platformsh/template-builder/blob/master/project/drupal.py). If your application requires any patches to deploy on Platform.sh, copy them into `templates/spiffy/`.
+6. Include or update the `README.md` so that it is similar to other templates. Address any information specific to running the application on Platform.sh you think the customer should know.
+7. Each template comes with a file called `.platform.template.yaml`, which is used to define how the template repository will appear in and initialize from the management console. See the example in the [external templates](https://github.com/platformsh/templates-external/blob/master/template-definition.yaml) repo for instructions.
 
     > **Note:** To create the image URI representing the template, find a svg formatted logo for Spiffy, [create a data URL](https://dataurl.sveinbjorn.org/#dataurlmaker) of that image and paste the output into `image:`.
 
-9. Run the following commands to update the `template-spiffy` repository:
+8. Run the following commands to update the `spiffy` repository:
 
     ```bash
     cd <path>/template-builder
@@ -131,8 +129,9 @@ Let's use the previous example: you have created a new application that uses the
     ```
 
     This will create the branch `updates` on the repository`platformsh/template-spiffy` and push your application files to it.
-10. Open a pull request for `updates` on `template-spiffy`.
-11. Commit and push `add-spiffy` to the `template-builder` repository and create a pull request for it.
+9. Open a pull request for `updates` on `spiffy`.
+10. Commit and push `add-spiffy` to the `template-builder` repository and create a pull request for it.
+11. Paste a link to the `spiffy` PR in the `add-spiffy` PR on `template-builder` so they're easier to keep track of.
 12. Paste the two PR links in the Slack `#devrel` channel and include the handle `@devrel_team` so that it will be reviewed.
 
 ## License

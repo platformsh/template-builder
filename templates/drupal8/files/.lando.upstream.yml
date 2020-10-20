@@ -30,3 +30,5 @@ config:
 tooling:
   drush:
     service: app
+  drupal:
+    service: app

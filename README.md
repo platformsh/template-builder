@@ -111,7 +111,7 @@ If you would like to contribute to the list of Platform.sh's maintained template
 
 Let's use the previous example: you have created a new application that uses the framework Spiffy that you think would be a useful template.
 
-1. Create a repository under the [Platform.sh Templates organization](https://github.com/platformsh-templates/) for the template.  Create a repository named `spiffy` and initialize it with an empty `README.md`.  If you don't have access, ping someone on the DevRel team to create it for you.
+1. Create a repository under the [Platform.sh Templates organization](https://github.com/platformsh-templates/) for the template.  Create a repository named `spiffy`, but do not initialize it with anything.  Then manually push a dummy `README.md` file to the `master` branch, not `main` branch, to initialize it.  If you don't have access, ping someone on the DevRel team to create it for you.
 2. Integrations: The DevRel team will create an integration during the review process, so you don't need to worry about having one set up.
 3. Clone the [`template-builder` repository](https://github.com/platformsh/template-builder) locally. Create and checkout a new branch called `add-spiffy`.
 4. Each template project is in its own directory within `templates`, which corresponds to a GitHub repository with the `template-` prefix. Create the directories `templates/spiffy` and `templates/spiffy/files/` on the `add-spiffy` branch.

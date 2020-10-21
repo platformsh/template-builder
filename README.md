@@ -24,6 +24,8 @@ In this README we first focus on the workflow to update an existing template, th
 1. First install the dependencies:
 ```
 pipenv install
+# Note if you are on Linux please run this before to update the lock file (doit have different dependencies on Mac and Linux)
+pipenv lock
 ```
 2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
 

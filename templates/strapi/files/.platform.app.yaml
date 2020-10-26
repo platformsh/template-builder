@@ -27,9 +27,17 @@ hooks:
 
         # Move extension overrides out of soon to be mounts.
         mkdir extensions-temp && mv extensions/* extensions-tmp
+
+        # Move runtime changes to API & exports (GraphQL) out of soon to be mounts.
+        mkdir api-tmp && mv api/* api-tmp
+        mkdir exports-tmp && mv exports/* exports-tmp
     deploy: |
         # Copy extension overrides back to where they need to be.
         cp -r extensions-tmp/* extensions
+        
+        # Copy API & exports back to their respective mounts.
+        cp -r api-tmp/* api
+        cp -r exports-tmp/* exports
 
 # The relationships of the application with services or other applications.
 #

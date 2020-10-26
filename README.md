@@ -14,6 +14,7 @@ In this README we first focus on the workflow to update an existing template, th
 
 ## Dependencies
 
+* [Poetry](https://python-poetry.org/docs/)
 * [DoIt](http://pydoit.org/install.html)
 * [Composer](https://getcomposer.org/) (for PHP projects)
 * Git
@@ -21,10 +22,16 @@ In this README we first focus on the workflow to update an existing template, th
 
 ### Setup
 
+0. Install Poetry locally
+
+Follow the installation instructions in [Poetry's documentation](https://python-poetry.org/docs/). You can verify Poetry locally with the command `poetry --version`. 
+
 1. First install the dependencies:
+
 ```
-pipenv install
+poetry install
 ```
+
 2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
 
 ## How it works
@@ -67,7 +74,7 @@ Additionally, each project may have a Python class defined in the `project` dire
 
 ### Build tasks
 
-Each project has a series of build tasks, suffixed with the project name.
+Each project has a series of build tasks, suffixed with the project name. Each task can be run within a virtual environment using Poetry by running `poetry run doit` before each of the commands below. For example, `poetry run doit full:spiffy`.
 
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.
@@ -125,7 +132,7 @@ Let's use the previous example: you have created a new application that uses the
 
     ```bash
     cd <path>/template-builder
-    doit full:spiffy
+    poetry run doit full:spiffy
     ```
 
     This will create the branch `updates` on the repository`platformsh/template-spiffy` and push your application files to it.

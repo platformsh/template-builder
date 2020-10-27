@@ -22,17 +22,21 @@ In this README we first focus on the workflow to update an existing template, th
 
 ### Setup
 
-0. Install Poetry locally
+1. Install Poetry locally
 
-Follow the installation instructions in [Poetry's documentation](https://python-poetry.org/docs/). You can verify Poetry locally with the command `poetry --version`. 
+```
+pip3 install poetry
+```
 
-1. First install the dependencies:
+After installing, you will likely need to open a new terminal window before using Poetry. Verify locally with the command `poetry --version`. 
+
+2. First install the dependencies:
 
 ```
 poetry install
 ```
 
-2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
+3. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
 
 ## How it works
 

@@ -25,11 +25,28 @@ hooks:
         yarn
         yarn build
 
-        # Move extension overrides out of soon to be mounts.
-        mkdir extensions-temp && mv extensions/* extensions-tmp
+        # Local development will commit changes to subdirectories that will become mounts on
+        # Platform.sh and overwritten during deployments. To prevent that, set aside during builds.
+        if [ -n "$(ls -A extensions)" ]; then
+            mkdir extensions-temp && mv extensions/* extensions-tmp
+        fi        
+        if [ -n "$(ls -A api)" ]; then
+            mkdir api-tmp && mv api/* api-tmp
+        fi
+        if [ -n "$(ls -A exports)" ]; then
+            mkdir exports-tmp && mv exports/* exports-tmp
+        fi
     deploy: |
-        # Copy extension overrides back to where they need to be.
-        cp -r extensions-tmp/* extensions
+        # Copy overrides back to where they need to be.
+        if [ -n "$(ls -A extensions-tmp)" ]; then
+            cp -r extensions-tmp/* extensions
+        fi        
+        if [ -n "$(ls -A api-tmp)" ]; then
+            cp -r api-tmp/* api
+        fi
+        if [ -n "$(ls -A exports-tmp)" ]; then
+            cp -r exports-tmp/* exports
+        fi
 
 # The relationships of the application with services or other applications.
 #

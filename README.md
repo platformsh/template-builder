@@ -14,6 +14,7 @@ In this README we first focus on the workflow to update an existing template, th
 
 ## Dependencies
 
+* [Poetry](https://python-poetry.org/docs/)
 * [DoIt](http://pydoit.org/install.html)
 * [Composer](https://getcomposer.org/) (for PHP projects)
 * Git
@@ -21,11 +22,21 @@ In this README we first focus on the workflow to update an existing template, th
 
 ### Setup
 
-1. First install the dependencies:
+1. Install Poetry locally
+
 ```
-pipenv install
+pip3 install poetry
 ```
-2. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
+
+After installing, you will likely need to open a new terminal window before using Poetry. Verify locally with the command `poetry --version`. 
+
+2. First install the dependencies:
+
+```
+poetry install
+```
+
+3. You will need to have your user added to the `platformsh-templates` github organisation in order to be able to push to these repositories.
 
 ## How it works
 
@@ -67,7 +78,11 @@ Additionally, each project may have a Python class defined in the `project` dire
 
 ### Build tasks
 
-Each project has a series of build tasks, suffixed with the project name.
+Each project has a series of build tasks, suffixed with the project name. Each task can be run within a virtual environment using Poetry by running `poetry run doit` before each of the commands below. For example, `poetry run doit full:spiffy`.
+
+> **Note:**
+>
+> You can also [spawn a shell](https://python-poetry.org/docs/cli/#shell) using the virtual environment with the command `poetry shell`. From there, you can then run any of the below build task commands with only the `doit` preceding it. For example `doit full:spiffy`.
 
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.
@@ -125,7 +140,7 @@ Let's use the previous example: you have created a new application that uses the
 
     ```bash
     cd <path>/template-builder
-    doit full:spiffy
+    poetry run doit full:spiffy
     ```
 
     This will create the branch `updates` on the repository`platformsh/template-spiffy` and push your application files to it.

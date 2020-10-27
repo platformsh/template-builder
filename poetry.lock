@@ -166,8 +166,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.8"
-content-hash = "ffe0d8b54facfeb3fb36a49fe1fe9321e2d82de42fb5fd32e9000a0355bbaf89"
+python-versions = "!=2.7.*, ^3.8"
+content-hash = "d1e4d7c6a5f8cfdba8834aeec73aac97e4dc55d16d936e74e0fa3627f53dc0e7"
 
 [metadata.files]
 astroid = [

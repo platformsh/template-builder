@@ -76,6 +76,10 @@ Additionally, each project may have a Python class defined in the `project` dire
 
 Each project has a series of build tasks, suffixed with the project name. Each task can be run within a virtual environment using Poetry by running `poetry run doit` before each of the commands below. For example, `poetry run doit full:spiffy`.
 
+> **Note:**
+>
+> You can also [spawn a shell](https://python-poetry.org/docs/cli/#shell) using the virtual environment with the command `poetry shell`. From there, you can then run any of the below build task commands with only the `doit` preceding it. For example `doit full:spiffy`.
+
 * `cleanup:spiffy` - Deletes the build directory for `spiffy` to start from a clean slate.
 * `init:spiffy` - Checks out the Platform.sh template and links it in Git with the project's upstream. Implies `cleanup:spiffy`.
 * `update:spiffy` - Pulls down the latest code from the upstream source and merges it into the build directory, overwriting files if necessary.

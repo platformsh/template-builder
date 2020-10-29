@@ -34,6 +34,13 @@ The following changes have been made relative to a vanilla Pimcore install.  If 
 * [`config.yml`](/app/config/config.yml) - At the top of this file in the `imports` section, a new resource is added named `parameters_platformsh.php`.  That will load a PHP file rather than YAML file to specify Pimcore configuration parameters.  It also enables Doctrine and Redis caching.  Due to a bug in Doctrine, the database version must be specified explicitly in `config.yml` or this project will fail to deploy.  It is already set.  Remember to update this file if you change the database version used in `config.yaml`.
 * [`parameters_platformsh.php`](/app/config/parameters_platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Symfony parameters. This file will be parsed on every page load. By default it only maps a default database and Redis connection parameters. You can add to it as needed.
 * [`installer.yml`](/app/config/installer.yml) - This file is modified so the install process can retrieve the database connection parameters.
+* A base [Landofile](https://docs.lando.dev/config/lando.html#base-file).  This provides configuration so the template may be used for local development with [Lando](https://docs.lando.dev).
+
+## Local development
+
+This template has been configured for use with [Lando](https://docs.lando.dev).  Lando is Platform.sh's recommended local development tool.  It is capable of reading your Platform.sh configuration files and standing up an environment that is _very similar_ to your Platform.sh project.  Additionally, Lando can easily pull down databases and file mounts from your Platform.sh project.
+
+To get started using Lando with your Platform.sh project check out the [Quick Start](https://docs.platform.sh/development/local/lando.html) or the [official Lando Platform.sh documentation](https://docs.lando.dev/config/platformsh.html).
 
 ## References
 

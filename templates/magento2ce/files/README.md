@@ -45,4 +45,3 @@ To get started using Lando with your Platform.sh project check out the [Quick St
 
 * [Magento](https://magento.com/)
 * [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)
-* [Lando Platform.sh documentation](https://docs.lando.dev/config/platformsh.html)

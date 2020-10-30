@@ -53,6 +53,13 @@ The following changes have been made relative to WordPress as it is downloaded f
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * The `wp-config.php` file has been modified to use the Config Reader to configure WordPress based on Platform.sh environment variables if present.  If not, your own `wp-config-local.php` file will be loaded to configure the site for local development.
 * The upstream `composer.json` file has been modified to include the script `movewpconfig`. It moves `wp-config.php` into the default install directory and docroot `wordpress` after composer install is run.
+* A base [Landofile](https://docs.lando.dev/config/lando.html#base-file) provides configuration to use this template locally using [Lando](https://docs.lando.dev).
+
+## Local development
+
+This template has been configured for use with [Lando](https://docs.lando.dev).  Lando is Platform.sh's recommended local development tool.  It is capable of reading your Platform.sh configuration files and standing up an environment that is _very similar_ to your Platform.sh project.  Additionally, Lando can easily pull down databases and file mounts from your Platform.sh project.
+
+To get started using Lando with your Platform.sh project check out the [Quick Start](https://docs.platform.sh/development/local/lando.html) or the [official Lando Platform.sh documentation](https://docs.lando.dev/config/platformsh.html).
 
 ## References
 

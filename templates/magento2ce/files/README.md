@@ -33,7 +33,7 @@ The following changes have been made relative to Magento 2 as it is downloaded f
 * The installer has been patched to not ask for information that is already provided by Platform.sh, such as database credentials, file paths, or the initial administrator account.  These changes should have no impact post-installation.  See the [patch file](https://github.com/platformsh/template-builder/blob/master/templates/magento2ce/platformsh.patch) for details.
 * An additional script has been added to force the cron process to not start background workers. See [disable-cron-workers.php](disable-cron-workers.php) for details. It runs on deploy and modifies the `.config/env.php` file.
 * A worker container is also created to handle background processing.  That means that Magento cannot be run on a production plan smaller than Medium.
-* A base [Landofile](https://docs.lando.dev/config/lando.html#base-file).  This provides configuration so the template may be used for local development with [Lando](https://docs.lando.dev).
+* A base [Landofile](https://docs.lando.dev/config/lando.html#base-file) provides configuration to use this template locally using [Lando](https://docs.lando.dev).
 
 ## Local development
 

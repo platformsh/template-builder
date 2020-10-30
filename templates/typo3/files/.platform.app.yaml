@@ -120,7 +120,9 @@ hooks:
         set -e
 
         # Start the installation with no interaction or extension setup, using `SetupConfiguration.yaml`.
-        php vendor/bin/typo3cms install:setup --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup
+        if [ ! -f var/platformsh.installed ]; then
+            php vendor/bin/typo3cms install:setup --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup
+        fi;
 
         # Generates the `PackageStates.php` file from the `composer.json` configuration
         php vendor/bin/typo3cms install:generatepackagestates

@@ -97,7 +97,7 @@ hooks:
         touch web/var/.platform.installed
     fi
 
-    # Clear env cached
+    # Clear env cache
     ./bin/console cache:clear
 
 # The configuration of scheduled execution.

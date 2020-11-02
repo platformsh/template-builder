@@ -38,6 +38,9 @@ variables:
         APP_DEBUG: 0
         APP_DEFAULT_LOCALE: 'en'
         APP_PRODUCT_AND_PRODUCT_MODEL_INDEX_NAME: 'akeneo_pim_product_and_product_model'
+        # Update these for your desired NVM and Node versions.
+        NVM_VERSION: v0.36.0
+        NODE_VERSION: v14.13.1
     php:
         apc.enable_cli: 1
 
@@ -53,6 +56,9 @@ mounts:
     "web":
         source: local
         source_path: "web"
+    "config/secrets":
+        source: local
+        source_path: "config/secrets"
     # This mount is not listed in the Akeneo documentation, but is required for the
     # Doctrine portion of the installer.
     "upgrades":
@@ -68,14 +74,12 @@ hooks:
     build: |
         set -e
 
-        # install nvm to use newer version of node
-        echo "Updating Node version"
+        # Install nvm to use newer version of node.
         unset NPM_CONFIG_PREFIX
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | dash
-        export NVM_DIR="$HOME/.nvm"
+        export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+        # install.sh will automatically install NodeJS based on the presence of $NODE_VERSION
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-        # install node 14 (currently latest LTS)
-        nvm install 14
 
         echo "Installing Node dependencies"
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install

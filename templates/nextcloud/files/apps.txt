@@ -1,1 +1,1 @@
-https://github.com/rullzer/previewgenerator/releases/download/v2.3.0/previewgenerator.tar.gz
+https://github.com/rullzer/previewgenerator/releases/download/v3.0.1/previewgenerator.tar.gz

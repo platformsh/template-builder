@@ -8,6 +8,8 @@ reset_config () {
 }
 
 install () {
+    # Start with a config that disables the app store, to avoid permission checks.
+    cp -f _config/config.php src/config/config.php
     # Initial installation
     ./occ  maintenance:install --database "mysql" --database-host "database.internal" --database-name "main" --database-user "user" --database-pass "" --admin-user $ADMIN_USER --admin-pass $ADMIN_PASSWORD --data-dir="/app/src/data"
     # Mark installation as done

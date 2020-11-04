@@ -44,7 +44,7 @@ $CONFIG = array (
   // FIXME get something more reasonable here
   'logfile' => '/tmp/logs/nextcloud.log',
   'dbtype' => 'mysql',
-  'version' => '18.0.1',
+  'version' => $_ENV['NEXTCLOUD_VERSION'],
   'overwrite.cli.url' =>$platform_sh_url,
   'dbname' => 'main',
   'dbhost' => 'database.internal',
@@ -72,7 +72,7 @@ $CONFIG = array (
 );
 
 // set object-store as primary store if we have an S3 bucket set.
-if (getenv('S3_BUCKET')){
+if (getenv('S3_BUCKET')) {
   $CONFIG["objectstore"] =array(
     'class' => '\\OC\\Files\\ObjectStore\\S3',
     'arguments' => array(

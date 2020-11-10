@@ -20,7 +20,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress.git@master
+  repository: git://github.com/platformsh-templates/wordpress-composer.git@master
   config: null
   files: []
   profile: Wordpress (Composer)

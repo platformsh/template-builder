@@ -4,7 +4,7 @@ from collections import OrderedDict
 from .remote import RemoteProject
 
 
-class Wordpress(RemoteProject):
+class Wordpress_composer(RemoteProject):
     major_version = '5'
     remote = 'https://github.com/johnpbloch/wordpress.git'
 
@@ -37,7 +37,7 @@ class Wordpress(RemoteProject):
             ]
             return composer
 
-        return super(Wordpress, self).platformify + [
+        return super(Wordpress_composer, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --ignore-platform-reqs'.format(self.builddir),

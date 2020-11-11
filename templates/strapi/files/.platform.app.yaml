@@ -36,6 +36,9 @@ hooks:
         if [ -n "$(ls -A exports)" ]; then
             mkdir exports-tmp && mv exports/* exports-tmp
         fi
+        if [ -n "$(ls -A components)" ]; then
+            mkdir components-tmp && mv components/* components-tmp
+        fi
     deploy: |
         # Copy overrides back to where they need to be.
         if [ -n "$(ls -A extensions-tmp)" ]; then
@@ -46,6 +49,9 @@ hooks:
         fi
         if [ -n "$(ls -A exports-tmp)" ]; then
             cp -r exports-tmp/* exports
+        fi
+        if [ -n "$(ls -A components-tmp)" ]; then
+            cp -r components-tmp/* components
         fi
 
 # The relationships of the application with services or other applications.
@@ -96,10 +102,14 @@ mounts:
     'extensions':
         source: local
         source_path: extensions
+    # Allow for custom components at runtime.
+    'components':
+        source: local
+        source_path: components
     # Allow for media uploads at runtime.
     'public/uploads':
         source: local
         source_path: uploads
-
+    
 
         

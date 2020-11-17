@@ -42,8 +42,21 @@ mounts:
 hooks:
     # The build hook turns what is in source control into the deployable application.
     build: |
-        gem install bundler:2.0.2
-        bundle install --without development test
+        gem install --no-document bundler:2.1.4
+        bundle config set without 'development test'
+        bundle config deployment true
+        bundle config cache_all true
+        bundle config clean true
+        echo "Installing gems"
+        # We copy the bundle directory to the Platform.sh cache directory for
+        # safe keeping, then restore from there on the next build. That allows
+        # bundler to skip downloading code it doesn't need to.
+        [ -d "$PLATFORM_CACHE_DIR/bundle" ] && \
+          rsync -az --delete "$PLATFORM_CACHE_DIR/bundle/" vendor/bundle/
+        mkdir -p "$PLATFORM_CACHE_DIR/bundle"
+        bundle install
+        # synchronize updated cache for next build
+        rsync -az --delete vendor/bundle/ "$PLATFORM_CACHE_DIR/bundle/"
         RAILS_ENV=production bundle exec rake assets:precompile
     # The deploy hook runs after your application has been deployed and started.
     deploy: |

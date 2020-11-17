@@ -1,0 +1,23 @@
+embed-server --server-config=standalone.xml --std-out=echo
+
+batch
+
+/subsystem=keycloak-server/theme=defaults:write-attribute(name=welcomeTheme,value=${env.KEYCLOAK_WELCOME_THEME:keycloak})
+/subsystem=keycloak-server/theme=defaults:write-attribute(name=default,value=${env.KEYCLOAK_DEFAULT_THEME:keycloak})
+
+/subsystem=undertow/server=default-server/http-listener=default: write-attribute(name=proxy-address-forwarding, value=${env.PROXY_ADDRESS_FORWARDING:false})
+/subsystem=undertow/server=default-server/https-listener=https: write-attribute(name=proxy-address-forwarding, value=${env.PROXY_ADDRESS_FORWARDING:false})
+
+
+/subsystem=logging/logger=org.keycloak:add
+/subsystem=logging/logger=org.keycloak:write-attribute(name=level,value=${env.KEYCLOAK_LOGLEVEL:INFO})
+
+/subsystem=logging/root-logger=ROOT:change-root-log-level(level=${env.ROOT_LOGLEVEL:INFO})
+
+/subsystem=logging/root-logger=ROOT:remove-handler(name="FILE")
+/subsystem=logging/periodic-rotating-file-handler=FILE:remove
+
+/subsystem=logging/console-handler=CONSOLE:undefine-attribute(name=level)
+run-batch
+
+stop-embedded-server

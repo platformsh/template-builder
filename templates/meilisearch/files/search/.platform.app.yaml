@@ -1,0 +1,30 @@
+name: 'app'
+
+type: 'python:3.8'
+
+variables:
+    env:
+        MEILISEARCH_VERSION: 'v0.15.0'
+        TEMPLATE_DEMO: true
+        POETRY_VERSION: '1.1.4'
+        POETRY_VIRTUALENVS_IN_PROJECT: true
+        POETRY_VIRTUALENVS_CREATE: false
+
+hooks:
+    build: !include
+        type: string
+        path: build.sh
+    deploy: .poetry/bin/poetry run python update_demo_index.py
+
+web:
+    commands:
+      # Run the Meilisearch server
+      start: "./meilisearch --http-addr localhost:${PORT}"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+mounts:
+    "data.ms":
+        source: local
+        source_path: "datams"

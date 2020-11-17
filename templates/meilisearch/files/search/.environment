@@ -1,0 +1,2 @@
+# Source Poetry, so available during SSH.
+. $PLATFORM_APP_DIR/.poetry/env

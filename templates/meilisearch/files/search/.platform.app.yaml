@@ -1,0 +1,40 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: 'app'
+
+# The type of the application to build.
+type: 'python:3.8'
+
+# Environment variables available to the app container.
+variables:
+    env:
+        MEILISEARCH_VERSION: 'v0.15.0'
+        TEMPLATE_DEMO: true
+        POETRY_VERSION: '1.1.4'
+        POETRY_VIRTUALENVS_IN_PROJECT: true
+        POETRY_VIRTUALENVS_CREATE: false
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+    build: !include
+        type: string
+        path: build.sh
+    deploy: .poetry/bin/poetry run python update_demo_index.py
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+      # Run the Meilisearch server
+      start: "./meilisearch --http-addr localhost:${PORT}"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    "data.ms":
+        source: local
+        source_path: "datams"
+        

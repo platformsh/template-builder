@@ -17,8 +17,6 @@ setup_venv(){
     python get-poetry.py --version $POETRY_VERSION
     # Source the Poetry command and cleanup.
     . $PLATFORM_APP_DIR/.poetry/env && rm get-poetry.py
-    # Add Poetry to .bash_profile, so available during SSH.
-    echo ". $PLATFORM_APP_DIR/.poetry/env" >> ~/.bash_profile
     # Install dependencies.
     poetry install
 }

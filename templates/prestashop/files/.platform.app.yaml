@@ -1,0 +1,114 @@
+    # .platform.app.yaml
+
+# The name of this application, which must be unique within a project.
+name: 'app'
+
+# The type key specifies the language and version for your application.
+type: 'php:7.4'
+
+# On PHP, there are multiple build flavors available. Pretty much everyone
+# except Drupal 7 users will want the composer flavor.
+build:
+  flavor: composer
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: 'db:mysql'
+
+# The hooks that will be triggered when the package is deployed.
+hooks:
+    # Build hooks can modify the application files on disk but not access any services like databases.
+    # build: |
+    # Deploy hooks can access services but the file system is now read-only.
+    deploy: |
+        set -e
+        rsync -a init/modules/* modules/
+        rsync -a init/img/* img/
+        rsync -a init/config/* config/
+        rsync -a init/translations/* translations/
+        rsync -a init/resources-translations/* app/Resources/translations/
+        rsync -a init/app-config/* app/config/
+        rsync -a init/themes/* themes/
+        rsync -a init/admin-dev/import/* admin-dev/import/
+        rsync -a init/mails/* mails/
+        rm -rf var/cache/*
+        if [ ! -f var/writeable/installed.lock ]; then
+            cd install-dev && php index_cli.php --db_server=database.internal --db_name=main --db_user=user --email=$ADMIN_EMAIL --password=$ADMIN_PASSWORD --domain=$(echo $PLATFORM_ROUTES | base64 -d | jq 'keys[0]'|sed 's|https\?://||'|sed 's|/||'|sed 's|\"||g')
+            mysql -h database.internal -u user -e "UPDATE ps_configuration SET value = 1 WHERE name ='PS_SSL_ENABLED' OR name='PS_SSL_ENABLED_EVERYWHERE';" main
+            cd && touch var/writeable/installed.lock
+        elif [ $PLATFORM_BRANCH != 'master' ]; then
+            shop_url=$(echo $PLATFORM_ROUTES | base64 -d | jq 'keys[0]'|sed 's|https\?://||'|sed 's|/||'|sed 's|\"||g')
+            mysql -h database.internal -u user -e "UPDATE ps_configuration SET value ='$shop_url' WHERE name='PS_SHOP_DOMAIN' OR name='PS_SHOP_DOMAIN_SSL';" main
+            mysql -h database.internal -u user -e "UPDATE ps_shop_url SET domain='$shop_url', domain_ssl='$shop_url';" main
+        fi;
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+# The keys are directory paths relative to the application root. The values are a
+# mount definition. In this case, `web-files` is just a unique name for the mount.
+mounts:
+    'admin-dev/import':
+        source: local
+        source_path: 'admin-dev-import'
+    'mails':
+        source: local
+        source_path: 'mails'
+    'modules':
+        source: local
+        source_path: 'modules'
+    'translations':
+        source: local
+        source_path: 'translations'
+    'app/Resources/translations':
+        source: local
+        source_path: 'resources-translations'
+    'config':
+        source: local
+        source_path: 'config'
+    'app/config':
+        source: local
+        source_path: 'app-config'
+    'img':
+        source: local
+        source_path: 'img'
+    'upload':
+        source: local
+        source_path: 'upload'
+    'download':
+        source: local
+        source_path: 'download'
+    'var/cache':
+        source: local
+        source_path: 'var-cache'
+    'var/logs':
+        source: local
+        source_path: 'var-logs'
+    'var/sessions':
+        source: local
+        source_path: 'var-sessions'
+    'var/writeable':
+        source: local
+        source_path: 'var-writeable'
+    'themes':
+        source: local
+        source_path: 'themes'
+
+# The configuration of the application when it is exposed to the web.
+web:
+    locations:
+        '/':
+            # The public directory of the application relative to its root.
+            root: ''
+            # The front-controller script which determines where to send
+            # non-static requests.
+            passthru: '/index.php'
+        '/admin-dev':
+            # The public directory of the application relative to its root.
+            root: 'admin-dev'
+            # The front-controller script which determines where to send
+            # non-static requests.
+            passthru: '/admin-dev/index.php'

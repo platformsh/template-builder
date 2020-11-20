@@ -7,7 +7,7 @@
    <version>1.0-SNAPSHOT</version>
 
    <properties>
-    <micronaut.version>2.1.2</micronaut.version>
+    <micronaut.version>2.2.0</micronaut.version>
     <jdk.version>11</jdk.version>
     <maven.compiler.target>${jdk.version}</maven.compiler.target>
     <maven.compiler.source>${jdk.version}</maven.compiler.source>

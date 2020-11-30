@@ -1,0 +1,39 @@
+version: 1
+
+info:
+  id: platformsh/wordpress-bedrock
+  name: Wordpress (Bedrock)
+  description: |
+      <p>This template builds WordPress on Platform.sh using the <a href="https://github.com/johnpbloch/wordpress"><code>johnbolch/wordpress</code></a> "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.  A custom configuration file is provided that runs on Platform.sh to automatically configure the database, so the installer will not ask you for database credentials.  For local-only configuration you can use a `wp-config-local.php` file that gets excluded from Git.</p>
+      <p>WordPress is a blogging and lightweight CMS written in PHP.</p>
+  tags:
+  - PHP
+  - WordPress
+  - CMS
+  image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4gPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDMiIGhlaWdodD0iNzYiIHZpZXdCb3g9IjAgMCAyNDMgNzYiPiA8ZyBmaWxsPSIjNTI1RERDIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiA8cGF0aCBkPSJNMi4yMzMgMUwxIDIuMjMzdjE2LjAzNGwxLjA1NyAxLjA1NyAzNC44ODYtNS44MTVMMzggMTQuNTY3djExLjFsMzUuNTItNS45MiAxLjQ4LTEuNDhWMi4yMzNMNzMuNzY3IDFIMi4yMzN6bS4yNDcgMzAuNTg3TDEgMzMuMDY3djkuODY2bDEuMDU3IDEuMDU3TDM4IDM4VjI1LjY2N2wtMzUuNTIgNS45MnpNMzggMzh2MTIuMzM0bDM1LjUyLTUuOTIgMS40OC0xLjQ4di05Ljg2N2wtMS4wNTctMS4wNTdMMzggMzh6TTIuNDggNTYuMjUzTDEgNTcuNzMzdjE2LjAzNEwyLjIzMyA3NWg3MS41MzRMNzUgNzMuNzY3VjU3LjczM2wtMS4wNTctMS4wNTctMzQuODg2IDUuODE1TDM4IDYxLjQzNHYtMTEuMWwtMzUuNTIgNS45MnpNMTIwLjk0IDQzLjc4YzAgNS4zMi0zLjggNy4yMi03LjYgNy4yMmgtMTIuOTJsLS4zOC0uMzhWMjQuNzhsLjM4LS4zOGgxMi4xNmMzLjggMCA3LjYgMS45IDcuNiA2Ljg0IDAgMi42Ni0xLjE0IDQuOTQtMy44IDUuN3YuMzhjMy4wNC43NiA0LjU2IDMuMDQgNC41NiA2LjQ2ek0xMTQuODYgMzJjMC0xLjktLjc2LTMuMDQtMy4wNC0zLjA0aC02LjA4bC0uMzguMzh2NS4zMmwuMzguMzhoNi4wOGMyLjI4IDAgMy4wNC0xLjUyIDMuMDQtMy4wNHptLjc2IDExLjAyYzAtMi4yOC0xLjE0LTMuNDItMy44LTMuNDJoLTYuMDhsLS4zOC4zOHY2LjA4bC4zOC4zOGg2LjA4YzIuNjYgMCAzLjgtMS4xNCAzLjgtMy40MnptMjYuMjItMS41MnYxLjUybC0uMzguMzhoLTExLjc4bC0uMzguMzhjMCAuNzYuNzYgMy4wNCAzLjggMy4wNCAxLjE0IDAgMi4yOC0uMzggMi42Ni0xLjE0bC4zOC0uMzhoNC41NmwuMzguMzhjLS4zOCAyLjI4LTIuMjggNS43LTcuOTggNS43LTYuNDYgMC05LjUtNC41Ni05LjUtOS44OCAwLTUuMzIgMy4wNC05Ljg4IDkuMTItOS44OCA2LjA4IDAgOS4xMiA0LjU2IDkuMTIgOS44OHptLTYuMDgtMS45bC4zOC0uMzhjMC0uMzgtLjM4LTMuMDQtMy40Mi0zLjA0cy0zLjQyIDIuNjYtMy40MiAzLjA0bC4zOC4zOGg2LjA4em04LjM2IDEuOWMwLTYuMDggMy44LTkuODggOC4zNi05Ljg4IDMuNDIgMCA0Ljk0IDEuOSA0Ljk0IDEuOWguMzh2LTguNzRsLjM4LS4zOGg0LjU2bC4zOC4zOHYyNS44NGwtLjM4LjM4aC00LjE4bC0uMzgtLjM4LS4zOC0xLjE0aC0uMzhzLTEuNTIgMS45LTQuOTQgMS45Yy00LjU2IDAtOC4zNi0zLjgtOC4zNi05Ljg4em01LjMyIDBjMCAzLjA0IDEuMTQgNS4zMiA0LjE4IDUuMzJzNC4xOC0yLjI4IDQuMTgtNS4zMmMwLTMuMDQtMS4xNC01LjMyLTQuMTgtNS4zMnMtNC4xOCAyLjI4LTQuMTggNS4zMnptMzAuNzgtNS4zMmwtLjM4LjM4aC0yLjY2Yy0zLjA0IDAtNC4xOCAxLjUyLTQuMTggNC45NHY5LjEybC0uMzguMzhoLTQuNTZsLS4zOC0uMzhWMzIuMzhsLjM4LS4zOGg0LjE4bC4zOC4zOC4zOCAxLjE0aC4zOHMuNzYtMS41MiA0LjE4LTEuNTJoMi4yOGwuMzguMzh2My44em0yMC45IDUuMzJjMCA2LjA4LTMuOCA5Ljg4LTkuNSA5Ljg4cy05LjUtMy44LTkuNS05Ljg4YzAtNi4wOCAzLjgtOS44OCA5LjUtOS44OHM5LjUgMy44IDkuNSA5Ljg4em0tNS4zMiAwYzAtMy40Mi0xLjUyLTUuMzItNC4xOC01LjMyLTIuNjYgMC00LjE4IDEuOS00LjE4IDUuMzIgMCAzLjQyIDEuNTIgNS4zMiA0LjE4IDUuMzIgMi42NiAwIDQuMTgtMS45IDQuMTgtNS4zMnptMTIuOTIgMGMwIDMuNDIgMS41MiA1LjMyIDQuMTggNS4zMiAxLjkgMCAzLjA0LS43NiAzLjQyLTEuOWwuMzgtLjM4aDQuNTZsLjM4LjM4Yy0uNzYgNC41Ni00LjU2IDYuNDYtOC43NCA2LjQ2LTUuNyAwLTkuNS0zLjgtOS41LTkuODggMC02LjA4IDMuOC05Ljg4IDkuNS05Ljg4IDQuMTggMCA3Ljk4IDEuOSA4Ljc0IDYuNDZsLS4zOC4zOGgtNC41NmwtLjM4LS4zOGMtLjM4LTEuMTQtMS41Mi0xLjktMy40Mi0xLjktMi42NiAwLTQuMTggMS45LTQuMTggNS4zMnptMzMuNDQgOS4xMmwtLjM4LjM4aC0yLjI4bC0uNzYtLjM4LTUuMzItNS43aC0uMzhsLTIuMjggMi4yOC0uMzguNzZ2Mi42NkwyMzAgNTFoLTQuNTZsLS4zOC0uMzhWMjQuNzhsLjM4LS4zOEgyMzBsLjM4LjM4djE1LjJoLjM4bDcuNi03LjYuNzYtLjM4aDIuMjhsLjM4LjM4djMuOGwtNC41NiA0LjU2di4zOGw0Ljk0IDUuN3YzLjh6Ij48L3BhdGg+IDwvZz4gPC9zdmc+IA==
+  notes:
+    - heading: "Features"
+      content: |
+          PHP 7.4<br />
+          MariaDB 10.4<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
+
+initialize:
+  repository: git://github.com/platformsh-templates/wordpress-bedrock.git@master
+  config: null
+  files: []
+  profile: Wordpress (Bedrock)
+
+defaults:
+  variables:
+    - name: env:COMPOSER_AUTH
+      value: ""
+      is_json: false
+      visible_build: true
+      visible_runtime: false
+    - name: env:site_name
+      value: "Hello, world!"
+      is_json: false
+      visible_build: false
+      visible_runtime: true

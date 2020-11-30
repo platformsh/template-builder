@@ -1,0 +1,60 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+
+# The name of this app. Must be unique within a project.
+name: front
+
+# The runtime the application uses.
+type: nodejs:14
+
+build:
+  flavor: none
+
+dependencies:
+  nodejs:
+    yarn: "^1.22.0"
+
+hooks:
+  build: |
+    set -e
+    yarn
+  # we do not have access to PLATFORM_RELATIONSHIPS in the build hook
+  # so we have to delay the build so `react-scripts` can do its thing
+  # with the environment variables when bundling the app.
+  deploy: |
+    set -e
+    REACT_APP_PLATFORM_RELATIONSHIPS=$PLATFORM_RELATIONSHIPS \
+    REACT_APP_PLATFORM_ROUTES=$PLATFORM_ROUTES \
+    yarn build
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+
+relationships:
+  api: "api:http"
+
+web:
+  locations:
+    "/":
+      # The public directory of the application relative to its root.
+      root: "build"
+      index: ["index.html"]
+      scripts: false
+      allow: true
+      expires: 1d
+
+# The size of the persistent disk of the application (in MB).
+disk: 512
+
+mounts:
+  '/.cache':
+    source: local
+    source_path: cache
+  'build':
+    source: local
+    source_path: public

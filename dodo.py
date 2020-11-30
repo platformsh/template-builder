@@ -9,6 +9,7 @@ import os
 
 from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
+from project.apollo import Apollo
 from project.backdrop import Backdrop
 from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
 from project.gatsby import Gatsby

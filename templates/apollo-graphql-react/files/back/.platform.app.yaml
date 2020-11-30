@@ -31,7 +31,7 @@ hooks:
 relationships:
   database: "db:mongodb"
 
-# The configuration of app when it is exposed to the web.
+# The configuration of the app when it is exposed to the web.
 web:
   commands:
     start: "node ."

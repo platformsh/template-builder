@@ -28,4 +28,4 @@ initialize:
   repository: git://github.com/platformsh-templates/apollo-graphql-react.git@master
   config: null
   files: []
-  profile: apollo
+  profile: Apollo and React

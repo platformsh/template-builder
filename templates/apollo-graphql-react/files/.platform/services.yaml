@@ -5,4 +5,4 @@
 
 db:
   type: mongodb:3.6
-  disk: 512
+  disk: 1024

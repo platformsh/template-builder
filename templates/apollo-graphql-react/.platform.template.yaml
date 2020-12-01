@@ -24,6 +24,10 @@ info:
           Websockets<br />
           Automatic TLS certificates<br />
 
+plans:
+    exclude:
+        - small
+
 initialize:
   repository: git://github.com/platformsh-templates/apollo-graphql-react.git@master
   config: null

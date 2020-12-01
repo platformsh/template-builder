@@ -7,7 +7,7 @@ Apollo Server is an open-source, spec-compliant GraphQL server that's compatible
 ## Features
 
 * Node.js 14
-* MariaDB 10.4
+* MongoDB 3.6
 * Automatic TLS certificates
 
 ## Customizations

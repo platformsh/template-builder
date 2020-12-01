@@ -20,7 +20,7 @@ info:
     - heading: "Features"
       content: |
           Node.js 14<br />
-          MariaDB 10.4<br />
+          MongoDB 3.6<br />
           Websockets<br />
           Automatic TLS certificates<br />
 

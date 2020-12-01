@@ -14,7 +14,7 @@ Apollo Client is state management library for JavaScript that enables you to man
 ## Features
 
 * Node.js 14
-* MariaDB 10.4
+* MongoDB 3.6
 * Automatic TLS certificates
 * Websockets
 * yarn-based build

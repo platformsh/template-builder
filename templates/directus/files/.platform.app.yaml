@@ -1,0 +1,58 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses.
+type: nodejs:14
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "dbpostgres:postgresql"
+
+# The hooks that will be triggered when the package is deployed.
+hooks:
+    build: |
+        cp node_modules/directus/example.env .env
+    deploy: |
+        # Installs the database and sets up the initial admin user. Only run on first deploy.
+        if [ ! -f var/platformsh.installed ]; then
+            # Install the database
+            echo 'Installing the database...'
+            npx directus database install
+
+            # Create the admin user role
+            echo 'Setting up the initial admin role...'
+            ROLE_UUID=$(npx directus roles create --name admin --admin)
+
+            # Pipe output of above command into this one, adding an initial admin user
+            echo 'Creating the initial admin user...'
+            npx directus users create --email $INIT_ADMINUSER --password $INIT_ADMINPW --role $ROLE_UUID
+
+            # Create file that indicates first deploy and installation has been completed.
+            touch var/platformsh.installed
+        fi;
+
+# Start the Directus server. 
+web:
+    commands:
+        start: npx directus start    
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# Platform.sh write access at runtime.
+mounts:
+    'uploads':
+        source: local
+        source_path: uploads
+    'var':
+        source: local
+        source_path: var

@@ -3,6 +3,16 @@ from collections import OrderedDict
 
 from .remote import RemoteProject
 
+class Wordpress_bedrock(RemoteProject):
+    major_version = '1'
+    remote = 'https://github.com/roots/bedrock.git'
+
+    @property
+    def platformify(self):
+        return super(Wordpress_bedrock, self).platformify + [
+            'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+        ]
+
 
 class Wordpress_composer(RemoteProject):
     major_version = '5'

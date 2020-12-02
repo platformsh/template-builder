@@ -21,7 +21,7 @@ relationships:
 hooks:
     build: |
         # Once `uploads` is mounted, all committed data there will be lost. Set-aside for now to avoid this.
-        if [ -n "$(ls -d uploads 2>/dev/null)" ]; then
+        if [ -d "uploads" ]; then
             mkdir uploads-tmp && cp -r uploads/* uploads-tmp
         fi   
     deploy: |

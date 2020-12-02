@@ -11,6 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "directus": "^9.0.0-rc.19",
-    "pg": "8.5.1"
+    "pg": "^8.5.1"
   }
 }

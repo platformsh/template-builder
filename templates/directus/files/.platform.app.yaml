@@ -20,10 +20,7 @@ relationships:
 # The hooks that will be triggered when the package is deployed.
 hooks:
     build: |
-        # Once `uploads` is mounted, all committed data there will be lost. Set-aside for now to avoid this.
-        if [ -d "uploads" ]; then
-            mkdir uploads-tmp && cp -r uploads/* uploads-tmp
-        fi   
+        cp node_modules/directus/example.env .env
     deploy: |
         # Installs the database and sets up the initial admin user. Only run on first deploy.
         if [ ! -f var/platformsh.installed ]; then
@@ -42,11 +39,6 @@ hooks:
             # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
         fi;
-
-        # Copy committed uploads back to where they need to be.
-        if [ -n "$(ls -A uploads-tmp 2>/dev/null)" ]; then
-            cp -r uploads-tmp/* uploads
-        fi  
 
 # Start the Directus server. 
 web:

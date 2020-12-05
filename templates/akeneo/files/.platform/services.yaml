@@ -8,3 +8,6 @@ db:
 search:
     type: elasticsearch:7.7
     disk: 512
+jobs:
+    type: network-storage:1.0
+    disk: 128

@@ -1,13 +1,22 @@
+# Initial admin user on first deploy.
 export INIT_ADMINUSER='admin@example.com'
 export INIT_ADMINPW='password'
 
+# Public url for the current Platform.sh environment.
 export PUBLIC_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
 
+# Database credentials.
 export DB_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
 export DB_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
 export DB_DATABASE=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].path")
 export DB_USER=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].username")
 export DB_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].password")
 
+# Using project entropy for Directus secret keys.
 export KEY=$PLATFORM_PROJECT_ENTROPY
 export SECRET=$PLATFORM_PROJECT_ENTROPY
+
+# Upstream parsing issue fix.
+export STORAGE_LOCATIONS="local"
+# Use environment url for public uploads url.
+export STORAGE_LOCAL_PUBLIC_URL="${PUBLIC_URL}uploads"

@@ -71,7 +71,7 @@ mounts:
     # Sharing job files
     "var/file_storage/jobs":
         source: service
-        service: files
+        service: jobs
         source_path: "var/file_storage/jobs"
 
 dependencies:

@@ -1,7 +1,22 @@
+import os.path
 import json
 from collections import OrderedDict
-
+from . import BaseProject
 from .remote import RemoteProject
+
+
+class Wordpress_vanilla(BaseProject):
+    remote = 'https://wordpress.org/latest'
+    install_dir = 'wordpress'
+
+    @property
+    def platformify(self):
+        return super(Wordpress_vanilla, self).platformify + [
+            # Install WordPress
+            'cd {0} && curl {1} -o {2}.tar.gz'.format(self.builddir, self.remote, self.install_dir),
+            # Release the tar and cleanup.
+            'cd {0} && tar -xvf {1}.tar.gz && rm {1}.tar.gz'.format(self.builddir, self.install_dir),
+        ]
 
 class Wordpress_bedrock(RemoteProject):
     major_version = '1'

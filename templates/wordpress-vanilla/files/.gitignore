@@ -1,0 +1,9 @@
+# Your config, not a part of WP upstream
+wordpress/wp-config.php
+
+# Custom plugins
+# wordpress/wp-content/plugins/classic-editor
+# wordpress/wp-content/plugins/woocommerce
+
+# Custom themes
+# wordpress/wp-content/themes/generatepress

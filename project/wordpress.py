@@ -11,8 +11,19 @@ class Wordpress_bedrock(RemoteProject):
     def platformify(self):
         return super(Wordpress_bedrock, self).platformify + [
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+            'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
         ]
 
+class Wordpress_woocommerce(RemoteProject):
+    major_version = '1'
+    remote = 'https://github.com/roots/bedrock.git'
+
+    @property
+    def platformify(self):
+        return super(Wordpress_woocommerce, self).platformify + [
+            'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack --ignore-platform-reqs'.format(self.builddir),
+        ]
 
 class Wordpress_composer(RemoteProject):
     major_version = '5'

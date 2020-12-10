@@ -7,3 +7,7 @@ wordpress/wp-config.php
 
 # Custom themes
 # wordpress/wp-content/themes/generatepress
+
+# Ignore mounts
+wordpress/wp-content/cache
+wordpress/wp-content/uploads

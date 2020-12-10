@@ -1,12 +1,11 @@
 version: 1
 
 info:
-  id: platformsh/wordpress-woocommerce
-  name: WooCommerce (Bedrock) for Platform.sh
+  id: platformsh/wordpress-vanilla
+  name: WordPress (Vanilla) for Platform.sh
   description: |
-      <p>This template builds WordPress on Platform.sh using the Bedrock boilerplate by Roots with Composer. It includes WooCommerce and JetPack as dependencies, which when enabled will quickly allow you to create a store on WordPress.</p>
-      <p>Plugins and themes should be managed with Composer exclusively. The only modifications made to the standard Bedrock boilerplate have been providing database credentials and main site url parameters via environment variables. With this configuration, the database is automatically configured such that the installer will not ask you for database credentials. While Bedrock provides support to replicate this configuration in a <code>.env</code> file for local development, an example Lando configuration file is included as the recommendated method to do so.</p>
-      <p>WordPress is a blogging and lightweight CMS written in PHP, and Bedrock is a Composer-based WordPress boilerplate project with a slightly modified project structure and configuration protocol. WooCommerce is an open-source eCommerce platform and plugin for WordPress.</p>
+      <p>This template builds WordPress on Platform.sh, installing WordPress to a subdirectory instead of to the project root. It does not use a package management tool like Composer, and updating core, themes, and plugins should be done with care. A custom configuration file is provided that runs on Platform.sh to automatically configure the database, so the installer will not ask you for database credentials.</p>
+      <p>WordPress is a blogging and lightweight CMS written in PHP.</p>
   tags:
   - PHP
   - WordPress
@@ -18,10 +17,9 @@ info:
           PHP 7.4<br />
           MariaDB 10.4<br />
           Automatic TLS certificates<br />
-          Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress-woocommerce.git@master
+  repository: git://github.com/platformsh-templates/wordpress-vanilla.git@master
   config: null
   files: []
-  profile: WooCommerce (Bedrock)
+  profile: WordPress (Vanilla)

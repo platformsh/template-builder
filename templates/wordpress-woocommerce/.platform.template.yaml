@@ -1,11 +1,12 @@
 version: 1
 
 info:
-  id: platformsh/wordpress-bedrock
-  name: Wordpress (Bedrock)
+  id: platformsh/wordpress-woocommerce
+  name: WooCommerce (Bedrock) for Platform.sh
   description: |
-      <p>This template builds WordPress on Platform.sh using the Bedrock boilerplate by Roots with Composer. Plugins and themes should be managed with Composer exclusively. The only modifications made to the standard Bedrock boilerplate have been providing database credentials and main site url parameters via environment variables. With this configuration, the database is automatically configured such that the installer will not ask you for database credentials. While Bedrock provides support to replicate this configuration in a `.env` file for local development, an example Lando configuration file is included as the recommendated method to do so.</p>
-      <p>WordPress is a blogging and lightweight CMS written in PHP, and Bedrock is a Composer-based WordPress boilerplate project with a slightly modified project structure and configuration protocol. </p>
+      <p>This template builds WordPress on Platform.sh using the Bedrock boilerplate by Roots with Composer. It includes WooCommerce and JetPack as dependencies, which when enabled will quickly allow you to create a store on WordPress.</p>
+      <p>Plugins and themes should be managed with Composer exclusively. The only modifications made to the standard Bedrock boilerplate have been providing database credentials and main site url parameters via environment variables. With this configuration, the database is automatically configured such that the installer will not ask you for database credentials. While Bedrock provides support to replicate this configuration in a <code>.env</code> file for local development, an example Lando configuration file is included as the recommendated method to do so.</p>
+      <p>WordPress is a blogging and lightweight CMS written in PHP, and Bedrock is a Composer-based WordPress boilerplate project with a slightly modified project structure and configuration protocol. WooCommerce is an open-source eCommerce platform and plugin for WordPress.</p>
   tags:
   - PHP
   - WordPress
@@ -20,8 +21,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress-bedrock.git@master
+  repository: git://github.com/platformsh-templates/wordpress-woocommerce.git@master
   config: null
   files: []
-  profile: Wordpress (Bedrock)
-
+  profile: WooCommerce (Bedrock)

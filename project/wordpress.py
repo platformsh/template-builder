@@ -1,7 +1,24 @@
+import os.path
 import json
 from collections import OrderedDict
-
+from . import BaseProject
 from .remote import RemoteProject
+
+
+class Wordpress_vanilla(BaseProject):
+    remote = 'https://wordpress.org/latest'
+    install_dir = 'wordpress'
+
+    @property
+    def platformify(self):
+        return super(Wordpress_vanilla, self).platformify + [
+            # Install WordPress
+            'cd {0} && curl {1} -o {2}.tar.gz'.format(self.builddir, self.remote, self.install_dir),
+            # Release the tar and cleanup.
+            'cd {0} && tar -xvf {1}.tar.gz && rm {1}.tar.gz'.format(self.builddir, self.install_dir),
+            # Move Platform.sh files into `wordpress`.
+            'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
+        ]
 
 class Wordpress_bedrock(RemoteProject):
     major_version = '1'
@@ -11,8 +28,19 @@ class Wordpress_bedrock(RemoteProject):
     def platformify(self):
         return super(Wordpress_bedrock, self).platformify + [
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+            'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
         ]
 
+class Wordpress_woocommerce(RemoteProject):
+    major_version = '1'
+    remote = 'https://github.com/roots/bedrock.git'
+
+    @property
+    def platformify(self):
+        return super(Wordpress_woocommerce, self).platformify + [
+            'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack --ignore-platform-reqs'.format(self.builddir),
+        ]
 
 class Wordpress_composer(RemoteProject):
     major_version = '5'

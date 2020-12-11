@@ -24,7 +24,7 @@ hooks:
         # rsync -a $PLATFORM_APP_DIR/plugins/* $PLATFORM_APP_DIR/wordpress/wp-content/plugins/
 
         # Copy manually-provided themes into the themes directory.
-        # rsync -a themes/* wordpress/wp-content/themes/
+        # rsync -a $PLATFORM_APP_DIR/themes/* $PLATFORM_APP_DIR/wordpress/wp-content/themes/
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

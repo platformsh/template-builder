@@ -14,4 +14,3 @@ recipe: platformsh
 tooling:
   wp:
     service: app
-    

@@ -16,6 +16,8 @@ class Wordpress_vanilla(BaseProject):
             'cd {0} && curl {1} -o {2}.tar.gz'.format(self.builddir, self.remote, self.install_dir),
             # Release the tar and cleanup.
             'cd {0} && tar -xvf {1}.tar.gz && rm {1}.tar.gz'.format(self.builddir, self.install_dir),
+            # Move Platform.sh files into `wordpress`.
+            'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
         ]
 
 class Wordpress_bedrock(RemoteProject):

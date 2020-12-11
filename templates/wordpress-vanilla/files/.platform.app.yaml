@@ -13,19 +13,6 @@ dependencies:
         wp-cli/wp-cli-bundle: "^2.4"
         psy/psysh: "^0.10.4"
 
-hooks:
-    build: |
-        set -e
-
-        # Copy wp-config.php in wordpress install dir
-        rsync wp-config.php wordpress/wp-config.php
-
-        # Copy manually-provided plugins into the plugins directory.
-        # rsync -a $PLATFORM_APP_DIR/plugins/* $PLATFORM_APP_DIR/wordpress/wp-content/plugins/
-
-        # Copy manually-provided themes into the themes directory.
-        # rsync -a $PLATFORM_APP_DIR/themes/* $PLATFORM_APP_DIR/wordpress/wp-content/themes/
-
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand

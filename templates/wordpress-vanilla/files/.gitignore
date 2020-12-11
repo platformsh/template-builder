@@ -1,6 +1,3 @@
-# Your config, not a part of WP upstream
-wordpress/wp-config.php
-
 # Ignore mounts
 wordpress/wp-content/cache
 wordpress/wp-content/uploads

@@ -64,6 +64,15 @@ mounts:
     "upgrades":
         source: local
         source_path: "upgrades"
+    # For media files
+    "public/media":
+        source: local
+        source_path: "public/media"
+    # Sharing job files
+    "var/file_storage/jobs":
+        source: service
+        service: jobs
+        source_path: "var/file_storage/jobs"
 
 dependencies:
     nodejs:

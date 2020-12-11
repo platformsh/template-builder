@@ -36,7 +36,6 @@ if (getenv('PLATFORM_RELATIONSHIPS')) {
 
 		// Set all of the necessary keys to unique values, based on the Platform.sh
 		// entropy value.
-		// if ($config->projectEntropy) {
 		if (getenv('PLATFORM_PROJECT_ENTROPY')) {
 			$keys = [
 				'AUTH_KEY',

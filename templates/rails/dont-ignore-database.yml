@@ -1,9 +1,0 @@
-diff --git a/.gitignore b/.gitignore
-index 4f2f24b..81452db 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -29,4 +29,3 @@
- 
- # Ignore master key for decrypting credentials and more.
- /config/master.key
--config/database.yml

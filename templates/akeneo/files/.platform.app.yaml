@@ -30,7 +30,7 @@ web:
             passthru: '/index.php'
 
 # The size of the persistent disk of the application (in MB).
-disk: 3072
+disk: 2048
 
 variables:
     env:

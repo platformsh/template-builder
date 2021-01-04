@@ -9,7 +9,7 @@
     <packaging>war</packaging>
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
-        <version.wildfly>20.0.1.Final</version.wildfly>
+        <version.wildfly>20.0.2.Final</version.wildfly>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <maven.compiler.source>11</maven.compiler.source>
         <final.name>template-wildfly</final.name>

@@ -14,7 +14,7 @@ disk: 1024
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |
-      mvn clean package jetty:deploy-war
+      mvn clean package jetty:start-war
 
 mounts:
     '/target/':

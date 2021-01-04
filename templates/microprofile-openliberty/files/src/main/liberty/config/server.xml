@@ -5,7 +5,7 @@
         <feature>microProfile-3.3</feature>
     </featureManager>
 
-    <httpEndpoint id="defaultHttpEndpoint" httpPort="8888" httpsPort="8888"/>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="${default.http.port}" httpsPort="${default.https.port}"/>
 
     <webApplication location="${project.name}.war" contextRoot="/">
         <classloader apiTypeVisibility="+third-party" />

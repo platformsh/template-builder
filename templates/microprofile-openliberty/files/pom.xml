@@ -68,6 +68,8 @@
               <bootstrapProperties>
                 <project.name>${final.name}</project.name>
                 <jwt.issuer>https://server.example.com</jwt.issuer>
+                <default.http.port>${testServerHttpPort}</default.http.port>
+                <default.https.port>${testServerHttpsPort}</default.https.port>
               </bootstrapProperties>
             </configuration>
           </plugin>

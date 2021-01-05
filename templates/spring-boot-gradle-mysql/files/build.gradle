@@ -12,10 +12,13 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+   archiveFileName = "spring-boot.jar"
+}
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa"'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'mysql:mysql-connector-java'
     implementation 'sh.platform:config:2.2.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

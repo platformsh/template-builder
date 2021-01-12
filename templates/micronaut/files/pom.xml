@@ -7,17 +7,16 @@
    <version>1.0-SNAPSHOT</version>
 
    <properties>
-    <micronaut.version>2.2.2</micronaut.version>
-    <jdk.version>11</jdk.version>
-    <maven.compiler.target>${jdk.version}</maven.compiler.target>
-    <maven.compiler.source>${jdk.version}</maven.compiler.source>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <exec.mainClass>sh.platform.template.Application</exec.mainClass>
-    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-    <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-    <platform.sh.version>2.2.3</platform.sh.version>
-</properties>
+        <micronaut.version>2.2.2</micronaut.version>
+        <jdk.version>11</jdk.version>
+        <maven.compiler.target>${jdk.version}</maven.compiler.target>
+        <maven.compiler.source>${jdk.version}</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <exec.mainClass>sh.platform.template.Application</exec.mainClass>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+    </properties>
 
 <repositories>
     <repository>
@@ -72,11 +71,6 @@
         <artifactId>logback-classic</artifactId>
         <version>1.2.3</version>
         <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>sh.platform</groupId>
-        <artifactId>config</artifactId>
-        <version>${platform.sh.version}</version>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>

@@ -8,7 +8,6 @@
  <version>0.0.1</version>
 
  <properties>
-    <platform.sh.version>2.2.3</platform.sh.version>
     <java.version>11</java.version>
 </properties>
 
@@ -31,11 +30,6 @@
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>sh.platform</groupId>
-        <artifactId>config</artifactId>
-        <version>${platform.sh.version}</version>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>

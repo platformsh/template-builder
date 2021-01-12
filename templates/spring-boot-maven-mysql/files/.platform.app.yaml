@@ -27,4 +27,15 @@ relationships:
 # The configuration of app when it is exposed to the web.
 web:
     commands:
-        start:  java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError target/spring-boot-maven-mysql.jar --server.port=$PORT
+        start:  |
+           export DB_PORT=`echo $PLATFORM_RELATIONSHIPS|base64 -d|jq -r ".database[0].port"`
+           export USER=`echo $PLATFORM_RELATIONSHIPS|base64 -d|jq -r ".database[0].username"`
+           export PASSWORD=`echo $PLATFORM_RELATIONSHIPS|base64 -d|jq -r ".database[0].password"`
+           export HOST=`echo $PLATFORM_RELATIONSHIPS|base64 -d|jq -r ".database[0].host"`
+           export DATABASE=`echo $PLATFORM_RELATIONSHIPS|base64 -d|jq -r ".database[0].path"`
+           export URL="jdbc:mysql://${HOST}:${DB_PORT}/${DATABASE}"
+           java -jar -Xmx$(jq .info.limits.memory /run/config.json)m -XX:+ExitOnOutOfMemoryError  \
+           -Dspring.datasource.url=$URL \
+           -Dspring.datasource.username=$USER \
+           -Dspring.datasource.password=$PASSWORD \
+           target/spring-boot-maven-mysql.jar --server.port=$PORT

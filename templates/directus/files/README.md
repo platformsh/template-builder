@@ -12,14 +12,22 @@ Directus is an open-source platform that allows you to create and manage an API 
 
 ## Features
 
-* Node.js 14
+* Node.js 12
 * PostgreSQL 12
 * Automatic TLS certificates
 * npm-based build
 
 ## Post-install
 
-This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user was added to allow you to log in (see `.environment`). After you log in for the first time, be sure to update this password immediately. 
+This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user was added to allow you to log in. Those credentials are set (along with many other Platform.sh-specific settings) in the `.environment` file:
+
+```txt
+# Initial admin user on first deploy.
+export INIT_ADMINUSER='admin@example.com'
+export INIT_ADMINPW='password'
+```
+
+After you log in for the first time, be sure to update this password immediately. 
 
 Although this project uses PostgreSQL as its primary database, Directus supports [a number of other options](https://docs.directus.io/guides/installation/cli.html#_1-confirm-minimum-requirements-are-met) that can be easily substituted using Platform.sh's managed services. 
 

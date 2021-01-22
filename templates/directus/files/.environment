@@ -1,9 +1,12 @@
+export PROJECT_NAME='Directus on Platform.sh'
+
 # Initial admin user on first deploy.
 export INIT_ADMINUSER='admin@example.com'
 export INIT_ADMINPW='password'
 
-# Public url for the current Platform.sh environment.
-export PUBLIC_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
+# Public url for the current Platform.sh environment. Remove trailing slash.
+ENVIRONMENT=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
+export PUBLIC_URL=${ENVIRONMENT%/}
 
 # Database credentials.
 export DB_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
@@ -20,3 +23,10 @@ export SECRET=$PLATFORM_PROJECT_ENTROPY
 export STORAGE_LOCATIONS="local"
 # Use environment url for public uploads url.
 export STORAGE_LOCAL_PUBLIC_URL="${PUBLIC_URL}uploads"
+
+# Email
+export EMAIL_FROM=no-reply@directus.io
+export EMAIL_TRANSPORT=smtp
+export EMAIL_SMTP_HOST=$PLATFORM_SMTP_HOST
+export EMAIL_SMTP_PORT=25
+

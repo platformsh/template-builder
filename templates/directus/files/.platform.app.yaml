@@ -16,12 +16,13 @@ type: nodejs:12
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     database: "dbpostgres:postgresql"
+    rediscache: "cacheredis:redis"
+    memcachedcache: "cachemc:memcached"
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
     build: |
-        # Use module's example.env file as .env.
-        cp node_modules/directus/example.env .env
+        set -e
         # Copy committed extensions and uploads to tmp directories so not overwritten by mount.
         if [ -d extensions ]; then
             mkdir extensions-tmp && mv extensions/* extensions-tmp
@@ -30,6 +31,7 @@ hooks:
             mkdir uploads-tmp && mv uploads/* uploads-tmp
         fi
     deploy: |
+        set -e
         # Installs the database and sets up the initial admin user. Only run on first deploy.
         if [ ! -f var/platformsh.installed ]; then
             # Install the database

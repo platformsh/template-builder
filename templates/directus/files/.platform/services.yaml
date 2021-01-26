@@ -6,3 +6,9 @@
 dbpostgres:
     type: postgresql:12
     disk: 256
+
+cacheredis:
+    type: redis:6.0
+
+cachemc:
+    type: memcached:1.6

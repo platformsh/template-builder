@@ -1,22 +1,132 @@
-# Initial admin user on first deploy.
-export INIT_ADMINUSER='admin@example.com'
-export INIT_ADMINPW='password'
+####################################################################################################
+# General
 
-# Public url for the current Platform.sh environment.
-export PUBLIC_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
+# Public url for the current Platform.sh environment. Remove trailing slash.
+ENVIRONMENT=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
+export PUBLIC_URL=${ENVIRONMENT%/}
+export LOG_STYLE="pretty"
+if [ "$PLATFORM_BRANCH" != "master" ] ; then
+    export LOG_LEVEL="silent"
+else
+    export LOG_LEVEL="silent"
+fi
 
-# Database credentials.
+####################################################################################################
+# Database
+
+export DB_CLIENT="pg"
 export DB_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
 export DB_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
 export DB_DATABASE=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].path")
 export DB_USER=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].username")
 export DB_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].password")
 
+####################################################################################################
+# Rate Limiting
+
+export RATE_LIMITER_ENABLED=true
+
+export RATE_LIMITER_POINTS=50
+export RATE_LIMITER_DURATION=1
+
+export RATE_LIMITER_STORE=memcache
+
+## Memcache (see https://github.com/animir/node-rate-limiter-flexible/wiki/Memcache and
+##               https://www.npmjs.com/package/memcached)
+MEMCACHE_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".memcachedcache[0].host")
+MEMCACHE_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".memcachedcache[0].port")
+export RATE_LIMITER_MEMCACHE="${MEMCACHE_HOST}:${MEMCACHE_PORT}"
+
+####################################################################################################
+# Caching
+
+export CACHE_ENABLED=true
+export CACHE_TTL="30m"
+export CACHE_NAMESPACE="directus-cache"
+export CACHE_STORE=redis
+export CACHE_AUTO_PURGE=true
+
+export ASSETS_CACHE_TTL="30m"
+
+export CACHE_REDIS_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".rediscache[0].host")
+export CACHE_REDIS_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".rediscache[0].port")
+export CACHE_REDIS_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".rediscache[0].password")
+export CACHE_REDIS_DB=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".rediscache[0].path")
+
+####################################################################################################
+# File Storage
+
+export STORAGE_LOCATIONS="local" # CSV of names
+
+export STORAGE_LOCAL_PUBLIC_URL="${PUBLIC_URL}uploads"
+export STORAGE_LOCAL_DRIVER="local"
+export STORAGE_LOCAL_ROOT="./uploads"
+
+## S3 Example (location name: DigitalOcean)
+# STORAGE_DIGITALOCEAN_DRIVER="s3"
+# STORAGE_DIGITALOCEAN_PUBLIC_URL="https://cdn.example.com/"
+# STORAGE_DIGITALOCEAN_KEY="abcdef"
+# STORAGE_DIGITALOCEAN_SECRET="ghijkl"
+# STORAGE_DIGITALOCEAN_ENDPOINT="ams3.digitaloceanspaces.com"
+# STORAGE_DIGITALOCEAN_BUCKET="my-files"
+# STORAGE_DIGITALOCEAN_REGION="ams3"
+
+## Google Cloud Storage Example (location name: Google)
+# STORAGE_GOOGLE_DRIVER="gcs"
+# STORAGE_GOOGLE_PUBLIC_URL="https://cdn.example.com/"
+# STORAGE_GOOGLE_KEY_FILENAME="abcdef"
+# STORAGE_GOOGLE_BUCKET="my-files"
+
+####################################################################################################
+# Security
+
 # Using project entropy for Directus secret keys.
 export KEY=$PLATFORM_PROJECT_ENTROPY
 export SECRET=$PLATFORM_PROJECT_ENTROPY
+export ACCESS_TOKEN_TTL="15m"
+export REFRESH_TOKEN_TTL="7d"
+export REFRESH_TOKEN_COOKIE_SECURE="false"
+export REFRESH_TOKEN_COOKIE_SAME_SITE="lax"
 
-# Upstream parsing issue fix.
-export STORAGE_LOCATIONS="local"
-# Use environment url for public uploads url.
-export STORAGE_LOCAL_PUBLIC_URL="${PUBLIC_URL}uploads"
+export CORS_ENABLED="true"
+export CORS_ORIGIN=*
+export CORS_METHODS=GET,POST,PATCH,DELETE
+export CORS_ALLOWED_HEADERS=Content-Type,Authorization
+export CORS_EXPOSED_HEADERS=Content-Range
+export CORS_CREDENTIALS="true"
+export CORS_MAX_AGE=18000
+
+####################################################################################################
+# SSO (OAuth) Providers
+
+# OAUTH_PROVIDERS="github, facebook"
+
+# OAUTH_GITHUB_KEY="abcdef"
+# OAUTH_GITHUB_SECRET="ghijkl"
+
+# OAUTH_FACEBOOK_KEY="abcdef"
+# OAUTH_FACEBOOK_SECRET="ghijkl"
+
+####################################################################################################
+# Extensions
+
+export EXTENSIONS_PATH="./extensions"
+
+####################################################################################################
+# Email
+
+export EMAIL_FROM=no-reply@directus.io
+export EMAIL_TRANSPORT=smtp
+
+## Email (SMTP Transport)
+export EMAIL_SMTP_HOST=$PLATFORM_SMTP_HOST
+export EMAIL_SMTP_PORT=25
+
+####################################################################################################
+# Platform.sh
+
+export PROJECT_NAME='Directus on Platform.sh'
+
+# Initial admin user on first deploy.
+export INIT_ADMINUSER='admin@example.com'
+export INIT_ADMINPW='password'

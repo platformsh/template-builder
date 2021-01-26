@@ -12,20 +12,52 @@ Directus is an open-source platform that allows you to create and manage an API 
 
 ## Features
 
-* Node.js 14
+* Node.js 12
 * PostgreSQL 12
+* Redis 6.0
+* Memcached 1.6 
 * Automatic TLS certificates
 * npm-based build
 
 ## Post-install
 
-This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user was added to allow you to log in (see `.environment`). After you log in for the first time, be sure to update this password immediately. 
+### Admin user
+
+This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user was added to allow you to log in. Those credentials are set (along with many other Platform.sh-specific settings) in the `.environment` file:
+
+```txt
+# Initial admin user on first deploy.
+export INIT_ADMINUSER='admin@example.com'
+export INIT_ADMINPW='password'
+```
+
+After you log in for the first time, be sure to update this password immediately. 
+
+### Database
 
 Although this project uses PostgreSQL as its primary database, Directus supports [a number of other options](https://docs.directus.io/guides/installation/cli.html#_1-confirm-minimum-requirements-are-met) that can be easily substituted using Platform.sh's managed services. 
 
 - [MariaDB](https://docs.platform.sh/configuration/services/mysql.html)
 - [Oracle MySQL](https://docs.platform.sh/configuration/services/mysql.html)
 - [PostgreSQL](https://docs.platform.sh/configuration/services/postgresql.html)
+
+### Logging
+
+The Directus CLI is used to create both a role UUID for admin users, and to use that UUID to create the initial admin user. Currently, having a `LOG_LEVEL` for Directus other than `silent` causes the log message to be included in the following line from the `.platform.app.yaml` file's deploy hook, resulting in a syntax error when creating that first user:
+
+```yaml
+ROLE_UUID=$(npx directus roles create --name admin --admin)
+```
+
+This is only something to be aware of on the first install, or when using a similar method for creating new users using the CLI. After you have deployed Directus and created the first admin user, you will likely want to update the `.environment` file to set more reasonable environment-dependent log messages:
+
+```txt
+if [ "$PLATFORM_BRANCH" != "master" ] ; then
+    export LOG_LEVEL="debug"
+else
+    export LOG_LEVEL="info"
+fi
+```
 
 ## Customizations
 

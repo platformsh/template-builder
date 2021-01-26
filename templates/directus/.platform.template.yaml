@@ -18,6 +18,8 @@ info:
       content: |
           Node.js 14<br />
           PostgreSQL 12<br />
+          Redis 6.0<br />
+          Memcached 1.6<br />
           Automatic TLS certificates<br />
           npm-based build<br />
 

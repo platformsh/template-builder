@@ -7,7 +7,7 @@
 name: app
 
 # The runtime the application uses.
-type: nodejs:14
+type: nodejs:12
 
 # The relationships of the application with services or other applications.
 #
@@ -16,12 +16,22 @@ type: nodejs:14
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     database: "dbpostgres:postgresql"
+    rediscache: "cacheredis:redis"
+    memcachedcache: "cachemc:memcached"
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
     build: |
-        cp node_modules/directus/example.env .env
+        set -e
+        # Copy committed extensions and uploads to tmp directories so not overwritten by mount.
+        if [ -d extensions ]; then
+            mkdir extensions-tmp && mv extensions/* extensions-tmp
+        fi
+        if [ -d uploads ]; then
+            mkdir uploads-tmp && mv uploads/* uploads-tmp
+        fi
     deploy: |
+        set -e
         # Installs the database and sets up the initial admin user. Only run on first deploy.
         if [ ! -f var/platformsh.installed ]; then
             # Install the database
@@ -39,6 +49,15 @@ hooks:
             # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
         fi;
+        # Copy committed extensions and uploads back onto writable mounts.
+        if [ -d extensions-tmp ]
+        then
+            cp -r extensions-tmp/* extensions
+        fi
+        if [ -d uploads-tmp ]
+        then
+            cp -r uploads-tmp/* uploads
+        fi
 
 # Start the Directus server. 
 web:
@@ -50,6 +69,9 @@ disk: 1024
 
 # Platform.sh write access at runtime.
 mounts:
+    'extensions':
+        source: local
+        source_path: extensions
     'uploads':
         source: local
         source_path: uploads

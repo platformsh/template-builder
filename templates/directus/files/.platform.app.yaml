@@ -17,7 +17,7 @@ type: nodejs:12
 relationships:
     database: "dbpostgres:postgresql"
     rediscache: "cacheredis:redis"
-    memcachedcache: "cachemc:memcached"
+    redisratelimit: "ratelimitredis:redis"
 
 # The hooks that will be triggered when the package is deployed.
 hooks:

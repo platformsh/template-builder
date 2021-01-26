@@ -10,5 +10,5 @@ dbpostgres:
 cacheredis:
     type: redis:6.0
 
-cachemc:
-    type: memcached:1.6
+ratelimitredis:
+    type: redis:6.0

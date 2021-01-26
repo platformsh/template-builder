@@ -15,7 +15,6 @@ Directus is an open-source platform that allows you to create and manage an API 
 * Node.js 12
 * PostgreSQL 12
 * Redis 6.0
-* Memcached 1.6 
 * Automatic TLS certificates
 * npm-based build
 

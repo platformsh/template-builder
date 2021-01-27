@@ -31,10 +31,10 @@ export RATE_LIMITER_DURATION=1
 
 export RATE_LIMITER_STORE=redis
 
-export CACHE_REDIS_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].host")
-export CACHE_REDIS_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].port")
-export CACHE_REDIS_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].password")
-export CACHE_REDIS_DB=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].path")
+export RATE_LIMITER_REDIS_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].host")
+export RATE_LIMITER_REDIS_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].port")
+export RATE_LIMITER_REDIS_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].password")
+export RATE_LIMITER_REDIS_DB=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".redisratelimit[0].path")
 
 ####################################################################################################
 # Caching

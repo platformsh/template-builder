@@ -6,6 +6,12 @@ name: app
 # The language and version to use to run the application.
 type: php:7.3
 
+dependencies:
+    php:
+        composer/composer: '^2'
+    nodejs:
+        yarn: "*"
+
 # Enable non-default extensions required by Akeneo
 runtime:
     extensions:
@@ -73,10 +79,6 @@ mounts:
         source: service
         service: jobs
         source_path: "var/file_storage/jobs"
-
-dependencies:
-    nodejs:
-        yarn: "*"
 
 hooks:
     # We run the build hook before your application has been packaged.

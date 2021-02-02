@@ -53,6 +53,7 @@ web:
 disk: 1280
 dependencies:
     php:
+        composer/composer: '^2'
         wp-cli/wp-cli: "^2.2.0"
 
 # The mounts that will be performed when the package is deployed.

@@ -12,7 +12,7 @@ Akeneo is a Product Information Management (PIM) tool, which acts as a central s
 
 ## Services
 
-* PHP 7.3
+* PHP 7.4
 * MySQL 8.0
 * Elasticsearch 7.7
 

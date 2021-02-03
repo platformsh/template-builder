@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 
 class Akeneo(RemoteProject):
-    major_version = 'v4.0'
+    major_version = 'v5.0'
     remote = 'https://github.com/akeneo/pim-community-standard.git'
 
     @property
@@ -15,7 +15,7 @@ class Akeneo(RemoteProject):
             in its latest version. This resolves that problem.
             """
 
-            composer['require']['ocramius/package-versions'] = "1.5.1"
+            #composer['require']['ocramius/package-versions'] = "1.5.1"
 
             return composer
 

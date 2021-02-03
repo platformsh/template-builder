@@ -7,8 +7,6 @@ name: app
 type: php:7.3
 
 dependencies:
-    php:
-        composer/composer: '^2'
     nodejs:
         yarn: "*"
 

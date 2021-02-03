@@ -13,7 +13,6 @@ build:
 
 dependencies:
     php:
-        composer/composer: '^2'
         wp-cli/wp-cli: "^2.2.0"
 
 # The relationships of the application with services or other applications.

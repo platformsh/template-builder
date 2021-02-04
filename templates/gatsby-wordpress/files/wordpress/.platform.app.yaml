@@ -13,6 +13,7 @@ build:
 
 dependencies:
     php:
+        composer/composer: '^2'
         wp-cli/wp-cli: "^2.2.0"
 
 # The relationships of the application with services or other applications.
@@ -55,11 +56,6 @@ web:
 
 # The size of the persistent disk of the application (in MB).
 disk: 1280
-
-dependencies:
-    php:
-        composer/composer: '^2'
-        wp-cli/wp-cli: "^2.2.0"
 
 # The mounts that will be performed when the package is deployed.
 mounts:

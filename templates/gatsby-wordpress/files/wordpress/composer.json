@@ -24,17 +24,17 @@
   },
   "require": {
     "php": ">=5.6.20",
-    "johnpbloch/wordpress-core-installer": "^1.0",
-    "johnpbloch/wordpress-core": "5.3.2",
-    "platformsh/config-reader": "^2.3",
+    "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
+    "johnpbloch/wordpress-core": "5.6.0",
+    "platformsh/config-reader": "^2.4",
     "wp-cli/wp-cli-bundle": "^2.4",
-    "psy/psysh": "^0.10.4"
+    "psy/psysh": "^0.10.6"
   },
   "scripts": {
-    "movewpconfig": [
-      "mv wp-config.php wordpress/"
+    "copywpconfig": [
+      "cp wp-config.php wordpress/"
     ],
-    "post-install-cmd": "@movewpconfig"
+    "post-install-cmd": "@copywpconfig"
   },
   "extra": {
     "installer-paths": {
@@ -48,5 +48,11 @@
         "type:wordpress-muplugin"
       ]
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ]
 }

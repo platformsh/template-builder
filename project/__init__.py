@@ -1,3 +1,4 @@
+import os
 import os.path
 import json
 from glob import glob
@@ -99,16 +100,17 @@ class BaseProject(object):
             self.builddir)
         ]
 
-
     def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
-
+        Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file. 
         :return: List of package update commands to include.
         """
         actions = []
-        for file, command in self.updateCommands.items():
-            actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(self.builddir, file, command))
+        for directory in os.walk(self.builddir):
+            if '.platform.app.yaml' in directory[2]:
+                for file, command in self.updateCommands.items():
+                    actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file, command))
 
         return actions
 

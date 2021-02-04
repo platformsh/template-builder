@@ -7,6 +7,11 @@ name: app
 # The runtime the application uses.
 type: "php:7.4"
 
+dependencies:
+    php:
+        composer/composer: '^2'
+        wp-cli/wp-cli: "^2.2.0"
+
 # Configuration of the build of the application.
 build:
     flavor: composer
@@ -51,10 +56,6 @@ web:
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
-
-dependencies:
-    php:
-        wp-cli/wp-cli: "^2.2.0"
 
 # The mounts that will be performed when the package is deployed.
 mounts:

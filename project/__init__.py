@@ -38,6 +38,7 @@ class BaseProject(object):
                 '--ignore-platform-req=ext-gd '
                 '--ignore-platform-req=ext-imagick '
                 '--ignore-platform-req=ext-mbstring '
+                '--ignore-platform-req=ext-memcache '
                 '--ignore-platform-req=ext-pdo '
                 '--ignore-platform-req=ext-openssl '
                 '--ignore-platform-req=ext-zip '

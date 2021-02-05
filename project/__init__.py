@@ -21,16 +21,34 @@ class BaseProject(object):
     # The key is a file name. If that file exists, then its value will be run in the
     # project build directory to update the corresponding lock file.
     updateCommands = {
-        'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction --no-suggest',
+        'composer.json': 'composer update',
         'Pipfile': 'pipenv update',
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
     }
 
+    def composer_defaults(self):
+        return (' --prefer-dist --no-interaction '
+                '--ignore-platform-req=ext-redis '
+                '--ignore-platform-req=ext-apcu '
+                '--ignore-platform-req=ext-intl '
+                '--ignore-platform-req=ext-bcmath '
+                '--ignore-platform-req=ext-exif '
+                '--ignore-platform-req=ext-gd '
+                '--ignore-platform-req=ext-imagick '
+                '--ignore-platform-req=ext-mbstring '
+                '--ignore-platform-req=ext-pdo '
+                '--ignore-platform-req=ext-openssl '
+                '--ignore-platform-req=ext-zip '
+                )
+
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+
+        # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
+        self.updateCommands['composer.json'] += self.composer_defaults()
 
     @property
     def cleanup(self):
@@ -103,7 +121,7 @@ class BaseProject(object):
     def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
-        Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file. 
+        Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file.
         :return: List of package update commands to include.
         """
         actions = []

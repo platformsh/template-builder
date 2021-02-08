@@ -19,11 +19,11 @@ class Akeneo(RemoteProject):
             """
 
             composer['require']['ocramius/package-versions'] = "2.1.0"
-            composer['config']['platform']['php'] = '7.4.7'
 
             return composer
 
         return super(Akeneo, self).update + [
+            'cd {0} && composer config platform.php 7.4.7'.format(self.builddir),
             (self.modify_composer, [akeneo_modify_composer])
         ]
 

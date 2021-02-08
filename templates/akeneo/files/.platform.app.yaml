@@ -110,7 +110,7 @@ hooks:
         export APP_SECRET=$PLATFORM_PROJECT_ENTROPY
 
         echo "Installing assets"
-        php bin/console pim:installer:assets --symlink
+        php bin/console pim:installer:assets --symlink --clean
 
         echo "Running webpack"
         rm -rf public/dist/*

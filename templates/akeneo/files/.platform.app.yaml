@@ -95,6 +95,9 @@ hooks:
         echo "Installing Node dependencies"
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
+        # Needed for Lando to play nice. Unclear why.
+        mkdir -p .nvm
+
         # The PHP parts of the installer require booting Akeneo, which requires all
         # of these be set even though they're never used. This is an Akeneo bug but
         # one that is easy enough to work around.

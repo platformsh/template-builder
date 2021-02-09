@@ -23,7 +23,7 @@ class Drupal8(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis --ignore-platform-reqs'.format(self.builddir)
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir) + self.composer_defaults()
         ]
 
 class Drupal9(RemoteProject):
@@ -34,8 +34,7 @@ class Drupal9(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal9, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis --ignore-platform-reqs'.format(
-                self.builddir)
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
         ]
 
 class Drupal8_multisite(Drupal8):
@@ -57,5 +56,5 @@ class Drupal8_govcms8(RemoteProject):
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
-           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis --ignore-platform-reqs'.format(self.builddir),
+           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
         ]

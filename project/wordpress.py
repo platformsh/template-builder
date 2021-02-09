@@ -28,7 +28,7 @@ class Wordpress_bedrock(RemoteProject):
     def platformify(self):
         return super(Wordpress_bedrock, self).platformify + [
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
+            'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
         ]
 
 class Wordpress_woocommerce(RemoteProject):
@@ -39,7 +39,7 @@ class Wordpress_woocommerce(RemoteProject):
     def platformify(self):
         return super(Wordpress_woocommerce, self).platformify + [
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack --ignore-platform-reqs'.format(self.builddir),
+            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + self.composer_defaults(),
         ]
 
 class Wordpress_composer(RemoteProject):
@@ -77,6 +77,6 @@ class Wordpress_composer(RemoteProject):
 
         return super(Wordpress_composer, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
-            'cd {0} && composer update --ignore-platform-reqs'.format(self.builddir),
-            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --ignore-platform-reqs'.format(self.builddir),
+            'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
         ]

@@ -29,6 +29,11 @@ class BaseProject(object):
     }
 
     def composer_defaults(self):
+        """
+        Composer needs to be told to ignore extensions when installing so that the person running
+        this script doesn't have to have them all installed. If there are more composer dependencies
+        to ignore for a new app, add them to the list here.
+        """
         return (' --prefer-dist --no-interaction '
                 '--ignore-platform-req=ext-redis '
                 '--ignore-platform-req=ext-apcu '

@@ -74,6 +74,10 @@ mounts:
     "public/media":
         source: local
         source_path: "public/media"
+    # For local generated files
+    "var/file_storage":
+        source: local
+        source_path: "var/file_storage"
     # Sharing job files
     "var/file_storage/jobs":
         source: service

@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 
 class Akeneo(RemoteProject):
-    major_version = 'v5.0'
+    major_version = 'v4'
     remote = 'https://github.com/akeneo/pim-community-standard.git'
 
     @property
@@ -18,12 +18,12 @@ class Akeneo(RemoteProject):
             support PHP 7, despite Doctrine and package-versions being written by the same person.
             """
 
-            composer['require']['ocramius/package-versions'] = "2.1.0"
+            composer['require']['ocramius/package-versions'] = "1.5.1"
 
             return composer
 
         return super(Akeneo, self).update + [
-            'cd {0} && composer config platform.php 7.4.7'.format(self.builddir),
+            'cd {0} && composer config platform.php 7.3'.format(self.builddir),
             (self.modify_composer, [akeneo_modify_composer])
         ]
 

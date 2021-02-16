@@ -1,0 +1,20 @@
+{
+  "title": "Eleventy + Strapi on Platform.sh",
+  "url": "https://example.com/",
+  "description": "This is a template for Platform.sh, that deploys a Strapi backend with an Eleventy frontend. Each application is deployed from its own container, and all containers can communicate across the virtual cluster's internal network to pull content data into Eleventy.",
+  "feed": {
+    "subtitle": "A Platform.sh multi-app template",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://example.com/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://example.com/feed/feed.json"
+  },
+  "author": {
+    "name": "Your Name Here",
+    "email": "youremailaddress@example.com",
+    "url": "https://example.com/about/"
+  }
+}

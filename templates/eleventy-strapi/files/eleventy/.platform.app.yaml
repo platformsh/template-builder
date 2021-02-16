@@ -1,0 +1,62 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
+
+# The name of this app. Must be unique within a project.
+name: eleventy
+
+# The runtime the application uses.
+type: nodejs:14
+
+# Configuration of the build of this application.
+build:
+    # The default `npm install` is not run, favoring yarn in the build hook.
+    flavor: none
+
+# Build dependencies.
+dependencies:
+    nodejs:
+        yarn: "1.22.5"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    # The build hook runs after yarn has been downloaded.
+    # No services are available but the disk is writeable.
+    build: |
+        yarn --ignore-optional --frozen-lockfile 
+    # The post_deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # At this point, the Strapi container has been deployed and is accepting requests.
+    post_deploy: |
+        yarn build
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    strapi: "strapi:http"
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+        # Start command run after build phase has completed, prior to deploy hook.
+        start: |
+            yarn start --port=$PORT
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+mounts:
+    # Eleventy's img dir.
+    '/img':
+        source: local
+        source_path: img
+    # Final build directory.
+    '_site':
+        source: local
+        source_path: site
+

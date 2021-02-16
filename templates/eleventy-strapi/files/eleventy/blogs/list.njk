@@ -1,0 +1,42 @@
+---
+layout: layouts/home.njk
+templateClass: tmpl-post
+eleventyNavigation:
+  key: Blog
+  order: 4
+pagination:
+  data: blogposts
+  size: 12
+permalink: blog{% if pagination.pageNumber > 0 %}/page{{ pagination.pageNumber + 1}}{% endif %}/index.html
+---
+
+{% include "postslist.njk" %}
+{% set htmlTitle = item.title %}
+
+{% block content %}
+  <h2>Here's a list of blog posts, pulled straight from Strapi</h2>
+
+  {# loop through paginated item #}
+  {% for item in pagination.items %}
+    {% if loop.first %}<ul>{% endif %}
+      <li>
+        <h2><a href="/blog/{{ item.slug }}">{{ item.title }} </a></h2>
+        <p>by {{ item.author }}  </p>
+        <br>
+      </li>
+    {% if loop.last %}</ul>{% endif %}
+  {% endfor %}
+
+  {# pagination #}
+  {% if pagination.hrefs | length > 0 %}
+  <ul>
+    {% if pagination.previousPageHref %}
+      <li><a href="{{ pagination.previousPageHref }}">Previous page</a></li>
+    {% endif %}
+    {% if pagination.nextPageHref %}
+      <li><a href="{{ pagination.nextPageHref }}">Next page</a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+{% endblock %}

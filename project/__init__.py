@@ -47,6 +47,7 @@ class BaseProject(object):
                 '--ignore-platform-req=ext-pdo '
                 '--ignore-platform-req=ext-openssl '
                 '--ignore-platform-req=ext-zip '
+                '--ignore-platform-req=php'
                 )
 
     def __init__(self, name):

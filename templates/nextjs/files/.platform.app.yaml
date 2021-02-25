@@ -20,3 +20,13 @@ hooks:
 web:
     commands:
         start: npx next start -p $PORT
+
+# The size of the persistent disk of the application (in MB).
+disk: 512
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    # Next.js will try to cache files, so it must be writeable.
+    '/.next/cache':
+        source: local
+        source_path: 'next-cache'

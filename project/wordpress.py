@@ -51,12 +51,13 @@ class Wordpress_composer(RemoteProject):
     def platformify(self):
 
         def require_default_wppackages():
-            # johnbloch/wordpress wraps around the default WordPress installation, which includes with it a few themes and plugins by default. 
-            # Those packages are not automatically added via Composer, and thus not explcitly defined as packages.
-            # This only becomes a problem once you try to install new themes/plugins, at which point there is a recopy somewhere that causes 
-            #   a nested wp-content subdirectory containing those default packages: https://github.com/platformsh-templates/wordpress-composer/issues/7.
-            # John Bloch recommends that the best way to avoid this is to commit those default packages, and that makes sense. So this function reads the 
-            #   default packages from wp-content, and the composer requires them. 
+            # WordPress comes with a few default themes and plugins. Those packages are not 
+            #   automatically added via Composer, so they aren't really packages like they should be.
+            #   This becomes a problem when adding new themes/plugins, resulting in a nested wp-content dir. 
+            #   The upstream recommendation seems to be to add them explicitly via Composer.
+            #   
+            #   Issue: https://github.com/platformsh-templates/wordpress-composer/issues/7
+            #   Recommendation: https://github.com/johnpbloch/wordpress-core/issues/5
             root = '/wordpress/wp-content/'
             namespace = {
                 "themes": "wpackagist-theme",

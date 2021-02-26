@@ -82,8 +82,6 @@ class Wordpress_composer(RemoteProject):
                     [defaultPackages.append('{0}/{1}'.format(namespace[path], x)) for x in os.listdir(installerPath) if os.path.isdir(installerPath + x)]
 
                 return ' '.join(defaultPackages)
-            else:
-                print(self.builddir + root)
 
         def wp_modify_composer(composer):
             # In order to both use the Wordpress default install location `wordpress` and

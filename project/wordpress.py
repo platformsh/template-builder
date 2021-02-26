@@ -65,22 +65,25 @@ class Wordpress_composer(RemoteProject):
             #   
             #   Issue: https://github.com/platformsh-templates/wordpress-composer/issues/7
             #   Recommendation: https://github.com/johnpbloch/wordpress-core/issues/5
-            root = '/wordpress/wp-content/'
+            root = 'wordpress/wp-content/'
             namespace = {
                 "themes": "wpackagist-theme",
                 "plugins": "wpackagist-plugin"
             }
+            
+            if os.path.exists(self.builddir + root):
+                defaultPackages = []
 
-            defaultPackages = []
+                # Find default themes and plugins subdirectories.
+                installerPaths = [x for x in os.listdir(self.builddir + root) if os.path.isdir(self.builddir + root + x)]
+                for path in installerPaths:
+                    installerPath = '{0}{1}{2}/'.format(self.builddir, root, path)
+                    # For each subdirectory, require the package, adding the right namespace to it.
+                    [defaultPackages.append('{0}/{1}'.format(namespace[path], x)) for x in os.listdir(installerPath) if os.path.isdir(installerPath + x)]
 
-            # Find default themes and plugins subdirectories.
-            installerPaths = [x for x in os.listdir(self.builddir + root) if os.path.isdir(self.builddir + root + x)]
-            for path in installerPaths:
-                installerPath = '{0}{1}{2}/'.format(self.builddir, root, path)
-                # For each subdirectory, require the package, adding the right namespace to it.
-                [defaultPackages.append('{0}/{1}'.format(namespace[path], x)) for x in os.listdir(installerPath) if os.path.isdir(installerPath + x)]
-
-            return ' '.join(defaultPackages)
+                return ' '.join(defaultPackages)
+            else:
+                print(self.builddir + root)
 
         def wp_modify_composer(composer):
             # In order to both use the Wordpress default install location `wordpress` and

@@ -50,6 +50,7 @@ class Wordpress_composer(RemoteProject):
     @property
     def platformify(self):
 
+        # Upstream script locks a specific version in composer.json, keeping users from updating locally. 
         def unlock_version(locked_version):
             if '^' not in locked_version:
                 return '^{}'.format(locked_version)

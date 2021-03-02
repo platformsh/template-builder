@@ -12,11 +12,37 @@ dependencies:
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
+    # The build hook runs after yarn has been downloaded.
+    # No services are available but the disk is writeable.
     build: |
+        # Move committed files in soon-to-be mounts into temp directory.
+        chmod +x handle_mounts.sh
+        ./handle_mounts.sh
         yarn
         yarn build
+    # The deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # The site is not accepting requests while this script runs so keep it
+    # fast.
+    deploy: |
+        # Move committed files from temp directory back into mounts.
+        ./handle_mounts.sh
 
 # The configuration of the application when it is exposed to the web.
 web:
     commands:
         start: npx next start -p $PORT
+
+# The size of the persistent disk of the application (in MB).
+disk: 512
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    # Next.js will try to cache files, so it must be writeable.
+    '/.next/cache':
+        source: local
+        source_path: 'next-cache'
+    '/.next/server':
+        source: local
+        source_path: 'next-server'
+

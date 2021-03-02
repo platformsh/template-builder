@@ -29,3 +29,9 @@ class Strapi(BaseProject):
             # Add dependencies. 
             'cd {0} && yarn add platformsh-config pg && yarn strapi install graphql documentation'.format(self.builddir),  
         ]
+
+class Eleventy_strapi(BaseProject):
+    # Keeps package-lock.json out of repo. See notes.md (Yarn - Overwriting updateCommands) for more details.
+    updateCommands = {
+        'package.json': 'yarn upgrade'
+    }

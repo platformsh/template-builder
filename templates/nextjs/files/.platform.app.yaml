@@ -30,3 +30,7 @@ mounts:
     '/.next/cache':
         source: local
         source_path: 'next-cache'
+    '/.next/server':
+        source: local
+        source_path: 'next-server'
+

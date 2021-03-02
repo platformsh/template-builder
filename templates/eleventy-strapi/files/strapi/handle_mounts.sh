@@ -18,13 +18,14 @@ restore_mount() {
     fi
 }
 
+# Use PLATFORM_APPLICATION to find all user-defined mounts.
 MOUNTS=$(echo $PLATFORM_APPLICATION | base64 --decode | jq '.mounts | keys')
 for mount in $(echo "${MOUNTS}" | jq -r '.[]'); do 
     _jq() {
+        # hooks.build: Copy directory content to tmp directory.
         if [ -z "${PLATFORM_BRANCH}" ]; then
             prepare_mount $mount
-        # I don't remember why I didn't want this to occur on master.
-        # elif [ "$PLATFORM_BRANCH" != master ]; then
+        # hooks.deploy: Copy tmp directory content back into the mounts.
         else
             restore_mount $mount
         fi

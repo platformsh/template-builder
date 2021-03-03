@@ -9,7 +9,7 @@
 # deploy hook to get around this. Call this script as the last line and first line in your build and deploy hooks, respectively. 
 # 
 # Limitations:
-#   - Does not yet handle nested mounts well (i.e. `/.next/cache`), so best to use its parent directory in your mount definition (`/.next`).
+#   - Does not yet handles nested mounts well (i.e. `/.next/cache`), so best to use its parent directory in your mount definition (`/.next`).
 
 MOUNT_TMP=platformsh-mounts
 

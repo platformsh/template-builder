@@ -55,7 +55,8 @@ class BaseProject(object):
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
-        self.updateCommands['composer.json'] += self.composer_defaults()
+        if 'composer.json' in self.updateCommands:
+            self.updateCommands['composer.json'] += self.composer_defaults()
 
     @property
     def cleanup(self):

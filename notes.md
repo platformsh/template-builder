@@ -27,4 +27,3 @@ class Template(BaseProject):
         'package.json': 'yarn upgrade'
     }
 ```
-

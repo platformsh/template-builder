@@ -27,6 +27,7 @@ variables:
         RACK_ENV: 'production'
         RAILS_LOG_TO_STDOUT: true
         BUNDLE_ERROR_ON_STDERR: 1
+        DEFAULT_BUNDLER_VERSION: "2.1.4" # in case none is mentioned in Gemfile.lock
         RAILS_TMP: /tmp
         EXECJS_RUNTIME: 'Node'
         NODE_ENV: 'production'
@@ -39,13 +40,12 @@ mounts:
     "/log":
         source: local
         source_path: log
+    "/storage":
+        source: local
+        source_path: storage
     "/tmp":
         source: local
         source_path: tmp
-
-dependencies:
-    nodejs:
-        yarn: "*"
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
@@ -53,19 +53,55 @@ hooks:
     build: |
         set -e
 
-        # Install nvm to use newer version of node.
+        echo "Installing NVM."
         # Webpacker requires Node.js ">=10.17.0"
         unset NPM_CONFIG_PREFIX
         export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
         # install.sh will automatically install NodeJS based on the presence of $NODE_VERSION
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
+        touch ~/.profile
+        NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+        mkdir -p $PLATFORM_CACHE_DIR/.nvm
+        mkdir -p $NVM_DIR/.cache
+        ln -s $PLATFORM_CACHE_DIR/.nvm $NVM_DIR/.cache
+        wget -c -q -O "$PLATFORM_CACHE_DIR/nvm_install.sh" "https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh"
+        bash $PLATFORM_CACHE_DIR/nvm_install.sh
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        nvm use default
+        # install yarn
+        npm install --global yarn
 
-        gem install --no-document bundler:2.1.4
+        # we install the bundled bundler version and fallback to a default (in env vars above)
+        export BUNDLER_VERSION="$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)" || $DEFAULT_BUNDLER_VERSION
+        echo "Install bundler $BUNDLER_VERSION"
+        gem install --no-document bundler -v $BUNDLER_VERSION
+        echo "Configuring Bundler for production"
         bundle config set without 'development test'
-        bundle config deployment true
+        bundle config set deployment true
+        bundle config set cache_all true
+        bundle config set ignore_messages true
+        bundle config set clean true
+
+        echo "Installing gems"
+        # We copy the bundle directory to the Platform.sh cache directory for
+        # safe keeping, then restore from there on the next build. That allows
+        # bundler to skip downloading code it doesn't need to.
+        [ -d "$PLATFORM_CACHE_DIR/bundle" ] && \
+          rsync -az --delete "$PLATFORM_CACHE_DIR/bundle/" vendor/bundle/
+        mkdir -p "$PLATFORM_CACHE_DIR/bundle"
         bundle install
-        RAILS_ENV=production bundle exec rake assets:precompile
+        # synchronize updated cache for next build
+        rsync -az --delete vendor/bundle/ "$PLATFORM_CACHE_DIR/bundle/"
+        # precompile assets
+        echo "Precompiling assets"
+        # We copy the webpacker directory to the Platform.sh cache directory for
+        # safe keeping, then restore from there on the next build. That allows
+        # bundler to skip downloading code it doesn't need to.
+        mkdir -p "$PLATFORM_CACHE_DIR/webpacker"
+        mkdir -p "$RAILS_TMP/cache/webpacker"
+        [ -d "$PLATFORM_CACHE_DIR/webpacker" ] && \
+          rsync -az --delete "$PLATFORM_CACHE_DIR/webpacker/" $RAILS_TMP/cache/webpacker/
+        bundle exec rails assets:precompile
+        rsync -az --delete $RAILS_TMP/cache/webpacker/ "$PLATFORM_CACHE_DIR/webpacker/"
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
         bundle exec rails db:migrate

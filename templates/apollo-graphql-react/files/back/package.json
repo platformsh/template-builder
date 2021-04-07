@@ -1,0 +1,27 @@
+{
+  "name": "template-express",
+  "version": "1.0.0",
+  "description": "Example ExpressJS project for Platform.sh",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/platformsh-templates/express.git"
+  },
+  "author": "Platform.sh",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-datasource-mongodb": "^0.2.8",
+    "apollo-server": "^2.19.0",
+    "apollo-server-plugin-response-cache": "^0.5.6",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "mongodb": "^3.6.3",
+    "mysql2": "^1.6.5",
+    "node-fetch": "^2.6.1",
+    "platformsh-config": "^2.0.0"
+  }
+}

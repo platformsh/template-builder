@@ -1,3 +1,4 @@
+import os
 import os.path
 import json
 from glob import glob
@@ -20,16 +21,42 @@ class BaseProject(object):
     # The key is a file name. If that file exists, then its value will be run in the
     # project build directory to update the corresponding lock file.
     updateCommands = {
-        'composer.json': 'composer update --prefer-dist --ignore-platform-reqs --no-interaction --no-suggest',
+        'composer.json': 'composer update',
         'Pipfile': 'pipenv update',
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
     }
 
+    def composer_defaults(self):
+        """
+        Composer needs to be told to ignore extensions when installing so that the person running
+        this script doesn't have to have them all installed. If there are more composer dependencies
+        to ignore for a new app, add them to the list here.
+        """
+        return (' --prefer-dist --no-interaction '
+                '--ignore-platform-req=ext-redis '
+                '--ignore-platform-req=ext-apcu '
+                '--ignore-platform-req=ext-intl '
+                '--ignore-platform-req=ext-bcmath '
+                '--ignore-platform-req=ext-exif '
+                '--ignore-platform-req=ext-gd '
+                '--ignore-platform-req=ext-imagick '
+                '--ignore-platform-req=ext-mbstring '
+                '--ignore-platform-req=ext-memcache '
+                '--ignore-platform-req=ext-pdo '
+                '--ignore-platform-req=ext-openssl '
+                '--ignore-platform-req=ext-zip '
+                '--ignore-platform-req=php'
+                )
+
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+
+        # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
+        if 'composer.json' in self.updateCommands:
+            self.updateCommands['composer.json'] += self.composer_defaults()
 
     @property
     def cleanup(self):
@@ -99,16 +126,17 @@ class BaseProject(object):
             self.builddir)
         ]
 
-
     def package_update_actions(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
-
+        Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file.
         :return: List of package update commands to include.
         """
         actions = []
-        for file, command in self.updateCommands.items():
-            actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(self.builddir, file, command))
+        for directory in os.walk(self.builddir):
+            if '.platform.app.yaml' in directory[2]:
+                for file, command in self.updateCommands.items():
+                    actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file, command))
 
         return actions
 

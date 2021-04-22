@@ -9,6 +9,10 @@ name: app
 # The runtime the application uses.
 type: "php:7.4"
 
+dependencies:
+    php:
+        composer/composer: '^2'
+
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
     build: |

@@ -1,0 +1,3 @@
+# Ignore mounts
+wordpress/wp-content/cache
+wordpress/wp-content/uploads

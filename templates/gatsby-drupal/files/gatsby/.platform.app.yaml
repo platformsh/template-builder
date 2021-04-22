@@ -4,6 +4,11 @@ name: 'gatsby'
 # The type key specifies the language and version for your application.
 type: 'nodejs:14'
 
+# Restrict memory use when running during post deploy hook.
+variables:
+    env:
+        NODE_OPTIONS: --max_old_space_size=1536
+
 relationships:
     drupal: 'drupal:http'
 
@@ -11,10 +16,8 @@ relationships:
 hooks:
     # Gatsby's build is delayed to the post_deploy hook, when Drupal is available for requests.
     post_deploy: |
-        # We only want to run the full build on master, so development environments can have live preview enabled if desired.
-        if [ "$PLATFORM_BRANCH" = master ]; then
-           npm run build
-        fi
+        npm run build
+        
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 

@@ -8,5 +8,5 @@ class Laravel(RemoteProject):
     @property
     def platformify(self):
         return super(Laravel, self).platformify + [
-            'cd {0} && composer require platformsh/laravel-bridge'.format(self.builddir),
+            'cd {0} && composer require platformsh/laravel-bridge'.format(self.builddir) + self.composer_defaults(),
         ]

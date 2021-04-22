@@ -9,6 +9,11 @@ name: 'drupal'
 # The runtime the application uses.
 type: 'php:7.4'
 
+dependencies:
+    php:
+        composer/composer: '^2'
+
+
 # The relationships of the application with services or other applications.
 #
 # The left-hand side is the name of the relationship as it will be exposed

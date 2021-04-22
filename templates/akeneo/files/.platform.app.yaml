@@ -4,7 +4,13 @@
 name: app
 
 # The language and version to use to run the application.
-type: php:7.3
+type: php:7.4
+
+dependencies:
+    php:
+        composer/composer: '^2'
+    nodejs:
+        yarn: "*"
 
 # Enable non-default extensions required by Akeneo
 runtime:
@@ -30,7 +36,7 @@ web:
             passthru: '/index.php'
 
 # The size of the persistent disk of the application (in MB).
-disk: 3072
+disk: 2048
 
 variables:
     env:
@@ -64,10 +70,19 @@ mounts:
     "upgrades":
         source: local
         source_path: "upgrades"
-
-dependencies:
-    nodejs:
-        yarn: "*"
+    # For media files
+    "public/media":
+        source: local
+        source_path: "public/media"
+    # For local generated files
+    "var/file_storage":
+        source: local
+        source_path: "var/file_storage"
+    # Sharing job files
+    "var/file_storage/jobs":
+        source: service
+        service: jobs
+        source_path: "var/file_storage/jobs"
 
 hooks:
     # We run the build hook before your application has been packaged.
@@ -84,6 +99,9 @@ hooks:
         echo "Installing Node dependencies"
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
+        # Needed for Lando to play nice. Unclear why.
+        mkdir -p .nvm
+
         # The PHP parts of the installer require booting Akeneo, which requires all
         # of these be set even though they're never used. This is an Akeneo bug but
         # one that is easy enough to work around.
@@ -96,7 +114,7 @@ hooks:
         export APP_SECRET=$PLATFORM_PROJECT_ENTROPY
 
         echo "Installing assets"
-        php bin/console pim:installer:assets --symlink
+        php bin/console pim:installer:assets --symlink --clean
 
         echo "Running webpack"
         rm -rf public/dist/*

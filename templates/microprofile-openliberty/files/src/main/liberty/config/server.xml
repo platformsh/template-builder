@@ -1,10 +1,22 @@
-<server description="Sample Liberty server">
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="${project.name}">
+
     <featureManager>
-        <feature>microProfile-2.0</feature>
+        <feature>microProfile-3.3</feature>
     </featureManager>
-    <applicationManager autoExpand="true" />
-    <mpMetrics authentication="false" />
-    <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
-    <keyStore id="defaultKeyStore" password="Liberty" />
-    <webApplication location="microprofile-liberty.war" contextRoot="/"/>
+
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="${default.http.port}" httpsPort="${default.https.port}"/>
+
+    <webApplication location="${project.name}.war" contextRoot="/">
+        <classloader apiTypeVisibility="+third-party" />
+    </webApplication>
+    <mpMetrics authentication="false"/>
+
+    <!-- This is the keystore that will be used by SSL and by JWT. -->
+    <keyStore id="defaultKeyStore" location="public.jks" type="JKS" password="atbash" />
+
+
+    <!-- The MP JWT configuration that injects the caller's JWT into a ResourceScoped bean for inspection. -->
+    <mpJwt id="jwtUserConsumer" keyName="theKeyId" audiences="targetService" issuer="${jwt.issuer}"/>
+
 </server>

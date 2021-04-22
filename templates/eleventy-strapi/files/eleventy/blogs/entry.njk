@@ -1,0 +1,19 @@
+---
+layout: layouts/home.njk
+templateClass: tmpl-post
+pagination:
+  data: blogposts
+  size: 1
+  alias: blogpost
+permalink: blog/{{ blogpost.slug }}/index.html
+---
+{% include "postslist.njk" %}
+{% set htmlTitle = blogpost.title %}
+
+{% block content %}
+  {# blogpost #}
+
+  <h1>{{ blogpost.title }}</h1>
+{{ blogpost.body | safe }}
+
+{% endblock %}

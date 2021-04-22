@@ -28,7 +28,7 @@ hooks:
         # Local development will commit changes to subdirectories that will become mounts on
         # Platform.sh and overwritten during deployments. To prevent that, set aside during builds.
         if [ -n "$(ls -A extensions)" ]; then
-            mkdir extensions-temp && mv extensions/* extensions-tmp
+            mkdir extensions-tmp && mv extensions/* extensions-tmp
         fi        
         if [ -n "$(ls -A api)" ]; then
             mkdir api-tmp && mv api/* api-tmp

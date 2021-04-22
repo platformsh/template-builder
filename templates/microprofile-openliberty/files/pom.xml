@@ -1,89 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-   <modelVersion>4.0.0</modelVersion>
-
-   <groupId>sh.platform.template</groupId>
-   <artifactId>microprofile-liberty</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <packaging>war</packaging>
-
-   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>sh.platform.template</groupId>
+  <artifactId>microprofile-liberty</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <properties>
+    <openliberty.maven.version>3.2</openliberty.maven.version>
     <maven.compiler.target>11</maven.compiler.target>
-    <app.name>LibertyProject</app.name>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <maven.compiler.source>11</maven.compiler.source>
+    <openliberty.version>[19.0.0.9,)</openliberty.version>
+    <final.name>microprofile-liberty</final.name>
     <testServerHttpPort>9080</testServerHttpPort>
     <testServerHttpsPort>9080</testServerHttpsPort>
-    <package.file>${project.build.directory}/${app.name}.zip</package.file>
-    <packaging.type>usr</packaging.type>
-    <skipTests>false</skipTests>
-    <platform.sh.version>2.2.3</platform.sh.version>
     <junit.version>5.6.0</junit.version>
-    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-</properties>
-
-<parent>
-    <groupId>io.openliberty.tools</groupId>
-    <artifactId>liberty-maven-app-parent</artifactId>
-    <version>3.2.3</version>
-</parent>
-
-<dependencies>
+  </properties>
+  <dependencies>
     <dependency>
-        <groupId>org.eclipse.microprofile</groupId>
-        <artifactId>microprofile</artifactId>
-        <version>3.2</version>
-        <type>pom</type>
-        <scope>provided</scope>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>3.3</version>
+      <type>pom</type>
+      <scope>provided</scope>
     </dependency>
-    <dependency>
-        <groupId>sh.platform</groupId>
-        <artifactId>config</artifactId>
-        <version>${platform.sh.version}</version>
-    </dependency>
-    <dependency>
+        <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
     </dependency>
-</dependencies>
-
-<build>
-    <finalName>${project.artifactId}</finalName>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.2.3</version>
-            <configuration>
-                <failOnMissingWebXml>false</failOnMissingWebXml>
-            </configuration>
-        </plugin>
-        <plugin>
+  </dependencies>
+  <build>
+    <finalName>microprofile-liberty</finalName>
+  </build>
+  <profiles>
+    <profile>
+      <id>liberty</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.2.1</version>
+            <version>${openliberty.maven.version}</version>
+            <executions>
+              <execution>
+                <id>package-server</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>create</goal>
+                  <goal>install-feature</goal>
+                  <goal>deploy</goal>
+                  <goal>package</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>target/wlp-package</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
             <configuration>
-                <!-- set install-apps goal parameters -->
-                <looseApplication>true</looseApplication>
-                <installAppPackages>project</installAppPackages>
-                <packageFile>${project.build.directory}/${project.build.finalName}.jar</packageFile>
-                <include>runnable</include>
-                <bootstrapProperties>
-                    <default.http.port>${testServerHttpPort}</default.http.port>
-                    <default.https.port>${testServerHttpsPort}</default.https.port>
-                </bootstrapProperties>
+              <include>runnable</include>
+              <serverName>${final.name}</serverName>
+              <bootstrapProperties>
+                <project.name>${final.name}</project.name>
+                <jwt.issuer>https://server.example.com</jwt.issuer>
+                <default.http.port>${testServerHttpPort}</default.http.port>
+                <default.https.port>${testServerHttpsPort}</default.https.port>
+              </bootstrapProperties>
             </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.plugin.version}</version>
-        </plugin>
-    </plugins>
-</build>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>io.jaegertracing</groupId>
+          <artifactId>jaeger-client</artifactId>
+          <version>0.34.0</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 </project>

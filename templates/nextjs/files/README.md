@@ -22,6 +22,7 @@ The following files and additions make the framework work on Platform.sh, modifi
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * An additional module, [`config-reader-nodejs`](https://github.com/platformsh/config-reader-nodejs), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* A `handle_mounts.sh` script has been added. This script handles committed files pushed to directories also defined as mounts on Platform.sh.
 
 ## References
 

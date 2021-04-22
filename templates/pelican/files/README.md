@@ -24,5 +24,5 @@ The following changes have been made relative to a plain Pelican project.  If us
 
 ## References
 
-* [Moin Moin](https://moinmo.in/)
+* [Pelican](https://getpelican.com/)
 * [Python on Platform.sh](https://docs.platform.sh/languages/python.html)

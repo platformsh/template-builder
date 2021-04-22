@@ -18,8 +18,8 @@ class Symfony3(RemoteProject):
             # 2.x gets installed.  That's explicitly not compatible with Symfony < 5, however.  Instead, force
             # an extra dependency on Monolog 1 to sidestep that issue.  It has to be done in a single install
             # step to avoid issues with Symfony's install script failing if either of these packages are missing.
-            'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22 --ignore-platform-reqs && composer update'.format(
-                self.builddir),
+            'cd {0} && composer require platformsh/config-reader monolog/monolog ~1.22'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update'.format(self.builddir),
         ]
 
 class Symfony4(RemoteProject):
@@ -32,8 +32,8 @@ class Symfony4(RemoteProject):
             # Symfony Flex now pins the lock files to a specific PHP version, so we have to in the platform version
             # as well to avoid issues if the lock files are generated on a newer PHP version than the template uses.
             # Keep this in sync with the template's PHP verison.
-            'cd {0} && composer config platform.php 7.3'.format(self.builddir),
-            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.2 --ignore-platform-reqs'.format(self.builddir),
+            'cd {0} && composer config platform.php 7.4'.format(self.builddir),
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.7'.format(self.builddir) + self.composer_defaults(),
         ]
 
 class Symfony5(RemoteProject):
@@ -46,6 +46,6 @@ class Symfony5(RemoteProject):
             # Symfony Flex now pins the lock files to a specific PHP version, so we have to in the platform version
             # as well to avoid issues if the lock files are generated on a newer PHP version than the template uses.
             # Keep this in sync with the template's PHP verison.
-            'cd {0} && composer config platform.php 7.3'.format(self.builddir),
-            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.2 --ignore-platform-reqs'.format(self.builddir),
+            'cd {0} && composer config platform.php 7.4'.format(self.builddir),
+            'cd {0} && composer require platformsh/symfonyflex-bridge ^2.7'.format(self.builddir) + self.composer_defaults(),
         ]

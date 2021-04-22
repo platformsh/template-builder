@@ -1,0 +1,14 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+dbpostgres:
+    type: postgresql:12
+    disk: 256
+
+cacheredis:
+    type: redis:6.0
+
+ratelimitredis:
+    type: redis:6.0

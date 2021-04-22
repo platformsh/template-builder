@@ -1,0 +1,90 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
+
+# The name of this app. Must be unique within a project.
+name: strapi
+
+# The runtime the application uses.
+type: nodejs:12
+
+# Configuration of the build of this application.
+build:
+    # The default `npm install` is not run, favoring yarn in the build hook.
+    flavor: none
+
+# Build dependencies.
+dependencies:
+    nodejs:
+        yarn: "1.22.5"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+    # The build hook runs after yarn has been downloaded.
+    # No services are available but the disk is writeable.
+    build: |
+        # Move committed files in soon-to-be mounts into temp directory.
+        chmod +x handle_mounts.sh
+        ./handle_mounts.sh
+
+        # Install dependencies and build Strapi.
+        yarn --ignore-optional --frozen-lockfile 
+        yarn build
+    # The deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # The site is not accepting requests while this script runs so keep it
+    # fast.
+    deploy: |
+        # Move committed files from temp directory back into mounts.
+        ./handle_mounts.sh
+
+# The relationships of the application with services or other applications.
+#
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    postgresdatabase: "dbpostgres:postgresql"
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+        # Start command run after build phase has completed, prior to deploy hook.
+        start: |
+            # Production start on `master`, development server otherwise.
+            if [ "$PLATFORM_BRANCH" = master ]; then
+                NODE_ENV=production yarn start
+            else
+                yarn develop
+            fi
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+mounts:
+    # Strapi's cache directory.
+    '/.cache':
+        source: local
+        source_path: cache
+    # Allow for updates to the API (new JSONs) at runtime.
+    'api':
+        source: local
+        source_path: api
+    # Allow GraphQL schema updates (JSON) at runtime.
+    'exports':
+        source: local
+        source_path: exports
+    # Give write access for extension configuration JSONs.
+    'extensions':
+        source: local
+        source_path: extensions
+    # Allow for custom components at runtime.
+    'components':
+        source: local
+        source_path: components
+    # Allow for media uploads at runtime.
+    'public':
+        source: local
+        source_path: public

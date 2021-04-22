@@ -6,8 +6,13 @@ name: app
 
 # The type of the application to build.
 type: php:7.4
+
 build:
     flavor: composer
+
+dependencies:
+    php:
+        composer/composer: '^2'
 
 variables:
     env:

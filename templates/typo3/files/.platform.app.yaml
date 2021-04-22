@@ -9,14 +9,18 @@ name: app
 # The runtime the application uses.
 type: php:7.4
 
+dependencies:
+    php:
+        composer/composer: '^2'
+
 runtime:
     # Enable the redis extension so TYPO3 can communicate with the Redis cache.
     extensions:
         - redis
 
-# Composer build tasks run prior to build hook, which runs 
+# Composer build tasks run prior to build hook, which runs
 # composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader
-# if composer.json is detected. 
+# if composer.json is detected.
 build:
     flavor: composer
 
@@ -24,14 +28,14 @@ build:
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
-# 
+#
 # NOTE: Be sure to update database and Redis configuration in `public/typo3conf/PlatformshConfiguration.php`
-# if you rename the relationships here.  
+# if you rename the relationships here.
 relationships:
     # MariaDB/MySQL will then be accessible to the app from 'database' relationship.
     # The service name `db` must match the top-level attribute in `.platform/services.yaml`.
     database: 'db:mysql'
-    
+
     # Redis will then be accessible to the app from 'rediscache' relationship.
     # The service name `cache` must match the top-level attribute in `.platform/services.yaml`.
     rediscache: 'cache:redis'
@@ -45,14 +49,14 @@ web:
             # The folder from which to serve static assets, for this location.
             # This is a filesystem path, relative to the application root.
             root: 'public'
-            
+
             # Redirect any incoming request to TYPO3's front controller.
             passthru: '/index.php'
 
             # File to consider first when serving requests for a directory.
             index:
                 - 'index.php'
-            
+
             # Deny access to all static files, except those specifically allowed below.
             allow: false
 
@@ -84,7 +88,7 @@ web:
             allow: true
             passthru: '/index.php'
 
-        # Local TYPO3 installation settings. 
+        # Local TYPO3 installation settings.
         '/typo3conf/LocalConfiguration.php':
             allow: false
 
@@ -97,7 +101,7 @@ disk: 2048
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    # Directory for temporary files. It contains subdirectories (see below) for 
+    # Directory for temporary files. It contains subdirectories (see below) for
     # temporary files of extensions and TYPO3 components.
     "public/typo3temp":
         source: local

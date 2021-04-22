@@ -13,7 +13,6 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <maven.compiler.source>11</maven.compiler.source>
         <final.name>template-wildfly</final.name>
-        <platform.sh.version>2.2.3</platform.sh.version>
     </properties>
     <dependencies>
         <dependency>
@@ -22,11 +21,6 @@
             <version>3.3</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>sh.platform</groupId>
-            <artifactId>config</artifactId>
-            <version>${platform.sh.version}</version>
         </dependency>
     </dependencies>
     <build>

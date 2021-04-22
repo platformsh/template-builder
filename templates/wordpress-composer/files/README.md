@@ -6,7 +6,7 @@
 </a>
 </p>
 
-This template builds WordPress on Platform.sh using the [`johnbolch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.  A custom configuration file is provided that runs on Platform.sh to automatically configure the database, so the installer will not ask you for database credentials.  For local-only configuration you can use a `wp-config-local.php` file that gets excluded from Git.
+This template builds WordPress on Platform.sh using the [`johnbloch/wordpress`](https://github.com/johnpbloch/wordpress) "Composer Fork" of WordPress.  Plugins and themes should be managed with Composer exclusively.  A custom configuration file is provided that runs on Platform.sh to automatically configure the database, so the installer will not ask you for database credentials.  For local-only configuration you can use a `wp-config-local.php` file that gets excluded from Git.
 
 WordPress is a blogging and lightweight CMS written in PHP.
 
@@ -52,8 +52,10 @@ The following changes have been made relative to WordPress as it is downloaded f
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * The `wp-config.php` file has been modified to use the Config Reader to configure WordPress based on Platform.sh environment variables if present.  If not, your own `wp-config-local.php` file will be loaded to configure the site for local development.
-* The upstream `composer.json` file has been modified to include the script `movewpconfig`. It moves `wp-config.php` into the default install directory and docroot `wordpress` after composer install is run.
 * A base [Landofile](https://docs.lando.dev/config/lando.html#base-file) provides configuration to use this template locally using [Lando](https://docs.lando.dev).
+* Any themes and plugins present in the most recent version of WordPress are detected and have been added as dependencies in `composer.json` so they are easier to update. 
+* The upstream `composer.json` file has been modified to include the script `subdirComposer`. It moves `wp-config.php` into the default install directory and docroot `wordpress` after `composer install` is run. It also removes a nested directory `wordpress/wp-content/wp-content`. Since WordPress is not by default intended to be installed via Composer, anything Composer-related wrapping around it does not always perfectly interact, and adding new themes and plugins via Composer is a case of this. If this command was not included, the initial deployment would work just fine, and the default themes and plugins would end up where you would expect in `wordpress/wp-content/[themes|plugins]`. However, once you `composer require` additional packages from WPackagist, those original default packages end up in a nested subdirectory `wordpress/wp-content/wp-content` and are inaccessible to WordPress. This is another reason that those default themes and plugins are added to `composer.json`, allowing us to remove this artifact when WordPress builds with Composer. You can view the original issue [here](https://github.com/platformsh-templates/wordpress-composer/issues/7).
+
 
 ## Local development
 

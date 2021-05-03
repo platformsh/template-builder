@@ -162,6 +162,7 @@ class BaseProject(object):
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
+            return
 
         results = []
         print(f"Running {len(self.TEST_FUNCTIONS)} tests.")
@@ -243,6 +244,9 @@ class BaseProject(object):
         pulls = requests.get(pulls_api_url, headers=authorization_header)
         urls = []
         for pull in pulls.json():
+            if "dependabot" in pull["user"]["login"]:
+                print("skipping dependabot pull request")
+                continue
             statuses_api_url = pull["statuses_url"]
             url = ""
             while not url:
@@ -262,8 +266,9 @@ class BaseProject(object):
             urls.append(url)
         
         # Delays execution by specified amount of seconds    
-        print(f"Delaying execution of tests by {self.TEST_DELAY} seconds.")
-        time.sleep(self.TEST_DELAY)
+        if urls:
+            print(f"Delaying execution of tests by {self.TEST_DELAY} seconds.")
+            time.sleep(self.TEST_DELAY)
         return urls
    
     def set_github_token(self, token):

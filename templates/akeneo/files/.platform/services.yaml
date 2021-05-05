@@ -6,7 +6,7 @@ db:
     type: oracle-mysql:8.0
     disk: 1024
 search:
-    type: elasticsearch:7.7
+    type: elasticsearch:7.5
     disk: 512
 jobs:
     type: network-storage:1.0

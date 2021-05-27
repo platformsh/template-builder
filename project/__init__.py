@@ -26,6 +26,7 @@ class BaseProject(object):
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
+        'yarn.lock': 'yarn upgrade'
     }
 
     def composer_defaults(self):

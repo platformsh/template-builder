@@ -5,9 +5,11 @@ from glob import glob
 from collections import OrderedDict
 import time
 import requests
+import shlex
+import shutil
+import subprocess
 
-ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
+TEMPLATEDIR = os.getcwd()
 
 class BaseProject(object):
     '''
@@ -23,7 +25,7 @@ class BaseProject(object):
     # project build directory to update the corresponding lock file.
     updateCommands = {
         'composer.json': 'composer update',
-        'Pipfile': 'pipenv update',
+        'Pipfile': 'pipenv lock',
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
@@ -41,25 +43,26 @@ class BaseProject(object):
         this script doesn't have to have them all installed. If there are more composer dependencies
         to ignore for a new app, add them to the list here.
         """
-        return (' --prefer-dist --no-interaction '
-                '--ignore-platform-req=ext-redis '
-                '--ignore-platform-req=ext-apcu '
-                '--ignore-platform-req=ext-intl '
-                '--ignore-platform-req=ext-bcmath '
-                '--ignore-platform-req=ext-exif '
-                '--ignore-platform-req=ext-gd '
-                '--ignore-platform-req=ext-imagick '
-                '--ignore-platform-req=ext-mbstring '
-                '--ignore-platform-req=ext-memcache '
-                '--ignore-platform-req=ext-pdo '
-                '--ignore-platform-req=ext-openssl '
-                '--ignore-platform-req=ext-zip '
-                '--ignore-platform-req=php'
-                )
+        return [' --prefer-dist --no-interaction',
+                '--ignore-platform-req=ext-redis',
+                '--ignore-platform-req=ext-apcu',
+                '--ignore-platform-req=ext-intl',
+                '--ignore-platform-req=ext-bcmath',
+                '--ignore-platform-req=ext-exif',
+                '--ignore-platform-req=ext-gd',
+                '--ignore-platform-req=ext-imagick',
+                '--ignore-platform-req=ext-mbstring',
+                '--ignore-platform-req=ext-memcache',
+                '--ignore-platform-req=ext-pdo',
+                '--ignore-platform-req=ext-openssl',
+                '--ignore-platform-req=ext-zip',
+                '--ignore-platform-req=php',
+                ]
 
     def __init__(self, name):
         self.name = name
-        self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        # self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        self.builddir = os.getcwd()
         # Parses the github authorization token from env var by default.
         self.github_token = os.getenv('GITHUB_TOKEN', None)
 
@@ -69,33 +72,25 @@ class BaseProject(object):
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
-            self.updateCommands['composer.json'] += self.composer_defaults()
+            self.updateCommands['composer.json'] += " ".join(self.composer_defaults())
 
-    @property
     def cleanup(self):
-        return ['rm -rf {0}'.format(self.builddir)]
+        if os.path.exists(self.builddir):
+            shutil.rmtree(self.builddir)
 
-    @property
     def init(self):
         if hasattr(self, 'github_name'):
             name = self.github_name
         else:
             name = self.name.replace('_', '-')
-        return ['git clone git@github.com:platformsh-templates/{0}.git {1}'.format(
-            name, self.builddir)
-        ]
+        subprocess.call(["git", "clone", f"git@github.com:platformsh-templates/{name}.git", self.builddir])
 
-    @property
     def update(self):
-        actions = [
-            'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
-        ]
+        # subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
+        # subprocess.call(["git", "pull", "--prune"], cwd=self.builddir)
 
-        actions.extend(self.package_update_actions())
+        self.package_update()
 
-        return actions
-
-    @property
     def platformify(self):
         """
         The default implementation of this method will
@@ -105,39 +100,31 @@ class BaseProject(object):
 
         Individual projects may expand on these tasks as needed.
         """
-        actions = ['rsync -aP {0} {1}'.format(
-            os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
-        )]
+        print(os.path.join(TEMPLATEDIR, self.name, 'files/'))
+        print(self.builddir)
+        subprocess.call(["rsync", "-aP", os.path.join(TEMPLATEDIR, self.name, 'files/'), self.builddir])
         patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
         for patch in patches:
-            actions.append('cd {0} && patch -p1 < {1}'.format(
-                self.builddir, patch)
-            )
+            with open(os.path.join(TEMPLATEDIR, self.name, 'files', patch), "r") as stream:
+                subprocess.call(["patch", "-p1"], cwd=self.builddir, stdin=stream)
 
         # In some cases the package updater needs to be run after we've platform-ified the
         # template, so run it a second time. Worst case it's a bit slower to build but doesn't
         # hurt anything.
-        actions.extend(self.package_update_actions())
+        self.package_update()
 
-        return actions
-
-    @property
     def branch(self):
-        return [
-            'cd {0} && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;'.format(
-                self.builddir),
-            'cd {0} && git checkout -b update'.format(self.builddir),
-            # git commit exits with 1 if there's nothing to update, so the diff-index check will
-            # short circuit the command if there's nothing to update with an exit code of 0.
-            'cd {0} && git add -A && git diff-index --quiet HEAD || git commit -m "Update to latest upstream"'.format(
-                self.builddir),
-        ]
+        if subprocess.call(["git", "rev-parse", "--verify", "--quiet", "update"], cwd=self.builddir) == 0:
+            subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
+            subprocess.call(["git", "branch", "-D", "update"], cwd=self.builddir)
+        subprocess.call(["git", "checkout", "-b", "update"], cwd=self.builddir)
+        subprocess.call(["git", "add", "-A"], cwd=self.builddir)
+        subprocess.call(["git", "commit", "-m", "Update to latest upstream"], cwd=self.builddir)
 
-    @property
     def push(self):
-        return ['cd {0} && if [ `git rev-parse update` != `git rev-parse master` ] ; then git checkout update && git push --force -u origin update; fi'.format(
-            self.builddir)
-        ]
+        if subprocess.check_output(["git", "rev-parse", "update"], cwd=self.builddir) != subprocess.check_output(["git", "rev-parse", "master"], cwd=self.builddir):
+            subprocess.call(["git", "checkout", "update"], cwd=self.builddir)
+            subprocess.call(["git", "push", "--force", "-u", "origin", "update"], cwd=self.builddir)
 
     def pull_request(self, token=None):
         """
@@ -189,7 +176,7 @@ class BaseProject(object):
         responses = []
         for pull in pulls:
             if self.results.get(pull["number"]):
-                merge_url = f"{pulls_api_url}/{pull["number"]}/merge"
+                merge_url = f"{pulls_api_url}/{pull['number']}/merge"
                 responses.append(requests.put(merge_url, headers=authorization_header))
                 print(f"Merged pull request {merge_url}")
         return all(response.status_code in [200, 204] for response in responses)
@@ -210,19 +197,17 @@ class BaseProject(object):
         return response.status_code == 200
 
 
-    def package_update_actions(self):
+    def package_update(self):
         """
         Generates a list of package updater commands based on the updateCommands property.
         Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file.
         :return: List of package update commands to include.
         """
-        actions = []
         for directory in os.walk(self.builddir):
             if '.platform.app.yaml' in directory[2]:
                 for file, command in self.updateCommands.items():
-                    actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file, command))
-
-        return actions
+                    if os.path.exists(os.path.join(directory[0], file)):
+                        subprocess.run(shlex.split(command), cwd=directory[0])
 
     def modify_composer(self, mod_function):
         """

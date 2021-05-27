@@ -194,7 +194,7 @@ def task_merge():
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
-            'actions': [project.merge_pull_request],
+            'actions': [project.test, project.merge_pull_request],
             'params': [{
                 'name': 'token',
                 'short': 't',

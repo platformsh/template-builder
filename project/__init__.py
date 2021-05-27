@@ -151,6 +151,9 @@ class BaseProject(object):
 
         body = {"head": "update", "base": "master", "title": "Update to latest upstream"}
         response = requests.post(pulls_api_url, headers=authorization_header, data=json.dumps(body))
+        print(response)
+        print(response.text)
+        print(response.headers)
         return response.status_code in [201, 422]
 
     def test(self, token=None):
@@ -159,34 +162,37 @@ class BaseProject(object):
         """
         self.set_github_token(token)
 
+        self.results = {}
+
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
             return
 
-        results = []
         print(f"Running {len(self.TEST_FUNCTIONS)} tests.")
         for test in self.TEST_FUNCTIONS:
-            for url in urls_to_test:
-                results.append(test(url))
+            for pull_number, url in urls_to_test.items():
+                self.results[pull_number] = test(url)
 
-        return all(results)
+        return self.results
 
     def merge_pull_request(self, token=None):
         """
-        Merges latest pull request.
+        Merges pull requests that pass tests.
         """
         self.set_github_token(token)
-
+        print(self.results)
         authorization_header = {"Authorization": "token " + self.github_token}
-
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
-        pull = requests.get(pulls_api_url, headers=authorization_header).json()[0]
-        print(pull["number"])
-        merge_url = pulls_api_url + "/" + str(pull["number"]) + "/merge"
-        response = requests.put(merge_url, headers=authorization_header)
-        print(response.text, response.url)
-        return response.status_code in [200, 204]
+
+        pulls = requests.get(pulls_api_url, headers=authorization_header).json()
+        responses = []
+        for pull in pulls:
+            if self.results.get(pull["number"]):
+                merge_url = f"{pulls_api_url}/{pull["number"]}/merge"
+                responses.append(requests.put(merge_url, headers=authorization_header))
+                print(f"Merged pull request {merge_url}")
+        return all(response.status_code in [200, 204] for response in responses)
 
 
     @staticmethod
@@ -242,28 +248,37 @@ class BaseProject(object):
 
         pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
         pulls = requests.get(pulls_api_url, headers=authorization_header)
-        urls = []
+        urls = {}
         for pull in pulls.json():
             if "dependabot" in pull["user"]["login"]:
                 print("skipping dependabot pull request")
                 continue
             statuses_api_url = pull["statuses_url"]
-            url = ""
-            while not url:
+            deployment_status = "pending"
+            while deployment_status != "success":
                 status = requests.get(statuses_api_url, headers=authorization_header)
+                if not status.json():
+                    continue
                 try:
                     data = status.json()[0]
+                    print(data)
                     url = data["target_url"]
+                    deployment_status = data["state"]
 
-                    if data["status"] != "success":
-                        print("Pull request {0} is still building on Platform.sh".format(pull["url"]))
-                        url = ""
+                    if deployment_status == "failed":
+                        print("Pull request {0} was not built on Platform.sh".format(pull["url"]))
+                    if deployment_status == "success":
+                        break
 
                 except Exception as e:
-                    print("Pull request {0} was not built on Platform.sh".format(pull["url"]))
+                    print("Error retrieving build status of pull request {0} on Platform.sh".format(pull["url"]))
+                    print(e)
+
+                print("Pull request {0} is still building on Platform.sh".format(pull["url"]))
+                time.sleep(10)
             
             print(f"Pull request {url} has finished building on Platform.sh")
-            urls.append(url)
+            urls[pull["number"]] = url
         
         # Delays execution by specified amount of seconds    
         if urls:

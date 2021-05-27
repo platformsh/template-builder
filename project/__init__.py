@@ -189,7 +189,7 @@ class BaseProject(object):
         responses = []
         for pull in pulls:
             if self.results.get(pull["number"]):
-                merge_url = f"{pulls_api_url}/{pull["number"]}/merge"
+                merge_url = f"{pulls_api_url}/{pull['number']}/merge"
                 responses.append(requests.put(merge_url, headers=authorization_header))
                 print(f"Merged pull request {merge_url}")
         return all(response.status_code in [200, 204] for response in responses)

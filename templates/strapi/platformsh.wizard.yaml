@@ -1,0 +1,82 @@
+steps:
+  - id: "download_cli"
+    label: "Download the CLI"
+    title: "Download the Platform.sh CLI"
+    subtitle: "Download the Platform.sh CLI"
+    required: true
+    bodyText: "<p>To install the CLI, use the command for either macOS and Windows as shown.</p>\n<p>For more info about our CLI check out our <a href='https://docs.platform.sh/development/cli.html#cli-command-line-interface'>documentation</a> or take a look at our <a href='https://github.com/platformsh/platformsh-cli'>CLI source code</a>.</p>"
+    copyCode:
+      - label: "macOS and Linux Installer"
+        code:
+          - "curl -sS https://platform.sh/cli/installer | php"
+      - label: "Windows Installer"
+        code:
+          - "curl https://platform.sh/cli/installer -o cli-installer.php"
+          - "php cli-installer.php"
+  - id: "download_project"
+    label: "Download your project"
+    title: "Download your project to start using it"
+    required: true
+    bodyText: "<p>To make changes to your project, you'll want to download your project. It's a breeze with the Platform.sh CLI.</p>\n<p>The <code>platform get</code> command will not only download your project but will also take care of your SSH authentication.</p>\n<p>Visit our <a href='https://docs.platform.sh/gettingstarted/own-code/project-configuration.html'>docs</a> for more information.</p>"
+    copyCode:
+      - label: "Download your project"
+        code:
+          - "platform get"
+  - id: "create_dev_branch"
+    label: "Creating dev branches"
+    title: "Clone production to your first development environment!"
+    required: true
+    bodyText: "<p>You'll modify your code and test your changes locally before pushing them to Platform.sh.&nbsp;</p>\n<p><code>platform get</code> clones the master branch of your project to your local environment. With the <code>platform environment:develop</code> command, you'll now create a perfect replica of production on Platform.sh <em>and</em> switch to that branch locally. Cool, huh!</p>"
+    copyCode:
+      - label: 'Clone production master environment to "develop" on Platform.sh and check it out locally.'
+        code:
+          - "platform environment:branch develop"
+  - id: "local_development"
+    label: "Installing Strapi plugins"
+    title: "The development workflow on Platform.sh"
+    required: false
+    bodyText: "<p>On Platform.sh, your app file system is locked—that is, it can only modify files in <a href='https://docs.platform.sh/configuration/app/storage.html#mounts'>mounted</a> directories. That means your app can only create and modify files that you've given it permission to. That means no more modifying production code on-the-fly.</p>\n<p>Let's try modifying your code and reviewing it locally.</p>"
+    copyCode:
+      - label: "Install dependencies"
+        code:
+          - "# Feel free to use NPM in place of Yarn 😀"
+          - "yarn install"
+      - label: "Start development server"
+        code:
+          - "yarn develop"
+      - label: "Install custom plugin"
+        code:
+          - "yarn strapi generate:plugin TestPlugin"
+          - "yarn strapi build"
+          - ""
+          - "###"
+          - "# Your plugin should now be listed: http://localhost:1337/admin/list-plugins"
+          - "###"
+  - id: "deploy"
+    label: "Deploy your changes"
+    title: "You're ready to deploy some code!"
+    required: false
+    bodyText: "<p>Congrats. You created your own Strapi plugin and reviewed it locally. Let's publish those changes to your Platform.sh <code>develop</code> environment!</p>\n<p>After running the commands below, you should see your <code>TestPlugin</code> listed in your hosted Platform.sh <code>develop</code> Strapi admin panel (<code>/admin</code>).&nbsp;</p>"
+    copyCode:
+      - label: "Save your changes and review on Platform.sh"
+        code:
+          - 'git add extensions plugins && git commit -m "My firt Platform.sh update"'
+          - "platform push"
+          - ""
+          - "# See push log for environment URL"
+      - label: "Happy? Merge into production!"
+        code:
+          - "platform merge"
+  - id: "customize"
+    label: "Know your infrastructure"
+    title: "Customize your infrastructure on Platform.sh"
+    required: false
+    bodyText: "<p>Finally, your project is based on the <a href='https://docs.platform.sh/gettingstarted/own-code/project-configuration.html'>quickstart Strapi</a> guide. We’ve added three files to help you deploy on Platform.sh.</p>\n<p><a href='https://docs.platform.sh/configuration/app.html'><code>.platform.app.yaml</code></a> Build steps, jobs, storage mounts, and more</p>\n<p><a href='https://docs.platform.sh/configuration/services.html'><code>.platform/services.yaml</code></a> Add services, e.g., databases, Redis</p>\n<p><a href='https://docs.platform.sh/configuration/routes.html'><code>.platform/routes.yaml</code></a> Add domains, subdomains, and redirects</p>\n<p><code>&lt; Default Strapi Code &gt;</code></p><p>See the <code>readme.md</code> in your project files for more info</p>\n<p>Explore these files to create additional apps, services, and routes for your project.</p>"
+    copyCode:
+      - label: "Application code structure"
+        code:
+          - "├── .platform"
+          - "│   ├── routes.yaml"
+          - "│   └── services.yaml"
+          - "├── .platform.app.yaml"
+          - "└── < application code >"

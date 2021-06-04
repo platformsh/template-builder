@@ -9,8 +9,7 @@ import shlex
 import shutil
 import subprocess
 
-ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
+TEMPLATEDIR = os.getcwd()
 
 class BaseProject(object):
     '''
@@ -62,7 +61,8 @@ class BaseProject(object):
 
     def __init__(self, name):
         self.name = name
-        self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        # self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        self.builddir = os.getcwd()
         # Parses the github authorization token from env var by default.
         self.github_token = os.getenv('GITHUB_TOKEN', None)
 

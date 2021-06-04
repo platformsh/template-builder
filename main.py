@@ -38,10 +38,10 @@ def project_factory(name):
 
 def run():
 	project = project_factory(sys.argv[1])
-	print(project.init())
+	# print(project.init())
 	print(project.update())
 	print(project.platformify())
-	print(project.branch())
-	print(project.push())
-	print(project.pull_request())
-	print(project.test())
+	# print(project.branch())
+	# print(project.push())
+	# print(project.pull_request())
+	# print(project.test())

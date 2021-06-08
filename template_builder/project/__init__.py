@@ -61,6 +61,21 @@ class BaseProject(object):
 
     def __init__(self, name):
         self.name = name
+        self.repo = "platformsh-templates/{0}".format(self.name)
+
+        # look for integration
+        platform_path = ""
+        if shutil.which("platform"):
+            platform_path = "platform"
+        elif os.path.exists("/app/.platformsh/bin/platform"):
+            platform_path = "/app/.platformsh/bin/platform"
+        if platform_path:
+            for integration in json.loads(subprocess.check_output([platform_path, "project:curl", "/integrations"])):
+                if integration.get("type") != "github":
+                    continue
+                self.repo = integration["repository"]
+                print(f"integration found: {integration['repository']}")
+                break
         # self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
         self.builddir = os.getcwd()
         # Parses the github authorization token from env var by default.
@@ -69,6 +84,7 @@ class BaseProject(object):
        
         # A list containing function references which will be executed against a test url, bootstrapped with a basic smoke test.
         self.TEST_FUNCTIONS = [self.basic_smoke_test]
+        self.test_results = {}
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
@@ -134,7 +150,7 @@ class BaseProject(object):
 
         authorization_header = {"Authorization": "token " + self.github_token}
 
-        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+        pulls_api_url = 'https://api.github.com/repos/{0}/pulls'.format(self.repo)
 
         body = {"head": "update", "base": "master", "title": "Update to latest upstream"}
         response = requests.post(pulls_api_url, headers=authorization_header, data=json.dumps(body))
@@ -149,8 +165,6 @@ class BaseProject(object):
         """
         self.set_github_token(token)
 
-        self.results = {}
-
         urls_to_test = self.get_test_urls()
         if not urls_to_test:
             print("No pull requests to test for {0}".format(self.name))
@@ -159,23 +173,28 @@ class BaseProject(object):
         print(f"Running {len(self.TEST_FUNCTIONS)} tests.")
         for test in self.TEST_FUNCTIONS:
             for pull_number, url in urls_to_test.items():
-                self.results[pull_number] = test(url)
+                self.test_results[pull_number] = test(url)
 
-        return self.results
+        print(self.test_results)
+        return self.test_results
 
     def merge_pull_request(self, token=None):
         """
         Merges pull requests that pass tests.
         """
         self.set_github_token(token)
-        print(self.results)
-        authorization_header = {"Authorization": "token " + self.github_token}
-        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+        if not self.test_results:
+            self.test(token=token)
 
+        authorization_header = {"Authorization": "token " + self.github_token}
+
+        pulls_api_url = 'https://api.github.com/repos/{0}/pulls'.format(self.repo)
         pulls = requests.get(pulls_api_url, headers=authorization_header).json()
+        print(pulls)
         responses = []
         for pull in pulls:
-            if self.results.get(pull["number"]):
+            print(pull)
+            if self.test_results.get(pull["number"]):
                 merge_url = f"{pulls_api_url}/{pull['number']}/merge"
                 responses.append(requests.put(merge_url, headers=authorization_header))
                 print(f"Merged pull request {merge_url}")
@@ -231,7 +250,7 @@ class BaseProject(object):
         """
         authorization_header = {"Authorization": "token " + self.github_token}
 
-        pulls_api_url = 'https://api.github.com/repos/platformsh-templates/{0}/pulls'.format(self.name)
+        pulls_api_url = 'https://api.github.com/repos/{0}/pulls'.format(self.repo)
         pulls = requests.get(pulls_api_url, headers=authorization_header)
         urls = {}
         for pull in pulls.json():

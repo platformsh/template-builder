@@ -12,7 +12,7 @@ New projects should be built using Django 3, but this project is a reference for
 
 ## Features
 
-* Python 3.8
+* Python 3.9
 * PostgreSQL 12
 * Automatic TLS certificates
 * Pipfile-based build

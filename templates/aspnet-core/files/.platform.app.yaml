@@ -16,54 +16,53 @@ type: dotnet:2.2
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-  database: "db:mysql"
-  rediscache: "cache:redis"
-
+    database: "db:mysql"
+    rediscache: "cache:redis"
 
 # The configuration of app when it is exposed to the web.
 web:
-  # Launch the application using the dotnet utility.
-  commands:
-    start: 'dotnet PlatformshAspNetCore.dll'
+    # Launch the application using the dotnet utility.
+    commands:
+        start: 'dotnet PlatformshAspNetCore.dll'
 
-  locations:
-    "/":
-      # The folder from which to serve static assets, for this location.
-      #
-      # This is a filesystem path, relative to the application root.
-      root: "wwwroot"
+    locations:
+        "/":
+            # The folder from which to serve static assets, for this location.
+            #
+            # This is a filesystem path, relative to the application root.
+            root: "wwwroot"
 
-      # Allow/deny access to static files in this location.
-      allow: true
+            # Allow/deny access to static files in this location.
+            allow: true
 
-      # Whether to forward disallowed and missing resources from this
-      # location to the application.
-      #
-      # Can be true of false for dotnet projects.
-      passthru: true
+            # Whether to forward disallowed and missing resources from this
+            # location to the application.
+            #
+            # Can be true of false for dotnet projects.
+            passthru: true
 
-      rules:
-        # Let's serve these common asset types with customs cache headers.
-        \.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$:
-          allow: true
-          expires: 300s
+            rules:
+                # Let's serve these common asset types with customs cache headers.
+                \.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$:
+                    allow: true
+                    expires: 300s
 
 
 # The process definition for creating the read-only application image.
 # This will work as is, most of the time. When using a custom build hook,
 # make sure to copy the -p toggles over, or builds will take much longer.
 hooks:
-  build: |
-    set -xe
-    dotnet publish --output "$PLATFORM_OUTPUT_DIR" -p:UseRazorBuildServer=false -p:UseSharedCompilation=false
+    build: |
+        set -xe
+        dotnet publish --output "$PLATFORM_OUTPUT_DIR" -p:UseRazorBuildServer=false -p:UseSharedCompilation=false
 
 
 # These are writable folders mounted over the read-only image of the built application.
 # Use these for static assets and uploads.
 mounts:
-  "/wwwroot/etc":
-    source: local
-    source_path: "etc"
+    "/wwwroot/etc":
+        source: local
+        source_path: "etc"
 
 # The disk size allocated to (and shared between) mounts.
 disk: 512

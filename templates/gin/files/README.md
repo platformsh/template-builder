@@ -12,7 +12,7 @@ Gin is a lightweight web framework written in Go that emphasizes performance.
 
 ## Features
 
-* Go 1.14
+* Go 1.15
 * MariaDB 10.4
 * Git module-based build
 

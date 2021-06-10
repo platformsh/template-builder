@@ -14,7 +14,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Go 1.14<br />
+          Go 1.15<br />
           MariaDB 10.4<br />
           Git module-based build<br />
 

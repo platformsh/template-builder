@@ -10,7 +10,7 @@ type: 'python:3.8'
 # Environment variables available to the app container.
 variables:
     env:
-        MEILISEARCH_VERSION: 'v0.15.0'
+        MEILISEARCH_VERSION: '0.20.0'
         TEMPLATE_DEMO: true
         POETRY_VERSION: '1.1.4'
         POETRY_VIRTUALENVS_IN_PROJECT: true
@@ -27,7 +27,9 @@ hooks:
 web:
     commands:
       # Run the Meilisearch server
-      start: "./meilisearch --http-addr localhost:${PORT}"
+        start: !include 
+            type: string
+            path: start.sh
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048

@@ -41,7 +41,7 @@ restore_files() {
     MOUNT=`clean_mount_defn $1`
     if [ -d $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp ]; then 
         # Clean up files in mount so it's up to date with what we're moving over. 
-        rm -r $PLATFORM_APP_DIR/$MOUNT/*
+        rm -rf $PLATFORM_APP_DIR/$MOUNT/*
         # Restore the directory's files.
         cp -r $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp/* $PLATFORM_APP_DIR/$MOUNT
     fi 

@@ -9,7 +9,7 @@ info:
   tags:
   - Node.js
   - Framework
-  image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='105.6' height='225'%3E%3Cg data-name='Layer 2'%3E%3Cpath d='M21 0v149.43L87 75h3l-48.89 55.23L105.6 225h-21L29 143.31l-8.1 9.32V225H0V0z' style='fill:%2316111c' data-name='Layer 1'/%3E%3C/g%3E%3C/svg%3E
+  image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='105.6' height='225'%3E%3Cg %3E%3Cpath d='M21 0v149.43L87 75h3l-48.89 55.23L105.6 225h-21L29 143.31l-8.1 9.32V225H0V0z' style='fill:%2316111c' /%3E%3C/g%3E%3C/svg%3E
   notes:
     - heading: "Features"
       content: |

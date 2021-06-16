@@ -37,7 +37,7 @@ info:
   - Drupal
   - Static Site Generator
   - Symfony
-  image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='225' height='225'%3E%3Cg data-name='Layer 2'%3E%3Cpath d='M112.5 0A112.5 112.5 0 1 0 225 112.5 112.5 112.5 0 0 0 112.5 0zM24.17 113.67l87.16 87.16a88.35 88.35 0 0 1-87.16-87.16zm108.1 85L26.38 92.73a88.35 88.35 0 0 1 157.54-32.22L171.69 71.3a72.13 72.13 0 0 0-127 16.64l92.38 92.38a72.26 72.26 0 0 0 45.46-50.51h-38.3V112.5h56.61a88.38 88.38 0 0 1-68.57 86.12z' style='fill:%23744c9e' data-name='Layer 1'/%3E%3C/g%3E%3C/svg%3E
+  image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='225' height='225'%3E%3Cg %3E%3Cpath d='M112.5 0A112.5 112.5 0 1 0 225 112.5 112.5 112.5 0 0 0 112.5 0zM24.17 113.67l87.16 87.16a88.35 88.35 0 0 1-87.16-87.16zm108.1 85L26.38 92.73a88.35 88.35 0 0 1 157.54-32.22L171.69 71.3a72.13 72.13 0 0 0-127 16.64l92.38 92.38a72.26 72.26 0 0 0 45.46-50.51h-38.3V112.5h56.61a88.38 88.38 0 0 1-68.57 86.12z' style='fill:%23744c9e' /%3E%3C/g%3E%3C/svg%3E
   # An image URI (either base64-encoded or a URL) representing the template.
 
   # Additional notes displayed in the template's detail view.

@@ -4,7 +4,7 @@ from glob import glob
 from . import TEMPLATEDIR
 
 class Backdrop(BaseProject):
-    version = '1.17.3'
+    version = '1.19.2'
 
     @property
     def update(self):

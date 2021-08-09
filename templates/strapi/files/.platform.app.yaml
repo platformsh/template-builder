@@ -11,51 +11,21 @@ type: nodejs:12
 
 # Use Yarn instead of npm.
 build:
-    flavor: none
+  flavor: none
 
-# Build dependencies. 
+# Build dependencies.
 dependencies:
-    nodejs:
-        yarn: "1.22.5"
+  nodejs:
+    yarn: "1.22.5"
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
-    build: |
-        # Download dependencies and build Strapi.
-        yarn
-        yarn build
-
-        # Local development will commit changes to subdirectories that will become mounts on
-        # Platform.sh and overwritten during deployments. To prevent that, set aside during builds.
-        if [ -n "$(ls -A extensions)" ]; then
-            mkdir extensions-tmp && mv extensions/* extensions-tmp
-        fi        
-        if [ -n "$(ls -A api)" ]; then
-            mkdir api-tmp && mv api/* api-tmp
-        fi
-        if [ -n "$(ls -A exports)" ]; then
-            mkdir exports-tmp && mv exports/* exports-tmp
-        fi
-        if [ -n "$(ls -A components)" ]; then
-            mkdir components-tmp && mv components/* components-tmp
-        fi
-    deploy: |
-        # Copy overrides back to where they need to be.
-        if [ -n "$(ls -A extensions-tmp)" ]; then
-            cp -r extensions-tmp/* extensions
-        fi        
-        if [ -n "$(ls -A api-tmp)" ]; then
-            cp -r api-tmp/* api
-        fi
-        if [ -n "$(ls -A exports-tmp)" ]; then
-            cp -r exports-tmp/* exports
-        fi
-        if [ -n "$(ls -A components-tmp)" ]; then
-            cp -r components-tmp/* components
-        fi
+  build: |
+    # Download dependencies and build Strapi.
+    yarn
+    yarn build
 
 # The relationships of the application with services or other applications.
-#
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
@@ -64,52 +34,40 @@ relationships:
 
 # The configuration of app when it is exposed to the web.
 web:
-    locations:
-        # For serving the generated OpenAPI specification as part of the documentation.
-        "/docs/spec":
-            root: "extensions/documentation/documentation/1.0.0"
-            allow: true
-            scripts: false
-            index:
-                - full_documentation.json
-    commands:
-        start: |
-            # Production start on `master`, development server otherwise.
-            if [ "$PLATFORM_BRANCH" = master ]; then
-                NODE_ENV=production yarn start
-            else
-                yarn develop
-            fi
+  locations:
+    # For serving the generated OpenAPI specification as part of the documentation.
+    "/docs/spec":
+      root: "extensions/documentation/documentation/1.0.0"
+      allow: true
+      scripts: false
+      index:
+        - full_documentation.json
+  commands:
+    start: |
+      # Production start on all environments
+        NODE_ENV=production yarn start
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    # Strapi's cache directory.
-    '/.cache':
-        source: local
-        source_path: cache
-    # Allow for updates to the API (new JSONs) at runtime.
-    'api':
-        source: local
-        source_path: api
-    # Allow GraphQL schema updates (JSON) at runtime.
-    'exports':
-        source: local
-        source_path: exports
-    # Give write access for extension configuration JSONs.
-    'extensions':
-        source: local
-        source_path: extensions
-    # Allow for custom components at runtime.
-    'components':
-        source: local
-        source_path: components
-    # Allow for media uploads at runtime.
-    'public/uploads':
-        source: local
-        source_path: uploads
-    
+  # Strapi's cache directory.
+  "/.cache":
+    source: local
+    source_path: cache
 
-        
+  # Mount .tmp file in the app folder for strapi
+  ".tmp":
+    source: local
+    source_path: app
+
+  # Give write access for extension configuration JSONs.
+  "extensions":
+    source: local
+    source_path: extensions
+
+  # Allow for media uploads at runtime.
+  "public/uploads":
+    source: local
+    source_path: uploads

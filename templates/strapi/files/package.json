@@ -1,0 +1,43 @@
+{
+  "name": "strapi-quickstart-platformsh",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "knex": "0.21.18",
+    "mysql": "^2.18.1",
+    "pg": "^8.5.1",
+    "platformsh-config": "^2.4.1",
+    "sqlite3": "5.0.0",
+    "strapi": "^3.6.5",
+    "strapi-admin": "^3.6.5",
+    "strapi-connector-bookshelf": "^3.6.5",
+    "strapi-connector-mongoose": "^3.6.5",
+    "strapi-plugin-content-manager": "^3.6.5",
+    "strapi-plugin-content-type-builder": "^3.6.5",
+    "strapi-plugin-documentation": "^3.6.5",
+    "strapi-plugin-email": "^3.6.5",
+    "strapi-plugin-graphql": "^3.6.5",
+    "strapi-plugin-upload": "^3.6.5",
+    "strapi-plugin-users-permissions": "^3.6.5",
+    "strapi-utils": "^3.6.5"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "32967971-3f95-46c1-a4bb-99af312183da"
+  },
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "^6.0.0"
+  },
+  "license": "MIT"
+}

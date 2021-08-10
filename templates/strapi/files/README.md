@@ -60,6 +60,12 @@ This template can be used with other databases that is supported by strapi. Inca
 <summary style="font-size: 1.2em; weight:bold;">MongoDB</summary>
 If you decide to use MongoDB as your preferred database, you can use it by following these steps.
 
+- Install the [strapi mongoose connector](https://yarnpkg.com/package/strapi-connector-mongoose)
+
+  ```bash
+  yarn add strapi-connector-mongoose
+  ```
+
 - Replace the `dbposgres` in the services.yaml file with the following:
 
   ```yaml
@@ -148,6 +154,12 @@ If you decide to use MongoDB as your preferred database, you can use it by follo
 <summary style="font-size: 1.2em; weight:bold;">MySQL</summary>
 <br>
 If you decide to use MySQL as your preferred database, you can use it by following these steps.
+
+- Install the Node.js [mysql driver](https://yarnpkg.com/package/mysql)
+
+  ```bash
+  yarn add mysql
+  ```
 
 - Replace the `dbposgres` in the services.yaml file with the following:
 

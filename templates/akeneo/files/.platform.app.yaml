@@ -46,7 +46,7 @@ variables:
         APP_PRODUCT_AND_PRODUCT_MODEL_INDEX_NAME: 'akeneo_pim_product_and_product_model'
         # Update these for your desired NVM and Node versions.
         NVM_VERSION: v0.36.0
-        NODE_VERSION: v14.13.1
+        NODE_VERSION: v14.15.1
     php:
         apc.enable_cli: 1
 

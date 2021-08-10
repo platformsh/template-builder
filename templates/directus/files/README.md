@@ -26,8 +26,8 @@ This template does not require any additional configuration once deployed to sta
 
 ```txt
 # Initial admin user on first deploy.
-export INIT_ADMINUSER='admin@example.com'
-export INIT_ADMINPW='password'
+export ADMIN_EMAIL='admin@example.com'
+export ADMIN_PASSWORD='password'
 ```
 
 After you log in for the first time, be sure to update this password immediately. 

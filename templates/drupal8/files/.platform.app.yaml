@@ -80,9 +80,9 @@ hooks:
         set -e
         php ./drush/platformsh_generate_drush_yml.php
         cd web
-        drush -y cache-rebuild
         drush -y updatedb
         drush -y config-import
+        drush -y cache-rebuild
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -111,7 +111,7 @@ web:
             # Rules for specific URI patterns.
             rules:
                 # Allow access to common static files.
-                '\.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
+                '(?i)\.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
                     allow: true
                 '^/robots\.txt$':
                     allow: true

@@ -1,10 +1,10 @@
 # Each service listed will be deployed
-# to power your Platform.sh project.	# to power your Platform.sh project.
+# to power your Platform.sh project.
 # https://docs.platform.sh/configuration/services.html
 
 db:
-  type: mariadb:10.4
-  disk: 1024
+    type: mariadb:10.4
+    disk: 1024
 
 cache:
-  type: redis:5.0
+    type: redis:5.0

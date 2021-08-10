@@ -32,23 +32,10 @@ hooks:
         fi
     deploy: |
         set -e
-        # Installs the database and sets up the initial admin user. Only run on first deploy.
-        if [ ! -f var/platformsh.installed ]; then
-            # Install the database
-            echo 'Installing the database...'
-            npx directus database install
 
-            # Create the admin user role
-            echo 'Setting up the initial admin role...'
-            ROLE_UUID=$(npx directus roles create --name admin --admin)
-
-            # Pipe output of above command into this one, adding an initial admin user
-            echo 'Creating the initial admin user...'
-            npx directus users create --email $INIT_ADMINUSER --password $INIT_ADMINPW --role $ROLE_UUID
-
-            # Create file that indicates first deploy and installation has been completed.
-            touch var/platformsh.installed
-        fi;
+        # Installs the database and sets up the initial admin user if needed. Otherwise just run migrations.    
+        npx directus bootstrap
+        
         # Copy committed extensions and uploads back onto writable mounts.
         if [ -d extensions-tmp ]
         then
@@ -62,7 +49,7 @@ hooks:
 # Start the Directus server. 
 web:
     commands:
-        start: npx directus start    
+        start: npx directus start
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024

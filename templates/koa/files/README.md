@@ -12,7 +12,7 @@ Koa is a lightweight web framework for Node.js.
 
 ## Features
 
-* Node.js 10
+* Node.js 14
 * MariaDB 10.2
 * Automatic TLS certificates
 * npm-based build

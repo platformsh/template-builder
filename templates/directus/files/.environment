@@ -127,5 +127,5 @@ export EMAIL_SMTP_PORT=25
 export PROJECT_NAME='Directus on Platform.sh'
 
 # Initial admin user on first deploy.
-export INIT_ADMINUSER='admin@example.com'
-export INIT_ADMINPW='password'
+export ADMIN_EMAIL='admin@example.com'
+export ADMIN_PASSWORD='password'

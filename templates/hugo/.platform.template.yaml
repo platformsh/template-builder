@@ -15,7 +15,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Go 1.15<br />
+          Go 1.14<br />
           Automatic TLS certificates<br />
           Hugo downloaded on the fly during build<br />
 

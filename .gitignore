@@ -4,3 +4,4 @@
 *.DS_Store
 .idea/*
 .doit.db.db
+update_integration.sh

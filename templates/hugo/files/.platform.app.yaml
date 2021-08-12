@@ -9,7 +9,7 @@ type: golang:1.14
 variables:
     env:
         # Controls the version of Hugo that build.sh will download.
-        HUGOVERSION: 0.83.1
+        HUGOVERSION: 0.86.1
 
 # The hooks that will be triggered when the package is deployed.
 hooks:

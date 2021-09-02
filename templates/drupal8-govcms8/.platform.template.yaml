@@ -1,7 +1,7 @@
 version: 1
 
 info:
-  id: platformsh/govcms8
+  id: platformsh/drupal8-govcms8
   name: GovCMS 8
   description: |
     <p>This template builds the Australian government's GovCMS Drupal 8 distribution using the Drupal Composer project for better flexibility.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.</p>
@@ -24,7 +24,7 @@ info:
 
 
 initialize:
-  repository: git://github.com/platformsh-templates/govcms8.git@master
+  repository: git://github.com/platformsh-templates/drupal8-govcms8.git@master
   config: null
   files: []
   profile: Drupal 8

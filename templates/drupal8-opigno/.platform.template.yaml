@@ -1,7 +1,7 @@
 version: 1
 
 info:
-  id: platformsh/opigno
+  id: platformsh/drupal8-opigno
   name: Opigno
   description: |
     <p>This template builds the Opigno Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It also includes configuration to use Redis for caching, although that must be enabled post-install in `.platform.app.yaml`.</p>
@@ -26,7 +26,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/opigno.git@master
+  repository: git://github.com/platformsh-templates/drupal8-opigno.git@master
   config: null
   files: []
   profile: Opigno

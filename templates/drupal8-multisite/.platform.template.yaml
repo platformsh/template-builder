@@ -1,7 +1,7 @@
 version: 1
 
 info:
-  id: platformsh/drupal8multi
+  id: platformsh/drupal8-multisite
   name: Drupal 8 Multisite
   description: |
     <p>This template builds Drupal 8 in a multisite configuration using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.</p>
@@ -26,7 +26,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/drupal8multi.git@master
+  repository: git://github.com/platformsh-templates/drupal8-multisite.git@master
   config: null
   files: []
   profile: Drupal 8 Multisite

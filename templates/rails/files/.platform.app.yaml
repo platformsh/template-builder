@@ -27,17 +27,20 @@ disk: 1024
 # Set environment variables to adjust how Rails will run.
 variables:
     env:
-        RAILS_ENV: 'production'
-        RACK_ENV: 'production'
-        RAILS_LOG_TO_STDOUT: true
-        BUNDLE_ERROR_ON_STDERR: 1
+        BUNDLE_CACHE_ALL: '1'
+        BUNDLE_CLEAN: '1'
+        BUNDLE_DEPLOYMENT: '1'
+        BUNDLE_ERROR_ON_STDERR: '1'
+        BUNDLE_WITHOUT: 'development:test'
         DEFAULT_BUNDLER_VERSION: "2.2.26" # in case none is mentioned in Gemfile.lock
-        RAILS_TMP: /tmp
         EXECJS_RUNTIME: 'Node'
         NODE_ENV: 'production'
-        # Update these for your desired NVM and Node versions.
-        NVM_VERSION: v0.38.0
         NODE_VERSION: v14.17.6
+        NVM_VERSION: v0.38.0
+        RACK_ENV: 'production'
+        RAILS_ENV: 'production'
+        RAILS_LOG_TO_STDOUT: '1'
+        RAILS_TMP: '/tmp'
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
@@ -68,12 +71,6 @@ hooks:
         export BUNDLER_VERSION="$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)" || $DEFAULT_BUNDLER_VERSION
         echo "Install bundler $BUNDLER_VERSION"
         gem install --no-document bundler -v $BUNDLER_VERSION
-        echo "Configuring Bundler for production"
-        bundle config set --local without 'development test'
-        bundle config set --local deployment true
-        bundle config set --local cache_all true
-        bundle config set --local ignore_messages true
-        bundle config set --local clean true
 
         echo "Installing gems"
         # We copy the bundle directory to the Platform.sh cache directory for
@@ -95,7 +92,8 @@ hooks:
         mkdir -p "$RAILS_TMP/cache/webpacker"
         [ -d "$PLATFORM_CACHE_DIR/webpacker" ] && \
           rsync -az --delete "$PLATFORM_CACHE_DIR/webpacker/" $RAILS_TMP/cache/webpacker/
-        bundle exec rails assets:precompile
+        # We dont need secret here https://github.com/rails/rails/issues/32947
+        SECRET_KEY_BASE=1 bundle exec rails assets:precompile
         rsync -az --delete $RAILS_TMP/cache/webpacker/ "$PLATFORM_CACHE_DIR/webpacker/"
     # The deploy hook runs after your application has been deployed and started.
     deploy: |

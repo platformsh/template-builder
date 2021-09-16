@@ -109,7 +109,9 @@ define( 'WP_CONTENT_URL', WP_HOME . '/wp-content' );
  * Multisite support
  */
 if(
-	filter_var(getenv('MULTISITE'),FILTER_VALIDATE_BOOL) && filter_var(getenv('MULTISITEINSTALLED'),FILTER_VALIDATE_BOOL)) {
+	filter_var(getenv('MULTISITE'),FILTER_VALIDATE_BOOL)
+	&& filter_var(getenv('MULTISITEINSTALLED'),FILTER_VALIDATE_BOOL)
+) {
 	define('WP_ALLOW_MULTISITE', true); //enables the Network setup panel in Tools
 	define('MULTISITE', true); //instructs WordPress to run in multisite mode
 	#getenv will return false if it isn't set.

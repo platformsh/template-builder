@@ -64,13 +64,13 @@ class BaseProject(object):
         self.repo = "platformsh-templates/{0}".format(self.name)
 
         # look for integration
-        platform_path = ""
+        self.platform_path = ""
         if shutil.which("platform"):
-            platform_path = "platform"
+            self.platform_path = "platform"
         elif os.path.exists("/app/.platformsh/bin/platform"):
-            platform_path = "/app/.platformsh/bin/platform"
-        if platform_path:
-            for integration in json.loads(subprocess.check_output([platform_path, "project:curl", "/integrations"])):
+            self.platform_path = "/app/.platformsh/bin/platform"
+        if self.platform_path:
+            for integration in json.loads(subprocess.check_output([self.platform_path, "project:curl", "/integrations"])):
                 if integration.get("type") != "github":
                     continue
                 self.repo = integration["repository"]
@@ -128,6 +128,21 @@ class BaseProject(object):
         # template, so run it a second time. Worst case it's a bit slower to build but doesn't
         # hurt anything.
         self.package_update()
+
+    def reset_update_branch(self, token=None):
+
+        self.set_github_token(token)
+        authorization_header = {"Authorization": "token " + self.github_token}
+
+        refs_api_url = 'https://api.github.com/repos/{0}/git/refs'.format(self.repo)
+
+        master_sha = subprocess.check_output([self.platform_path, "environment:info", "--environment", "master", "head_commit"]).decode("utf-8").strip()
+        
+        body = {"ref": "refs/heads/update", "sha": master_sha}
+        response = requests.post(refs_api_url, headers=authorization_header, data=json.dumps(body))
+
+        print(body)
+        print(response.text)
 
     def branch(self):
         if subprocess.call(["git", "rev-parse", "--verify", "--quiet", "update"], cwd=self.builddir) == 0:

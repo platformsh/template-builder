@@ -2,6 +2,9 @@ from . import BaseProject
 import subprocess
 import packaging.version
 
+class NoTagsException(Exception):
+    pass
+
 class RemoteProject(BaseProject):
     '''
     Base class for projects that need to synchronize code with an upstream source.
@@ -26,15 +29,18 @@ class RemoteProject(BaseProject):
         subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
         subprocess.call(["git", "fetch", "--all", "--depth=2"], cwd=self.builddir)
         subprocess.call(["git", "fetch", "--all", "--tags"], cwd=self.builddir)        
-        if hasattr(self, 'major_version'):
-            latest_tag = self.latest_tag()
-            print("Merging from upstream tag: {0}".format(latest_tag))
-            subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", latest_tag], cwd=self.builddir)
-        elif hasattr(self, 'upstream_branch'):
-            subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", f"project/{self.upstream_branch}"], cwd=self.builddir)
-        else:
-            raise AttributeError(
-                'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
+        try:
+            if hasattr(self, 'major_version'):
+                latest_tag = self.latest_tag()
+                print("Merging from upstream tag: {0}".format(latest_tag))
+                subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", latest_tag], cwd=self.builddir)
+            elif hasattr(self, 'upstream_branch'):
+                subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", "project/{0}".format(self.upstream_branch)], cwd=self.builddir)
+            else:
+                raise AttributeError(
+                    'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
+        except NoTagsException:
+            pass # do we care if there are no tags?
 
         # Do this last so it picks up all changes from above.
         self.package_update()
@@ -58,6 +64,6 @@ class RemoteProject(BaseProject):
         tag = next(iter(tags), None)
 
         if tag == None:
-            raise Exception('No upstream tag found to merge from.')
+            raise NoTagsException('No upstream tag found to merge from.')
 
         return tag

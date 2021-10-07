@@ -1,5 +1,6 @@
 import os
 import os.path
+from sys import stderr, stdout
 
 from template_builder.helpers.color import color
 
@@ -17,6 +18,15 @@ from requests.models import Response
 TEMPLATEDIR = os.getcwd()
 UPDATER_BRANCH_NAME = "update"
 UPDATER_SOURCEOP_NAME = "platform_update_dependencies"
+
+class CliException(Exception):
+    pass
+
+class CliNoActivitiesException(CliException):
+    pass
+
+class CliEnvironmentNotExistException(CliException):
+    pass
 
 class BaseProject(object):
     '''
@@ -78,11 +88,11 @@ class BaseProject(object):
         
         # look for integration
         if self.platform_path:
-            for integration in json.loads(subprocess.check_output([self.platform_path, "project:curl", "/integrations"])):
+            for integration in json.loads(subprocess.check_output([self.platform_path, "project:curl", "/integrations"]).decode("utf-8").strip()):
                 if integration.get("type") != "github":
                     continue
                 self.repo = integration["repository"]
-                print(f"integration found: {integration['repository']}")
+                print("integration found: {0}".format(integration['repository']))
                 self.use_integration = True
                 break
 
@@ -123,7 +133,7 @@ class BaseProject(object):
             name = self.github_name
         else:
             name = self.name.replace('_', '-')
-        subprocess.call(["git", "clone", f"git@github.com:platformsh-templates/{name}.git", self.builddir])
+        subprocess.call(["git", "clone", "git@github.com:platformsh-templates/{0}.git".format(name), self.builddir])
 
     def update(self):
         self.package_update()
@@ -198,10 +208,10 @@ class BaseProject(object):
 
     def run_tests(self, urls_to_test):
         # Delays execution by specified amount of seconds    
-        print(f"Delaying execution of tests by {self.TEST_DELAY} seconds.")
+        print("Delaying execution of tests by {0} seconds.".format(self.TEST_DELAY))
         time.sleep(self.TEST_DELAY)
 
-        print(f"Running {len(self.TEST_FUNCTIONS)} tests.")
+        print("Running {0} tests.".format(len(self.TEST_FUNCTIONS)))
         for test in self.TEST_FUNCTIONS:
             if isinstance(urls_to_test, list):
                 self.test_results[0] = urls_to_test
@@ -237,9 +247,9 @@ class BaseProject(object):
         responses = []
         for pull in pulls:
             if self.test_results.get(pull["number"]):
-                merge_url = f"{pulls_api_url}/{pull['number']}/merge"
+                merge_url = "{0}/{1}/merge".format(pulls_api_url, pull['number'])
                 response = requests.put(merge_url, headers=authorization_header)
-                self._print_and_flush(f"Merging pull request {merge_url}")
+                self._print_and_flush("Merging pull request {0}".format(merge_url))
                 
                 if response.status_code in [200, 204]: 
                     self._print_ok(" [MERGED]")
@@ -261,7 +271,7 @@ class BaseProject(object):
             if '.platform.app.yaml' in directory[2]:
                 for file, command in self.updateCommands.items():
                     if os.path.exists(os.path.join(directory[0], file)):
-                        subprocess.run(shlex.split(command), cwd=directory[0])
+                        subprocess.check_call(shlex.split(command), cwd=directory[0])
 
     def modify_composer(self, mod_function):
         """
@@ -312,29 +322,29 @@ class BaseProject(object):
                     print("Error retrieving build status of pull request {0} on Platform.sh".format(pull["url"]))
                     print(e)
 
-                print("Waiting for build for {0} to finish on Platform.sh...".format(pull["url"]))
+                print("Waiting for build {0} to finish on Platform.sh...".format(pull["url"]))
                 time.sleep(20)
             
-            print(f"Pull request {url} has finished building on Platform.sh.")
+            print("Pull request {0} has finished building on Platform.sh.".format(url))
             urls[pull["number"]] = url
         
         return urls
     
     def _reset_update_branch(self, token=None):
-        refs_api_url = f"https://api.github.com/repos/{self.repo}/git/refs"
+        refs_api_url = "https://api.github.com/repos/{0}/git/refs".format(self.repo)
 
-        self._print_and_flush(f"Resetting '{UPDATER_BRANCH_NAME}' branch")
+        self._print_and_flush("Resetting '{0}' branch".format(UPDATER_BRANCH_NAME))
         
         master_sha = subprocess.check_output([self.platform_path, "environment:info", "--environment", "master", "head_commit"]).decode("utf-8").strip()
         
-        body = {"ref": f"refs/heads/{UPDATER_BRANCH_NAME}", "sha": master_sha}
+        body = {"ref": "refs/heads/{0}".format(UPDATER_BRANCH_NAME), "sha": master_sha}
         response = requests.post(refs_api_url, headers=self._get_github_auth_header(token), data=json.dumps(body))
 
         if response.status_code == 201 or (response.status_code == 422 and response.json()['message'] == "Reference already exists"):
             return self._print_ok()
 
         # if we get here, it failed, show a bit of debug info
-        print(" [FAILED]")
+        self._print_failed()
         print(response.content)
         return False
 
@@ -364,34 +374,34 @@ class BaseProject(object):
         color.print(color.red, txt)
         return False
     
-    def _wait_until_environment_is_ready(self, env, wait_time=15):
+    def _wait_until_environment_is_ready(self, env, wait_time=30):
         self._print_and_flush("Wait until environment '{0}' is ready...".format(env))
         
         # Using an internal function so I can better handle the loop and failures
         def _wait_and_check(env, wait_time, fail_counter=0):
             time.sleep(wait_time)
 
-            try:
-                # platform activity:list -e "$ENV_NAME" --incomplete --format=csv | wc -l
-                lines = subprocess.run([self.platform_path, "activity:list", "--environment", env, "--incomplete", "--format=csv"], capture_output=True, check=True).stdout.decode("utf-8").strip().splitlines()
-                
-            except subprocess.CalledProcessError as e:
-                if(e.stderr.decode("utf-8").strip() == "No activities found"):
+            # platform activity:list -e "$ENV_NAME" --incomplete --format=csv | wc -l
+            p = subprocess.run([self.platform_path, "activity:list", "--environment", env, "--incomplete", "--format=csv"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            if p.stdout:
+                lines = p.stdout.decode("utf-8").strip().splitlines()
+                # Check if env is dirty, and wait a few seconds before rechecking        
+                while (len(lines) > 0):
+                    self._print_and_flush(".")
+                    return _wait_and_check(env, wait_time, fail_counter)
+
+            else:
+                if(p.stderr.decode("utf-8").strip() == "No activities found"):
                     return True
                 
                 self._print_and_flush('F')
                 # If we get an error code, chances are that we don't have the environment created yet (possible that the integration didnt push it yet)
                 if fail_counter > 3:
                     self._print_failed()
-                    print(e.stderr)
-                    raise Exception("Environment doesn't seem to exist.")
+                    raise CliEnvironmentNotExistException("Environment doesn't seem to exist.")
                 return _wait_and_check(env, wait_time, fail_counter+1)
+       
             
-            # Check if env is dirty, and wait a few seconds before rechecking        
-            while (len(lines) > 0):
-                self._print_and_flush(".")
-                return _wait_and_check(env, wait_time, fail_counter)
-
         if _wait_and_check(env, wait_time):
             self._print_ok()
                 
@@ -401,14 +411,22 @@ class BaseProject(object):
 
         try:
             self._wait_until_environment_is_ready(UPDATER_BRANCH_NAME)
+        except CliEnvironmentNotExistException as e:
+            print("")
+            print("Environment {0} doesn't exist yet, please create the branch first with the following command: ".format(UPDATER_BRANCH_NAME))
+            print("  platform environment:branch {0} --force --no-clone-parent -e master --wait --yes".format(UPDATER_BRANCH_NAME))
+            return
         except Exception as e:
-            print(f"Environment {UPDATER_BRANCH_NAME} doesn't exist yet, please create the branch first with the following command: ")
-            print(f"  platform environment:branch {UPDATER_BRANCH_NAME} --force --no-clone-parent -e master --wait --yes")
+            import sys, traceback
+            print(e)
+            traceback.print_exc(file=sys.stdout)
             return
 
-        print(f"Activating environment '{UPDATER_BRANCH_NAME}'")
-        subprocess.run([self.platform_path, "environment:activate", UPDATER_BRANCH_NAME, "--yes", "--wait"]) # platform environment:activate update --yes;
-        self._run_source_operation(UPDATER_BRANCH_NAME)
+        print("Activating environment '{0}'".format(UPDATER_BRANCH_NAME))
+        subprocess.check_call([self.platform_path, "environment:activate", UPDATER_BRANCH_NAME, "--yes", "--wait"]) # platform environment:activate update --yes;
+        if not self._run_source_operation(UPDATER_BRANCH_NAME):
+            return
+
         self._wait_until_environment_is_ready(UPDATER_BRANCH_NAME)
         
         # we need to stop on a failure 
@@ -428,11 +446,11 @@ class BaseProject(object):
     def _run_source_operation(self, branch_name):
         self._print_and_flush("Running source operation '{0}' on environment '{1}'".format(UPDATER_SOURCEOP_NAME, branch_name))
         
-        try: 
-            subprocess.run([self.platform_path, "source-operation:run", UPDATER_SOURCEOP_NAME, "--environment", branch_name, "--wait"], capture_output=True, check=True) # platform source-operation:run update --environment update;
-        except subprocess.CalledProcessError as e:
+        p = subprocess.run([self.platform_path, "source-operation:run", UPDATER_SOURCEOP_NAME, "--environment", branch_name, "--wait"], stderr=subprocess.PIPE, stdout=subprocess.PIPE) # platform source-operation:run update --environment update;
+        
+        if p.returncode != 0 and p.stderr:
             self._print_failed()
-            print(e.stderr.decode("utf-8").strip())
+            print(p.stderr.decode("utf-8").strip())
             return False
         
         return self._print_ok()
@@ -440,7 +458,7 @@ class BaseProject(object):
     def _get_github_auth_header(self,token=None):
         self._set_github_token(token)
 
-        return {"Authorization": f"token {self.github_token}"}
+        return {"Authorization": "token {0}".format(self.github_token)}
 
 
 

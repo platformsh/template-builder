@@ -1,30 +1,32 @@
 <br />
+<!-- Platform.sh logo left -->
 <p align="left">
     <a href="https://platform.sh">
         <img src="https://platform.sh/logos/redesign/Platformsh_logo_black.svg" width="150px">
     </a>
 </p>
 <br /><br />
+<!-- Template logo -->
 <p align="center">
     <a href="https://github.com/metabase/metabase">
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='225' height='137.47'%3E%3Cg %3E%3Cpath d='M179.92 86.75a16.19 16.19 0 0 1-2.7-.87 6 6 0 0 1-1.48-.92 1.06 1.06 0 0 1-.37-1c.42-4.38 0-8.23.37-12.57 1.74-17.57 12.8-12 22.71-14.88 5.7-1.6 11.4-4.76 13.48-11a3 3 0 0 0-.67-2.93 127 127 0 0 0-21.51-19.51C163.55 4.48 129.49-3.27 98.21 1.26a1.63 1.63 0 0 0-1.16 2.49 48.26 48.26 0 0 0 15.18 14.93c1.09.67.65 2.13-.6 1.85a29 29 0 0 1-10.26-4.45 1.28 1.28 0 0 0-1.18-.15c-1.58.63-3.88 1.55-5.77 2.37A1.57 1.57 0 0 0 94 21a48.09 48.09 0 0 0 56.46 4.79 1.84 1.84 0 0 1 2.54 1.88c-.56 2-1.22 4.67-1.92 8.35-4.44 22.45-17.23 20.71-33.07 15C86.31 39.6 68.36 49.4 52.4 30a3.09 3.09 0 0 0-4.4-.67 15.19 15.19 0 0 0-5.22 11.47 15 15 0 0 0 6.75 12.49 1.15 1.15 0 0 0 1.55-.29 9 9 0 0 1 2.79-2.59c1.1-.57 1.63 1 .71 1.82-3.39 3-4.37 6.57-6.58 13.62-3.48 11.06-2 22.37-18.28 25.33-8.61.43-8.44 6.26-11.57 15-3.64 10.51-8.4 15.16-17.21 24.34a3 3 0 0 0 0 4.39 9.75 9.75 0 0 0 10.84 1.64C20.93 132.7 28 120.86 34.6 113.2c7.4-8.53 25.14-4.87 38.55-13.2 7.22-4.44 11.57-10.1 10.18-18.58-.23-1.36 1.34-2.18 1.9-.92a25.44 25.44 0 0 1 2.08 7.6 1.31 1.31 0 0 0 1.39 1.16c14.5-.81 33.25 15.18 50.77 19.5a1.2 1.2 0 0 0 1.22-1.88 32.24 32.24 0 0 1-2.8-5.23 35.54 35.54 0 0 1-1.78-5.41c-.32-1.36 1.67-1.73 2.35-.5a32.33 32.33 0 0 0 26 16.61 37.39 37.39 0 0 0 13.84-1.65c5.83-1.74 11.22-4 17.66-2.79a18.21 18.21 0 0 1 12 7.4c3.91 5.7 12.16 7.21 16.55 1.25a2.87 2.87 0 0 0 .26-2.82c-9.71-22.74-34.28-24.26-44.85-26.99z' style='fill:%23172940;fill-rule:evenodd' /%3E%3C/g%3E%3C/svg%3E" alt="Logo" width="225" height="137.47">
     </a>
 </p>
+<!-- Template title -->
 <br/><br/>
 <h2 align="center">Deploying Directus on Platform.sh</h2>
+<!-- Template info -->
 <br/>
 <p align="center">
-    <strong>Contribute to the Platform.sh knowledge base, or check out our resources</strong>
-    <br />
-    <br />
+    <strong><em>Contribute to the Platform.sh knowledge base, or check out our resources</em></strong>
+</p>
+<p align="center">
     <a href="https://community.platform.sh"><strong>Join our community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://docs.platform.sh"><strong>Documentation</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://platform.sh/blog"><strong>Blog</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Request a feature</strong></a>
-    <br /><br />
 </p>
-
 <p align="center">
     <!-- <a href="https://github.com/platformsh-templates/directus/network/members">
         <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
@@ -54,57 +56,45 @@
     <a href="https://github.com/platformsh-templates/metabase/stargazers">
         <img src="https://img.shields.io/github/stars/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
     </a> -->
-    <br /><br />
+</p>
+<!-- Deploy on Platform.sh button -->
+<br />
+<p align="center">
     <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/metabase/.platform.template.yaml&utm_content=metabase&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
-        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="175px" />
+        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="200px" />
     </a>
 </p>
-</p>
+<br/><br/>
+<!-- <hr> -->
+<!-- <br/><br/> -->
 
-<hr>
-<br />
-<h2 align="center"><strong>Contents</strong></h2>
+This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.
 
+Directus is an open-source platform that allows you to create and manage an API from data stored in a database.
 
-- [About this project](#about-this-project)
-  - [Features](#features) 
+## Features
+
+* Node.js 12
+* PostgreSQL 12
+* Redis 6.0
+* Automatic TLS certificates
+* npm-based build
+
+## Contents
+
 - [Getting started](#-getting-started-)
-  - [Deploying](#deploying)
-  - [Post-install](#post-install)
 - [Customizations](#customizations)
-  - [Configuration](#configuration)
-  - [Builds and deploys](#builds-and-deploys)
-  - [Upstream modifications](#upstream-modifications)
 - [About Platform.sh](#about-platformsh)
 - [Usage](#usage)
-  - [Logs](#logs)
-  - [Local development](#local-development)
-  - [Updating](#updating)
-  <!-- - [Customization](#customization)
-  - [Performance](#performance) -->
 - [Migrating](#migrating)
 - [License](#license)
 - [Contact](#contact)
 - [Resources](#resources)
 - [Contributors](#contributors)
 
-<hr>
+<br/><hr><br/>
 
-<br />
-<h1>About this project </h1>
-
-<div>
-    <p>This template builds Metabase for Platform.sh.</p>
-    <p>Metabase is a simple and powerful analytics tool which lets anyone learn and make decisions from their company’s data. The Metabase jar file is downloaded on the fly during the build hook based on the version provided in the application's configuration.</p>
-</div>
-
-## Features
-
-- Java 11
-- PostgreSQL 13
-- Automatic TLS certificates
-- Automatic Java heap size configuration
-- Automatic upstream updates via Source Operations
+# Getting started
 
 <br />
 <h1>Getting started </h1>

@@ -6,6 +6,7 @@
 </a>
 </p>
 
+
 This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.
 
 Directus is an open-source platform that allows you to create and manage an API from data stored in a database.

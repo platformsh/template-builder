@@ -22,6 +22,7 @@
     <strong><em>Contribute to the Platform.sh knowledge base, or check out our resources</em></strong>
 </p>
 <p align="center">
+    <a href="#about-platformsh"><strong>About Platform.sh</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://community.platform.sh"><strong>Join our community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://docs.platform.sh"><strong>Documentation</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://platform.sh/blog"><strong>Blog</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

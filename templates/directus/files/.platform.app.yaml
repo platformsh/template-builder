@@ -1,35 +1,97 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
+# ######################################################################################################################
+# 
+# Directus for Platform.sh                                
+# 
+# ABOUT THIS PROJECT
+# 
+# This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run
+# with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.    
 #
-# See https://docs.platform.sh/configuration/app.html
-
-# The name of this app. Must be unique within a project.
-name: app
-
-# The runtime the application uses.
-type: nodejs:12
-
-# The relationships of the application with services or other applications.
+# Directus is an open-source platform that allows you to create and manage an API from data stored in a database. 
 #
-# The left-hand side is the name of the relationship as it will be exposed
-# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
-# side is in the form `<service name>:<endpoint name>`.
-relationships:
-    database: "dbpostgres:postgresql"
-    rediscache: "cacheredis:redis"
-    redisratelimit: "ratelimitredis:redis"
-
-# The hooks that will be triggered when the package is deployed.
+# ######################################################################################################################
+# 
+# ABOUT THIS FILE: Application container configuration (.platform.app.yaml)
+#
+# This file defines how Directus is built and deployed within a single application container. It is possible to have 
+# multiple application containers running in a single environment, but at least one is required.
+#
+# Contents:
+#   * Pre-build definitions:    Setting up the application container.
+#   * Build and deploy:         Configuring repeatable builds and final deployments.
+#   * Service access:           Enable access to other containers by defining relationships.
+#   * Web:                      Declare how the application handles requests.
+#   * Storage:                  Define directories that require write access at runtime, and the resources available 
+#                               to them.
+#   * Scheduled tasks:          Application and maintenance cron jobs.
+#   * Source                    Define operations that can be performed on the codebase and code location.   
+#
+# Documentation:
+#   * Application container docs: https://docs.platform.sh/configuration/app.html
+#   * Builds & deploys: https://docs.platform.sh/overview/build-deploy.html
+#
+# Provide feedback:
+#   * Report a bug: https://github.com/platformsh-templates/directus/issues/new
+#
+# ######################################################################################################################
+#  
+# PRE-BUILD DEFINITIONS
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.                                                                                 
+#                                                                                                                     
+# name (required):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+name: directus
+#      
+# type (required):
+# The `type` key defines the base container image that will be used to run the application. 
+type: nodejs:14
+# ######################################################################################################################
+#  
+# BUILD AND DEPLOY
+# 
+# Every time you push to a live branch (a git branch with an active environment associated with it), each application
+# goes through a build and deploy pipeline. 
+#   * The build process validates and reads from the branch's configuration files, assembling the necessary containers.
+#   * The deploy process takes those containers live, replacing the previous versions, with virtually no interruption
+#     in service.
+# For more information, please consult the "Build & Deploy" documentation: https://docs.platform.sh/overview/build-deploy.html.                                                                  
+#                                                                                                                     
+# hooks (optional):
+# Platform.sh provides three primary hooks through which you can interact with an application container. Each stage has
+# different levels of access to the file system, or to other containers in the environment's cluster.
+# Each hook is executed as a single script. By including `set -e` as the first line in those scripts, the hook will fail 
+# at any point a line in your script fails. 
+#   * Note: What is declared in the `build` and `deploy` hooks in this file defines a unique slug (along with the environment's
+#     configuration) and as a result a unique build image. If your `build` and `deploy` hooks are not changed between commits, 
+#     then that unique build image will be reused on that second commit. This feature ensures repeatable builds between 
+#     pushes, during branching, and on merge commits. "Redeploying" an environment will in effect only re-run the
+#     `post_deploy` hook if defined.  
+#   * Note: The `hooks` attribute is optional, so long as you have defined `web.start.command` in this file.
+#   * Note: All hooks are running using `dash`, rather than bash. In most cases this will make no difference in your scripts,
+#     but there will be occasional inconsistencies regarding syntax.  
 hooks:
+    # build:
+    # The `build` hook is meant to describe your application's build process before it has been started. At this point, 
+    # no services (i.e. database) are available to the build container, nor are any of the writable data directories
+    # you define in `mounts`. Any variables used to communicate with service containers are likewise unavailable at 
+    # this point. There are no constraints on what can be downloaded during your build hook, other than the amount of
+    # disk available at that time (4GB). At this stage, your commands have full write access to the file system which 
+    # you can use to create your builds.
     build: |
         set -e
-        # Copy committed extensions and uploads to tmp directories so not overwritten by mount.
-        if [ -d extensions ]; then
-            mkdir extensions-tmp && mv extensions/* extensions-tmp
-        fi
-        if [ -d uploads ]; then
-            mkdir uploads-tmp && mv uploads/* uploads-tmp
-        fi
+    # deploy:
+    # The `deploy` hook is run after the application container has been started (See `web.start.commands`), but before
+    # it has started accepting requests. At this stage, the application container has access to other services in the 
+    # cluster, however the file system becomes read-only from this point forward. Between deployments, requests are held
+    # temporarily at the Router layer by Platform.sh, which means that for a deploy hook running only a few seconds, a
+    # request will only appear to take a few extra seconds. Should this hook grow in length, there is some risk of dropped
+    # connections. The deploy hook is a useful stage for running database schema updates and cache clearing tasks. Results
+    # of the `deploy` hook are available in the `/var/log/deploy.log` log file within the container.
     deploy: |
         set -e
         # Installs the database and sets up the initial admin user. Only run on first deploy.
@@ -49,32 +111,87 @@ hooks:
             # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
         fi;
-        # Copy committed extensions and uploads back onto writable mounts.
-        if [ -d extensions-tmp ]
-        then
-            cp -r extensions-tmp/* extensions
-        fi
-        if [ -d uploads-tmp ]
-        then
-            cp -r uploads-tmp/* uploads
-        fi
-
-# Start the Directus server. 
+    # post_deploy:
+    # The `post_deploy` hook is similar to the `deploy` hook, but takes place after the container has started 
+    # accepting connections. It will run concurrently with normal incoming traffic. This stage can be useful for tasks
+    # such as content imports, potentially from some backend decoupled CMS within the same Platform.sh project. The
+    # results of the `post_deploy` hook are available in the `/var/log/post_deploy.log` log file within the container. 
+    post_deploy: |
+        set -e
+# ######################################################################################################################
+#  
+# SERVICE ACCESS
+#     
+# An environment on Platform.sh is a virtual cluster of containers, defined by your configuration files. During the 
+# build phase of your environment, these containers exist independently and cannot exchange data. From the deploy phase
+# onward, access to other service and runtime container is possible, but will not be accessible until it is made 
+# explicit in your configuration by defining `relationships` to them.                                                                                
+#                
+# relationships (optional):
+# The `relationships` block defines how services are mapped within your application. By default, an application may not
+# talk to another container until a relationship to it is defines. Each relationship is given a name, which designated
+# how that container will be visible from within the application container. For example, it would be possible to place
+# an internal request to a PostgreSQL database with the relationship name `database` during the deploy hook with the 
+# command `curl http://database.internal`. Credentials to connect to that `database` container are available from the 
+# base64 encoded JSON object `PLATFORM_RELATIONSHIPS` environment variable. The right-hand side of the relationship
+# definition is in the form `<service_name>:<endpoint_name>`. Be sure to consult the individual service documentation
+# for the service you are trying to use for details here (https://docs.platform.sh/configuration/services.html).
+relationships:
+    database: "dbpostgres:postgresql"
+    rediscache: "cacheredis:redis"
+    redisratelimit: "ratelimitredis:redis"
+# ######################################################################################################################
+#  
+# WEB
+#     
+# After you have defined your build and deploy, it may be necessary to further define how the web server process (Nginx)
+# in front of your application is configured.                                                                                
+#                                                                                                                     
+# web (optional):
+# The `web` key configures the Nginx web server, including what requests should be served directly (such as static files),
+# and which should be passed to your application. It defines how the application is exposed to the web, how it serves 
+# content, front-end controller scripts, index files, index scripts, and so on. 
 web:
+    # commands:
+    # Defines commands for starting the application. At this point there is only a single command available: `start`. 
     commands:
-        start: npx directus start    
-
-# The size of the persistent disk of the application (in MB).
+        # start:
+        # Specifies the command to use to launch the application. If the command specified terminates, it will be 
+        # restarted automatically. This command is run every time the application is restarted, regardless of whether
+        # or not new code is deployed. 
+        #   * Note: while `web` and `commands.start` are themselves optional, a start command OR a deploy hook must be
+        #     defined. 
+        start: npx directus start
+# ######################################################################################################################
+#  
+# STORAGE
+#     
+# The built file system image that results from your build process is mounted read-only. This means that the deployed 
+# image cannot be edited in production, even accidently. Many applications still require the ability to write and store
+# files, however, and for this more mount points are needed. That is, there will need to be additional directories
+# mounted from a writable network file system cluster. They may be mounted anywhere within the file system of your app.                                                                                 
+#                                                                                                                     
+# disk (optional):
+# `disk` defines the amount of persistant storage reserved for writable data in your application container. It is an 
+# optional configuration, but has a minimum value of 256 MB if set. Your plan storage size specifies the maximum total 
+# space available to ALL applications and services in the cluster, of which this is only one part of the final total. 
+#   * Note: `disk` itself is optional, but becomes a required key once you being defining `mounts`.
 disk: 1024
-
-# Platform.sh write access at runtime.
+#
+# mounts (optional):
+# The `mounts` key defines paths relative to the root of the application that will have write-access at runtime. 
+# Configuring individual mounted directories requires at least two additional definitions besides its path:
+#   * `source`: specifies the location of the mount. For "basic" mounts (accessible to a single app container), 
+#     "local" is the required value. Mounts accessible by multiple containers would use the value "service", and
+#     requires the additional configuration of a Network Storage service container. Consult the docs for more 
+#     information (https://docs.platform.sh/configuration/services/network-storage.html).
+#   * `source_path`: specifies the subdirectory the mount points at (i.e. `/mnt/<source_path>`). It is not necessary
+#     that `source_path` and the mount path are the same, but it can be useful to do so anyways. 
+# Whether or not a mounted directory is web-accessible depends on the configuration of the `web.locations` block.
+#   * Note: If the specified directory already exists, the contents of it will be masked by the writable mount and 
+#     inaccessible at runtime.
 mounts:
-    'extensions':
-        source: local
-        source_path: extensions
-    'uploads':
-        source: local
-        source_path: uploads
+    # Directory to track first deploy.
     'var':
         source: local
         source_path: var

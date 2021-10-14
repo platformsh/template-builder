@@ -11,8 +11,8 @@
     </a>
 </p>
 <br/><br/>
-<h1 align="center">Deploying Directus on Platform.sh</h1>
-
+<h2 align="center">Deploying Directus on Platform.sh</h2>
+<br/>
 <p align="center">
     <strong>Contribute to the Platform.sh knowledge base, or check out our resources</strong>
     <br />
@@ -54,7 +54,7 @@
     <a href="https://github.com/platformsh-templates/metabase/stargazers">
         <img src="https://img.shields.io/github/stars/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
     </a> -->
-    <br /><br /><br />
+    <br /><br />
     <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/metabase/.platform.template.yaml&utm_content=metabase&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
         <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="175px" />
     </a>

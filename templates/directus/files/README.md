@@ -26,9 +26,9 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/platformsh-templates/directus/network/members">
+    <!-- <a href="https://github.com/platformsh-templates/directus/network/members">
         <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
-    </a>&nbsp&nbsp
+    </a>&nbsp&nbsp -->
     <a href="https://github.com/platformsh-templates/directus/issues">
         <img src="https://img.shields.io/github/issues/platformsh-templates/metabase.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
     </a>&nbsp&nbsp

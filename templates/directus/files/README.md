@@ -84,7 +84,6 @@ Directus is an open-source platform that allows you to create and manage an API 
 
 - [Getting started](#-getting-started-)
 - [Customizations](#customizations)
-- [About Platform.sh](#about-platformsh)
 - [Usage](#usage)
 - [Migrating](#migrating)
 - [License](#license)
@@ -130,232 +129,50 @@ Once you have run the above command, Platform.sh will validate and then mirror y
 
 ## Post-install instructions
 
+This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user has been added to allow you to log in. Those credentials are set (along with many other Platform.sh-specific settings) in the `.environment` file:
 
-
-<details>
-<summary><strong>Deploy manually</strong></summary><br />
-
-If you would instead to deploy this template from your command line, you can do so through the following steps.
-
-> **Note:**
->
-> If you do not already have a Platform.sh account, you will need to [start a free trial](https://accounts.platform.sh/platform/trial/general/setup) before creating a new project.
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/platformsh-templates/metabase
-   ```
-
-2. Install the Platform.sh CLI:
-
-   ```bash
-   curl -sS https://platform.sh/cli/installer | php
-   ```
-
-3. Create a new project:
-
-   ```bash
-   cd metabase && platform project:create
-   ```
-
-4. Set the project as a remote for the repository (prompt):
-
-   ```bash
-   Set the new project Metabase as the remote for this repository? [Y/n]   Y
-   ```
-
-   Once you have verified the project creation steps, you will receive some additional information about the project.
-
-   ```text
-   The Platform.sh Bot is activating your project
-
-       ▄     ▄
-       ▄█▄▄▄█▄
-     ▄██▄███▄██▄
-     █ █▀▀▀▀▀█ █
-        ▀▀ ▀▀
-
-   The project is now ready!
-   <PROJECT ID>
-
-   Region: <PROJECT REGION>.platform.sh
-   Project ID: <PROJECT ID>
-   Project title: Metabase
-   URL: https://console.platform.sh/<USERNAME>/<PROJECT ID>
-   Git URL: <PROJECT ID>@git.<PROJECT REGION>.platform.sh:<PROJECT ID>.git
-
-   Setting the remote project for this repository to: Metabase (<PROJECT ID>)
-   ```
-
-5. Push to Platform.sh:
-
-   ```bash
-   git push platform main
-   ```
-
-</details>
-
-## Post-install
-
-After the first deployment, give the JVM a minute to finish completing it's initialization tasks (until it does, you will see a 502 error page.) which take only a minute or so. Run through the Metabase installer as normal. You will not be asked for database credentials, as those are already provided via the [`.environment`](.environment) that is sourced during the deploy hook. With the installer you will be able to create admin credentials and choose your language.
-
-The installer will allow you to add databases. Configure the database you are trying to connect, or skip that step and Metabase will load an H2 Sample Dataset to start off with.
-
-<br />
-<h1>Customizations </h1>
-
-**Some more general explanation of why these files are necessary additions to replicate**
-
-The following files have been added in order to download Metabase during the build hook and to deploy the application on Platform.sh. If using this template as a reference for your own project, replicate the changes below.
-
-### Configuration
-
-Every application you deploy on Platform.sh is built as a **virtual cluster** containing a set of containers which defines a particular **environment**. The default branch (`master`, `main`, etc.) is always deployed as your production environment, whereas any other branch can be deployed as a development environment.
-Within an environment there are three types of containers, each of which are managed by three required files that have been included in this repository:
-
-<details>
-<summary><strong>The Router container (<code>.platform/routes.yaml</code>)</strong></summary><br />
-
-For each cluster/environment there will always be exactly one Router container, which is a single nginx process. It's configuration file [**`.platform/routes.yaml`**](.platform/routes.yaml) defines how incoming requests map the the appropriate Application container, while providing basic caching of responses if so configured. The Router Container has no persistent storage.
-
-**Metabase**
-
-For Metabase, two routes have been defined. One `upstream` route directs requests directly to the Metabase application container at the `www` subdomain, which defined by the `upstream` value `"app:http"`. Notice that the application container name `app` is matched in the `name` attribute in [`.platform.app.yaml`](.platform.app.yaml).
-
-```yaml
-'https://www.{default}/':
-  type: upstream
-  upstream: 'app:http'
-
-'https://{default}/':
-  type: redirect
-  to: 'https://www.{default}/'
+```txt
+# Initial admin user on first deploy.
+export INIT_ADMINUSER='admin@example.com'
+export INIT_ADMINPW='password'
 ```
 
-There is also a `redirect` route configured, which automatically redirects all request to the `www` subdomain upstream route.
+After you log in for the first time, be sure to update this password immediately. 
 
-<!-- **Some second application** -->
+# Customizations
 
-A `{default}` placeholder is included on all defined routes. This placeholder will be replaced with the production domain name configured for your project's production branch, and will be substituted with a unique generated domain for each of your development environments based on the region, project ID, and branch name.
+The following files and additions allow Directus to build and deploy on Platform.sh, placed on top of the basic quickstart project (`npx create-directus-project`). If using this project as a reference for your own existing project, replicate the changes below to your code. 
 
-</details>
+## Changes to the codebase
 
-<details>
-<summary><strong>Service containers (<code>.platform/services.yaml</code>)</strong></summary><br />
+- **`.gitignore`**: A `.gitignore` file has been added to the Directus starter project, as it was not already included. It's contents prevent you from committing sensitive information in your `.env` file and SQLite database, as well as your dependencies.
 
-Each virtual cluster can have zero or more Service containers, but the file which configures them [**`.platform/services.yaml`**](.platform/services.yaml) is still required in your repository. Each top level key in that file will correspond to a separate Service container, with the kind of service determined by its `type`.
+## Platform.sh configuration
 
-For Metabase's primary database, a single PostgreSQL service container has been added, identifiable by the service name `db`. Notice that in order for the application container to be granted access to this service it's necessary that a [**relationship**](https://docs.platform.sh/configuration/app/relationships.html) is defined in [`.platform.app.yaml`](.platform.app.yaml).
+Platform.sh is able to build and deploy projects by detecting configuration in a few files, which have been added to the starter repository. View the comments in the individual files, as well as the linked documentation below, for more details.
 
-```yaml
-# .platform.app.yaml
+- **`.platform/routes.yaml`**: This file defines how requests are handled by a [Router container](https://docs.platform.sh/configuration/routes.html).
+- **`.platform/services.yaml`**: This file defines which of Platform.sh's [managed service containers](https://docs.platform.sh/configuration/services.html) are included alongside the template. 
+- **`.platform.app.yaml`**: This file defines how Directus is built and deployed within a single [application container](https://docs.platform.sh/configuration/app.html).
+- **`.environment`**: This file provides Platform.sh-specific environment variable overrides from the generated default `.env` settings for Directus and PostgreSQL. It also sets an initial username and password for an admin user. On Platform.sh, a `.env` file is required to configure Directus but is not committed (see below) in this project. Rather, at build time Directus's `example.env` file (`node_modules/directus/example.env`) is renamed in its place with a set of standard defaults which are then overridden by `.environment`. Consult this file locally, and then override with your own settings in `.environment` when appropriate. 
 
-relationships:
-  database: 'db:postgresql'
-```
+## Community and issues
 
-With this relationship defined, the database will now be made accessible to the application on the internal network at `database.internal` with its credentials visible within the [`PLATFORM_RELATIONSHIPS`](https://docs.platform.sh/configuration/services/postgresql.html#relationship) environment variable, which is a base64-encoded JSON object. Along with a number of other Metabase-specific environment variables, service credentials are set within the [`.environment`](.environment) file, which is sourced in the application root when the environment starts as well as when logging into that environment over SSH. You will notice that this file leverages [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor that comes pre-installed on all application containers.
+A `.github` subdirectory for handling issue templates, as well as our `CODE_OF_CONDUCT` and `CONTRIBUTING` guides have been added.
 
-</details>
+# About Platform.sh
 
-<details>
-<summary><strong>Application containers (<code>.platform.app.yaml</code>)</strong></summary><br />
+Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. Some of its key features include:
 
-There must always be one Application container in your cluster, but there [may be more](https://docs.platform.sh/configuration/app/multi-app.html). It is from this file that you are able to define the container's runtime language and version, it's relationships to other containers, and how it is [built and deployed](#builds-and-deploys).
+- **Infrastructure-as-code**: All of your services can be defined in a set configuration files described above and committed to your repository. These files are committed, such that your infrastructure becomes another dependency of your application like any other, and so that every branch is capable of inheriting the identical infrastructure used in production.
+- **Development environments**: Every project has a live production site, but the concept of branching your repository has been extended to the provisioning of staging and development infrastructure. Every branch can become an active, deployed environment, that contains the same infrastructure as production until you explicitly change its configuration. Each environment receives its own unique preview URL, automatically renewed Let's Encrypt certificates, as well as scoped access permissions and environment variables. Environments exist in isolation from production: they are exact copies with fresh containers that cannot affect the production site. During the branching process, a development environment also receives copies of all production data at the time of the branching. You are free to use that data for your tests, and can resync to more current data at any time. 
+- **Reusuable builds**: The build and deploy tasks defined in your configuration are committed, and Platform.sh is capable to define infrastructure provisioning requirements for a particular commit to the same differences that define the Git protocol. That is to say, a single commit is associated with a unique build image. If the build and deploy stages of your pipeline remain undefined between commits, that unique build image is reused on that second commit. This makes branching to a new development environment on Platform.sh possible, and also virtually removed any concern associated with merging a particular commit into production. When the merge is initiated, it isn't necessary to run through the build and deploy again and risk failure. The build image has already been created and defined on an identical development environment, so it can simply be reused on production from then on.
+- **Managed infrastructure**: Every service and runtime container can be specified at the minor version level by an appropriate and supported `type` attribute, while security and patch updates are applied automatically in the background by Platform.sh between deployments when they become available.
+- **DevOps for Fleets of sites**: The Platform.sh API extends past single projects. It is possible to define your own upstream template repositories that are used to initialize a Fleet of of websites. There are also definable operations and activity notification scripts that can be used to fully manage hundreds of applications under the same logic and assurances of a single project. 
 
-Every project you deploy on Platform.sh exists on a writable file system at build time, but it will become read-only once it enters the deploy phase (see [Builds and deploys](#builds-and-deploys)) for more information. Because of this, any directories that require write access to the file system at runtime must be declared as `mounts`, and must include the `disk` attribute that defines the available disk space for the data in these directories.
-
-**Metabase**
-
-For Metabase, the `temp` and `data` directories are required in order to load the example dataset that comes with Metabase. Since the upstream jar file is unpacked during the start command, which includes writing a number of plugins to the filesystem, `plugins` will also be a mounted directory.
-
-```yaml
-# The name of this application, which must be unique within a project.
-name: app
-
-# The type key specifies the language and version for your application.
-type: java:11
-```
-
-Metabase's `.platform.app.yaml` file has a `type` specified such that Java 11 will be the container's primary runtime language. This container is accessible to the rest of the cluster by the name `app`, which you will notice is also the name used in defining Metabase's `upstream` route in `.platform/routes.yaml`.
-
-<!-- **Some second application** -->
-
-The `.platform.app.yaml` file comes with many more features than are described here, so visit the [**Configure your application**](https://docs.platform.sh/configuration/app.html) section of the documentation for more details.
-
-</details>
-
-### Builds and deploys
-
-Every time you push to a live branch (a git branch with an active environment attached to it) or activate an [environment](https://docs.platform.sh/administration/web/environments.html) for a branch, there are two main processes that happen: Build and Deploy.
-
-1. The build process looks through the configuration files in your repository and assembles the necessary containers.
-2. The deploy process makes those containers live, replacing the previous versions, with virtually no interruption in service.
-
-<p align="center">
-    <a href="https://docs.platform.sh/overview/build-deploy.html">
-        <img src="https://docs.platform.sh/images/workflow/build-pipeline.svg" alt="Build & deploy">
-    </a>
-</p>
-
-### Upstream modifications
-
-At this time, Platform.sh's Metabase template does not include any of the upstream code in this repository. The Metabase `jar` file is installed during the build hook according to the version defined in a [`metabase.version`](metabase.version) file.
-
-<br />
-<h1>About Platform.sh </h1>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. 
-
-<details>
-<summary><strong>Overview</strong></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel. 
-
-Nulla ornare, nisl et vehicula convallis, felis arcu sagittis nibh, luctus faucibus nunc magna sed est. Proin blandit porta ligula. Ut euismod lectus eu tincidunt blandit. Nulla nec urna sit amet felis facilisis volutpat. Vestibulum sed lectus vulputate, dapibus leo sit amet, porta mi. Maecenas ac convallis eros, id efficitur quam. Nunc ornare tristique eleifend. Donec consectetur, eros in hendrerit cursus, velit erat pretium sem, ac viverra ligula odio nec odio. Vestibulum sit amet tellus tempor tellus faucibus laoreet sit amet in tortor.
-
-</details>
-
-<details>
-<summary><strong>Projects</strong></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel. 
-
-Nulla ornare, nisl et vehicula convallis, felis arcu sagittis nibh, luctus faucibus nunc magna sed est. Proin blandit porta ligula. Ut euismod lectus eu tincidunt blandit. Nulla nec urna sit amet felis facilisis volutpat. Vestibulum sed lectus vulputate, dapibus leo sit amet, porta mi. Maecenas ac convallis eros, id efficitur quam. Nunc ornare tristique eleifend. Donec consectetur, eros in hendrerit cursus, velit erat pretium sem, ac viverra ligula odio nec odio. Vestibulum sit amet tellus tempor tellus faucibus laoreet sit amet in tortor.
-
-</details>
-
-<details>
-<summary><strong>Builds</strong></summary><br />
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel. 
-
-Nulla ornare, nisl et vehicula convallis, felis arcu sagittis nibh, luctus faucibus nunc magna sed est. Proin blandit porta ligula. Ut euismod lectus eu tincidunt blandit. Nulla nec urna sit amet felis facilisis volutpat. Vestibulum sed lectus vulputate, dapibus leo sit amet, porta mi. Maecenas ac convallis eros, id efficitur quam. Nunc ornare tristique eleifend. Donec consectetur, eros in hendrerit cursus, velit erat pretium sem, ac viverra ligula odio nec odio. Vestibulum sit amet tellus tempor tellus faucibus laoreet sit amet in tortor.
-
-</details>
-
-<details>
-<summary><strong>Deploys</strong></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel. 
-
-Nulla ornare, nisl et vehicula convallis, felis arcu sagittis nibh, luctus faucibus nunc magna sed est. Proin blandit porta ligula. Ut euismod lectus eu tincidunt blandit. Nulla nec urna sit amet felis facilisis volutpat. Vestibulum sed lectus vulputate, dapibus leo sit amet, porta mi. Maecenas ac convallis eros, id efficitur quam. Nunc ornare tristique eleifend. Donec consectetur, eros in hendrerit cursus, velit erat pretium sem, ac viverra ligula odio nec odio. Vestibulum sit amet tellus tempor tellus faucibus laoreet sit amet in tortor.
-
-</details>
-
-<details>
-<summary><strong>Environments</strong></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel. 
-
-Nulla ornare, nisl et vehicula convallis, felis arcu sagittis nibh, luctus faucibus nunc magna sed est. Proin blandit porta ligula. Ut euismod lectus eu tincidunt blandit. Nulla nec urna sit amet felis facilisis volutpat. Vestibulum sed lectus vulputate, dapibus leo sit amet, porta mi. Maecenas ac convallis eros, id efficitur quam. Nunc ornare tristique eleifend. Donec consectetur, eros in hendrerit cursus, velit erat pretium sem, ac viverra ligula odio nec odio. Vestibulum sit amet tellus tempor tellus faucibus laoreet sit amet in tortor.
-
-</details>
-
-<br />
-<h1>Usage </h1>
+For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
+ 
+# Usage
 
 Once you have deployed this template, there are a number of next steps you can take to interact with and customize the project.
 

@@ -1,0 +1,177 @@
+# ######################################################################################################################
+# Directus Starter for Platform.sh                                
+# 
+# ABOUT
+# 
+# This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run
+# with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.    
+#
+# Directus is an open-source platform that allows you to create and manage an API from data stored in a database. 
+#
+# Contents:
+#   * Pre-build definitions:    Setting up the application container.
+#   * Build and deploy:         Configuring repeatable builds and final deployments.
+#   * Web:                      Declare how the application handles requests.
+#   * Scheduled tasks:          Application and maintenance cron jobs.
+#   * Source                    Define operations that can be performed on the codebase and code location.   
+#
+# Resources:
+#   * Application docs: https://docs.platform.sh/configuration/app.html
+#   * Report a bug: https://github.com/platformsh-templates/directus/issues/new
+#
+# ######################################################################################################################
+#  
+# PRE-BUILD DEFINITIONS
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.                                                                                 
+#                                                                                                                     
+# name (required):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+name: app
+#      
+# type (required):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+type: nodejs:14
+#     
+# variables (optional): 
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster..
+variables:
+#   env:
+#   Variables here designate proper environment variables.
+    env:
+        UPDATES_ENVIRONMENT: files-ops
+        UPDATES_REMOTE: https://github.com/gatsbyjs/gatsby-starter-blog.git
+#     
+# build (optional): 
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+build:
+    # flavor: 
+    # The `flavor` attribute tells Platform.sh how it should handle dependencies specified in your application's 
+    # lock file. For the `nodejs` runtime, there are only two possible values for `flavor`:
+    #     * `default`: `npm prune --userconfig .npmrc && npm install --userconfig .npmrc` when package.json present,
+    #     * `none`: No install performed. This can be useful if you'd like to use yarn instead of npm, for example.
+    flavor: none
+#     
+# dependencies (optional): 
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+dependencies:
+    nodejs:
+        yarn: 1.22.5
+    php:
+        platformsh/cli: 3.69.0
+# ######################################################################################################################
+#  
+# HOOKS
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.                                                                                 
+#                                                                                                                     
+# hooks (optional):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+#     - Note: The `hooks` attribute is optional, so long as you have defined `web.start.command` in this file.
+hooks:
+    build: |
+        # Halt deployment on any build hook failure.
+        set -e
+        # Install dependencies using yarn.
+        yarn --ignore-optional --frozen-lockfile
+        # Build the application.
+        yarn build
+# ######################################################################################################################
+#  
+# WEB
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.                                                                                 
+#                                                                                                                     
+# web (optional):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+web:
+    locations:
+        /:
+            allow: true
+            index:
+            -   index.html
+            root: public
+            scripts: false
+# ######################################################################################################################
+#  
+# SCHEDULED TASKS
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.                                                                                 
+#                                                                                                                     
+# timezone (optional):
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+timezone: America/New_York
+#     
+# crons (optional): 
+# The name of the application container. It's from this value that traffic can be directed to an application container
+# by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+# containers. Because of this, this value must be unique across your project cluster.
+crons:
+    # Update dependencies every day (1:19am EST).
+    update-dependencies:
+        cmd: |
+            set -e
+            # Restrict cron job the the `updates` environment.
+            if [ "$PLATFORM_BRANCH" = "$UPDATES_ENVIRONMENT" ]; then
+                platform backup:create --yes --no-wait
+                platform sync code data --yes --no-wait
+                platform source-operation:run update-dependencies
+            fi
+        spec: 19 1 * * *
+    # Update template from upstream once a week (1:11am EST)..
+    update-upstream:
+        cmd: |
+            set -e
+            # Restrict cron job the the `updates` environment.
+            if [ "$PLATFORM_BRANCH" = "$UPDATES_ENVIRONMENT" ]; then
+                platform backup:create --yes --no-wait
+                platform sync code data --yes --no-wait
+                platform source-operation:run update-upstream
+            fi
+        spec: 11 1 * * 0
+# ######################################################################################################################
+#  
+# SOURCE
+#     
+# The following attributes define how the application is built prior to your build hook. From here, you can define
+# the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
+# dependencies from your lock file.
+source:
+    # operations (optional):
+    # The name of the application container. It's from this value that traffic can be directed to an application container
+    # by defining an `upstream` in a `.platform/routes.yaml` file, or when defining a relationship between two application
+    # containers. Because of this, this value must be unique across your project cluster.
+    operations:
+        # Check for dependency updates, apply if available.
+        update-dependencies:
+            command: .platform/source-operations/dependencies.sh
+        # Check for infrastructure updates, apply if available.
+        update-infrastructure:
+            command: .platform/source-operations/infrastructure.sh
+        # Check for upstream updates, apply if available.
+        update-upstream:
+            command: .platform/source-operations/upstream.sh

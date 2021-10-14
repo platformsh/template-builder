@@ -17,6 +17,7 @@
 <h2 align="center">Deploying Directus on Platform.sh</h2>
 <!-- Template info -->
 <br/>
+<!-- CTAs -->
 <p align="center">
     <strong><em>Contribute to the Platform.sh knowledge base, or check out our resources</em></strong>
 </p>
@@ -27,6 +28,7 @@
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Request a feature</strong></a>
 </p>
+<!-- Badges -->
 <p align="center">
     <!-- <a href="https://github.com/platformsh-templates/directus/network/members">
         <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
@@ -61,18 +63,16 @@
 <br />
 <p align="center">
     <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/metabase/.platform.template.yaml&utm_content=metabase&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
-        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="200px" />
+        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="175px" />
     </a>
 </p>
 <br/><br/>
-<!-- <hr> -->
-<!-- <br/><br/> -->
 
 This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.
 
 Directus is an open-source platform that allows you to create and manage an API from data stored in a database.
 
-## Features
+### Features
 
 * Node.js 12
 * PostgreSQL 12
@@ -80,7 +80,7 @@ Directus is an open-source platform that allows you to create and manage an API 
 * Automatic TLS certificates
 * npm-based build
 
-## Contents
+### Contents
 
 - [Getting started](#-getting-started-)
 - [Customizations](#customizations)
@@ -96,24 +96,41 @@ Directus is an open-source platform that allows you to create and manage an API 
 
 # Getting started
 
-<br />
-<h1>Getting started </h1>
-
-If you are unfamiliar with Metabase, with Platform.sh, or otherwise want to quickly deploy this template, **Start here**.
-
-This template contains all of the files needed to deploy on Platform.sh, but you have a few options for doing so. Whichever method you choose, be sure to make note of all of the information included in this README, as it will be a great deal of help once your project has been deployed.
+If you are unfamiliar with Directus, with Platform.sh, or otherwise want to quickly deploy this template, **Start here**. This template contains all of the files needed to deploy on Platform.sh, but you have a few options for doing so. Whichever method you choose, be sure to make note of all of the information included in this README, as it will be a great deal of help once your project has been deployed.
 
 ## Deploying
 
-The quickest method to deploy Metabase on Platform.sh is by clicking the button below. This will automatically create a new project and initialize the repository for you.
+The quickest method to deploy Directus on Platform.sh is by clicking the **Deploy on Platform.sh** button at the top of the page. This will automatically create a new project and initialize the repository for you. If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
 
-<p align="center">
-    <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/metabase/.platform.template.yaml&utm_content=metabase&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
-        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="170px" />
-    </a>
-</p>
+After you have deployed to a project, you can begin developing using Platform.sh as your primary remote repository. To clone the project, you have two options.
 
-If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
+- Within the management console, go to the production environment for your default branch. At the top right-hand side under your avatar and account details there will be a dropdown element labelled **GIT**. Copy and run the command locally to retrieve your repository. 
+- [Install the Platform.sh CLI](https://docs.platform.sh/development/cli.html#installation). With this tool you can quickly authenticate with Platform.sh (with the command `platform login`), and view your available projects (with the command `platform projects:list`). When you see your project, you will notice that it has a unique `PROJECT_ID`. With that hash, you can quickly clone a local copy with the command `platform get PROJECT_ID`.
+
+In both cases, you will now be able to branch and push commits to Platform.sh. When you push a new branch to Platform.sh, it will remain in an *inactive* state by default initially. [Install the Platform.sh CLI](https://docs.platform.sh/development/cli.html#installation) if you have not already done so, and then run the command `platform environment:activate BRANCH_NAME` to begin the build and deploy phases in a new isolated environment. You are also able to activate this environment within the management console, by visiting the **Settings** pane for the environment and editing the **Status is Inactive** dropdown section.
+
+### Starting from an integration to a GitHub repository
+
+1. [Generate a copy of this template](https://github.com/platformsh-templates/generate), or click the **Use this template** button at the top of this repository, to create a fresh copy of this codebase in your own namespace. 
+2. [Start your 30 day free trial on Platform.sh](https://auth.api.platform.sh/register?trial_type=general). 
+3. Create a new project on Platform.sh. After you create your account, you'll be able to create a new project. Select the **Create from scratch** option, give the project a name, like `directus`, and select a region where the application will live.
+4. Save your `PROJECT_ID`. Every project on Platform.sh comes with a unique project ID that you will need to set up your integration to GitHub, and you can find this value in two places:
+    - At the project URL in the management console. Your project will have a unique location at `https://console.platform.sh/<USERNAME>/<PROJECT-ID>`.
+    - At the top right-hand corner, below your avator and account settings, click the three dot menu. The first option in the dropdown is the `ID`, which you can quickly copy from there.
+5. [Generate a personal access token on your GitHub account](https://github.com/settings/tokens/new). Consult our integrations documentation to ensure that the token has been granted the [required scopes](https://docs.platform.sh/integrations/source/github.html#1-generate-a-token).
+6. [Install the Platform.sh CLI](https://docs.platform.sh/development/cli.html#installation). With this tool you will also be able to retrieve your project's ID using the command `platform project:list`. 
+7. Authenticate the CLI. You can do this quickly with the command `platform login`, which will use your current browser session to generate a local SSH key.
+8. [Enable the integration](https://docs.platform.sh/integrations/source/github.html#2-enable-the-integration). Using the CLI, as well as the `PROJECT_ID` on Platform.sh, your `GITHUB_TOKEN`, and your repository, run the following command:
+
+    ```bash
+    platform integration:add --type=github --project=PROJECT_ID --token=GITHUB_TOKEN --repository=GITHUB_USER/GITHUB_REPOSITORY
+    ```
+
+Once you have run the above command, Platform.sh will validate and then mirror your repository on the project you just created. It will then build and deploy the template for you. From this point forward, you can continue to develop your application on GitHub. With the default settings, your default branch will be your production environment, while every pull request opened on the repository will become active development environments on Platform.sh.
+
+## Post-install instructions
+
+
 
 <details>
 <summary><strong>Deploy manually</strong></summary><br />

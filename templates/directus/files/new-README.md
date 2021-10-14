@@ -20,25 +20,25 @@
     <a href="https://community.platform.sh"><strong>Join our community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://docs.platform.sh"><strong>Documentation</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://platform.sh/blog"><strong>Blog</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a href="https://github.com/platformsh-templates/metabase/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a href="https://github.com/platformsh-templates/metabase/issues"><strong>Request a feature</strong></a>
+    <a href="https://github.com/platformsh-templates/directus/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <a href="https://github.com/platformsh-templates/directus/issues"><strong>Request a feature</strong></a>
     <br /><br />
 </p>
 
 <p align="center">
-    <a href="https://github.com/platformsh-templates/metabase/network/members">
+    <a href="https://github.com/platformsh-templates/directus/network/members">
         <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
     </a>&nbsp&nbsp
-    <a href="https://github.com/platformsh-templates/metabase/issues">
+    <a href="https://github.com/platformsh-templates/directus/issues">
         <img src="https://img.shields.io/github/issues/platformsh-templates/metabase.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
     </a>&nbsp&nbsp
-    <a href="https://github.com/platformsh-templates/pulls">
+    <a href="https://github.com/platformsh-templates/directus/pulls">
         <img src="https://img.shields.io/github/issues-pr/platformsh-templates/metabase.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
     </a>&nbsp&nbsp
-    <a href="https://github.com/metabase/metabase/blob/master/LICENSE-AGPL.txt">
-        <img src="https://img.shields.io/static/v1?label=License&message=AGPL&style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="License" />
+    <a href="https://github.com/directus/directus/blob/main/license">
+        <img src="https://img.shields.io/static/v1?label=License&message=GNU%20Public&style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="License" />
     </a>&nbsp&nbsp
-    <a href="https://github.com/platformsh-templates/metabase/CODE_OF_CONDUCT.md">
+    <a href="https://github.com/platformsh-templates/directus/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="Conduct" />
     </a>
     <!-- <br /> -->

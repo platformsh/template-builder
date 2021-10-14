@@ -9,11 +9,11 @@
 <!-- Template logo -->
 <p align="center">
     <a href="https://github.com/directus/directus">
-        <img src="https://raw.githubusercontent.com/directus/directus/main/app/src/assets/logo-dark.svg" alt="Logo" height="120">
+        <img src="https://raw.githubusercontent.com/directus/directus/main/app/src/assets/logo-dark.svg" alt="Logo" width="300">
     </a>
 </p>
 <!-- Template title -->
-<br/><br/>
+<br/>
 <h2 align="center">Deploying Directus on Platform.sh</h2>
 <!-- Template info -->
 <br/>

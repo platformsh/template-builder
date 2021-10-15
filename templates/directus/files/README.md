@@ -102,6 +102,9 @@ If you are unfamiliar with Directus, with Platform.sh, or otherwise want to quic
 
 The quickest method to deploy Directus on Platform.sh is by clicking the **Deploy on Platform.sh** button at the top of the page. This will automatically create a new project and initialize the repository for you. If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
 
+<details>
+<summary><strong>Start working with the project</strong></summary><br />
+
 After you have deployed to a project, you can begin developing using Platform.sh as your primary remote repository. To clone the project, you have two options.
 
 - Within the management console, go to the production environment for your default branch. At the top right-hand side under your avatar and account details there will be a dropdown element labelled **GIT**. Copy and run the command locally to retrieve your repository. 
@@ -109,12 +112,14 @@ After you have deployed to a project, you can begin developing using Platform.sh
 
 In both cases, you will now be able to branch and push commits to Platform.sh. When you push a new branch to Platform.sh, it will remain in an *inactive* state by default initially. [Install the Platform.sh CLI](https://docs.platform.sh/development/cli.html#installation) if you have not already done so, and then run the command `platform environment:activate BRANCH_NAME` to begin the build and deploy phases in a new isolated environment. You are also able to activate this environment within the management console, by visiting the **Settings** pane for the environment and editing the **Status is Inactive** dropdown section.
 
+</details>
+
 ### Starting from an integration to a GitHub repository
 
 You also have the option of setting up a copy of this repository in your own namespace, and the integrating a Platform.sh to it as the continuous delivery component of its pipeline. 
 
 <details>
-<summary><strong>See the instructions:</strong></summary><br />
+<summary><strong>See the instructions</strong></summary><br />
 
 1. [Generate a copy of this template](https://github.com/platformsh-templates/generate), or click the **Use this template** button at the top of this repository, to create a fresh copy of this codebase in your own namespace. 
 2. [Start your 30 day free trial on Platform.sh](https://auth.api.platform.sh/register?trial_type=general). 

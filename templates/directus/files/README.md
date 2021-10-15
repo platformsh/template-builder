@@ -165,28 +165,7 @@ export INIT_ADMINPW='password'
 
 After you log in for the first time, be sure to update this password immediately. 
 
-# Customizations
-
-The following files and additions allow Directus to build and deploy on Platform.sh, placed on top of the basic quickstart project (`npx create-directus-project`). If using this project as a reference for your own existing project, replicate the changes below to your code. 
-
-## Changes to the codebase
-
-- **`.gitignore`**: A `.gitignore` file has been added to the Directus starter project, as it was not already included. It's contents prevent you from committing sensitive information in your `.env` file and SQLite database, as well as your dependencies.
-
-## Platform.sh configuration
-
-Platform.sh is able to build and deploy projects by detecting configuration in a few files, which have been added to the starter repository. View the comments in the individual files, as well as the linked documentation below, for more details.
-
-- **`.platform/routes.yaml`**: This file defines how requests are handled by a [Router container](https://docs.platform.sh/configuration/routes.html).
-- **`.platform/services.yaml`**: This file defines which of Platform.sh's [managed service containers](https://docs.platform.sh/configuration/services.html) are included alongside the template. 
-- **`.platform.app.yaml`**: This file defines how Directus is built and deployed within a single [application container](https://docs.platform.sh/configuration/app.html).
-- **`.environment`**: This file provides Platform.sh-specific environment variable overrides from the generated default `.env` settings for Directus and PostgreSQL. It also sets an initial username and password for an admin user. On Platform.sh, a `.env` file is required to configure Directus but is not committed (see below) in this project. Rather, at build time Directus's `example.env` file (`node_modules/directus/example.env`) is renamed in its place with a set of standard defaults which are then overridden by `.environment`. Consult this file locally, and then override with your own settings in `.environment` when appropriate. 
-
-## Community and issues
-
-A `.github` subdirectory for handling issue templates, as well as our `CODE_OF_CONDUCT` and `CONTRIBUTING` guides have been added.
-
-# About Platform.sh
+## About Platform.sh
 
 Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. Some of its key features include:
 
@@ -212,6 +191,27 @@ The Platform.sh API extends past single projects. It is possible to define your 
 </details>
 
 For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
+
+# Customizations
+
+The following files and additions allow Directus to build and deploy on Platform.sh, placed on top of the basic quickstart project (`npx create-directus-project`). If using this project as a reference for your own existing project, replicate the changes below to your code. 
+
+## Changes to the codebase
+
+- **`.gitignore`**: A `.gitignore` file has been added to the Directus starter project, as it was not already included. It's contents prevent you from committing sensitive information in your `.env` file and SQLite database, as well as your dependencies.
+
+## Platform.sh configuration
+
+Platform.sh is able to build and deploy projects by detecting configuration in a few files, which have been added to the starter repository. View the comments in the individual files, as well as the linked documentation below, for more details.
+
+- **`.platform/routes.yaml`**: This file defines how requests are handled by a [Router container](https://docs.platform.sh/configuration/routes.html).
+- **`.platform/services.yaml`**: This file defines which of Platform.sh's [managed service containers](https://docs.platform.sh/configuration/services.html) are included alongside the template. 
+- **`.platform.app.yaml`**: This file defines how Directus is built and deployed within a single [application container](https://docs.platform.sh/configuration/app.html).
+- **`.environment`**: This file provides Platform.sh-specific environment variable overrides from the generated default `.env` settings for Directus and PostgreSQL. It also sets an initial username and password for an admin user. On Platform.sh, a `.env` file is required to configure Directus but is not committed (see below) in this project. Rather, at build time Directus's `example.env` file (`node_modules/directus/example.env`) is renamed in its place with a set of standard defaults which are then overridden by `.environment`. Consult this file locally, and then override with your own settings in `.environment` when appropriate. 
+
+## Community and issues
+
+A `.github` subdirectory for handling issue templates, as well as our `CODE_OF_CONDUCT` and `CONTRIBUTING` guides have been added.
  
 # Usage
 

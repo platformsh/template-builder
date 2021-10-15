@@ -117,6 +117,7 @@ After you have deployed to a project, you can begin developing using Platform.sh
 In both cases, you will now be able to branch and push commits to Platform.sh. When you push a new branch to Platform.sh, it will remain in an *inactive* state by default initially. [Install the Platform.sh CLI](https://docs.platform.sh/development/cli.html#installation) if you have not already done so, and then run the command `platform environment:activate BRANCH_NAME` to begin the build and deploy phases in a new isolated environment. You are also able to activate this environment within the management console, by visiting the **Settings** pane for the environment and editing the **Status is Inactive** dropdown section.
 
 </details>
+<br /><br />
 
 ### Starting from an integration to a GitHub repository
 
@@ -150,6 +151,7 @@ Once you have run the above command, Platform.sh will validate and then mirror y
 With the default settings, your default branch will be your production environment, while every pull request opened on the repository will become active development environments on Platform.sh.
 
 </details>
+<br /><br />
 
 ## Post-install instructions
 

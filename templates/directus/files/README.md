@@ -471,10 +471,10 @@ This template is maintained primarily by the Platform.sh Developer Relations tea
 
 <!-- ### General -->
 
-- [Metabase.com](https://www.metabase.com/)
-- [Metabase Documentation](https://www.metabase.com/docs/latest/)
-- [Metabase Repository](https://github.com/metabase/metabase)
-- [Java on Platform.sh](https://docs.platform.sh/languages/java.html)
+- [Directus](https://directus.io/)
+- [Directus documentation](https://docs.directus.io/getting-started/introduction/)
+- [Directus repository](https://github.com/directus/directus)
+- [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)
 
 <!-- ### Blog posts
 
@@ -499,7 +499,7 @@ See something that's wrong with this template that needs to be fixed? Something 
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Submit a feature request</strong></a><br />
     <a href="https://github.com/platformsh-templates/directus/compare"><strong>Open a pull request</strong></a><br />
 </p>
-<br />
+
 <h3 align="center"><strong>Need help?</strong></h3>
 <p align="center">
     <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />

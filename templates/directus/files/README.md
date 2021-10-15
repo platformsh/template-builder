@@ -169,15 +169,13 @@ After you log in for the first time, be sure to update this password immediately
 
 Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
 
-https://user-images.githubusercontent.com/58986949/115314310-805b2780-a1a7-11eb-8558-648a367ea231.mp4
+https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-ae17-74c5734c8157.mp4
 
-Some of its key features include:
+Some of the key features of Platform.sh include:
 
 <details>
 <summary><strong>Infrastructure-as-code:</strong> <em>Your infrastructure is a dependency of your app</em></summary><br />
 All of your services can be defined in a set configuration files described above and committed to your repository. These files are committed, such that your infrastructure becomes another dependency of your application like any other, and so that every branch is capable of inheriting the identical infrastructure used in production.
-
-https://user-images.githubusercontent.com/58986949/115314310-805b2780-a1a7-11eb-8558-648a367ea231.mp4
 
 </details>
 <details>

@@ -486,14 +486,13 @@ This template is maintained primarily by the Platform.sh Developer Relations tea
 
 # Contributing
 
-<h2 align="center">Help us keep top-notch templates!</h2>
+<h3 align="center">Help us keep top-notch templates!</h3>
 
 Every one of our templates is open source, and they're important resources for users trying to deploy to Platform.sh for the first time or to better understand how to best run software on our platform. They act as getting started guides, but also contain a number of helpful tips and best practices when working with certain languages and frameworks. 
 
 See something that's wrong with this template that needs to be fixed? Something in the documentation unclear or missing? Let us know!
 
 <h3 align="center"><strong>How to contribute</strong></h3>
-<br />
 <p align="center">
     <a href="/CONTRIBUTING.md"><strong>Read the Contributing Guidelines</strong></a><br />
     <a href="https://github.com/platformsh-templates/directus/issues"><strong>Report a bug</strong></a><br />
@@ -502,7 +501,6 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 <br />
 <h3 align="center"><strong>Need help?</strong></h3>
-<br />
 <p align="center">
     <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />
     <a href="https://chat.platform.sh/"><strong>Join us on Slack</strong></a><br />

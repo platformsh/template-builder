@@ -111,6 +111,11 @@ In both cases, you will now be able to branch and push commits to Platform.sh. W
 
 ### Starting from an integration to a GitHub repository
 
+You also have the option of setting up a copy of this repository in your own namespace, and the integrating a Platform.sh to it as the continuous delivery component of its pipeline. 
+
+<details>
+<summary><strong>See the instructions:</strong></summary><br />
+
 1. [Generate a copy of this template](https://github.com/platformsh-templates/generate), or click the **Use this template** button at the top of this repository, to create a fresh copy of this codebase in your own namespace. 
 2. [Start your 30 day free trial on Platform.sh](https://auth.api.platform.sh/register?trial_type=general). 
 3. Create a new project on Platform.sh. After you create your account, you'll be able to create a new project. Select the **Create from scratch** option, give the project a name, like `directus`, and select a region where the application will live.
@@ -127,6 +132,8 @@ In both cases, you will now be able to branch and push commits to Platform.sh. W
     ```
 
 Once you have run the above command, Platform.sh will validate and then mirror your repository on the project you just created. It will then build and deploy the template for you. From this point forward, you can continue to develop your application on GitHub. With the default settings, your default branch will be your production environment, while every pull request opened on the repository will become active development environments on Platform.sh.
+
+</details>
 
 ## Post-install instructions
 

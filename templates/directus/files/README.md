@@ -100,6 +100,10 @@ If you are unfamiliar with Directus, with Platform.sh, or otherwise want to quic
 
 ## Deploying
 
+Everything needs to deploy and develop a Directus application on Platform.sh is included in this project. Whether you choose to develop using a Platform.sh project as your primary remote, or work on an integrated repository here on GitHub is up to you.
+
+### Quickstart
+
 The quickest method to deploy Directus on Platform.sh is by clicking the **Deploy on Platform.sh** button at the top of the page. This will automatically create a new project and initialize the repository for you. If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
 
 <details>

@@ -413,10 +413,9 @@ WIP
 WIP -->
 
 
-<br />
-<h1>License</h1>
+# License
 
-This template uses the [Open Source edition of Metabase](https://github.com/metabase/metabase), which is licensed under the [GNU Affero General Public License (AGPL)](https://github.com/metabase/metabase/blob/master/LICENSE-AGPL.txt).
+This template uses the [Open Source edition of Directus](https://github.com/directus/directus), which is licensed under the [GNU General Public License v3.0](https://github.com/directus/directus/blob/main/license).
 
 ## About Platform.sh
 

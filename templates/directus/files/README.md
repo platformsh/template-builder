@@ -60,6 +60,9 @@
         <img src="https://img.shields.io/github/stars/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
     </a> -->
 </p>
+<p align="center">
+    <strong><em>If you're unfamiliar with Platform.sh, be sure to checkout the <a href="#about-platformsh">About</a> section below.</em></strong>
+</p>
 <!-- Deploy on Platform.sh button -->
 <br />
 <p align="center">
@@ -169,8 +172,6 @@ After you log in for the first time, be sure to update this password immediately
 
 Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
 
-https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-ae17-74c5734c8157.mp4
-
 Some of the key features of Platform.sh include:
 
 <details>
@@ -198,6 +199,10 @@ Every service and runtime container can be specified at the minor version level 
 <summary><strong>FleetOps:</strong> <em>Extend Platform.sh-powered DevOps to hundreds of applications</em></summary><br />
 The Platform.sh API extends past single projects. It is possible to define your own upstream template repositories that are used to initialize a Fleet of of websites. There are also definable operations and activity notification scripts that can be used to fully manage hundreds of applications under the same logic and assurances of a single project. 
 </details>
+
+You can see Platform.sh in action in the brief demo below.
+
+https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-ae17-74c5734c8157.mp4
 
 For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
 

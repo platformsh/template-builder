@@ -167,19 +167,30 @@ After you log in for the first time, be sure to update this password immediately
 
 ## About Platform.sh
 
-Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. Some of its key features include:
+Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
+
+https://user-images.githubusercontent.com/58986949/115314310-805b2780-a1a7-11eb-8558-648a367ea231.mp4
+
+Some of its key features include:
 
 <details>
 <summary><strong>Infrastructure-as-code:</strong> <em>Your infrastructure is a dependency of your app</em></summary><br />
 All of your services can be defined in a set configuration files described above and committed to your repository. These files are committed, such that your infrastructure becomes another dependency of your application like any other, and so that every branch is capable of inheriting the identical infrastructure used in production.
+
+https://user-images.githubusercontent.com/58986949/115314310-805b2780-a1a7-11eb-8558-648a367ea231.mp4
+
 </details>
 <details>
 <summary><strong>Development environments:</strong> <em>Every pull request should get a real staging environment</em></summary><br />
-Every project has a live production site, but the concept of branching your repository has been extended to the provisioning of staging and development infrastructure. Every branch can become an active, deployed environment, that contains the same infrastructure as production until you explicitly change its configuration. Each environment receives its own unique preview URL, automatically renewed Let's Encrypt certificates, as well as scoped access permissions and environment variables. Environments exist in isolation from production: they are exact copies with fresh containers that cannot affect the production site. During the branching process, a development environment also receives copies of all production data at the time of the branching. You are free to use that data for your tests, and can resync to more current data at any time. 
+Every project has a live production site, but the concept of branching your repository has been extended to the provisioning of staging and development infrastructure. Every branch can become an active, deployed environment, that contains the same infrastructure as production until you explicitly change its configuration. 
+
+Each environment receives its own unique preview URL, automatically renewed Let's Encrypt certificates, as well as scoped access permissions and environment variables. Environments exist in isolation from production: they are exact copies with fresh containers that cannot affect the production site. During the branching process, a development environment also receives copies of all production data at the time of the branching. You are free to use that data for your tests, and can resync to more current data at any time. 
 </details>
 <details>
 <summary><strong>Reusable builds:</strong> <em>Provision the infrastructure diff, Deploy on Friday</em></summary><br />
-The build and deploy tasks defined in your configuration are committed, and Platform.sh is capable to define infrastructure provisioning requirements for a particular commit to the same differences that define the Git protocol. That is to say, a single commit is associated with a unique build image. If the build and deploy stages of your pipeline remain undefined between commits, that unique build image is reused on that second commit. This makes branching to a new development environment on Platform.sh possible, and also virtually removed any concern associated with merging a particular commit into production. When the merge is initiated, it isn't necessary to run through the build and deploy again and risk failure. The build image has already been created and defined on an identical development environment, so it can simply be reused on production from then on.
+The build and deploy tasks defined in your configuration are committed, and Platform.sh is capable to define infrastructure provisioning requirements for a particular commit to the same differences that define the Git protocol. That is to say, a single commit is associated with a unique build image. If the build and deploy stages of your pipeline remain undefined between commits, that unique build image is reused on that second commit. 
+
+This makes branching to a new development environment on Platform.sh possible, and also virtually removed any concern associated with merging a particular commit into production. When the merge is initiated, it isn't necessary to run through the build and deploy again and risk failure. The build image has already been created and defined on an identical development environment, so it can simply be reused on production from then on.
 </details>
 <details>
 <summary><strong>Managed infrastructure:</strong> <em>Focus on your application, not operations, infrastructure, or patch updates</em></summary><br />

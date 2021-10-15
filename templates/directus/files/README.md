@@ -459,17 +459,15 @@ https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-a
 
 For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
 
-<br />
-<h1>Contact</h1>
+# Contact
 
 This template is maintained primarily by the Platform.sh Developer Relations team, and they will be notified of all issues and pull requests you open here.
 
 - **Community:** Share your question with the community, or see if it's already been asked on our [Community site](https://community.platform.sh).
-- **Slack:** If you haven't done so already, you can join Platform.sh's [public Slack](https://chat.platform.sh/) channels and ping the `@devrel_team` with any questions.
+- **Slack:** If you haven't done so already, you can join Platform.sh's [public Slack](https://chat.platform.sh/) channel and ping the `@devrel_team` with any questions.
 <!-- - **E-mail:** You can also reach the DevRel team directly at `devrel@platform.sh`. -->
 
-<br />
-<h1>Resources</h1>
+# Resources
 
 <!-- ### General -->
 
@@ -486,37 +484,32 @@ This template is maintained primarily by the Platform.sh Developer Relations tea
 
 - Community questions -->
 
-<br />
-<h1>Contributing</h1>
+# Contributing
 
 <h2 align="center">Help us keep top-notch templates!</h2>
 
-Every one of our templates is open source, and they're important resources for users trying to deploy to Platform.sh for the first time or better understand the platform. They act as getting started guides, but also contain a number of helpful tips and best practices when working with certain languages and frameworks. 
+Every one of our templates is open source, and they're important resources for users trying to deploy to Platform.sh for the first time or to better understand how to best run software on our platform. They act as getting started guides, but also contain a number of helpful tips and best practices when working with certain languages and frameworks. 
 
 See something that's wrong with this template that needs to be fixed? Something in the documentation unclear or missing? Let us know!
 
 <h3 align="center"><strong>How to contribute</strong></h3>
 <br />
 <p align="center">
-    <a href="#"><strong>Read the Contributing Guidelines</strong></a><br />
-    <a href="#"><strong>Report a bug</strong></a><br />
-    <a href="#"><strong>Submit a feature request</strong></a><br />
-    <a href="#"><strong>Open a pull request</strong></a><br />
+    <a href="/CONTRIBUTING.md"><strong>Read the Contributing Guidelines</strong></a><br />
+    <a href="https://github.com/platformsh-templates/directus/issues"><strong>Report a bug</strong></a><br />
+    <a href="https://github.com/platformsh-templates/directus/issues"><strong>Submit a feature request</strong></a><br />
+    <a href="https://github.com/platformsh-templates/directus/compare"><strong>Open a pull request</strong></a><br />
 </p>
 <br />
 <h3 align="center"><strong>Need help?</strong></h3>
 <br />
 <p align="center">
-    <a href="#"><strong>Ask the Platform.sh Community</strong></a><br />
-    <a href="#"><strong>Join us on Slack</strong></a><br />
+    <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />
+    <a href="https://chat.platform.sh/"><strong>Join us on Slack</strong></a><br />
 </p>
 <br /><br />
 <h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
 
 <br/>
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=chadwcarlson/metabase)
-
-<br />
-
-Additional thanks to [@rhubinak](https://github.com/rhubinak) for creating the original template.
+![GitHub Contributors Image](https://contrib.rocks/image?repo=platformsh-templates/directus)

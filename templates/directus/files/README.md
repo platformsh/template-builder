@@ -35,10 +35,10 @@
         <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
     </a>&nbsp&nbsp -->
     <a href="https://github.com/platformsh-templates/directus/issues">
-        <img src="https://img.shields.io/github/issues/platformsh-templates/metabase.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
+        <img src="https://img.shields.io/github/issues/platformsh-templates/directus.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
     </a>&nbsp&nbsp
     <a href="https://github.com/platformsh-templates/directus/pulls">
-        <img src="https://img.shields.io/github/issues-pr/platformsh-templates/metabase.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
+        <img src="https://img.shields.io/github/issues-pr/platformsh-templates/directus.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
     </a>&nbsp&nbsp
     <a href="https://github.com/directus/directus/blob/main/license">
         <img src="https://img.shields.io/static/v1?label=License&message=GNU%20Public&style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="License" />
@@ -91,6 +91,7 @@ Directus is an open-source platform that allows you to create and manage an API 
 - [Usage](#usage)
 - [Migrating](#migrating)
 - [License](#license)
+- [About Platform.sh](#about-platformsh)
 - [Contact](#contact)
 - [Resources](#resources)
 - [Contributors](#contributors)
@@ -167,48 +168,6 @@ export INIT_ADMINPW='password'
 ```
 
 After you log in for the first time, be sure to update this password immediately. 
-
-## About Platform.sh
-
-Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
-
-Some of the key features of Platform.sh include:
-
-<details>
-<summary><strong>Infrastructure-as-code:</strong> <em>Your infrastructure is a dependency of your app</em></summary><br />
-All of your services can be defined in a set configuration files described above and committed to your repository. These files are committed, such that your infrastructure becomes another dependency of your application like any other, and so that every branch is capable of inheriting the identical infrastructure used in production.
-
-</details>
-<details>
-<summary><strong>Development environments:</strong> <em>Every pull request should get a real staging environment</em></summary><br />
-
-Every project has a live production site, but the concept of branching your repository has been extended to the provisioning of staging and development infrastructure. Every branch can become an active, deployed environment, that contains the same infrastructure as production until you explicitly change its configuration. 
-
-Each environment receives its own unique preview URL, automatically renewed Let's Encrypt certificates, as well as scoped access permissions and environment variables. Environments exist in isolation from production: they are exact copies with fresh containers that cannot affect the production site. During the branching process, a development environment also receives copies of all production data at the time of the branching. You are free to use that data for your tests, and can resync to more current data at any time. 
-
-</details>
-<details>
-<summary><strong>Reusable builds:</strong> <em>Provision the infrastructure diff, Deploy on Friday</em></summary><br />
-
-The build and deploy tasks defined in your configuration are committed, and Platform.sh is capable to define infrastructure provisioning requirements for a particular commit to the same differences that define the Git protocol. That is to say, a single commit is associated with a unique build image. If the build and deploy stages of your pipeline remain undefined between commits, that unique build image is reused on that second commit. 
-
-This makes branching to a new development environment on Platform.sh possible, and also virtually removed any concern associated with merging a particular commit into production. When the merge is initiated, it isn't necessary to run through the build and deploy again and risk failure. The build image has already been created and defined on an identical development environment, so it can simply be reused on production from then on.
-
-</details>
-<details>
-<summary><strong>Managed infrastructure:</strong> <em>Focus on your application, not operations, infrastructure, or patch updates</em></summary><br />
-Every service and runtime container can be specified at the minor version level by an appropriate and supported `type` attribute, while security and patch updates are applied automatically in the background by Platform.sh between deployments when they become available.
-</details>
-<details>
-<summary><strong>FleetOps:</strong> <em>Extend Platform.sh-powered DevOps to hundreds of applications</em></summary><br />
-The Platform.sh API extends past single projects. It is possible to define your own upstream template repositories that are used to initialize a Fleet of of websites. There are also definable operations and activity notification scripts that can be used to fully manage hundreds of applications under the same logic and assurances of a single project. 
-</details>
-
-You can see Platform.sh in action in the brief demo below.
-
-https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-ae17-74c5734c8157.mp4
-
-For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
 
 # Customizations
 
@@ -458,6 +417,48 @@ WIP -->
 <h1>License</h1>
 
 This template uses the [Open Source edition of Metabase](https://github.com/metabase/metabase), which is licensed under the [GNU Affero General Public License (AGPL)](https://github.com/metabase/metabase/blob/master/LICENSE-AGPL.txt).
+
+## About Platform.sh
+
+Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
+
+Some of the key features of Platform.sh include:
+
+<details>
+<summary><strong>Infrastructure-as-code:</strong> <em>Your infrastructure is a dependency of your app</em></summary><br />
+All of your services can be defined in a set configuration files described above and committed to your repository. These files are committed, such that your infrastructure becomes another dependency of your application like any other, and so that every branch is capable of inheriting the identical infrastructure used in production.
+
+</details>
+<details>
+<summary><strong>Development environments:</strong> <em>Every pull request should get a real staging environment</em></summary><br />
+
+Every project has a live production site, but the concept of branching your repository has been extended to the provisioning of staging and development infrastructure. Every branch can become an active, deployed environment, that contains the same infrastructure as production until you explicitly change its configuration. 
+
+Each environment receives its own unique preview URL, automatically renewed Let's Encrypt certificates, as well as scoped access permissions and environment variables. Environments exist in isolation from production: they are exact copies with fresh containers that cannot affect the production site. During the branching process, a development environment also receives copies of all production data at the time of the branching. You are free to use that data for your tests, and can resync to more current data at any time. 
+
+</details>
+<details>
+<summary><strong>Reusable builds:</strong> <em>Provision the infrastructure diff, Deploy on Friday</em></summary><br />
+
+The build and deploy tasks defined in your configuration are committed, and Platform.sh is capable to define infrastructure provisioning requirements for a particular commit to the same differences that define the Git protocol. That is to say, a single commit is associated with a unique build image. If the build and deploy stages of your pipeline remain undefined between commits, that unique build image is reused on that second commit. 
+
+This makes branching to a new development environment on Platform.sh possible, and also virtually removed any concern associated with merging a particular commit into production. When the merge is initiated, it isn't necessary to run through the build and deploy again and risk failure. The build image has already been created and defined on an identical development environment, so it can simply be reused on production from then on.
+
+</details>
+<details>
+<summary><strong>Managed infrastructure:</strong> <em>Focus on your application, not operations, infrastructure, or patch updates</em></summary><br />
+Every service and runtime container can be specified at the minor version level by an appropriate and supported `type` attribute, while security and patch updates are applied automatically in the background by Platform.sh between deployments when they become available.
+</details>
+<details>
+<summary><strong>FleetOps:</strong> <em>Extend Platform.sh-powered DevOps to hundreds of applications</em></summary><br />
+The Platform.sh API extends past single projects. It is possible to define your own upstream template repositories that are used to initialize a Fleet of of websites. There are also definable operations and activity notification scripts that can be used to fully manage hundreds of applications under the same logic and assurances of a single project. 
+</details>
+
+You can see Platform.sh in action in the brief demo below.
+
+https://user-images.githubusercontent.com/5473659/137526518-65bcfa5b-7858-4fd0-ae17-74c5734c8157.mp4
+
+For more information, check out our [website](https://platform.sh) and [public documentation](https://docs.platform.sh).
 
 <br />
 <h1>Contact</h1>

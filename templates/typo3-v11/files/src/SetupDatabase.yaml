@@ -1,0 +1,44 @@
+databaseData:
+    type: install
+    description: 'Set up database'
+    arguments:
+        adminUserName:
+            description: 'Username of to be created administrative user account'
+            option: '--admin-user-name'
+            type: string
+            value: '%env(TYPO3_INSTALL_ADMIN_USER)%'
+
+        adminPassword:
+            description: 'Password of to be created administrative user account'
+            option: '--admin-password'
+            type: hidden
+            value: '%env(TYPO3_INSTALL_ADMIN_PASSWORD)%'
+
+        siteName:
+            description: 'Name of the TYPO3 site'
+            option: '--site-name'
+            type: string
+            default: 'New TYPO3 Console site'
+            value: '%env(TYPO3_INSTALL_SITE_NAME)%'
+
+defaultConfiguration:
+    type: install
+    description: 'Set up configuration'
+    arguments:
+        siteSetupType:
+            description: 'Specify the site setup type'
+            option: '--site-setup-type'
+            type: select
+            values:
+                'no': 'Do nothing'
+                site: 'Create root page'
+            value: '%env(TYPO3_INSTALL_SITE_SETUP_TYPE)%'
+            default: 'no'
+
+extensionSetup:
+    type: extensionSetup
+    description: 'Set up extensions'
+    commands:
+        - command: 'install:generatepackagestates'
+        - command: 'database:updateschema'
+        - command: 'extension:setupactive'

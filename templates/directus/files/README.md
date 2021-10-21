@@ -31,9 +31,6 @@
 </p>
 <!-- Badges -->
 <p align="center">
-    <!-- <a href="https://github.com/platformsh-templates/directus/network/members">
-        <img src="https://img.shields.io/github/workflow/status/platformsh/config-reader-python/Quality%20Assurance/master.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Build" alt="Tests" />
-    </a>&nbsp&nbsp -->
     <a href="https://github.com/platformsh-templates/directus/issues">
         <img src="https://img.shields.io/github/issues/platformsh-templates/directus.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
     </a>&nbsp&nbsp
@@ -46,19 +43,6 @@
     <a href="https://github.com/platformsh-templates/directus/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="Conduct" />
     </a>
-    <!-- <br /> -->
-    <!-- <a href="https://github.com/platformsh-templates/metabase/network/members">
-  <img src="https://img.shields.io/github/license/metabase/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh"/>
-  </a> -->
-    <!-- <a href="https://github.com/platformsh-templates/metabase/graphs/contributors">
-        <img src="https://img.shields.io/github/contributors/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
-    </a> -->
-    <!-- <a href="https://github.com/platformsh-templates/metabase/network/members">
-        <img src="https://img.shields.io/github/forks/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
-    </a>
-    <a href="https://github.com/platformsh-templates/metabase/stargazers">
-        <img src="https://img.shields.io/github/stars/platformsh-templates/metabase.svg?style=for-the-badge&labelColor=145CC6&color=FFBDBB" alt="Deploy on Platform.sh" />
-    </a> -->
 </p>
 <p align="center">
     <strong><em>If you're unfamiliar with Platform.sh, be sure to checkout the <a href="#about-platformsh">About</a> section below.</em></strong>
@@ -71,6 +55,8 @@
     </a>
 </p>
 <br/><br/>
+
+<!-- Main README -->
 
 This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.
 
@@ -101,6 +87,12 @@ Directus is an open-source platform that allows you to create and manage an API 
 # Getting started
 
 If you are unfamiliar with Directus, with Platform.sh, or otherwise want to quickly deploy this template, **Start here**. This template contains all of the files needed to deploy on Platform.sh, but you have a few options for doing so. Whichever method you choose, be sure to make note of all of the information included in this README, as it will be a great deal of help once your project has been deployed.
+
+**Contents:**
+
+- [Deploying: Quickstart](#quickstart)
+- [Deploying: Starting from an integration to a GitHub repository](#starting-from-an-integration-to-a-github-repository)
+- [Post-install instructions](#post-install-instructions)
 
 ## Deploying
 
@@ -159,23 +151,43 @@ With the default settings, your default branch will be your production environme
 
 ## Post-install instructions
 
-This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user has been added to allow you to log in. Those credentials are set (along with many other Platform.sh-specific settings) in the `.environment` file:
+This template does not require any additional configuration once deployed to start developing your Directus application. During the first deploy, however, an admin user has been added to allow you to log in. Those credentials are set during the deploy hook in the `.platform.app.yaml` file:
 
-```txt
-# Initial admin user on first deploy.
-export INIT_ADMINUSER='admin@example.com'
-export INIT_ADMINPW='password'
+```yaml
+hooks:
+    deploy: |
+        set -e
+        # Installs the database and sets up the initial admin user. Only run on first deploy.
+        if [ ! -f var/platformsh.installed ]; then
+            echo 'Bootstrapping Directus on first deploy...'
+
+            export PROJECT_NAME='Directus on Platform.sh'
+            export ADMIN_EMAIL='admin@example.com'
+            export ADMIN_PASSWORD='password'
+            
+            npx directus bootstrap
+
+            # Create file that indicates first deploy and installation has been completed.
+            touch var/platformsh.installed
+        fi;
 ```
 
 After you log in for the first time, be sure to update this password immediately. 
 
 # Customizations
 
-The following files and additions allow Directus to build and deploy on Platform.sh, placed on top of the basic quickstart project (`npx create-directus-project`). If using this project as a reference for your own existing project, replicate the changes below to your code. 
+The following files and additions allow Directus to build and deploy on Platform.sh, placed on top of the basic quickstart project (`npm init directus project`). If using this project as a reference for your own existing project, replicate the changes below to your code. 
+
+**Contents:**
+
+- [Changes to the codebase](#changes-to-the-codebase)
+- [Platform.sh configuration](#platformsh-configuration)
 
 ## Changes to the codebase
 
 - **`.gitignore`**: A `.gitignore` file has been added to the Directus starter project, as it was not already included. It's contents prevent you from committing sensitive information in your `.env` file and SQLite database, as well as your dependencies.
+- **`package.json`**: The `argon2-rebuild` script has been added, [as recommended by Directus](https://docs.directus.io/guides/installation/plesk/#bootstrap-directus), so that the database can be initialized during `directus bootstrap`.
+- **`.env.example`**: The `npm init directus-project` script generates a `.env` based on your answers to a set of prompts (for example, which database driver you want to use) that contains a set of environment variables for developing a Directus application. Platform.sh has added a `.gitignore` file to this repository which ignores `.env` from being committed, since this is generally considered bad practice and a path for unintentionally committed secrets. A fairly similar `.env.example` file _has_ been included however. It contains many of the same environment variables, including those settings that enable you to develop locally over a tethered connection to Platform.sh services. Please read the [**Tethered** local development](#local-development) instructions below for more details of how to use this file. 
 
 ## Platform.sh configuration
 
@@ -185,14 +197,16 @@ Platform.sh is able to build and deploy projects by detecting configuration in a
 - **`.platform/services.yaml`**: This file defines which of Platform.sh's [managed service containers](https://docs.platform.sh/configuration/services.html) are included alongside the template. 
 - **`.platform.app.yaml`**: This file defines how Directus is built and deployed within a single [application container](https://docs.platform.sh/configuration/app.html).
 - **`.environment`**: This file provides Platform.sh-specific environment variable overrides from the generated default `.env` settings for Directus and PostgreSQL. It also sets an initial username and password for an admin user. On Platform.sh, a `.env` file is required to configure Directus but is not committed (see below) in this project. Rather, at build time Directus's `example.env` file (`node_modules/directus/example.env`) is renamed in its place with a set of standard defaults which are then overridden by `.environment`. Consult this file locally, and then override with your own settings in `.environment` when appropriate. 
-
-## Community and issues
-
-A `.github` subdirectory for handling issue templates, as well as our `CODE_OF_CONDUCT` and `CONTRIBUTING` guides have been added.
  
 # Usage
 
 Once you have deployed this template, there are a number of next steps you can take to interact with and customize the project.
+
+**Contents:**
+
+- [Logs](#logs)
+- [Local development](#local-development)
+- [Updating](#updating)
 
 ## Logs
 
@@ -206,218 +220,255 @@ to gain access. Everything in your repository plus any artifacts of your build w
 
 You can also view application logs directly using the Platform.sh CLI command `platform logs app`.
 
-<!-- <details>
-<summary><strong>Log forwarding</strong></summary><br />
+## Local development 
 
-<em>Coming soon!</em>
-
-</details> -->
-
-### Local development
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum.
-
-<details>
-<summary><strong>Lando:</strong> <em>Use the Platform.sh recommended local development tool</em></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
-
-</details>
-
-<details>
-<summary><strong>Docksal:</strong> <em>Docker-based local development</em></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
-
-</details>
-
-<details>
-<summary><strong>DDEV:</strong> <em>PHP local development</em></summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
-
-</details>
+There are a few options for developing locally with Directus and Platform.sh.
 
 <details>
 <summary><strong>Tethered:</strong> <em>Connect directly to your Platform.sh services over an SSH tunnel</em></summary><br />
 
-You are able to test out or build this template on your local machine by following the steps below:
+This template has been set up to help you develop Directus locally by opening a tunnel to services running on a live Platform.sh requirement. Because of this, there are a few requirements that need to first be met:
 
-#### Requirements
+**Requirements:**
 
-- [Platform.sh CLI](https://docs.platform.sh/development/cli.html)
-- These steps open a tunnel to a PostgreSQL container on Platform.sh, so it is assumed that you have pushed to Platform.sh or clicked the **Deploy on Platform.sh** button above, and have followed the [post-install instructions](#post-install).
+- [A deployed Directus template](#deploying)
+- The [Platform.sh CLI](https://docs.platform.sh/development/cli.html) installed on your machine
+- A local copy of this template repository
+- npx installed locally
 
-#### Steps
+1. Create a development environment. 
 
-You are able to run the `build.sh` and `start.sh` `scripts` just as they're defined in `.platform.app.yaml` to run Metabase locally.
+    ```bash
+    git checkout -b updates
+    git push origin updates
+    ```
 
-Download the project's current live committed version of Metabase (defined in the [`metabase.version`](metabase.version) file):
+    You can push to the project directly if you have not integrated with GitHub (`platform environment:activate updates`), or otherwise open a pull request for the branch you have just pushed to GitHub. 
 
-```bash
-./scripts/build.sh
-```
+2. Tunnel to services
 
-Then start the application for the downloaded jar file:
+    Once the environment has successfully deployed, you can use the CLI to [open a tunnel]() to start a _tethered_ local development environment to your services. To open the tunnel, run the command:
 
-```bash
-./scripts/start.sh
-```
+    ```bash
+    platform tunnel:open
+    ```
 
-The script will automatically open a tunnel to the PostgreSQL instance on the current environment, so be sure to create a new one before making any changes.
+    which will provide the following output:
+
+    ```bash
+    SSH tunnel opened to database at: pgsql://main:main@127.0.0.1:30000/main
+    SSH tunnel opened to redisratelimit at: redis://127.0.0.1:30001
+    SSH tunnel opened to rediscache at: redis://127.0.0.1:30002
+
+    List tunnels with: platform tunnels
+    View tunnel details with: platform tunnel:info
+    Close tunnels with: platform tunnel:close
+
+    Save encoded tunnel details to the PLATFORM_RELATIONSHIPS variable using:
+    export PLATFORM_RELATIONSHIPS="$(platform tunnel:info --encode)"
+    ```
+
+    > **Note**
+    >
+    > If working from an environment created from a pull request on GitHub, make sure to add an environment flag to the `tunnel:open` command (i.e. `platform tunnel:open -e pr-8`).
+
+3. Mock environment variables
+
+    In order to match the environment on Platform.sh, run the suggested command above to retrieve connection credentials for the services now tunneled locally.
+
+    ```bash
+    export PLATFORM_RELATIONSHIPS="$(platform tunnel:info --encode)"
+    ```
+
+    > **Note**
+    >
+    > If working from an environment created from a pull request on GitHub, make sure to add an environment flag to the `tunnel:info` command (i.e. `export PLATFORM_RELATIONSHIPS="$(platform tunnel:info -e pr-8 --encode)"`).
+
+    A `.env.example` file has also been included in the repository based on the one provided from Directus. Use that file to create a local, uncommitted `.env` file:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+4. Start Directus
+
+    With your environment set up, install your dependencies (`npm install`) and then run the Directus server locally:
+
+    ```bash
+    npx directus start
+    ```
 
 </details>
+<br />
+
+There are also some additional things to keep in mind when developing locally, specifically related to how data works on Platform.sh.
 
 <details>
-<summary><strong>Untethered:</strong> <em>Using local services</em></summary><br />
+<summary><strong>A Note on data:</strong> <em>Runtime write access and the Platform.sh data model</em></summary><br />
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
+As you develop your Directus application, there are a few things to keep in mind that are specific to how Platform.sh handles data. Platform.sh abstracts much of the operations you would normally have to write and maintain yourself. Part of the assurance provided with the platform comes from treating infrastructure as code, and therefore as an equal part of the build image that identifies the state of your application for a particular commit. 
+
+This is advantageous for a few reasons. First, it means that commits can be rolled back to a previous build image by running a simple `git revert` on your changes. Second, it means that should you make some change to your site that does not affect the build itself, a build slug can be reused when an environment is created (branching) or promoted (merging). Both of these remove any sort of apprehension that might come with merging into production or trying out a new feature quickly on a development environment. 
+
+Code and data work differently in this model. They are separate entities, with different inheritance rules. Code can always be inherited by a child branch/environment. Data (i.e. in a production database, in a parent mounted directory) is also inherited - giving you a true staging environment for any change made to your application in a development environment. 
+
+Merging changes things, however. Code can move upwards from a development environment to its parent, but data cannot. That means that any new endpoints created for Directus in a development environment _will not_ get merged to production unless a database dump is expliticly uploaded to production. Only changes to code (like custom `modules`) will make it to production. This makes up one half of our repeatable builds methodology. The other is that your application and its infrastructure generates a build image, and that that image only changes when the code changes. Part of ensuring this approach is followed for directus prevents write access to the file system post-build. If there are any changes you expect to be able to make to the file system at runtime, you will not be able to do so. It's recommended instead that you make and commit those changes in your local development environment, and then push them to an environment on Platform.sh.
 
 </details>
+<br />
 
-### Updating
+## Updating 
 
-This template downloads the Metabase jar file during the build hook using the `build.sh` script. The version downloaded is dependendent on the version listed in the [`metabase.version`](metabase.version) file in the repository.
+This template is managed with npm, so updating to the latest version is as simple as
 
-```bash
-./scripts/update.sh
-```
+1. Creating a new environment to test the changes: 
 
-An `update.sh` script has been included in this repository, which checks to see if a [new version of Metabase is available](<(https://github.com/metabase/metabase/releases)>), and if so updates the contents of `metabase.version` that will used on subsequent builds.
+    ```bash
+    platform environment:branch update-directus
+    ```
+
+2. Retrieving updates with npm
+
+    ```bash
+    npm update
+    ```
+
+3. Testing those updates on Platform.sh
+
+    ```bash
+    git commit -am "Update Directus." && git push origin update-directus
+    ```
+
 
 <details>
 <summary><strong>Scheduling automatic updates:</strong> <em>automating upstream updates with source operations</em></summary><br />
+
+**Requirements:**
+
+- [Platform.sh CLI installed in your application container](https://docs.platform.sh/development/cli/api-tokens.html#on-a-platformsh-environment) with a configured token environment variable
 
 > **Note:**
 >
 > This section describes features only available to Elite and Enterprise customers. [Compare the Platform.sh tiers](https://platform.sh/pricing/#compare) on our pricing page, or [contact our sales team](https://platform.sh/pricing/#compare) for more information.
 
-It is possible to schedule the updates described above using [source operations](https://docs.platform.sh/configuration/app/source-operations.html), which are a set of commands that can be triggered to make changes to your project's code base.
-
-A source operation has been defined for this template that is scheduled to run regularly with a cron job:
+It is possible to schedule the updates described above using [source operations](https://docs.platform.sh/configuration/app/source-operations.html), which are a set of commands that can be triggered to make changes to your project's code base. For example, a very simple way to automate the updates described above might look like this in your `.platform.app.yaml` file:
 
 ```yaml
 source:
-  operations:
-    update:
-      command: !include
-        type: string
-        path: scripts/update.sh
+    operations:
+        update_dependencies:
+            command: |
+                npm update
+                git commit -am "Update Directus."
 ```
 
-The [`update.sh` script](scripts/update.sh) - when a new version of Metabase has been released - will write the latest version to `metabase.version`. That change will be staged and committed in an isolated build container source operations run on, ultimately causing a full rebuild of the environment (but not using that latest version).
-
-This command can be triggered at any time for any environment with the CLI command:
-
-```bash
-platform source-operation:run update
-```
-
-Ideally we would like:
-
-1. For this update to occur automatically.
-2. To only occur in an isolated environment, rather than to production.
-
-The [cron job](https://docs.platform.sh/configuration/app/cron.html) defined in [`.platform.app.yaml`](.platform.app.yaml) does exactly this:
+Once the operation has been defined, you can trigger it to make the commit on a non-production environment with the CLI (`platform source-operation:run update_dependencies`), or by defining a cron job that runs it periodically:
 
 ```yaml
+timezone: "Europe/Paris"
 crons:
-  auto-updates:
-    spec: '0 1 * * *'
-    cmd: |
-      if [ "$PLATFORM_BRANCH" = updates ]; then
-          platform environment:sync code data --no-wait --yes
-          platform source-operation:run update --no-wait --yes
-      fi
+    update:
+            spec: '0 3 * * *'
+            cmd: |
+                if [ "$PLATFORM_BRANCH" == "auto-updates" ]; then
+                    platform environment:sync code data --no-wait --yes
+                    platform source-operation:run update_dependencies
+                fi 
 ```
 
-With this definition, the `update` source operation will check to see if a new version of Metabase is available every day at 1:00 am UTC, but _only_ on the `updates` environment. If that environment does not exist on your project it will never run.
+With the above configuration, the operation will check for and apply updates on a dedicated `auto-updates` environment every day at 3am Paris time. This is, of course, not the only way to implement scheduled updates with source operations - it's a simple example, and you will notice a more complicated implementation of them in this template used by Platform.sh to keep it up-to-date. Another useful resource comes from [our community site](https://community.platform.sh/t/fully-automated-dependency-updates-with-source-operations/801), where we go into much greater detail about how scheduled dependency updates might work for you. 
 
-<hr></details>
-
+</details>
 <br />
-<h1>Migrating </h1>
 
-#### Data
+# Migrating
 
-Moving from using Metabase Cloud to a Self hosted version means you also would need to migrate your data yourself. For the migration to happen, you'll need to obtain your database dump from metabase, you can do that by refering to this [guide](https://www.metabase.com/docs/latest/operations-guide/migrating-from-h2.html) in the Metabase documentation.
+If you are trying to migrate your existing Directus application to Platform.sh, there are a few things you will need to accomplish in order to do so:
 
-> **Note:**
->
-> It is advised you backup your database before proceeding with the dump.
+<details>
+<summary><strong>Using different services:</strong> <em>Platform.sh provides managed services so you can match your database</em></summary><br />
 
-When you have successfully obtained a dump of your data (MySQL, MariaDB or PostgreSQL) from Metabase, you'll need to populate the postgresql database service that this template uses. You can change the default database type of this template by altering the `.platform/services.yaml` file in the `.platform` folder if needed.
+This template uses PostgreSQL as its primary database, but this is not the only database available for Directus. 
 
-Next, you'll need to save your as `database.sql`. (Or any name, really, as long as it’s the same as you use below.)
+1. Update the driver
 
-Next, import the database into your Platform.sh site. The easiest way to do so is with the Platform.sh CLI by running the following command:
+    Remove the current PostgreSQL driver library, and add the one you are currently using. For MariaDB as an example:
+
+    ```bash
+    npm uninstall pg && npm install mysql2/promise
+    ```
+
+2. Add the service
+
+    Find your service in our [Services documentation](https://docs.platform.sh/configuration/services.html), as well as a supported version that matches the [minimum requirements](https://docs.directus.io/guides/installation/cli/#_1-confirm-minimum-requirements) outlined by Directus. Then you can replace that configuration in `services.yaml` where PostgreSQL is currently configured. An example for MariaDB has already been included in that file as an example commented out. 
+
+3. Update the relationship
+
+    An environment on Platform.sh describes a collection of containers. `.platform.app.yaml` describes how an application container should be built and deployed, while `.platform/services.yaml` describes which managed service containers should be included in the cluster. In order for them to communicate with each other, an application container must be given access through the definition of a `relationship`. Here is the current configuration of PostgreSQL:
+
+    ```yaml
+    # From .platform.app.yaml
+    relationships:
+        database: "db:postgresql"
+    
+    # From .platform/services.yaml
+    db:
+        type: postgresql:12
+        disk: 256
+    ```
+
+    `db` is the name attributed to the PostgreSQL container, and it is used again in the relationship definition `database: "db:postgresql"`. When switching out another service, make sure to repeat the same pattern in this block. If you preserve the alias the application will use to query the database (i.e. `database`), you will not need to update any of the environment variable logic included in `.environment` when switching to another service. The endpoint `postgresql` will be specific to the database you choose to use, so be sure to revisit the [Services documentation](https://docs.platform.sh/configuration/services.html) to configure correctly. 
+
+</details>
+
+<details>
+<summary><strong>Importing your database</strong></summary><br />
+
+When you have successfully obtained a dump of your data for Directus, you'll need to populate the production database service that this template uses. You can change the default database type of this template by altering the `.platform/services.yaml` as described above first if needed.
+
+Import the database into your Platform.sh environment. The easiest way to do so is with the Platform.sh CLI by running the following command:
 
 ```bash
-platform sql -e master < database.sql
+platform sql -e main < database.sql
 ```
 
-The above command will connect to the database service on the `master` environment, through an SSH tunnel, and run the SQL import.
+The above command will connect to the database service on the `main` environment, through an SSH tunnel, and run the SQL import. Make sure to update the command to match the names of your database dump and your default branch on Platform.sh.
 
-#### Adding data sources
+</details>
 
-If you need to add your previous data sources, all you need to do is to build and deploy your metabase site, visit the generated route to see the metabase site live.
+<details>
+<summary><strong>Importing your files</strong></summary><br />
 
-Next thing is to follow this [guide](https://www.metabase.com/docs/latest/administration-guide/01-managing-databases.html) in the Metabase official documentation to learn how to add various data sources.
+You first need to download your files from your current hosting environment. The easiest way is likely with rsync, but consult your current host’s documentation. This sections assumes that you have already downloaded all of your user files to a local directory. The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once. Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
 
 > **Note:**
->
-> If you have a CSV file containing your data you'll need to upload the csv files to a database, then connect Metabase to the database.
+> 
+> There is also a `platform mount:download` command you can use to download files later.
 
-### Customizing Metabase
+Run the following from your local Git repository root (modifying the `--source` path if needed and setting `<DEFAULT_BRANCH>` to the name of your projects default branch. Note that rsync is picky about its trailing slashes, so be sure to include those.
 
-<details>
-<summary>Adding a datasource</summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
-
-</details>
-
-<details>
-<summary>Adding a domain</summary><br />
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
+```bash
+platform mount:upload -e <DEFAULT_BRANCH> --mount uploads --source ./backups/uploads
+```
 
 </details>
 
-<details>
-<summary>Authentication</summary><br />
+<br />
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu est lacus. Integer magna est, pellentesque vitae lorem a, molestie pharetra felis. Quisque massa lorem, ullamcorper sed urna eu, gravida placerat ipsum. Quisque tempus ex at sapien finibus, consequat condimentum lorem vehicula. Quisque posuere justo velit, vel luctus ipsum rutrum vel.
-
-</details>
-
-<!-- ## Roadmap
-
-This template will be actively updated and maintained. Moving forward we would be improving this template with more features like:
-
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-
-## Contributing
-
-Before sending a PR, please see the [Contributing Guide](/CONTRIBUTING.md)
-
-<!-- ### Code of Conduct
-
-WIP
-
-### Community License Agreement
-
-WIP -->
-
+After following the above steps, your files and database are now loaded onto your Platform.sh production environment. When you make a new branch environment off of it, all of your data will be fully cloned to that new environment so you can test with your complete dataset without impacting production.
 
 # License
 
 This template uses the [Open Source edition of Directus](https://github.com/directus/directus), which is licensed under the [GNU General Public License v3.0](https://github.com/directus/directus/blob/main/license).
 
-## About Platform.sh
+# Resources
+
+- [Directus](https://directus.io/)
+- [Directus documentation](https://docs.directus.io/getting-started/introduction/)
+- [Directus repository](https://github.com/directus/directus)
+- [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)
+
+# About Platform.sh
 
 Platform.sh is a Platform-as-a-Service (PaaS) provider, and a DevOps platform for deploying and managing your web applications. It attempts to simplify DevOps according to a level of abstraction that keeps your applcations secure, your development unblocked, and your time focused on your sites rather than on operations and infrastructure. 
 
@@ -465,24 +516,6 @@ This template is maintained primarily by the Platform.sh Developer Relations tea
 
 - **Community:** Share your question with the community, or see if it's already been asked on our [Community site](https://community.platform.sh).
 - **Slack:** If you haven't done so already, you can join Platform.sh's [public Slack](https://chat.platform.sh/) channel and ping the `@devrel_team` with any questions.
-<!-- - **E-mail:** You can also reach the DevRel team directly at `devrel@platform.sh`. -->
-
-# Resources
-
-<!-- ### General -->
-
-- [Directus](https://directus.io/)
-- [Directus documentation](https://docs.directus.io/getting-started/introduction/)
-- [Directus repository](https://github.com/directus/directus)
-- [Node.js on Platform.sh](https://docs.platform.sh/languages/nodejs.html)
-
-<!-- ### Blog posts
-
-- Any related blog posts
-
-### Community
-
-- Community questions -->
 
 # Contributing
 

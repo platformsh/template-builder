@@ -26,6 +26,7 @@
 #   * Report a bug: https://github.com/platformsh-templates/directus/issues/new
 #
 # ######################################################################################################################
+#
 # `upstream` routes:
 # A route defined with the `type: upstream` is used to serve an Application container directly.
 "https://{default}/":
@@ -51,11 +52,12 @@
         default_ttl: 0
         # cookies:
         # A list of allowed cookie names to include values for in the cache key. All cookies will bypass the cache when
-        # using the default (['*']) of it the 'Set-Cookie' header is present. 
+        # using the default (['*']) or if the 'Set-Cookie' header is present. 
         cookies: ['*']
         # Adds specific header fields to the cache key, enabling caching of separate responses for those headers. Caching
         # on 'Accept' and 'Accept-Language' is the default behavior.
         headers: ['Accept', 'Accept-Language']
+#
 # `redirect` routes:
 # A route defined with the `type: redirect` property is used to redirect a request from this route to another. It defines
 # a HTTP 301 redirect to any URL or another route defined in this file.

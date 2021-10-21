@@ -17,9 +17,14 @@
 #
 # ######################################################################################################################
 # PostgreSQL database service.
-dbpostgres:
+db:
     type: postgresql:12
     disk: 256
+# Alternative database options
+# MySQL/MariaDB database service.
+# db:
+#     type: mariadb:10.5
+#     disk: 256
 # Redis caching service.
 cacheredis:
     type: redis:6.0

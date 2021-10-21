@@ -35,7 +35,7 @@
 #
 # ######################################################################################################################
 #  
-# PRE-BUILD DEFINITIONS
+# RUNTIME CONFIGURATION
 #     
 # The following attributes define how the application is built prior to your build hook. From here, you can define
 # the primary runtime, build dependencies, and whether the default build `flavor` for the runtime used to install
@@ -49,7 +49,7 @@ name: directus
 #      
 # type (required):
 # The `type` key defines the base container image that will be used to run the application. 
-type: nodejs:14
+type: nodejs:12
 # ######################################################################################################################
 #  
 # BUILD AND DEPLOY
@@ -84,6 +84,8 @@ hooks:
     # you can use to create your builds.
     build: |
         set -e
+        # Rebuild argon2 to fix upstream issue (See https://docs.directus.io/guides/installation/plesk/#bootstrap-directus).
+        npm run argon2-rebuild
     # deploy:
     # The `deploy` hook is run after the application container has been started (See `web.start.commands`), but before
     # it has started accepting requests. At this stage, the application container has access to other services in the 
@@ -96,17 +98,13 @@ hooks:
         set -e
         # Installs the database and sets up the initial admin user. Only run on first deploy.
         if [ ! -f var/platformsh.installed ]; then
-            # Install the database
-            echo 'Installing the database...'
-            npx directus database install
+            echo 'Bootstrapping Directus on first deploy...'
 
-            # Create the admin user role
-            echo 'Setting up the initial admin role...'
-            ROLE_UUID=$(npx directus roles create --name admin --admin)
-
-            # Pipe output of above command into this one, adding an initial admin user
-            echo 'Creating the initial admin user...'
-            npx directus users create --email $INIT_ADMINUSER --password $INIT_ADMINPW --role $ROLE_UUID
+            export PROJECT_NAME='Directus on Platform.sh'
+            export ADMIN_EMAIL='admin@example.com'
+            export ADMIN_PASSWORD='password'
+            
+            npx directus bootstrap
 
             # Create file that indicates first deploy and installation has been completed.
             touch var/platformsh.installed
@@ -137,7 +135,7 @@ hooks:
 # definition is in the form `<service_name>:<endpoint_name>`. Be sure to consult the individual service documentation
 # for the service you are trying to use for details here (https://docs.platform.sh/configuration/services.html).
 relationships:
-    database: "dbpostgres:postgresql"
+    database: "db:postgresql"
     rediscache: "cacheredis:redis"
     redisratelimit: "ratelimitredis:redis"
 # ######################################################################################################################
@@ -195,3 +193,7 @@ mounts:
     'var':
         source: local
         source_path: var
+    # Allow for file uploads.
+    'uploads':
+        source: local
+        source_path: uploads

@@ -204,23 +204,12 @@ Once you have deployed this template, there are a number of next steps you can t
 
 **Contents:**
 
-- [Logs](#logs)
-- [Local development](#local-development)
+- [Setting up local development](#setting-up-local-development)
 - [Updating](#updating)
+- [Development](#development)
+- [Logs](#logs)
 
-## Logs
-
-Once you have deployed to an active environment, you will be able to SSH into your application containers, which can be useful for many things including accessing logs. A temporary SSH token will be generated for you (once you have logged in through the browser) by running the command `platform login`. After that from your project's root, simply run the command
-
-```bash
-platform ssh
-```
-
-to gain access. Everything in your repository plus any artifacts of your build will exist here in `/app`. All logs are available in the subdirectory `/var/log`, and you can find more information about the available logs [in the Development documentation](https://docs.platform.sh/development/logs.html).
-
-You can also view application logs directly using the Platform.sh CLI command `platform logs app`.
-
-## Local development 
+## Setting up local development 
 
 There are a few options for developing locally with Directus and Platform.sh.
 
@@ -376,10 +365,34 @@ crons:
                 fi 
 ```
 
-With the above configuration, the operation will check for and apply updates on a dedicated `auto-updates` environment every day at 3am Paris time. This is, of course, not the only way to implement scheduled updates with source operations - it's a simple example, and you will notice a more complicated implementation of them in this template used by Platform.sh to keep it up-to-date. Another useful resource comes from [our community site](https://community.platform.sh/t/fully-automated-dependency-updates-with-source-operations/801), where we go into much greater detail about how scheduled dependency updates might work for you. 
+With the above configuration, the operation will check for and apply updates on a dedicated `auto-updates` environment every day at 3am Paris time. 
+
+This is, of course, not the only way to implement scheduled updates with source operations - it's a simple example, and you will notice a more complicated implementation of them in this template used by Platform.sh to keep it up-to-date. Another useful resource comes from [our community site](https://community.platform.sh/t/fully-automated-dependency-updates-with-source-operations/801), where we go into much greater detail about how scheduled dependency updates might work for you. 
 
 </details>
 <br />
+
+## Developing
+
+Once you have deployed Directus and prepared your local development environment, you are now ready to develop your application. Directus provides an excellent [getting started overview video](https://www.youtube.com/watch?v=AicEmIeuuLw) that you can use to begin setting up your site. 
+
+<p align="center">
+    <a href="https://youtu.be/AicEmIeuuLw" rel="noreferrer">
+        <img src="https://img.youtube.com/vi/AicEmIeuuLw/hqdefault.jpg" alt="Watch the video">
+    </a>
+</p>
+
+## Logs
+
+Once you have deployed to an active environment, you will be able to SSH into your application containers, which can be useful for many things including accessing logs. A temporary SSH token will be generated for you (once you have logged in through the browser) by running the command `platform login`. After that from your project's root, simply run the command
+
+```bash
+platform ssh
+```
+
+to gain access. Everything in your repository plus any artifacts of your build will exist here in `/app`. All logs are available in the subdirectory `/var/log`, and you can find more information about the available logs [in the Development documentation](https://docs.platform.sh/development/logs.html).
+
+You can also view application logs directly using the Platform.sh CLI command `platform logs app`.
 
 # Migrating
 

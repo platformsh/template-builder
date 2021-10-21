@@ -1,12 +1,66 @@
-# The routes of the project.
+# ######################################################################################################################
+# 
+# Directus for Platform.sh                                    
+# 
+# ABOUT THIS FILE: Router container configuration (.platform/routes.yaml)
+# 
+# Every container cluster associated with a Platform.sh environment will always have one Router container. It describes
+# a single Nginx process configured by this file. It maps incoming requests to the appropriate Application container and
+# provides basic caching of responses. It has no persistent storage. 
 #
-# Each route describes how an incoming URL is going
-# to be processed by Platform.sh.
-
-"https://www.{default}/":
-    type: upstream
-    upstream: "app:http"
-
+# You will notice that the template placeholder `default` is used in each route defined below. This placeholder will be 
+# swapped out by Platform.sh at deploy time with either the generated url for the current environment from which the 
+# app will be accessible, or by the domain you have registered for that project when on the default branch.
+# See the documentation (https://docs.platform.sh/configuration/routes.html#route-placeholders) for more information.
+#
+# Documentation:
+#   * Router container docs: https://docs.platform.sh/configuration/routes.html
+#   * Route templates: https://docs.platform.sh/configuration/routes.html#route-templates
+#   * Route configuration: https://docs.platform.sh/configuration/routes.html#route-configuration
+#   * HTTPS: https://docs.platform.sh/configuration/routes/https.html
+#   * HTTP cache: https://docs.platform.sh/configuration/routes/cache.html
+#   * Redirects: https://docs.platform.sh/configuration/routes/redirects.html
+#   * Server Side Includes: https://docs.platform.sh/configuration/routes/ssi.html
+#
+# Provide feedback:
+#   * Report a bug: https://github.com/platformsh-templates/directus/issues/new
+#
+# ######################################################################################################################
+#
+# `upstream` routes:
+# A route defined with the `type: upstream` is used to serve an Application container directly.
 "https://{default}/":
+    # type:
+    # Possible values: upstream, redirect
+    type: upstream
+    # upstream:
+    # Configured which Application container is served by an upstream route type. This property takes the form 
+    # "<name>:http", where `name` is the same unique `name` property defined in a `.platform.app.yaml` file.
+    upstream: "directus:http"
+    # cache:
+    # Platform.sh supports HTTP caching at the server level. It's enabled by default (default values below), but is only
+    # applied to GET and HEAD requests. If a request is cacheable, Platform.sh builds a cache key from several request
+    # properties and stores the response associated with this key. When a request comes with the same cache key, the 
+    # cached response is reused. 
+    cache:
+        # enabled:
+        # Turns the cache on or off for a route.
+        enabled: true
+        # default_ttl:
+        # Defines the default time-to-live for the cache, in seconds, for non-static responses, when the response does
+        # not specify one. 
+        default_ttl: 0
+        # cookies:
+        # A list of allowed cookie names to include values for in the cache key. All cookies will bypass the cache when
+        # using the default (['*']) or if the 'Set-Cookie' header is present. 
+        cookies: ['*']
+        # Adds specific header fields to the cache key, enabling caching of separate responses for those headers. Caching
+        # on 'Accept' and 'Accept-Language' is the default behavior.
+        headers: ['Accept', 'Accept-Language']
+#
+# `redirect` routes:
+# A route defined with the `type: redirect` property is used to redirect a request from this route to another. It defines
+# a HTTP 301 redirect to any URL or another route defined in this file.
+"https://www.{default}/":
     type: redirect
-    to: "https://www.{default}/"
+    to: "https://{default}/"

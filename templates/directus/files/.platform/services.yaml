@@ -1,14 +1,33 @@
-# The services of the project.
+# ######################################################################################################################
+# 
+# Directus for Platform.sh                                    
+# 
+# ABOUT THIS FILE: Service container configuration (.platform/services.yaml)
+# 
+# Every container cluster associated with a Platform.sh environment can have zero or more Service containers within it. 
+# While your project may not require a service container, an empty `services.yaml` file is required to successfully
+# push to an environment. Each of the services defined in this file will be deployed alongside your Application 
+# container(s) and will become accessible with a matching relationship in a `.platform.app.yaml` file. 
 #
-# Each service listed will be deployed
-# to power your Platform.sh project.
-
-dbpostgres:
+# Documentation:
+#   * Service container docs: https://docs.platform.sh/configuration/services.html
+#
+# Provide feedback:
+#   * Report a bug: https://github.com/platformsh-templates/directus/issues/new
+#
+# ######################################################################################################################
+# PostgreSQL database service.
+db:
     type: postgresql:12
     disk: 256
-
+# Alternative database options
+# MySQL/MariaDB database service.
+# db:
+#     type: mariadb:10.5
+#     disk: 256
+# Redis caching service.
 cacheredis:
     type: redis:6.0
-
+# Redis rate-limiting service.
 ratelimitredis:
     type: redis:6.0

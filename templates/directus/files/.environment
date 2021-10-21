@@ -120,12 +120,3 @@ export EMAIL_TRANSPORT=smtp
 ## Email (SMTP Transport)
 export EMAIL_SMTP_HOST=$PLATFORM_SMTP_HOST
 export EMAIL_SMTP_PORT=25
-
-####################################################################################################
-# Platform.sh
-
-export PROJECT_NAME='Directus on Platform.sh'
-
-# Initial admin user on first deploy.
-export INIT_ADMINUSER='admin@example.com'
-export INIT_ADMINPW='password'

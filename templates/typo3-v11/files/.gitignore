@@ -1,0 +1,20 @@
+.DS_Store
+.idea
+nbproject
+
+public/*
+!public/typo3conf
+public/typo3conf/*
+!public/typo3conf/PlatformshConfiguration.php
+!public/typo3conf/LocalConfiguration.php
+!public/typo3conf/AdditionalConfiguration.php
+!public/favicon.ico
+/vendor/
+/var/
+config/platform-temp-bridge
+
+# Ignore mounts
+public/typo3temp
+public/fileadmin
+var
+config/sites

@@ -5,7 +5,6 @@ from collections import OrderedDict
 from . import BaseProject
 from .remote import RemoteProject
 
-
 class Wordpress_vanilla(BaseProject):
     remote = 'https://wordpress.org/latest'
     install_dir = 'wordpress'
@@ -21,49 +20,70 @@ class Wordpress_vanilla(BaseProject):
             'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
         ]
 
-class Wordpress_bedrock(RemoteProject):
+# @todo
+class WordPressComposerBase(RemoteProject):
+    unPinDependencies = []
+    # Upstream script locks a specific version in composer.json, keeping users from updating locally.
+    # @todo should this be a classmethod?
+    def unlock_version(self,locked_version):
+        if '^' not in locked_version:
+            return '^{}'.format(locked_version)
+        else:
+            return locked_version
+
+    # Run through our list of dependencies that should be unpinned as defined in @see unPinDependencies
+    def wp_modify_composer(self,composer):
+        for dependency in self.unpinDependencies:
+            if dependency in composer['require']:
+                composer['require'][dependency] = self.unlock_version(composer['require'][dependency])
+
+        return composer
+
+class Wordpress_bedrock(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
+    unpinDependencies = ['roots/wordpress']
 
     @property
     def platformify(self):
         return super(Wordpress_bedrock, self).platformify + [
+            (self.modify_composer, [super().wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
         ]
 
-class Wordpress_woocommerce(RemoteProject):
+class Wordpress_woocommerce(WordPressComposerBase):
+    unpinDependencies = [
+        'roots/wordpress',
+        'wpackagist-plugin/woocommerce',
+        'wpackagist-plugin/jetpack'
+    ]
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
 
     @property
     def platformify(self):
         return super(Wordpress_woocommerce, self).platformify + [
+            (self.modify_composer, [super().wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + self.composer_defaults(),
         ]
 
-class Wordpress_composer(RemoteProject):
+class Wordpress_composer(WordPressComposerBase):
     major_version = '5'
     remote = 'https://github.com/johnpbloch/wordpress.git'
+    unPinDependencies = ['johnpbloch/wordpress-core']
 
     @property
     def platformify(self):
 
-        # Upstream script locks a specific version in composer.json, keeping users from updating locally. 
-        def unlock_version(locked_version):
-            if '^' not in locked_version:
-                return '^{}'.format(locked_version)
-            else:
-                return locked_version
-
         def require_default_wppackages():
-            # WordPress comes with a few default themes and plugins. Those packages are not 
+            # WordPress comes with a few default themes and plugins. Those packages are not
             #   automatically added via Composer, so they aren't really packages like they should be.
-            #   This becomes a problem when adding new themes/plugins, resulting in a nested wp-content dir. 
+            #   This becomes a problem when adding new themes/plugins, resulting in a nested wp-content dir.
             #   The upstream recommendation seems to be to add them explicitly via Composer.
-            #   
+            #
             #   Issue: https://github.com/platformsh-templates/wordpress-composer/issues/7
             #   Recommendation: https://github.com/johnpbloch/wordpress-core/issues/5
             root = 'wordpress/wp-content/'
@@ -71,7 +91,7 @@ class Wordpress_composer(RemoteProject):
                 "themes": "wpackagist-theme",
                 "plugins": "wpackagist-plugin"
             }
-            
+
             if os.path.exists(self.builddir + root):
                 defaultPackages = []
 
@@ -85,6 +105,7 @@ class Wordpress_composer(RemoteProject):
                 return ' '.join(defaultPackages)
 
         def wp_modify_composer(composer):
+            composer = super().wp_modify_composer(composer)
             # In order to both use the Wordpress default install location `wordpress` and
             # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
             # added to the upstream composer.json to move that config file during composer install.
@@ -94,8 +115,6 @@ class Wordpress_composer(RemoteProject):
                 ],
                 'post-install-cmd': "@subdirComposer"
             }
-
-            composer['require']['johnpbloch/wordpress-core'] = unlock_version(composer['require']['johnpbloch/wordpress-core'])
 
             composer['extra'] = {
                 'installer-paths': {

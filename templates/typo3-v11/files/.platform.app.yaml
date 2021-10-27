@@ -95,7 +95,12 @@ web:
         # Additional TYPO3 installation settings.
         '/typo3conf/AdditionalConfiguration.php':
             allow: false
-
+        # @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Breaking-93048-BackendURLRewrites.html
+        '/typo3/':
+            root: 'public/typo3'
+            passthru: '/typo3/index.php'
+            allow: true
+            scripts: true
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
@@ -114,7 +119,10 @@ mounts:
     "var":
         source: local
         source_path: "var"
-
+    # Contains site configuration files, needs to be writable from the CMS and during deploy
+    "config/sites":
+        source: local
+        source_path: "sites"
 # The hooks that will be performed when the package is deployed.
 hooks:
     # The build hook runs after Composer to finish preparing up your code.
@@ -123,28 +131,7 @@ hooks:
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
 
-        # Start the installation with no interaction or extension setup, using `SetupConfiguration.yaml`.
-        if [ ! -f var/platformsh.installed ]; then
-            php vendor/bin/typo3cms install:setup --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup
-        fi;
-
-        # Generates the `PackageStates.php` file from the `composer.json` configuration
-        php vendor/bin/typo3cms install:generatepackagestates
-
-        # Enable the install tool for 60mins after deployment.
-        touch public/typo3conf/ENABLE_INSTALL_TOOL
-
-        # Keep the checked-in LocalConfiguration available, but make the actual file writable later-on
-        # by creating a symlink which will be accesible below.
-        if [ -f public/typo3conf/LocalConfiguration.php ]; then
-            mv public/typo3conf/LocalConfiguration.php public/typo3conf/LocalConfiguration.FromSource.php
-            ln -sf ../../var/LocalConfiguration.php public/typo3conf/LocalConfiguration.php
-        fi;
-
-        # Clean up the FIRST_INSTALL file, that was created.
-        if [ -f public/FIRST_INSTALL ]; then
-            rm public/FIRST_INSTALL
-        fi;
+        bash ./.platform-scripts/build.sh
 
     # The deploy hook runs after your application has been deployed and started.
     # Code cannot be modified at this point but the database is available.
@@ -154,28 +141,7 @@ hooks:
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
 
-        # Set TYPO3 site defaults on first deploy.
-        if [ ! -f var/platformsh.installed ]; then
-            # Copy the created LocalConfiguration into the writable location.
-            cp public/typo3conf/LocalConfiguration.FromSource.php var/LocalConfiguration.php
-
-            # On first install, create an inital admin user with a default password.
-            # *CHANGE THIS VALUE IMMEDIATELY AFTER INSTALLATION*
-            php vendor/bin/typo3cms install:setup \
-                --install-steps-config=src/SetupDatabase.yaml \
-                --site-setup-type=no \
-                --site-name="TYPO3 on Platform.sh" \
-                --admin-user-name=admin \
-                --admin-password=password \
-                --skip-extension-setup \
-                --no-interaction
-
-            # Sets up all extensions that are marked as active in the system.
-            php vendor/bin/typo3cms extension:setupactive || true
-
-            # Create file that indicates first deploy and installation has been completed.
-            touch var/platformsh.installed
-        fi;
+        bash ./.platform-scripts/deploy.sh
 
 crons:
      # Run TYPO3's Scheduler tasks every 5 minutes.

@@ -24,7 +24,7 @@ from project.rails import Rails
 from project.sculpin import Sculpin
 from project.strapi import Strapi
 from project.symfony import Symfony4, Symfony5
-from project.typo3 import Typo3
+from project.typo3 import Typo3, Typo3_v11
 from project.wordpress import Wordpress_composer, Wordpress_bedrock, Wordpress_woocommerce, Wordpress_vanilla
 
 DOIT_CONFIG = {

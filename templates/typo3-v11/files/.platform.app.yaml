@@ -80,7 +80,7 @@ web:
             passthru: '/index.php'
             headers:
                 Content-Security-Policy: "default-src 'self'; script-src 'none'; style-src 'none'; object-src 'none';"
-                
+
         # Directory for temporary files that should be publicly available (e.g. generated images).
         # Writable at runtime with the mount `publi/typo3temp`.
         '/typo3temp/assets':

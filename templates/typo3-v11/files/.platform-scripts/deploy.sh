@@ -8,7 +8,7 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "${DIR}/common.sh"
 
 # if our pshInstalled file isn't present, begin the installation process
-if [ ! -f "${pshInstalled}" ]; then
+if [[ ! -f "${pshInstalled}" ]]; then
   echo "Installing Typo3..."
   # Since we haven't installed, then we need to make sure we sync all the directories/files that the typo3 composer
   # installer extender generates during composer install
@@ -46,4 +46,5 @@ fi
 
 # Now set up all extensions that may have been added via composer (build step) but not set up yet (db-related)
 composer exec typo3cms install:extensionsetupifpossible
-
+# per simon.gilli@typo3.org and soren.malling@gmail.com add cache warmup at end of deploy hook
+composer exec typo3 cache:warmup

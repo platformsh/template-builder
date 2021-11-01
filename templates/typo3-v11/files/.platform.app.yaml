@@ -122,9 +122,9 @@ mounts:
         source: local
         source_path: "var"
     # Contains site configuration files, needs to be writable from the CMS and during deploy
-    "config/sites":
+    "config":
         source: local
-        source_path: "sites"
+        source_path: "config"
 # The hooks that will be performed when the package is deployed.
 hooks:
     # The build hook runs after Composer to finish preparing up your code.

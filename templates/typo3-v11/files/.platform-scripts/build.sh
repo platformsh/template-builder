@@ -16,16 +16,20 @@ cp ${PLATFORM_CACHE_DIR}/libwebp-${VERSION}-linux-x86-64/bin/* /app/.global/bin/
 # determine during the deploy stage whether or not we've installed it already
 composer exec typo3cms install:setup -- --install-steps-config=src/SetupConfiguration.yaml --no-interaction --skip-extension-setup
 
-# Enable the install tool for 60mins after deployment.
-# https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/Security/GuidelinesIntegrators/InstallTool.html#install-tool
-# @todo Could we add a build-visible env var that determines if we should create this file?
-touch "${PLATFORM_APP_DIR}/public/typo3conf/ENABLE_INSTALL_TOOL"
+# Enable the install tool. Will allow access for 60mins after deployment.
+# https://docs.typo3.org/m/typo3/guide-security/8.7/en-us/GuidelinesIntegrators/InstallTool/Index.html
+# public/typo3conf is read-only in deploy, so create a symlink to the file in the ${varPath} file mount
+# @todo add a link to the docs
+if [[ -n ${TYPO3_ENABLE_INSTALL_TOOL+x} ]]; then
+  ln -sf "${PLATFORM_APP_DIR}/${varPath}/ENABLE_INSTALL_TOOL" "${PLATFORM_APP_DIR}/public/typo3conf/ENABLE_INSTALL_TOOL"
+fi
 
 # this file is created earlier by the installer. It is currently in a read-only area, but the CMS needs to be able to
 # write to it later, so we'll rename the original to copy later in deploy, but go ahead and create a symlink to it now
+# over to the `${varPath}` (`var/`) directory
 if [ -f "${PLATFORM_APP_DIR}/public/typo3conf/LocalConfiguration.php" ]; then
   mv "${PLATFORM_APP_DIR}/public/typo3conf/LocalConfiguration.php" "${PLATFORM_APP_DIR}/public/typo3conf/LocalConfiguration.FromSource.php"
-  ln -sf "${PLATFORM_APP_DIR}/var/LocalConfiguration.php" "${PLATFORM_APP_DIR}/public/typo3conf/LocalConfiguration.php"
+  ln -sf "${PLATFORM_APP_DIR}/${varPath}/LocalConfiguration.php" "${PLATFORM_APP_DIR}/public/typo3conf/LocalConfiguration.php"
 fi
 
 # This file is created by the installer previously and is deleted by the installer later, once the installation is

@@ -150,3 +150,9 @@ crons:
     typo3:
         spec: "*/5 * * * *"
         cmd: "vendor/bin/typo3 scheduler:run"
+
+variables:
+    env:
+        # After the initial installation you can remove (or comment out) this variable.
+        # @todo add link to docs
+        TYPO3_ENABLE_INSTALL_TOOL: 'true'

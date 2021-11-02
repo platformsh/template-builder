@@ -19,7 +19,7 @@ from template_builder.project.rails import Rails
 from template_builder.project.sculpin import Sculpin
 from template_builder.project.strapi import Strapi
 from template_builder.project.symfony import Symfony4, Symfony5
-from template_builder.project.typo3 import Typo3
+from template_builder.project.typo3 import Typo3, Typo3_v11
 from template_builder.project.wordpress import Wordpress_composer, Wordpress_bedrock, Wordpress_woocommerce, Wordpress_vanilla
 
 def project_factory(name):

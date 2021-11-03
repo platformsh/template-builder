@@ -7,25 +7,25 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 
 import os
 
-from project import BaseProject, TEMPLATEDIR
-from project.akeneo import Akeneo
-from project.backdrop import Backdrop
-from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
-from project.gatsby import Gatsby
-from project.laravel import Laravel
-from project.magento import Magento2ce
-from project.pimcore import Pimcore
-from project.laravel import Laravel
-from project.magento import Magento2ce
-from project.mautic import Mautic
-from project.nextjs import Nextjs
-from project.nuxtjs import Nuxtjs
-from project.rails import Rails
-from project.sculpin import Sculpin
-from project.strapi import Strapi
-from project.symfony import Symfony4, Symfony5
-from project.typo3 import Typo3
-from project.wordpress import Wordpress_composer, Wordpress_bedrock, Wordpress_woocommerce, Wordpress_vanilla
+from template_builder.project import BaseProject, TEMPLATEDIR
+from template_builder.project.akeneo import Akeneo
+from template_builder.project.backdrop import Backdrop
+from template_builder.project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
+from template_builder.project.gatsby import Gatsby
+from template_builder.project.laravel import Laravel
+from template_builder.project.magento import Magento2ce
+from template_builder.project.pimcore import Pimcore
+from template_builder.project.laravel import Laravel
+from template_builder.project.magento import Magento2ce
+from template_builder.project.mautic import Mautic
+from template_builder.project.nextjs import Nextjs
+from template_builder.project.nuxtjs import Nuxtjs
+from template_builder.project.rails import Rails
+from template_builder.project.sculpin import Sculpin
+from template_builder.project.strapi import Strapi
+from template_builder.project.symfony import Symfony4, Symfony5
+from template_builder.project.typo3 import Typo3
+from template_builder.project.wordpress import Wordpress_composer, Wordpress_bedrock, Wordpress_woocommerce, Wordpress_vanilla
 
 DOIT_CONFIG = {
     "verbosity": 2,

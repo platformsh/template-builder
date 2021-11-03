@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "template-builder"
+name = "template-builder-manual"
 version = "0.1.0"
 description = "Utility scripts to manage the Platform.sh Template projects"
 authors = ["Platform.sh"]

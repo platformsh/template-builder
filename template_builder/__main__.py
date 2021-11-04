@@ -2,7 +2,7 @@ import sys
 import os
 
 
-from template_builder.project import BaseProject, TEMPLATEDIR, UPDATER_BRANCH_NAME,UPDATER_SOURCEOP_NAME
+from template_builder.project import BaseProject, UPDATER_BRANCH_NAME,UPDATER_SOURCEOP_NAME
 from template_builder.project.akeneo import Akeneo
 from template_builder.project.backdrop import Backdrop
 from template_builder.project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
@@ -22,7 +22,7 @@ from template_builder.project.symfony import Symfony4, Symfony5
 from template_builder.project.typo3 import Typo3
 from template_builder.project.wordpress import Wordpress_composer, Wordpress_bedrock, Wordpress_woocommerce, Wordpress_vanilla
 
-def project_factory(name):
+def project_factory(name,location):
     '''Instantiate a project object.  Class selection is based on the following naming convention:
     Project class matches template directory name with the first letter capitalized.
       laravel -> Laravel,
@@ -33,12 +33,12 @@ def project_factory(name):
 
     targetclass = name.capitalize().replace('-', '_')
     if targetclass in globals():
-        return globals()[targetclass](name)
+        return globals()[targetclass](name,location)
     else:
-        return BaseProject(name)
+        return BaseProject(name,location)
 
 def run():
-    project = project_factory(sys.argv[1])
+    project = project_factory(sys.argv[1], 'remote')
     step = sys.argv[2]
     arguments = sys.argv[3:]
     getattr(project, step)(*arguments)

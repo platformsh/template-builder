@@ -12,10 +12,10 @@ import requests
 import shlex
 import shutil
 import subprocess
+from pathlib import Path
 
 from requests.models import Response
 
-TEMPLATEDIR = os.getcwd()
 UPDATER_BRANCH_NAME = "update"
 UPDATER_SOURCEOP_NAME = "platform_update_dependencies"
 
@@ -48,7 +48,7 @@ class BaseProject(object):
         'go.mod': 'go get -u all',
         'yarn.lock': 'yarn upgrade'
     }
-    
+
     '''Amount of seconds to delay test execution after target_url is available.
     This is due to the fact that some apps take longer to really deploy than what is reported back to the status check.
     '''
@@ -76,37 +76,52 @@ class BaseProject(object):
                 '--ignore-platform-req=php',
                 ]
 
-    def __init__(self, name):
+    def __init__(self, name, location="local"):
         self.name = name
+        self.location = location
+
+
         self.repo = "platformsh-templates/{0}".format(self.name)
         self.use_integration = False
 
-        if os.getenv('PLATFORMSH_CLI_TOKEN', None) == None:
-            raise BaseException("env:PLATFORMSH_CLI_TOKEN not set, unable to continue")
+        # @todo move this to a separate method?
+        if 'remote' == self.location:
+            # @todo this makes me feel super icky
+            self.templatedir = os.getcwd()
+            if os.getenv('PLATFORMSH_CLI_TOKEN', None) == None:
+                raise BaseException("env:PLATFORMSH_CLI_TOKEN not set, unable to continue")
 
-        self.platform_path = self.get_platform_cli_path()
-        
-        # look for integration
-        if self.platform_path:
-            for integration in json.loads(subprocess.check_output([self.platform_path, "project:curl", "/integrations"]).decode("utf-8").strip()):
-                if integration.get("type") != "github":
-                    continue
-                self.repo = integration["repository"]
-                print("integration found: {0}".format(integration['repository']))
-                self.use_integration = True
-                break
+            self.platform_path = self.get_platform_cli_path()
 
-        self.builddir = os.getcwd()
-        # Parses the github authorization token from env var by default.
-        self.github_token = os.getenv('GITHUB_TOKEN', None)
-       
-        # A list containing function references which will be executed against a test url, bootstrapped with a basic smoke test.
-        self.TEST_FUNCTIONS = [self.basic_smoke_test]
-        self.test_results = {}
+            # look for integration
+            if self.platform_path:
+                for integration in json.loads(subprocess.check_output([self.platform_path, "project:curl", "/integrations"]).decode("utf-8").strip()):
+                    if integration.get("type") != "github":
+                        continue
+                    self.repo = integration["repository"]
+                    print("integration found: {0}".format(integration['repository']))
+                    self.use_integration = True
+                    break
+
+            self.builddir = os.getcwd()
+            # Parses the github authorization token from env var by default.
+            self.github_token = os.getenv('GITHUB_TOKEN', None)
+
+            # A list containing function references which will be executed against a test url, bootstrapped with a basic smoke test.
+            self.TEST_FUNCTIONS = [self.basic_smoke_test]
+            self.test_results = {}
+
+        else:
+            self.rootdir = Path(__file__).parents[2]
+            print("root dir is ")
+            print(self.rootdir)
+            #self.rootdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            self.templatedir = os.path.join(self.rootdir, 'templates')
+            self.builddir = os.path.join(self.templatedir, self.name, 'build/')
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
-            self.updateCommands['composer.json'] += " ".join(self.composer_defaults())
+            self.build_update_commands()
 
     def get_platform_cli_path(self):
         if getattr(self, "platform_path", None):
@@ -116,7 +131,7 @@ class BaseProject(object):
             return "platform"
         elif os.path.exists("/app/.platformsh/bin/platform"):
             return "/app/.platformsh/bin/platform"
-        else: 
+        else:
             self._install_platform_cli()
             return self.get_platform_cli_path() # recheck the path
 
@@ -124,20 +139,40 @@ class BaseProject(object):
         if self.platform_path is None:
             self._install_platform_cli()
 
+    @property
     def cleanup(self):
-        if os.path.exists(self.builddir):
-            shutil.rmtree(self.builddir)
+        if 'remote' == self.location:
+            if os.path.exists(self.builddir):
+                shutil.rmtree(self.builddir)
+        else:
+            return ['rm -rf {0}'.format(self.builddir)]
 
+    @property
     def init(self):
         if hasattr(self, 'github_name'):
             name = self.github_name
         else:
             name = self.name.replace('_', '-')
-        subprocess.call(["git", "clone", "git@github.com:platformsh-templates/{0}.git".format(name), self.builddir])
 
+        if 'remote' == self.location:
+            subprocess.call(["git", "clone", "git@github.com:platformsh-templates/{0}.git".format(name), self.builddir])
+        else:
+            return ['git clone git@github.com:platformsh-templates/{0}.git {1}'.format(
+                name, self.builddir)
+            ]
+
+    @property
     def update(self):
-        self.package_update()
+        if 'remote' == self.location:
+            self.package_update()
+        else:
+            actions = [
+                'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
+            ]
+            actions.extend(self.package_update_actions())
+            return actions
 
+    @property
     def platformify(self):
         """
         The default implementation of this method will
@@ -147,57 +182,91 @@ class BaseProject(object):
 
         Individual projects may expand on these tasks as needed.
         """
-        print(os.path.join(TEMPLATEDIR, self.name, 'files/'))
-        print(self.builddir)
-        subprocess.call(["rsync", "-aP", os.path.join(TEMPLATEDIR, self.name, 'files/'), self.builddir])
-        patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
-        for patch in patches:
-            with open(os.path.join(TEMPLATEDIR, self.name, 'files', patch), "r") as stream:
-                subprocess.call(["patch", "-p1"], cwd=self.builddir, stdin=stream)
+        if 'remote' == self.location:
+            print(os.path.join(self.templatedir, self.name, 'files/'))
+            print(self.builddir)
+            subprocess.call(["rsync", "-aP", os.path.join(self.templatedir, self.name, 'files/'), self.builddir])
+        else:
+            actions = ['rsync -aP {0} {1}'.format(
+                os.path.join(self.templatedir, self.name, 'files/'), self.builddir
+            )]
 
+        patches = glob(os.path.join(self.templatedir, self.name, "*.patch"))
+        for patch in patches:
+            if 'remote' == self.location:
+                with open(os.path.join(self.templatedir, self.name, 'files', patch), "r") as stream:
+                    subprocess.call(["patch", "-p1"], cwd=self.builddir, stdin=stream)
+            else:
+                actions.append('cd {0} && patch -p1 < {1}'.format(
+                    self.builddir, patch)
+                )
         # In some cases the package updater needs to be run after we've platform-ified the
         # template, so run it a second time. Worst case it's a bit slower to build but doesn't
         # hurt anything.
-        self.package_update()
-    
+        if 'remote' == self.location:
+            self.package_update()
+        else:
+            actions.extend(self.package_update_actions())
+            return actions
+
     def trigger_update_dependencies(self, token=None):
         """
-        Check if we have a github integration set up and direct the call to the correct code path. 
+        Check if we have a github integration set up and direct the call to the correct code path.
         If a github integration is set, we assume it is running to auto update platformsh templates
         """
         if self.use_integration:
             print("Using github integration")
             return self._trigger_update_dependencies_with_github_integration(token)
-
+    @property
     def branch(self):
-        if subprocess.call(["git", "rev-parse", "--verify", "--quiet", UPDATER_BRANCH_NAME], cwd=self.builddir) == 0:
-            subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
-            subprocess.call(["git", "branch", "-D", UPDATER_BRANCH_NAME], cwd=self.builddir)
-        subprocess.call(["git", "checkout", "-b", UPDATER_BRANCH_NAME], cwd=self.builddir)
-        subprocess.call(["git", "add", "-A"], cwd=self.builddir)
-        subprocess.call(["git", "commit", "-m", "Update to latest upstream"], cwd=self.builddir)
+        if 'remote' == self.location:
+            if subprocess.call(["git", "rev-parse", "--verify", "--quiet", UPDATER_BRANCH_NAME],
+                               cwd=self.builddir) == 0:
+                subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
+                subprocess.call(["git", "branch", "-D", UPDATER_BRANCH_NAME], cwd=self.builddir)
+            subprocess.call(["git", "checkout", "-b", UPDATER_BRANCH_NAME], cwd=self.builddir)
+            subprocess.call(["git", "add", "-A"], cwd=self.builddir)
+            subprocess.call(["git", "commit", "-m", "Update to latest upstream"], cwd=self.builddir)
+        else:
+            return [
+                'cd {0} && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;'.format(
+                    self.builddir),
+                'cd {0} && git checkout -b update'.format(self.builddir),
+                # git commit exits with 1 if there's nothing to update, so the diff-index check will
+                # short circuit the command if there's nothing to update with an exit code of 0.
+                'cd {0} && git add -A && git diff-index --quiet HEAD || git commit -m "Update to latest upstream"'.format(
+                    self.builddir),
+            ]
 
+    @property
     def push(self):
-        if subprocess.check_output(["git", "rev-parse", UPDATER_BRANCH_NAME], cwd=self.builddir) != subprocess.check_output(["git", "rev-parse", "master"], cwd=self.builddir):
-            subprocess.call(["git", "checkout", UPDATER_BRANCH_NAME], cwd=self.builddir)
-            subprocess.call(["git", "push", "--force", "-u", "origin", UPDATER_BRANCH_NAME], cwd=self.builddir)
+        if 'remote' == self.location:
+            if subprocess.check_output(["git", "rev-parse", UPDATER_BRANCH_NAME], cwd=self.builddir) != subprocess.check_output(["git", "rev-parse", "master"], cwd=self.builddir):
+                subprocess.call(["git", "checkout", UPDATER_BRANCH_NAME], cwd=self.builddir)
+                subprocess.call(["git", "push", "--force", "-u", "origin", UPDATER_BRANCH_NAME], cwd=self.builddir)
+        else:
+            return [
+                'cd {0} && if [ `git rev-parse update` != `git rev-parse master` ] ; then git checkout update && git push --force -u origin update; fi'.format(
+                    self.builddir)
+            ]
+
 
     def create_pull_request(self, token=None):
         """
         Creates a pull request from the "UPDATER_BRANCH_NAME" branch to master.
         """
-        
+
         pulls_api_url = 'https://api.github.com/repos/{0}/pulls'.format(self.repo)
 
         body = {"head": UPDATER_BRANCH_NAME, "base": "master", "title": "Update to latest upstream"}
-        
+
         print("Creating pull request.")
-        
+
         response = requests.post(pulls_api_url, headers=self._get_github_auth_header(token), data=json.dumps(body))
-        
+
         if response.status_code == 201:
             return True
-        
+
         # the PR creation can fail if the PR already exists, we should skip the creation and continue
         if response.status_code == 422 and response.json()['message']=="Validation Failed" and "A pull request already exists for" in response.text:
             return True
@@ -207,7 +276,7 @@ class BaseProject(object):
         return False
 
     def run_tests(self, urls_to_test):
-        # Delays execution by specified amount of seconds    
+        # Delays execution by specified amount of seconds
         print("Delaying execution of tests by {0} seconds.".format(self.TEST_DELAY))
         time.sleep(self.TEST_DELAY)
 
@@ -243,15 +312,15 @@ class BaseProject(object):
         authorization_header = self._get_github_auth_header(token)
         pulls_api_url = 'https://api.github.com/repos/{0}/pulls'.format(self.repo)
         pulls = requests.get(pulls_api_url, headers=authorization_header).json()
-        
+
         responses = []
         for pull in pulls:
             if self.test_results.get(pull["number"]):
                 merge_url = "{0}/{1}/merge".format(pulls_api_url, pull['number'])
                 response = requests.put(merge_url, headers=authorization_header)
                 self._print_and_flush("Merging pull request {0}".format(merge_url))
-                
-                if response.status_code in [200, 204]: 
+
+                if response.status_code in [200, 204]:
                     self._print_ok(" [MERGED]")
                 else:
                     self._print_failed()
@@ -324,19 +393,19 @@ class BaseProject(object):
 
                 print("Waiting for build {0} to finish on Platform.sh...".format(pull["url"]))
                 time.sleep(20)
-            
+
             print("Pull request {0} has finished building on Platform.sh.".format(url))
             urls[pull["number"]] = url
-        
+
         return urls
-    
+
     def _reset_update_branch(self, token=None):
         refs_api_url = "https://api.github.com/repos/{0}/git/refs".format(self.repo)
 
         self._print_and_flush("Resetting '{0}' branch".format(UPDATER_BRANCH_NAME))
-        
+
         master_sha = subprocess.check_output([self.platform_path, "environment:info", "--environment", "master", "head_commit"]).decode("utf-8").strip()
-        
+
         body = {"ref": "refs/heads/{0}".format(UPDATER_BRANCH_NAME), "sha": master_sha}
         response = requests.post(refs_api_url, headers=self._get_github_auth_header(token), data=json.dumps(body))
 
@@ -369,14 +438,14 @@ class BaseProject(object):
     def _print_ok(self, txt=' [OK]'):
         color.print(color.green, txt)
         return True
-    
+
     def _print_failed(self, txt=' [FAILED]'):
         color.print(color.red, txt)
         return False
-    
+
     def _wait_until_environment_is_ready(self, env, wait_time=30):
         self._print_and_flush("Wait until environment '{0}' is ready...".format(env))
-        
+
         # Using an internal function so I can better handle the loop and failures
         def _wait_and_check(env, wait_time, fail_counter=0):
             time.sleep(wait_time)
@@ -385,7 +454,7 @@ class BaseProject(object):
             p = subprocess.run([self.platform_path, "activity:list", "--environment", env, "--incomplete", "--format=csv"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             if p.stdout:
                 lines = p.stdout.decode("utf-8").strip().splitlines()
-                # Check if env is dirty, and wait a few seconds before rechecking        
+                # Check if env is dirty, and wait a few seconds before rechecking
                 while (len(lines) > 0):
                     self._print_and_flush(".")
                     return _wait_and_check(env, wait_time, fail_counter)
@@ -393,21 +462,21 @@ class BaseProject(object):
             else:
                 if(p.stderr.decode("utf-8").strip() == "No activities found"):
                     return True
-                
+
                 self._print_and_flush('F')
                 # If we get an error code, chances are that we don't have the environment created yet (possible that the integration didnt push it yet)
                 if fail_counter > 3:
                     self._print_failed()
                     raise CliEnvironmentNotExistException("Environment doesn't seem to exist.")
                 return _wait_and_check(env, wait_time, fail_counter+1)
-       
-            
+
+
         if _wait_and_check(env, wait_time):
             self._print_ok()
-                
+
     def _trigger_update_dependencies_with_github_integration(self, token=None):
         print("Preparing to update {0}".format(self.name))
-        self._reset_update_branch(token) 
+        self._reset_update_branch(token)
 
         try:
             self._wait_until_environment_is_ready(UPDATER_BRANCH_NAME)
@@ -428,8 +497,8 @@ class BaseProject(object):
             return
 
         self._wait_until_environment_is_ready(UPDATER_BRANCH_NAME)
-        
-        # we need to stop on a failure 
+
+        # we need to stop on a failure
         if not self.create_pull_request(token):
             return
 
@@ -439,20 +508,20 @@ class BaseProject(object):
 
         if not self.test_pull_requests(token):
             return
-    
+
         if not self.merge_pull_requests(token):
             return
 
     def _run_source_operation(self, branch_name):
         self._print_and_flush("Running source operation '{0}' on environment '{1}'".format(UPDATER_SOURCEOP_NAME, branch_name))
-        
+
         p = subprocess.run([self.platform_path, "source-operation:run", UPDATER_SOURCEOP_NAME, "--environment", branch_name, "--wait"], stderr=subprocess.PIPE, stdout=subprocess.PIPE) # platform source-operation:run update --environment update;
-        
+
         if p.returncode != 0 and p.stderr:
             self._print_failed()
             print(p.stderr.decode("utf-8").strip())
             return False
-        
+
         return self._print_ok()
 
     def _get_github_auth_header(self,token=None):
@@ -475,3 +544,27 @@ class BaseProject(object):
         if response.status_code != 200:
             print("Test failed on {0} with code {1}".format(response.url, response.status_code))
         return response.status_code == 200
+
+    def build_update_commands(self):
+        self.updateCommands['composer.json'] += " ".join(self.composer_defaults())
+        # if 'remote' == self.location:
+        #     self.updateCommands['composer.json'] += " ".join(self.composer_defaults())
+        # else:
+        #     self.updateCommands['composer.json'] += self.composer_defaults()
+
+
+    def package_update_actions(self):
+        """
+        Generates a list of package updater commands based on the updateCommands property.
+        Update commands generated for each app by walking build directory checking for presence of `.platform.app.yaml` file.
+        :return: List of package update commands to include.
+        """
+        actions = []
+        for directory in os.walk(self.builddir):
+            if '.platform.app.yaml' in directory[2]:
+                for file, command in self.updateCommands.items():
+                    actions.append(
+                        'cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file,
+                                                                                                    command))
+        return actions
+

@@ -49,8 +49,8 @@ class Wordpress_bedrock(WordPressComposerBase):
         return super(Wordpress_bedrock, self).platformify + [
             (self.modify_composer, [super().wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + ' '.join(self.composer_defaults()),
+            'cd {0} && composer update'.format(self.builddir) + ' '.join(self.composer_defaults()),
         ]
 
 class Wordpress_woocommerce(WordPressComposerBase):
@@ -67,7 +67,7 @@ class Wordpress_woocommerce(WordPressComposerBase):
         return super(Wordpress_woocommerce, self).platformify + [
             (self.modify_composer, [super().wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + ' '.join(self.composer_defaults()),
         ]
 
 class Wordpress_composer(WordPressComposerBase):
@@ -134,7 +134,7 @@ class Wordpress_composer(WordPressComposerBase):
 
         return super(Wordpress_composer, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
-            'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer require {1}'.format(self.builddir, require_default_wppackages()) + self.composer_defaults(),
+            'cd {0} && composer update'.format(self.builddir) + ' '.join(self.composer_defaults()),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + ' '.join(self.composer_defaults()),
+            'cd {0} && composer require {1}'.format(self.builddir, require_default_wppackages()) + ' '.join(self.composer_defaults()),
         ]

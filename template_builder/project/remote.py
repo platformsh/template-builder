@@ -20,30 +20,74 @@ class RemoteProject(BaseProject):
     - OR `upstream_branch`, which specifies the tag or branch in the `remote` repository
         from which to pull. (If both are defined, `major_version` take precedence.)
     '''
-
+    @property
     def init(self):
-        super(RemoteProject, self).init()
-        subprocess.call(["git", "remote", "add", "project", self.remote], cwd=self.builddir)
+        if 'local' == self.location:
+            return super(RemoteProject, self).init + [
+                'cd {0} && git remote add project {1}'.format(
+                    self.builddir, self.remote)
+            ]
+        else:
+            super(RemoteProject, self).init()
+            subprocess.call(["git", "remote", "add", "project", self.remote], cwd=self.builddir)
 
+    @property
     def update(self):
-        subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
-        subprocess.call(["git", "fetch", "--all", "--depth=2"], cwd=self.builddir)
-        subprocess.call(["git", "fetch", "--all", "--tags"], cwd=self.builddir)        
-        try:
+        # @todo well, this is ugly as sin
+        if 'remote' == self.location:
+            subprocess.call(["git", "checkout", "master"], cwd=self.builddir)
+            subprocess.call(["git", "fetch", "--all", "--depth=2"], cwd=self.builddir)
+            subprocess.call(["git", "fetch", "--all", "--tags"], cwd=self.builddir)
+            try:
+                if hasattr(self, 'major_version'):
+                    latest_tag = self.latest_tag()
+                    print("Merging from upstream tag: {0}".format(latest_tag))
+                    subprocess.call(
+                        ["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", latest_tag],
+                        cwd=self.builddir)
+                elif hasattr(self, 'upstream_branch'):
+                    subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash",
+                                     "project/{0}".format(self.upstream_branch)], cwd=self.builddir)
+                else:
+                    raise AttributeError(
+                        'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
+            except NoTagsException:
+                pass  # do we care if there are no tags?
+
+            # Do this last so it picks up all changes from above.
+            self.package_update()
+        else:
+            actions = [
+                'cd {0} && git checkout master'.format(self.builddir),
+                'cd {0} && git fetch --all --depth=2'.format(self.builddir),
+                'cd {0} && git fetch --all --tags'.format(self.builddir),
+                # Remove working directory files when updating from upstream, so that deletions get picked up.
+                # Disabled, because it was breaking Magento updates. Even though it was added to avoid breaking Magento updates.
+                # 'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
+            ]
+
             if hasattr(self, 'major_version'):
-                latest_tag = self.latest_tag()
-                print("Merging from upstream tag: {0}".format(latest_tag))
-                subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", latest_tag], cwd=self.builddir)
+                def merge_from_upstream_tag():
+                    latest_tag = self.latest_tag()
+                    print("Merging from upstream tag: {0}".format(latest_tag))
+                    subprocess.check_output(
+                        'cd {0} && git merge --allow-unrelated-histories -X theirs --squash {1}'.format(
+                            self.builddir, latest_tag), shell=True)
+
+                actions.append(merge_from_upstream_tag)
             elif hasattr(self, 'upstream_branch'):
-                subprocess.call(["git", "merge", "--allow-unrelated-histories", "-X", "theirs", "--squash", "project/{0}".format(self.upstream_branch)], cwd=self.builddir)
+                print("Merging from upstream branch: {0}".format(self.upstream_branch))
+                actions.append(
+                    'cd {0} && git merge --allow-unrelated-histories -X theirs --squash project/{1}'.format(
+                        self.builddir, self.upstream_branch))
             else:
                 raise AttributeError(
                     'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
-        except NoTagsException:
-            pass # do we care if there are no tags?
 
-        # Do this last so it picks up all changes from above.
-        self.package_update()
+            # Do this last so it picks up all changes from above.
+            actions.extend(self.package_update_actions())
+
+            return actions
 
     def latest_tag(self):
         """

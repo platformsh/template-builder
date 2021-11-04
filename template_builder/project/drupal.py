@@ -22,9 +22,10 @@ class Drupal8(RemoteProject):
 
     @property
     def platformify(self):
-        return super(Drupal8, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir) + self.composer_defaults()
-        ]
+        parent_actions = super(Drupal8, self).platformify
+        return parent_actions.extend([
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir) + ' '.join(self.composer_defaults())
+        ])
 
 class Drupal9(RemoteProject):
     # This can have a common base with Drupal 8 eventually, once modules are updated.
@@ -34,7 +35,7 @@ class Drupal9(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal9, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + ' '.join(self.composer_defaults())
         ]
 
 class Drupal8_multisite(Drupal8):
@@ -51,10 +52,11 @@ class Drupal8_govcms8(RemoteProject):
 
     @property
     def platformify(self):
-       return super(Drupal8_govcms8, self).platformify + [
+        parent_actions = super(Drupal8_govcms8, self).platformify
+        return parent_actions.extend([
            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
-           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
-        ]
+           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir),*self.composer_defaults(),
+        ])

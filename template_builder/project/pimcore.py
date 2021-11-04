@@ -7,6 +7,7 @@ class Pimcore(RemoteProject):
 
     @property
     def platformify(self):
-        return super(Pimcore, self).platformify + [
-            'cd {0} && composer update --no-scripts && composer require platformsh/config-reader doctrine/orm  --no-scripts'.format(self.builddir) + self.composer_defaults(),
-        ]
+        parent_actions = super(Pimcore, self).platformify
+        return parent_actions.extend([
+            'cd {0} && composer update --no-scripts && composer require platformsh/config-reader doctrine/orm  --no-scripts'.format(self.builddir) + ' '.join(self.composer_defaults()),
+        ])

@@ -1,7 +1,7 @@
 from . import BaseProject
 import os.path
 from glob import glob
-from . import TEMPLATEDIR
+#from . import TEMPLATEDIR
 
 class Backdrop(BaseProject):
     version = '1.19.3'
@@ -24,9 +24,9 @@ class Backdrop(BaseProject):
         The only change here is the directory that patches are applied from.
         """
         actions = ['rsync -aP {0} {1}'.format(
-            os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
+            os.path.join(self.templatedir, self.name, 'files/'),  self.builddir
         )]
-        patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
+        patches = glob(os.path.join(self.templatedir, self.name, "*.patch"))
         for patch in patches:
             actions.append('cd {0}/web && patch -p1 < {1}'.format(
                 self.builddir, patch)

@@ -7,7 +7,7 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 
 import os
 
-from template_builder.project import BaseProject, TEMPLATEDIR
+from template_builder.project import BaseProject
 from template_builder.project.akeneo import Akeneo
 from template_builder.project.backdrop import Backdrop
 from template_builder.project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
@@ -42,14 +42,15 @@ def project_factory(name):
 
     The BaseProject class is used by default (class with the matching name is not imported)
     '''
-
     targetclass = name.capitalize().replace('-', '_')
     try:
         return globals()[targetclass](name)
     except KeyError:
         return BaseProject(name)
 
-ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
+TEMPLATESDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'templates')
+
+ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATESDIR)
                 if f.is_dir() and f.name not in IGNORED]
 
 def task_cleanup():
@@ -61,7 +62,7 @@ def task_cleanup():
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
-            'actions': project.cleanup,
+            'actions': getattr(project,'cleanup'),
         }
 
 
@@ -75,7 +76,7 @@ def task_init():
         yield {
             'name': project.name,
             'task_dep': ['cleanup:{0}'.format(project.name)],
-            'actions': project.init,
+            'actions': getattr(project,'init'),
         }
 
 
@@ -115,7 +116,7 @@ def task_branch():
     for project in ALL_PROJECTS:
         yield {
             'name': project.name,
-            'actions': project.branch,
+            'actions': getattr(project,'branch'),
         }
 
 

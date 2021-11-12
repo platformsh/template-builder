@@ -58,7 +58,7 @@ def alert_reply(alert, threadID):
         color = passed["color"]
         block[0]["text"]["text"] = "{0} *{1}*".format(passed["result_lede"], alert["template"])
         block[0]["accessory"]["url"] = alert["run"]
-        block[1]["text"]["text"] = "<{0}|View the pull request>".format(alert["pr"])
+        block[1]["text"]["text"] = "{0}".format(alert["pr"])
     elif alert["state"] == "down":
         color = failed["color"]
         block[0]["text"]["text"] = "{0} *{1}*\n\n{2}".format(failed["result_lede"], alert["template"], failed["result_text"])

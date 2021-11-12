@@ -26,6 +26,6 @@ class Typo3(RemoteProject):
             (self.modify_composer, [typo3_modify_composer]),
             'cd {0} && composer config extra.typo3/cms.web-dir public'.format(self.builddir),
             'cd {0} && composer update --no-scripts'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer require typo3/cms-introduction:~4.3.2 platformsh/config-reader pixelant/pxa-lpeh'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require "php:<8.0" psr/cache:^1.0 typo3/cms-introduction:~4.3.2 platformsh/config-reader pixelant/pxa-lpeh'.format(self.builddir) + self.composer_defaults(),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
         ]

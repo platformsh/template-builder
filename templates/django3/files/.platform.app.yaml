@@ -12,7 +12,7 @@ type: 'python:3.8'
 # The build-time dependencies of the app.
 dependencies:
     python3:
-       pipenv: '*'
+       pipenv: '2018.10.13'
 
 # The relationships of the application with services or other applications.
 #
@@ -54,33 +54,9 @@ hooks:
   # assembling the codebase.
   build: |
     pipenv install --system --deploy
+
     mkdir logs
     python manage.py collectstatic
     rm -rf logs
-    pip3 install git+git://github.com/matthiaz/template-builder.git@mr/matthias/building-on-top-of-ludo-work#egg=template-builder
-    auto-update platform install_cli
   deploy: |
     python manage.py migrate
-
-# Auto-update source operation
-source:
-  operations:
-    platform_update_dependencies:
-      command: |
-        pip3 install git+git://github.com/matthiaz/template-builder.git@mr/matthias/building-on-top-of-ludo-work#egg=template-builder
-        auto-update django3 update
-        date > last_updated_on
-        git add .
-        git commit -m "auto-update" --allow-empty
-
-timezone: "Europe/Paris" # Change this to your timezone https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
-# Auto-update cron job
-crons:
-  update:
-    #spec: '0 3 * * *' # update in the middle of the night
-    spec: '* 3 * * *' # for testing
-    cmd: |
-      if [ $PLATFORM_ENVIRONMENT_TYPE = production ]; then
-          auto-update django3 trigger_update_dependencies;
-      fi;

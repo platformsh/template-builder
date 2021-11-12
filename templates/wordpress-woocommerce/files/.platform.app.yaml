@@ -10,7 +10,7 @@ type: "php:7.4"
 dependencies:
     php:
         composer/composer: '^2'
-        wp-cli/wp-cli: "^2.2.0"
+        wp-cli/wp-cli-bundle: "^2.5.0"
 
 # Configuration of the build of the application.
 build:

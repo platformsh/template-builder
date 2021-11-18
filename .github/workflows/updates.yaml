@@ -4,38 +4,20 @@ name: 'Updates'
 on:
   push:
     branches:
-      - 'auto-updates'
-#   schedule:
-#     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
+      - 'pass-templates'
 
 env:
-    # Update vars.
-    UPDATES_BRANCH: "auto-updater"
-    UPDATE_COMMIT_MSG: "scheduled updates."
-    # Git.
-    GITHUB_TOKEN: ${{ secrets.DEVREL_TOKEN }}
-    GIT_EMAIL: ${{ secrets.DEVREL_EMAIL }}
-    GIT_USER: ${{ secrets.DEVREL_USER }}
-    # Notifications.
-    SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-    SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-    JOB_ID: 'auto-updates'
-    START_MESSAGE: 'Retrieving updates for all templates.'
-    JOB_COLOR: "#145CC6"
     # Language-specific tools.
     POETRY_VERSION: "1.1.11"
     PYTHON_VERSION: "3.9"
-    RUBY_VERSION: "2.7.4"
-    BUNDLER_VERSION: "2.2.26"
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
     build:
         runs-on: ubuntu-latest
-        name: 'Get templates'
+        name: 'Get templates list'
         outputs:
             templates: ${{ steps.getlist.outputs.templates }}
-            threadts: ${{ steps.startslack.outputs.threadts }}
         steps: 
           - uses: actions/checkout@v2
           - name: Setup Python
@@ -54,306 +36,19 @@ jobs:
               print(json.dumps(dirs))
               ')
               echo "::set-output name=templates::$TEMPLATES"
-          - name: Install Poetry
-            run: |
-              python -m pip install poetry==$POETRY_VERSION
-          - name: Configure Poetry
-            run: |
-              python -m poetry config virtualenvs.in-project true
-          - name: Cache the virtualenv
-            uses: actions/cache@v2
-            with:
-              path: ./.venv
-              key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-          - name: Install dependencies
-            run: |
-              python -m poetry install
-          - name: 'Start notification on Slack'
-            id: startslack
-            run: |
-              RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
-              THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
-              echo "::set-output name=threadts::$THREAD_ID"
 
-    # B. Run the update across the templates list.
-    update:
+    # B. Run an update on all 
+    updatea:
         needs: build
         runs-on: ubuntu-latest
-        name: 'Template'
+        name: 'UpdateA'
         strategy:
             fail-fast: false
             matrix: 
                 template: ${{fromJSON(needs.build.outputs.templates)}}
-                exclude:
-                  # PHP
-                  - template: 'pimcore'
-                  - template: 'symfony5'
-                  - template: 'drupal8-opigno'
-                  - template: 'drupal8'
-                  - template: 'backdrop'
-                  - template: 'wordpress-woocommerce'
-                  - template: 'magento2ce'
-                  - template: 'nextcloud'
-                  - template: 'akeneo'
-                  - template: 'symfony4'
-                  - template: 'wordpress-bedrock'
-                  - template: 'typo3'
-                  - template: 'wordpress-vanilla'
-                  - template: 'drupal8-multisite'
-                  - template: 'drupal8-govcms8'
-                  - template: 'php'
-                  - template: 'laravel'
-                  - template: 'wordpress-composer'
-                  - template: 'sculpin'
-                  # Node.js
-                  - template: 'nuxtjs'
-                  - template: 'express'
-                  - template: 'koa'
-                  - template: 'strapi'
-                  - template: 'gatsby'
-                  - template: 'nodejs'
-                  - template: 'probot'
-                  - template: 'directus'
-                  # Python
-                  - template: 'django2'
-                  - template: 'django3'
-                  - template: 'python3'
-                  - template: 'pyramid'
-                  - template: 'python3-uwsgi'
-                  - template: 'meilisearch'
-                  - template: 'flask'
-                  - template: 'wagtail'
-                  - template: 'pelican'
-                  # Go
-                  - template: 'mattermost'
-                  - template: 'golang'
-                  - template: 'beego'
-                  - template: 'gin'
-                  # Java
-                  - template: 'microprofile-wildfly'
-                  - template: 'microprofile-openliberty'
-                  - template: 'microprofile-helidon'
-                  - template: 'microprofile-tomee'
-                  - template: 'microprofile-kumuluzee'
-                  - template: 'microprofile-thorntail'
-                  - template: 'microprofile-payara'
-                  - template: 'spring-kotlin'
-                  - template: 'spring-boot-gradle-mysql'
-                  - template: 'spring-boot-maven-mysql'
-                  - template: 'spring-mvc-maven-mongodb'
-                  - template: 'tomcat'
-                  - template: 'jetty'
-                  - template: 'jenkins'
-                  - template: 'quarkus'
-                  - template: 'xwiki'
-                  - template: 'micronaut'
-                  # Multi-apps
-                  - template: 'gatsby-strapi'
-                  - template: 'eleventy-strapi'
-                  - template: 'gatsby-wordpress'
-                  - template: 'elastic-apm'
-                  - template: 'gatsby-drupal'
-                  # Lisp
-                  - template: 'lisp'
-                  # .NET
-                  - template: 'aspnet-core'
-
         steps: 
             # 0. Install tools and dependencies.
             - uses: actions/checkout@v2
-            - name: Setup Ruby
-              uses: actions/setup-ruby@v1
-              with:
-                ruby-version: ${{ env.RUBY_VERSION }}
-            - name: Setup Python
-              uses: actions/setup-python@v2
-              with:
-                python-version: ${{ env.PYTHON_VERSION }}
-            - name: Install Poetry
+            - name: Do something simple
               run: |
-                python -m pip install poetry==$POETRY_VERSION
-            - name: Configure Poetry
-              run: |
-                python -m poetry config virtualenvs.in-project true
-            - name: Cache the virtualenv
-              uses: actions/cache@v2
-              with:
-                path: ./.venv
-                key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-            - name: Install dependencies
-              run: |
-                python -m poetry install
-
-            # 1. Skip early if the update branch already exists (template investigation in progress).
-            - name: Check if update branch exists on GH
-              id: branchstatus
-              run: |
-                STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/platformsh-templates/${{ matrix.template }}/branches/$UPDATES_BRANCH)
-                echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
-            - name: Exit if update branch exists
-              if: steps.branchstatus.outputs.status != 'Branch not found'
-              run: |
-                TEMPLATE=${{ matrix.template }} 
-                MESSAGE="Update branch already exists. Skipping template until investigation on open branch (https://github.com/platformsh-templates/$TEMPLATE/tree/$UPDATES_BRANCH) is closed."
-                echo "$MESSAGE"
-                RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
-                PR_URL='no pr'
-                THREAD_ID=${{ needs.build.outputs.threadts }}
-                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py skip $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
-
-            # 2. Run the update tasks through template-builder.
-            - name: 'Cleanup'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                python -m poetry run doit cleanup:${{ matrix.template }}
-            - name: 'Initialize'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              uses: actions/checkout@v2
-              with:
-                token: ${{ secrets.DEVREL_TOKEN }}
-                repository: platformsh-templates/${{ matrix.template }}
-                path: templates/${{ matrix.template }}/build
-            - name: 'Initialize remote'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                # Get the remote 
-                export TEMPLATE=${{ matrix.template }}
-
-                REMOTE_UPSTREAM=$(poetry run python -c '
-                import os
-                import dodo
-                try: 
-                    print(dodo.project_factory(os.environ["TEMPLATE"]).remote)
-                except:
-                    print("no remote")
-                ')
-
-                # Set up Git.
-                cd templates/${{ matrix.template }}/build
-                git config --global user.email "$GIT_EMAIL"
-                git config --global user.name "$GIT_USER"
-
-                if [ "$REMOTE_UPSTREAM" == "no remote" ]; then
-                    echo "$TEMPLATE is type Basic. Skipping remote clone."
-                else
-                    echo "Upstream found: $REMOTE_UPSTREAM"
-                    git remote add project $REMOTE_UPSTREAM
-                fi
-            - name: 'Update'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit update:${{ matrix.template }}
-            - name: 'Platformify'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit platformify:${{ matrix.template }}
-            - name: 'Branch'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit branch:${{ matrix.template }}
-            - name: 'Push'
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              run: |
-                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit push:${{ matrix.template }}
-
-            # 3. Check to see updates have been pushed to a branch.
-            - name: Check if updates have been pushed
-              if: steps.branchstatus.outputs.status == 'Branch not found'
-              id: pushstatus
-              run: |
-                STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/platformsh-templates/${{ matrix.template }}/branches/$UPDATES_BRANCH)
-                echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
-
-            # 4. Create pull request from pushed update.
-            - name: Get template default branch
-              id: defaultbranch
-              if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.pushstatus.outputs.status != 'Branch not found' }}
-              run: |
-                # Get the default branch.
-                DEFAULT_BRANCH=$(gh api /repos/platformsh-templates/${{ matrix.template }} --jq '.default_branch')
-                echo "::set-output name=branch::$DEFAULT_BRANCH" 
-            - name: 'Open pull request'
-              if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.pushstatus.outputs.status != 'Branch not found' }}
-              id: open-pull-request
-              run: |
-                  TITLE="Scheduled updates."
-                  BODY="Scheduled updates from template-builder ($(date))."
-
-                  # If successful, the cli will return the URL to the created PR.
-                  response=$(gh pr create --head "$UPDATES_BRANCH" --base "${{ steps.defaultbranch.outputs.branch }}" --title "$TITLE" --body "$BODY" --repo platformsh-templates/${{ matrix.template }})
-                  # If the CLI returns 1, the step will fail.
-                  boolPRCreated=$?
-                  prRegex="([0-9]+$)"
-                  if [[ -n "${response}" && $response =~ $prRegex ]]; then
-                    PR=${BASH_REMATCH[1]}
-                    echo "::set-output name=pull-request-link::$response"
-                    echo "::set-output name=pull-request-number::$PR"
-                  else
-                    echo "cli didn't fail but response is empty or didnt match the regex?"
-                    echo "${response}"
-                  fi
-
-            # 5. Set the pull request to automerge when checks have passed.
-            - name: Automatically merge only after necessary requirements are met
-              if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
-              run: |
-                  gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
-                  lastcommand=$?
-
-            # 6. Catch all failures and successes.
-            - name: Send failed workflows
-              if: ${{ failure() }}
-              run: |
-                  TEMPLATE=${{ matrix.template }} 
-                  RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
-                  THREAD_ID=${{ needs.build.outputs.threadts }}
-                  PR_URL='no pr'
-                  MESSAGE='Something went wrong. Investigate.'
-                  RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py down $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
-            - name: Send successfull workflows to the pull request
-              if: ${{ success() && steps.branchstatus.outputs.status == 'Branch not found' }}
-              run: |
-                TEMPLATE=${{ matrix.template }}
-                THREAD_ID=${{ needs.build.outputs.threadts }}
-                RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
-
-                if [ "${{ steps.pushstatus.outputs.status }}" == "Branch not found" ]; then
-                    PR_URL="_Template already up-to-date._"
-                else
-                    PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
-                fi
-
-                MESSAGE='All good.'
-                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
-
-    # C. Notify Slack at the end of the run. 
-    finish:
-      runs-on: ubuntu-latest
-      name: 'Finish updates'
-      needs: [build, update]
-      if: ${{ always() }}
-      steps: 
-        - uses: actions/checkout@v2
-        - name: Setup Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: ${{ env.PYTHON_VERSION }}
-        - name: Install Poetry
-          run: |
-            python -m pip install poetry==$POETRY_VERSION
-        - name: Configure Poetry
-          run: |
-            python -m poetry config virtualenvs.in-project true
-        - name: Cache the virtualenv
-          uses: actions/cache@v2
-          with:
-            path: ./.venv
-            key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-        - name: Install dependencies
-          run: |
-            python -m poetry install
-        - name: 'Notify slack when finished'
-          run: |
-            THREAD_ID=${{ needs.build.outputs.threadts }}
-            RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
-            RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" THREAD_ID=$THREAD_ID JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py finish $RUN_URL "$START_MESSAGE")
+                  echo "${{ matrix.template }}"

@@ -46,13 +46,67 @@ jobs:
             fail-fast: false
             matrix: 
                 template: ${{fromJSON(needs.build.outputs.templates)}}
+                exclude:
+                  # Node.js
+                  - template: 'nuxtjs'
+                  - template: 'express'
+                  - template: 'koa'
+                  - template: 'strapi'
+                  - template: 'gatsby'
+                  - template: 'nodejs'
+                  - template: 'probot'
+                  - template: 'directus'
+                  # Python
+                  - template: 'django2'
+                  - template: 'django3'
+                  - template: 'python3'
+                  - template: 'pyramid'
+                  - template: 'python3-uwsgi'
+                  - template: 'meilisearch'
+                  - template: 'flask'
+                  - template: 'wagtail'
+                  - template: 'pelican'
+                  # Go
+                  - template: 'mattermost'
+                  - template: 'golang'
+                  - template: 'beego'
+                  - template: 'gin'
+                  # Java
+                  - template: 'microprofile-wildfly'
+                  - template: 'microprofile-openliberty'
+                  - template: 'microprofile-helidon'
+                  - template: 'microprofile-tomee'
+                  - template: 'microprofile-kumuluzee'
+                  - template: 'microprofile-thorntail'
+                  - template: 'microprofile-payara'
+                  - template: 'spring-kotlin'
+                  - template: 'spring-boot-gradle-mysql'
+                  - template: 'spring-boot-maven-mysql'
+                  - template: 'spring-mvc-maven-mongodb'
+                  - template: 'tomcat'
+                  - template: 'jetty'
+                  - template: 'jenkins'
+                  - template: 'quarkus'
+                  - template: 'xwiki'
+                  - template: 'micronaut'
+                  # Multi-apps
+                  - template: 'gatsby-strapi'
+                  - template: 'eleventy-strapi'
+                  - template: 'gatsby-wordpress'
+                  - template: 'elastic-apm'
+                  - template: 'gatsby-drupal'
+                  # Lisp
+                  - template: 'lisp'
+                  # .NET
+                  - template: 'aspnet-core'
+
         steps: 
             # 0. Install tools and dependencies.
             - uses: actions/checkout@v2
             - name: Do something simple
               run: |
-                  echo "${{ matrix.template }}" > path/to/artifact/world.txt
+                  echo "${{ matrix.template }}" > templates.txt
             - uses: actions/upload-artifact@master
               with:
                 name: my-artifact
-                path: path/to/artifact
+                path: templates.txt

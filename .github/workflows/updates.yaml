@@ -105,7 +105,7 @@ jobs:
             - uses: actions/checkout@v2
             - name: Do something simple
               run: |
-                  echo "${{ matrix.template }}" > templates.txt
+                  echo "${{ matrix.template }}" >> templates.txt
             - uses: actions/upload-artifact@master
               with:
                 name: my-artifact

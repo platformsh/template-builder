@@ -236,12 +236,12 @@ jobs:
                 echo "::set-output name=branch::$DEFAULT_BRANCH"
 
             # 4. Check if default branch has branch rules in place
-            # @todo do we bother to check, or do we just assume it isnt set and attempt to create it anyway? If we attempt to create it and it already
-            # exists, it should just return the same values anyway
             - name: Step 4. Add branch protection rules to default branch
               run: |
-                # @todo it would be nice if there was some way to verify if the protection rule we need is set and in place instead of always
-                # doing this step *every time*.
+                # If the branch protection rule already exists, the graphQL will ignore the update. In this case,
+                # there's no advantage to checking for the rule first and then attempting to verify all settings, vs
+                # pushing the mutation every time.
+                #
                 # Grab our outputs from the last step and store them for easier access
                 defaultBranch=${{ steps.defaultbranch.outputs.branch }}
                 repoNodeID=${{ steps.template-repo-exists.outputs.repoNodeID }}

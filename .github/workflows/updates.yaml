@@ -207,7 +207,7 @@ jobs:
                 # Why curl instead of the gh cli? Because on not found, the gh cli will return an exit code of 1 which immediately fails the step and the job
                 repoData=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }})
                 repoID=$(echo "$repoData" | jq '.id')
-                echo "::notice::Repo id - ${repoID}"
+                repoNodeID=$(echo "$repoData" | jq '.node_id')
                 repoFound=$(echo "$repoData" | jq '.message')
                 echo "::notice::Repo Found status - ${repoFound}"
                 if [[ -z ${repoID} || "${repoFound}" == '"Not Found"'  ]]; then
@@ -217,6 +217,8 @@ jobs:
                   echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
                   echo "SLACK_STATUS=skip" >> $GITHUB_ENV
                   exit 11;
+                else
+                  echo "::set-output name=repoNodeID::${repoNodeID}"
                 fi
             # 2. Verify the repository is set for automerge
             - name: Step 2. Check if auto-merge is enabled for repository

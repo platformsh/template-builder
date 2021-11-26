@@ -104,7 +104,6 @@ jobs:
                   # PHP
                   - template: 'pimcore'
                   - template: 'drupal8-opigno'
-                  - template: 'drupal8'
                   - template: 'backdrop'
                   - template: 'wordpress-woocommerce'
                   - template: 'magento2ce'

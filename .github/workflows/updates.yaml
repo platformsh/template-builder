@@ -29,7 +29,11 @@ env:
     RUBY_VERSION: "2.7.4"
     BUNDLER_VERSION: "2.2.26"
     # Templates that need post-install review.
-    MANUAL_REVIEW: 'drupal9 gatsby-drupal gatsby-wordpress'
+    MANUAL_MULTIAPPS: 'eleventy-strapi gatsby-strapi gatsby-drupal gatsby-wordpress'
+    MANUAL_500STATUS: 'symfony4 symfony5'
+    MANUAL_DRUPAL_INSTALL: 'drupal8 drupal8-multisite drupal8-opigno drupal8-govcms8 drupal9'
+    MANUAL_WP_INSTALL: 'wordpress-bedrock wordpress-composer wordpress-woocommerce wordpress-vanilla'
+    MANUAL_MISC_POSTDEPLOY: 'probot elastic-apm wagtail mattermost jenkins strapi'
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
@@ -39,6 +43,7 @@ jobs:
         outputs:
             templates: ${{ steps.getlist.outputs.templates }}
             threadts: ${{ steps.startslack.outputs.threadts }}
+            manualreviews: ${{ steps.manuals.outputs.manualreviews }}
         steps: 
           - uses: actions/checkout@v2
           - name: Setup Python
@@ -71,6 +76,14 @@ jobs:
           - name: Install dependencies
             run: |
               python -m poetry install
+          - name: Build manual review tracking
+            id: manuals
+            run: |
+              MANUAL_REVIEW=""
+              for MANUAL in $MANUAL_MULTIAPPS $MANUAL_500STATUS $MANUAL_DRUPAL_INSTALL $MANUAL_WP_INSTALL $MANUAL_MISC_POSTDEPLOY; do
+                  MANUAL_REVIEW+="${MANUAL} "
+              done
+              echo "::set-output name=manualreviews::$MANUAL_REVIEW"
           - name: 'Start notification on Slack'
             id: startslack
             run: |
@@ -90,7 +103,6 @@ jobs:
                 exclude:
                   # PHP
                   - template: 'pimcore'
-                  - template: 'symfony5'
                   - template: 'drupal8-opigno'
                   - template: 'drupal8'
                   - template: 'backdrop'
@@ -98,7 +110,6 @@ jobs:
                   - template: 'magento2ce'
                   - template: 'nextcloud'
                   - template: 'akeneo'
-                  - template: 'symfony4'
                   - template: 'wordpress-bedrock'
                   - template: 'typo3'
                   - template: 'wordpress-vanilla'
@@ -300,7 +311,7 @@ jobs:
             - name: Automatically merge only after necessary requirements are met
               if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
               run: |
-                  if [[ ${MANUAL_REVIEW} =~ ${{ matrix.template }} ]]; then
+                  if [[ ${{ needs.build.outputs.manualreviews }} =~ ${{ matrix.template }} ]]; then
                     echo "Template requires manual review. Skipping auto-merge."
                   else
                     gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}

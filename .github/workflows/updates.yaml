@@ -27,6 +27,8 @@ env:
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
     BUNDLER_VERSION: "2.2.26"
+    # Templates that need post-install review.
+    MANUAL_REVIEW: 'drupal9 gatsby-drupal gatsby-wordpress'
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
@@ -297,8 +299,12 @@ jobs:
             - name: Automatically merge only after necessary requirements are met
               if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
               run: |
-                  gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
-                  lastcommand=$?
+                  if [[ ${MANUAL_REVIEW} =~ ${{ matrix.template }} ]]; then
+                    echo "Template requires manual review. Skipping auto-merge."
+                  else
+                    gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
+                    lastcommand=$?
+                  fi
 
             # 6. Catch all failures and successes.
             - name: Send failed workflows
@@ -320,7 +326,11 @@ jobs:
                 if [ "${{ steps.pushstatus.outputs.status }}" == "Branch not found" ]; then
                     PR_URL="_Template already up-to-date._"
                 else
-                    PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                    if [[ ${MANUAL_REVIEW} =~ ${{ matrix.template }} ]]; then
+                      PR_URL="Template requires manual review to merge. <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                    else
+                      PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                    fi
                 fi
 
                 MESSAGE='All good.'

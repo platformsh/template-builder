@@ -311,7 +311,8 @@ jobs:
             - name: Automatically merge only after necessary requirements are met
               if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
               run: |
-                  if [[ ${{ needs.build.outputs.manualreviews }} =~ ${{ matrix.template }} ]]; then
+                  MANUAL_REVIEWS=${{ needs.build.outputs.manualreviews }}
+                  if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
                     echo "Template requires manual review. Skipping auto-merge."
                   else
                     gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}

@@ -7,10 +7,6 @@ name: app
 # The runtime the application uses.
 type: 'golang:1.14'
 
-variables:
-    env:
-        MATTERMOST_VERSION: '5.26.0'
-
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # Build hooks can modify the application files on disk but not access any services like databases.

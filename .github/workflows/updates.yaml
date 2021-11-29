@@ -102,21 +102,20 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'pimcore'
                   - template: 'drupal8-opigno'
-                  - template: 'backdrop'
+                  - template: 'drupal8-multisite'
+                  - template: 'drupal8-govcms8'
                   - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: 'wordpress-composer'
+                  - template: 'pimcore'
+                  - template: 'backdrop'
                   - template: 'magento2ce'
                   - template: 'nextcloud'
                   - template: 'akeneo'
-                  - template: 'wordpress-bedrock'
                   - template: 'typo3'
-                  - template: 'wordpress-vanilla'
-                  - template: 'drupal8-multisite'
-                  - template: 'drupal8-govcms8'
                   - template: 'php'
                   - template: 'laravel'
-                  - template: 'wordpress-composer'
                   - template: 'sculpin'
                   # Node.js
                   - template: 'nuxtjs'

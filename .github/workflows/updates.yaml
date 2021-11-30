@@ -264,35 +264,41 @@ jobs:
                 "
                 # @todo Should we test to see if the mutation failed?
                 gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
-            # 5. Skip early if the update branch already exists (template investigation in progress).
-            - name: Step 5. Check if update branch exists on GH
+            # 5. Run the update tasks through template-builder.
+            - name: 'Step 5. Cleanup template build area'
+              run: |
+                python -m poetry run doit cleanup:${{ matrix.template }}
+            # 6.
+            - name: 'Step 6. Initialize template build'
+              uses: actions/checkout@v2
+              with:
+                token: ${{ secrets.DEVREL_TOKEN }}
+                repository: ${{ env.TEMPLATEOWNER }}/${{ matrix.template }}
+                path: templates/${{ matrix.template }}/build
+            # 7. Handle an existing auto-updater branch.
+            - name: Step 7. Check if update branch exists on GH
               id: branchstatus
               run: |
                 STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }}/branches/$UPDATES_BRANCH)
                 branchStatus=$( echo $STATUS | jq -r '.message' )
 
                 if [[ 'Branch not found' != "$branchStatus" ]]; then
-                  message="Update branch already exists. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
-                  echo "::error::${message}"
-                  echo "SLACK_MSG=${message}" >> $GITHUB_ENV
-                  echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
-                  echo "SLACK_STATUS=skip" >> $GITHUB_ENV
-                  exit 12; # should fail the remaining steps
+                  # our auto-updater branch exists, but has it already been merged and just not deleted?
+                  defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+                  mergeBase=$(git -C templates/${{ matrix.template }}/build merge-base "origin/${defaultBranch}" "origin/${UPDATES_BRANCH}")
+                  # git rev-parse origin/auto-updater
+                  updateBranchHash=$(git -C templates/${{ matrix.template }}/build rev-parse "origin/${UPDATES_BRANCH}")
+                  if [[ "${mergeBase}" != "${updateBranchHash}" ]]; then
+                      message="Update branch already exists and does not appear to have been merged, or merged and then advanced. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
+                      echo "::error::${message}"
+                      echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+                      echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+                      echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+                      exit 12; # should fail the remaining steps
+                  fi
                 fi
 
                 echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
-
-            # 6. Run the update tasks through template-builder.
-            - name: 'Step 6. Cleanup template build area'
-              run: |
-                python -m poetry run doit cleanup:${{ matrix.template }}
-            # 7.
-            - name: 'Step 7. Initialize template build'
-              uses: actions/checkout@v2
-              with:
-                token: ${{ secrets.DEVREL_TOKEN }}
-                repository: ${{ env.TEMPLATEOWNER }}/${{ matrix.template }}
-                path: templates/${{ matrix.template }}/build
             - name: 'Step 8. Initialize remote'
               run: |
                 # Get the remote

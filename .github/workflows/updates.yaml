@@ -33,7 +33,7 @@ env:
     MANUAL_500STATUS: 'symfony4 symfony5'
     MANUAL_DRUPAL_INSTALL: 'drupal8 drupal8-multisite drupal8-opigno drupal8-govcms8 drupal9'
     MANUAL_WP_INSTALL: 'wordpress-bedrock wordpress-composer wordpress-woocommerce wordpress-vanilla'
-    MANUAL_MISC_POSTDEPLOY: 'probot elastic-apm wagtail mattermost jenkins strapi'
+    MANUAL_MISC_POSTDEPLOY: 'probot elastic-apm wagtail jenkins strapi gatsby'
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
@@ -121,8 +121,8 @@ jobs:
                   - template: 'nuxtjs'
                   - template: 'express'
                   - template: 'koa'
-                  - template: 'strapi'
-                  - template: 'gatsby'
+                  # - template: 'strapi'
+                  # - template: 'gatsby'
                   - template: 'nodejs'
                   - template: 'probot'
                   - template: 'directus'

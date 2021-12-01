@@ -170,7 +170,7 @@ jobs:
             # 0. Install tools and dependencies.
             - uses: actions/checkout@v2
             - name: Setup Ruby
-              uses: actions/setup-ruby@v1
+              uses: ruby/setup-ruby@v1
               with:
                 ruby-version: ${{ env.RUBY_VERSION }}
             - name: Setup Python

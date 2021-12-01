@@ -288,7 +288,7 @@ jobs:
               id: open-pull-request
               run: |
                   TITLE="Scheduled updates."
-                  BODY="Scheduled updates from template-builder ($(date))."
+                  BODY="Scheduled updates from template-builder ($(date) - **[View](https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID)**))."
 
                   # If successful, the cli will return the URL to the created PR.
                   response=$(gh pr create --head "$UPDATES_BRANCH" --base "${{ steps.defaultbranch.outputs.branch }}" --title "$TITLE" --body "$BODY" --repo platformsh-templates/${{ matrix.template }})
@@ -309,9 +309,11 @@ jobs:
               if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
               run: |
                   MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
+                  echo $MANUAL_REVIEWS
                   if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
+                    echo ${{ matrix.template }}
                     # Gatsby gets mistakenly caught on the manual review filter. 
-                    if [[ ${{ matrix.template }} == "gatsby" ]]; then
+                    if [[ "${{ matrix.template }}" == "gatsby" ]]; then
                         gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
                         lastcommand=$?
                     else
@@ -344,7 +346,7 @@ jobs:
                 else
                     MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
                     if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
-                      PR_URL="**Template requires manual review to merge.** <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                      PR_URL="Template requires manual review to merge. <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
                     else
                       PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
                     fi

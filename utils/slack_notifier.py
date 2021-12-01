@@ -49,6 +49,12 @@ skipped = {
     "color": "#C4BCC0"
 }
 
+review = {
+    "result_lede": ":exclamation:",
+    "result_text": "Workflow successful.",
+    "color": "#FCC938"
+}
+
 
 def alert_reply(alert, threadID):
 
@@ -69,6 +75,11 @@ def alert_reply(alert, threadID):
         block[0]["text"]["text"] = "{0} *{1}*\n\n{2}".format(skipped["result_lede"], alert["template"], skipped["result_text"])
         block[0]["accessory"]["url"] = alert["run"]
         block[1]["text"]["text"] = "_{}_".format(alert["message"])
+    elif alert["state"] = "review":
+        color = review["color"]
+        block[0]["text"]["text"] = "{0} *{1}*".format(review["result_lede"], alert["template"])
+        block[0]["accessory"]["url"] = alert["run"]
+        block[1]["text"]["text"] = "{0}".format(alert["pr"])
 
     try:
         result = client.chat_postMessage(

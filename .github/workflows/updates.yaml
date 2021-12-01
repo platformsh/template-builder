@@ -34,6 +34,7 @@ env:
     MANUAL_DRUPAL_INSTALL: 'drupal8 drupal8-multisite drupal8-opigno drupal8-govcms8 drupal9'
     MANUAL_WP_INSTALL: 'wordpress-bedrock wordpress-composer wordpress-woocommerce wordpress-vanilla'
     MANUAL_MISC_POSTDEPLOY: 'probot elastic-apm wagtail jenkins'
+    MANUAL_OVERRIDES: 'gatsby strapi'
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
@@ -288,7 +289,7 @@ jobs:
               id: open-pull-request
               run: |
                   TITLE="Scheduled updates."
-                  BODY="Scheduled updates from template-builder ($(date) - **[View](https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID)**))."
+                  BODY="Scheduled updates from template-builder ($(date) - **[View](https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID)**)."
 
                   # If successful, the cli will return the URL to the created PR.
                   response=$(gh pr create --head "$UPDATES_BRANCH" --base "${{ steps.defaultbranch.outputs.branch }}" --title "$TITLE" --body "$BODY" --repo platformsh-templates/${{ matrix.template }})
@@ -309,11 +310,8 @@ jobs:
               if: ${{ steps.branchstatus.outputs.status == 'Branch not found' && steps.open-pull-request.outputs.pull-request-number != '' }}
               run: |
                   MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
-                  echo $MANUAL_REVIEWS
                   if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
-                    echo ${{ matrix.template }}
-                    # Gatsby gets mistakenly caught on the manual review filter. 
-                    if [[ "${{ matrix.template }}" == "gatsby" ]]; then
+                    if [[ ${MANUAL_OVERRIDES} =~ ${{ matrix.template }} ]]; then
                         gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
                         lastcommand=$?
                     else
@@ -341,19 +339,25 @@ jobs:
                 THREAD_ID=${{ needs.build.outputs.threadts }}
                 RUN_URL=https://github.com/platformsh/template-builder/actions/runs/$GITHUB_RUN_ID
 
+                STATUS=up
                 if [ "${{ steps.pushstatus.outputs.status }}" == "Branch not found" ]; then
                     PR_URL="_Template already up-to-date._"
                 else
                     MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
                     if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
-                      PR_URL="Template requires manual review to merge. <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                      if [[ ${MANUAL_OVERRIDES} =~ ${{ matrix.template }} ]]; then
+                          PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                      else
+                          PR_URL="*Template requires manual review to merge*. <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                          STATUS=review    
+                      fi
                     else
                       PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
                     fi
                 fi
 
                 MESSAGE='All good.'
-                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
+                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py $STATUS $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
 
     # C. Notify Slack at the end of the run. 
     finish:

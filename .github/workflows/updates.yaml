@@ -28,9 +28,9 @@ env:
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
     BUNDLER_VERSION: "2.2.26"
+    NODE_VERSION: "14"
     # Templates that need post-install review.
     MANUAL_MULTIAPPS: 'eleventy-strapi gatsby-strapi gatsby-drupal gatsby-wordpress'
-    MANUAL_500STATUS: 'symfony4 symfony5'
     MANUAL_DRUPAL_INSTALL: 'drupal8 drupal8-multisite drupal8-opigno drupal8-govcms8 drupal9'
     MANUAL_WP_INSTALL: 'wordpress-bedrock wordpress-composer wordpress-woocommerce wordpress-vanilla'
     MANUAL_MISC_POSTDEPLOY: 'probot elastic-apm wagtail jenkins'
@@ -173,6 +173,9 @@ jobs:
               uses: ruby/setup-ruby@v1
               with:
                 ruby-version: ${{ env.RUBY_VERSION }}
+            - uses: actions/setup-node@v2
+              with:
+                node-version: ${{ env.NODE_VERSION }}
             - name: Setup Python
               uses: actions/setup-python@v2
               with:
@@ -307,7 +310,13 @@ jobs:
               run: |
                   MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
                   if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
-                    echo "Template requires manual review. Skipping auto-merge."
+                    # Gatsby gets mistakenly caught on the manual review filter. 
+                    if [[ ${{ matrix.template }} == "gatsby" ]]; then
+                        gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
+                        lastcommand=$?
+                    else
+                        echo "Template requires manual review. Skipping auto-merge."
+                    fi
                   else
                     gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --repo=platformsh-templates/${{ matrix.template }}
                     lastcommand=$?

@@ -335,7 +335,7 @@ jobs:
                 else
                     MANUAL_REVIEWS="'${{ needs.build.outputs.manualreviews }}'"
                     if [[ ${MANUAL_REVIEWS} =~ ${{ matrix.template }} ]]; then
-                      PR_URL="Template requires manual review to merge. <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                      PR_URL="**Template requires manual review to merge.** <${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
                     else
                       PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
                     fi

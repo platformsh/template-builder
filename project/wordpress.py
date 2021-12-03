@@ -23,6 +23,7 @@ class Wordpress_vanilla(BaseProject):
 # @todo
 class WordPressComposerBase(RemoteProject):
     unPinDependencies = []
+
     # Upstream script locks a specific version in composer.json, keeping users from updating locally.
     # @todo should this be a classmethod?
     def unlock_version(self,locked_version):
@@ -32,29 +33,41 @@ class WordPressComposerBase(RemoteProject):
             return locked_version
 
     # Run through our list of dependencies that should be unpinned as defined in @see unPinDependencies
-    def wp_modify_composer(self,composer):
-        for dependency in self.unpinDependencies:
+    def wp_modify_composer(self,composer,dependencies=[]):
+        self.unPinDependencies = self.unPinDependencies + dependencies
+        for dependency in self.unPinDependencies:
             if dependency in composer['require']:
                 composer['require'][dependency] = self.unlock_version(composer['require'][dependency])
+
+        # All composer-based WordPress repositories will need wpackagist.org added
+        composer['repositories'] = [
+            {
+                "type": "composer",
+                "url": "https://wpackagist.org"
+            }
+        ]
 
         return composer
 
 class Wordpress_bedrock(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
-    unpinDependencies = ['roots/wordpress']
+    unPinDependencies = ['roots/wordpress']
 
     @property
     def platformify(self):
+        def wp_modify_composer(composer):
+            return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
+
         return super(Wordpress_bedrock, self).platformify + [
-            (self.modify_composer, [super().wp_modify_composer]),
+            (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
         ]
 
 class Wordpress_woocommerce(WordPressComposerBase):
-    unpinDependencies = [
+    unPinDependencies = [
         'roots/wordpress',
         'wpackagist-plugin/woocommerce',
         'wpackagist-plugin/jetpack'
@@ -62,10 +75,14 @@ class Wordpress_woocommerce(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
 
+
     @property
     def platformify(self):
+        def wp_modify_composer(composer):
+            return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
+
         return super(Wordpress_woocommerce, self).platformify + [
-            (self.modify_composer, [super().wp_modify_composer]),
+            (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + self.composer_defaults(),
         ]
@@ -105,7 +122,7 @@ class Wordpress_composer(WordPressComposerBase):
                 return ' '.join(defaultPackages)
 
         def wp_modify_composer(composer):
-            composer = super().wp_modify_composer(composer)
+            composer = super(Wordpress_composer, self).wp_modify_composer(composer, self.unPinDependencies)
             # In order to both use the Wordpress default install location `wordpress` and
             # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
             # added to the upstream composer.json to move that config file during composer install.
@@ -124,12 +141,6 @@ class Wordpress_composer(WordPressComposerBase):
                 }
             }
 
-            composer['repositories'] = [
-                {
-                    "type": "composer",
-                    "url": "https://wpackagist.org"
-                }
-            ]
             return composer
 
         return super(Wordpress_composer, self).platformify + [

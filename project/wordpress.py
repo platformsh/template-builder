@@ -6,7 +6,7 @@ import json
 from collections import OrderedDict
 from . import BaseProject
 from .remote import RemoteProject
-
+from .composer import ComposerProject
 
 class Wordpress_vanilla(BaseProject):
     remote = 'https://wordpress.org/latest'
@@ -25,33 +25,11 @@ class Wordpress_vanilla(BaseProject):
 
 
 # @todo
-class WordPressComposerBase(RemoteProject):
-    unPinDependencies = []
-
-    # Upstream script locks a specific version in composer.json, keeping users from updating locally.
-    # @todo should this be a classmethod?
-    def unlock_version(self, locked_version):
-        if '^' not in locked_version:
-            return '^{}'.format(locked_version)
-        else:
-            return locked_version
-
-    # until we convert all php templates to use this method, we need to remove the 'ignore platform' composer param
-    def composer_defaults(self):
-        #get the default list from parent
-        composerDefaults = super(WordPressComposerBase, self).composer_defaults()
-        #remove the ignore platform php line
-        composerDefaults = composerDefaults.replace(' --ignore-platform-req=php','')
-
-        return composerDefaults
+class WordPressComposerBase(ComposerProject):
 
     # Run through our list of dependencies that should be unpinned as defined in @see unPinDependencies
     def wp_modify_composer(self, composer, dependencies=[]):
-        self.unPinDependencies = self.unPinDependencies + dependencies
-        for dependency in self.unPinDependencies:
-            if dependency in composer['require']:
-                composer['require'][dependency] = self.unlock_version(composer['require'][dependency])
-
+        composer = super(WordPressComposerBase, self).wp_modify_composer(dependencies)
         # All composer-based WordPress repositories will need wpackagist.org added
         composer['repositories'] = [
             {
@@ -62,37 +40,17 @@ class WordPressComposerBase(RemoteProject):
 
         return composer
 
-    @property
-    def platformify(self):
-        #get the versions
-        actions = super(WordPressComposerBase, self).platformify
-        if hasattr(self,'type') and hasattr(self,'typeVersion') and 'php' == self.type:
-            actions = ["echo 'Adding composer config:platform:php'","cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)] + actions
-            # now add the child commands
-            actions = actions + self._platformify
-            actions = actions + ["echo 'Removing composer config:platform'", "cd {0} && composer config --unset platform".format(self.builddir)]
-            # print("Our complete list of actions")
-            # pprint(actions)
-        else:
-            actions = actions + self._platformify
-
-        return actions
-
-    @property
-    def _platformify(self):
-        return []
-
 class Wordpress_bedrock(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
     unPinDependencies = ['roots/wordpress']
 
     @property
-    def platformify(self):
+    def _platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_bedrock, self).platformify + [
+        return super(Wordpress_bedrock, self)._platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
@@ -111,11 +69,11 @@ class Wordpress_woocommerce(WordPressComposerBase):
     remote = 'https://github.com/roots/bedrock.git'
 
     @property
-    def platformify(self):
+    def _platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_woocommerce, self).platformify + [
+        return super(Wordpress_woocommerce, self)._platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(

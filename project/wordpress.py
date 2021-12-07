@@ -1,9 +1,12 @@
+import sys
 import os
 import os.path
+from pprint import pprint
 import json
 from collections import OrderedDict
 from . import BaseProject
 from .remote import RemoteProject
+
 
 class Wordpress_vanilla(BaseProject):
     remote = 'https://wordpress.org/latest'
@@ -20,20 +23,30 @@ class Wordpress_vanilla(BaseProject):
             'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
         ]
 
+
 # @todo
 class WordPressComposerBase(RemoteProject):
     unPinDependencies = []
 
     # Upstream script locks a specific version in composer.json, keeping users from updating locally.
     # @todo should this be a classmethod?
-    def unlock_version(self,locked_version):
+    def unlock_version(self, locked_version):
         if '^' not in locked_version:
             return '^{}'.format(locked_version)
         else:
             return locked_version
 
+    # until we convert all php templates to use this method, we need to remove the 'ignore platform' composer param
+    def composer_defaults(self):
+        #get the default list from parent
+        composerDefaults = super(WordPressComposerBase, self).composer_defaults()
+        #remove the ignore platform php line
+        composerDefaults = composerDefaults.replace(' --ignore-platform-req=php','')
+
+        return composerDefaults
+
     # Run through our list of dependencies that should be unpinned as defined in @see unPinDependencies
-    def wp_modify_composer(self,composer,dependencies=[]):
+    def wp_modify_composer(self, composer, dependencies=[]):
         self.unPinDependencies = self.unPinDependencies + dependencies
         for dependency in self.unPinDependencies:
             if dependency in composer['require']:
@@ -49,6 +62,26 @@ class WordPressComposerBase(RemoteProject):
 
         return composer
 
+    @property
+    def platformify(self):
+        #get the versions
+        actions = super(WordPressComposerBase, self).platformify
+        if hasattr(self,'type') and hasattr(self,'typeVersion') and 'php' == self.type:
+            actions = ["echo 'Adding composer config:platform:php'","cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)] + actions
+            # now add the child commands
+            actions = actions + self._platformify
+            actions = actions + ["echo 'Removing composer config:platform'", "cd {0} && composer config --unset platform".format(self.builddir)]
+            # print("Our complete list of actions")
+            # pprint(actions)
+        else:
+            actions = actions + self._platformify
+
+        return actions
+
+    @property
+    def _platformify(self):
+        return []
+
 class Wordpress_bedrock(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
@@ -62,9 +95,11 @@ class Wordpress_bedrock(WordPressComposerBase):
         return super(Wordpress_bedrock, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
+                self.builddir) + self.composer_defaults(),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
         ]
+
 
 class Wordpress_woocommerce(WordPressComposerBase):
     unPinDependencies = [
@@ -75,7 +110,6 @@ class Wordpress_woocommerce(WordPressComposerBase):
     major_version = '1'
     remote = 'https://github.com/roots/bedrock.git'
 
-
     @property
     def platformify(self):
         def wp_modify_composer(composer):
@@ -84,8 +118,10 @@ class Wordpress_woocommerce(WordPressComposerBase):
         return super(Wordpress_woocommerce, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
-            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(
+                self.builddir) + self.composer_defaults(),
         ]
+
 
 class Wordpress_composer(WordPressComposerBase):
     major_version = '5'
@@ -93,7 +129,7 @@ class Wordpress_composer(WordPressComposerBase):
     unPinDependencies = ['johnpbloch/wordpress-core']
 
     @property
-    def platformify(self):
+    def _platformify(self):
 
         def require_default_wppackages():
             # WordPress comes with a few default themes and plugins. Those packages are not
@@ -113,11 +149,13 @@ class Wordpress_composer(WordPressComposerBase):
                 defaultPackages = []
 
                 # Find default themes and plugins subdirectories.
-                installerPaths = [x for x in os.listdir(self.builddir + root) if os.path.isdir(self.builddir + root + x)]
+                installerPaths = [x for x in os.listdir(self.builddir + root) if
+                                  os.path.isdir(self.builddir + root + x)]
                 for path in installerPaths:
                     installerPath = '{0}{1}{2}/'.format(self.builddir, root, path)
                     # For each subdirectory, require the package, adding the right namespace to it.
-                    [defaultPackages.append('{0}/{1}'.format(namespace[path], x)) for x in os.listdir(installerPath) if os.path.isdir(installerPath + x)]
+                    [defaultPackages.append('{0}/{1}'.format(namespace[path], x)) for x in os.listdir(installerPath) if
+                     os.path.isdir(installerPath + x)]
 
                 return ' '.join(defaultPackages)
 
@@ -143,9 +181,11 @@ class Wordpress_composer(WordPressComposerBase):
 
             return composer
 
-        return super(Wordpress_composer, self).platformify + [
+        return super(Wordpress_composer, self)._platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer require {1}'.format(self.builddir, require_default_wppackages()) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
+                self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require {1}'.format(self.builddir,
+                                                    require_default_wppackages()) + self.composer_defaults(),
         ]

@@ -1,5 +1,6 @@
 from . import BaseProject
 from .remote import RemoteProject
+from pprint import pprint
 
 
 class ComposerProject(RemoteProject):
@@ -16,43 +17,38 @@ class ComposerProject(RemoteProject):
     # until we convert all php templates to use this method, we need to remove the 'ignore platform' composer param
     def composer_defaults(self):
         # get the default list from parent
-        composerDefaults = super(WordPressComposerBase, self).composer_defaults()
+        composerDefaults = super(ComposerProject, self).composer_defaults()
         # remove the ignore platform php line
         composerDefaults = composerDefaults.replace(' --ignore-platform-req=php', '')
 
         return composerDefaults
 
-    def unpin_dependencies(self,composer,dependencies=[]):
+    def unpin_dependencies(self, composer, dependencies=[]):
         for dependency in dependencies:
             if dependency in composer['require']:
                 composer['require'][dependency] = self.unlock_version(composer['require'][dependency])
 
         return composer
 
-    def _modify_composer(self, composer, dependencies=[]):
-        dependencies = self.unPinDependencies + dependencies
+    def modify_composer_config(self, composer, dependencies=[]):
         composer = self.unpin_dependencies(composer, dependencies)
         return composer
 
+    def composer_platformify(func):
+        def wrapper(self):
 
-    @property
-    def platformify(self):
-        # get the versions
-        actions = super(WordPressComposerBase, self).platformify
-        if hasattr(self, 'type') and hasattr(self, 'typeVersion') and 'php' == self.type:
-            actions = ["echo 'Adding composer config:platform:php'",
-                       "cd {0} && composer config platform.php {1}".format(self.builddir, self.typeVersion)] + actions
-            # now add the child commands
-            actions = actions + self._platformify
-            actions = actions + ["echo 'Removing composer config:platform'",
-                                 "cd {0} && composer config --unset platform".format(self.builddir)]
-            # print("Our complete list of actions")
-            # pprint(actions)
-        else:
-            actions = actions + self._platformify
+            # if we're a php project and we have a version, let's add in our extra commands
+            if hasattr(self, 'type') and hasattr(self, 'typeVersion') and 'php' == self.type:
+                actions = ["echo 'Adding composer config:platform:php'",
+                           "cd {0} && composer config platform.php {1}".format(self.builddir,
+                                                                               self.typeVersion)]
+                # now add the child commands
+                actions += func(self)
+                actions += ["echo 'Removing composer config:platform'",
+                            "cd {0} && composer config --unset platform".format(self.builddir)]
+            else:
+                actions = func()
 
-        return actions
+            return actions
 
-    @property
-    def _platformify(self):
-        return []
+        return wrapper

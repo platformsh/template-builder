@@ -14,7 +14,7 @@ build:
 dependencies:
     php:
         composer/composer: '^2'
-        wp-cli/wp-cli: "^2.2.0"
+        wp-cli/wp-cli-bundle: "^2.4.0"
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -50,7 +50,7 @@ web:
             scripts: false
             allow: false
         "/wp/wp-content/uploads":
-            root: "web/wp/wp-content/uploads"
+            root: "web/app/uploads"
             scripts: false
             allow: true
 
@@ -62,6 +62,6 @@ mounts:
     "web/app/wp-content/cache":
         source: local
         source_path: "cache"
-    "web/app/wp-content/uploads":
+    "web/app/uploads":
         source: local
         source_path: "uploads"

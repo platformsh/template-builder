@@ -1,5 +1,6 @@
 from . import BaseProject
 from .remote import RemoteProject
+from .composer import ComposerProject
 import json
 from collections import OrderedDict
 
@@ -16,22 +17,24 @@ class Drupal7_vanilla(BaseProject):
         ]
 
 
-class Drupal8(RemoteProject):
+class Drupal8(ComposerProject):
     major_version = '8.9'
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Drupal8, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir) + self.composer_defaults()
         ]
 
-class Drupal9(RemoteProject):
+class Drupal9(ComposerProject):
     # This can have a common base with Drupal 8 eventually, once modules are updated.
     major_version = "9.0"
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Drupal9, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
@@ -45,11 +48,12 @@ class Drupal8_opigno(Drupal8):
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
 
-class Drupal8_govcms8(RemoteProject):
+class Drupal8_govcms8(ComposerProject):
     major_version = '1'
     remote = 'https://github.com/govCMS/govCMS8-project.git'
 
     @property
+    @ComposerProject.composer_platformify
     def platformify(self):
        return super(Drupal8_govcms8, self).platformify + [
            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but

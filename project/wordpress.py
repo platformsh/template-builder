@@ -8,6 +8,7 @@ from . import BaseProject
 from .remote import RemoteProject
 from .composer import ComposerProject
 
+
 class Wordpress_vanilla(BaseProject):
     remote = 'https://wordpress.org/latest'
     install_dir = 'wordpress'
@@ -29,16 +30,21 @@ class WordPressComposerBase(ComposerProject):
 
     # Run through our list of dependencies that should be unpinned as defined in @see unPinDependencies
     def wp_modify_composer(self, composer, dependencies=[]):
-        composer = super(WordPressComposerBase, self).wp_modify_composer(dependencies)
+        composer = super(WordPressComposerBase, self).modify_composer_config(composer, dependencies)
         # All composer-based WordPress repositories will need wpackagist.org added
-        composer['repositories'] = [
-            {
-                "type": "composer",
-                "url": "https://wpackagist.org"
-            }
-        ]
+
+        if 'repositories' not in composer.keys():
+            composer['repositories'] = []
+
+        newRepo = {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+
+        composer['repositories'].append(newRepo)
 
         return composer
+
 
 class Wordpress_bedrock(WordPressComposerBase):
     major_version = '1'
@@ -46,11 +52,12 @@ class Wordpress_bedrock(WordPressComposerBase):
     unPinDependencies = ['roots/wordpress']
 
     @property
-    def _platformify(self):
+    @ComposerProject.composer_platformify
+    def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_bedrock, self)._platformify + [
+        return super(Wordpress_bedrock, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
@@ -69,11 +76,12 @@ class Wordpress_woocommerce(WordPressComposerBase):
     remote = 'https://github.com/roots/bedrock.git'
 
     @property
-    def _platformify(self):
+    @ComposerProject.composer_platformify
+    def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_woocommerce, self)._platformify + [
+        return super(Wordpress_woocommerce, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(
@@ -87,7 +95,8 @@ class Wordpress_composer(WordPressComposerBase):
     unPinDependencies = ['johnpbloch/wordpress-core']
 
     @property
-    def _platformify(self):
+    @ComposerProject.composer_platformify
+    def platformify(self):
 
         def require_default_wppackages():
             # WordPress comes with a few default themes and plugins. Those packages are not
@@ -122,14 +131,22 @@ class Wordpress_composer(WordPressComposerBase):
             # In order to both use the Wordpress default install location `wordpress` and
             # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
             # added to the upstream composer.json to move that config file during composer install.
-            composer['scripts'] = {
+            # @todo this looks like a good candidate for a new method in the base composer class
+            if 'scripts' not in composer.keys():
+                composer['scripts'] = {}
+
+            newScripts = {
                 'subdirComposer': [
                     "cp wp-config.php wordpress/ && rm -rf wordpress/wp-content/wp-content"
                 ],
                 'post-install-cmd': "@subdirComposer"
             }
+            composer['scripts'].update(newScripts)
 
-            composer['extra'] = {
+            if 'extra' not in composer.keys():
+                composer['extra'] = []
+
+            newExtras = {
                 'installer-paths': {
                     r'wordpress/wp-content/plugins/{$name}': ['type:wordpress-plugin'],
                     r'wordpress/wp-content/themes/{$name}': ['type:wordpress-theme'],
@@ -137,9 +154,11 @@ class Wordpress_composer(WordPressComposerBase):
                 }
             }
 
+            composer['extra'].append(newExtras)
+
             return composer
 
-        return super(Wordpress_composer, self)._platformify + [
+        return super(Wordpress_composer, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(

@@ -52,7 +52,7 @@ class Wordpress_bedrock(WordPressComposerBase):
     unPinDependencies = ['roots/wordpress']
 
     @property
-    @ComposerProject.composer_platformify
+    @ComposerProject.composer_platformify()
     def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
@@ -76,7 +76,7 @@ class Wordpress_woocommerce(WordPressComposerBase):
     remote = 'https://github.com/roots/bedrock.git'
 
     @property
-    @ComposerProject.composer_platformify
+    @ComposerProject.composer_platformify()
     def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
@@ -95,7 +95,7 @@ class Wordpress_composer(WordPressComposerBase):
     unPinDependencies = ['johnpbloch/wordpress-core']
 
     @property
-    @ComposerProject.composer_platformify
+    @ComposerProject.composer_platformify()
     def platformify(self):
 
         def require_default_wppackages():
@@ -128,10 +128,12 @@ class Wordpress_composer(WordPressComposerBase):
 
         def wp_modify_composer(composer):
             composer = super(Wordpress_composer, self).wp_modify_composer(composer, self.unPinDependencies)
-            # In order to both use the Wordpress default install location `wordpress` and
-            # supply the Platform.sh-specific `wp-config.php` to that installation, a script is
-            # added to the upstream composer.json to move that config file during composer install.
-            # @todo this looks like a good candidate for a new method in the base composer class
+            """
+            In order to both use the Wordpress default install location `wordpress` and
+            supply the Platform.sh-specific `wp-config.php` to that installation, a script is
+            added to the upstream composer.json to move that config file during composer install.
+            @TODO this looks like a good candidate for a new method in the base composer class
+            """
             if 'scripts' not in composer.keys():
                 composer['scripts'] = {}
 

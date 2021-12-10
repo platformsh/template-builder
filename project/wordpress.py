@@ -1,11 +1,6 @@
-import sys
 import os
 import os.path
-from pprint import pprint
-import json
-from collections import OrderedDict
 from . import BaseProject
-from .remote import RemoteProject
 from .composer import ComposerProject
 
 
@@ -52,7 +47,7 @@ class Wordpress_bedrock(WordPressComposerBase):
     unPinDependencies = ['roots/wordpress']
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
@@ -76,7 +71,7 @@ class Wordpress_woocommerce(WordPressComposerBase):
     remote = 'https://github.com/roots/bedrock.git'
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         def wp_modify_composer(composer):
             return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
@@ -95,7 +90,7 @@ class Wordpress_composer(WordPressComposerBase):
     unPinDependencies = ['johnpbloch/wordpress-core']
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
 
         def require_default_wppackages():

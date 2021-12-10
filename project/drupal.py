@@ -1,8 +1,5 @@
 from . import BaseProject
-from .remote import RemoteProject
 from .composer import ComposerProject
-import json
-from collections import OrderedDict
 
 
 class Drupal7_vanilla(BaseProject):
@@ -24,7 +21,7 @@ class Drupal8(ComposerProject):
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Drupal8, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(
@@ -38,7 +35,7 @@ class Drupal9(ComposerProject):
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Drupal9, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(
@@ -60,7 +57,7 @@ class Drupal8_govcms8(ComposerProject):
     remote = 'https://github.com/govCMS/govCMS8-project.git'
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Drupal8_govcms8, self).platformify + [
             # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but

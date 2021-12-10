@@ -1,4 +1,3 @@
-from .remote import RemoteProject
 from .composer import ComposerProject
 
 
@@ -7,7 +6,7 @@ class Pimcore(ComposerProject):
     remote = 'https://github.com/pimcore/skeleton.git'
 
     @property
-    @ComposerProject.composer_platformify()
+    @ComposerProject.composer_platformify
     def platformify(self):
         return super(Pimcore, self).platformify + [
             'cd {0} && composer update --no-scripts && composer require platformsh/config-reader doctrine/orm  '

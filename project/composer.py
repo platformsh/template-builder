@@ -15,9 +15,6 @@ class ComposerProject(RemoteProject):
 
     def __init__(self, name):
         super(ComposerProject, self).__init__(name)
-        # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
-        if 'composer.json' in self.updateCommands:
-            self.updateCommands['composer.json'] += self.composer_defaults()
 
         # @todo what about multiapps?
         if exists(os.path.join(TEMPLATEDIR, self.name, 'files/', '.platform.app.yaml')):
@@ -53,6 +50,10 @@ class ComposerProject(RemoteProject):
                 except yaml.YAMLError as exc:
                     print(exc)
 
+        # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
+        if 'composer.json' in self.updateCommands:
+            self.updateCommands['composer.json'] += self.composer_defaults()
+
     # Upstream script locks a specific version in composer.json, keeping users from updating locally.
     # @todo should this be a classmethod?
     def unlock_version(self, locked_version):
@@ -67,6 +68,14 @@ class ComposerProject(RemoteProject):
         composerDefaults = super(ComposerProject, self).composer_defaults()
         # remove the ignore platform php line
         composerDefaults = composerDefaults.replace(' --ignore-platform-req=php', '')
+
+        """
+        Some of the templates still require version 1 of composer. If they havent updated the platform.app.yaml
+        file to v2 of composer, then we'll need to downgrade the local version to v1 and then roll it back at the
+        end
+        """
+        # if self.composer_version is not None and self.composer_version < 2:
+        #     composerDefaults += ' --ignore-platform-req=composer-plugin-api'
 
         return composerDefaults
 
@@ -107,15 +116,6 @@ class ComposerProject(RemoteProject):
                                                                                   self.typeVersion)]
                 postActions = ["echo 'Removing composer config:platform'",
                                "cd {0} && composer config --unset platform".format(self.builddir)]
-
-                """
-                Some of the templates still require version 1 of composer. If they havent updated the platform.app.yaml
-                file to v2 of composer, then we'll need to downgrade the local version to v1 and then roll it back at the
-                end
-                """
-                if self.composer_version is not None and self.composer_version < 2 :
-                    preActions = ['echo "Downgrading composer to v1"', 'composer self-update --1'] + preActions
-                    postActions += ['echo "Upgrading composer back to version2"', 'composer self-update --2']
 
                 if 'platformify' == func.__name__:
                     # our actions first

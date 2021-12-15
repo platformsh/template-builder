@@ -1,0 +1,15 @@
+[[source]]
+verify_ssl = true
+url = "https://pypi.org/simple"
+name = "pypi"
+
+[packages]
+django = ">=4.0,<5.0"
+"psycopg2-binary" = "*"
+gunicorn = "*"
+platformshconfig = "~=2.0"
+
+[requires]
+python_version = "3.9"
+
+[dev-packages]

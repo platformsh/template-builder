@@ -44,12 +44,6 @@ class Drupal8_opigno(Drupal8):
     major_version = '2'
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
-    @property
-    def platformify(self):
-        return super(Drupal8_opigno, self).platformify + [
-            'cd {0} && composer update -W'.format(self.builddir),
-        ]
-
 
 class Drupal8_govcms8(RemoteProject):
     major_version = '1'

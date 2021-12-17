@@ -24,6 +24,7 @@ env:
     START_MESSAGE: 'Retrieving updates for all templates.'
     JOB_COLOR: "#145CC6"
     # Language-specific tools.
+    NODE_VERSION: "14"
     POETRY_VERSION: "1.1.11"
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
@@ -89,6 +90,7 @@ jobs:
                   # PHP
                   - template: 'drupal8-multisite'
                   - template: 'drupal8-govcms8'
+                  - template: 'drupal8-opigno'
                   - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: 'wordpress-composer'
@@ -160,6 +162,9 @@ jobs:
                 ruby-version: ${{ env.RUBY_VERSION }}
             - name: Setup Python
               uses: actions/setup-python@v2
+            - uses: actions/setup-node@v2
+              with:
+                node-version: ${{ env.NODE_VERSION }}
               with:
                 python-version: ${{ env.PYTHON_VERSION }}
             - name: Install Poetry

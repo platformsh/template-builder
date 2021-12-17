@@ -12,7 +12,6 @@
 #
 # Once provisioned this file has no effects on the running project.  You
 # are free to remove it.
-https://github.com/platformsh/template-builder/tree/master/templates
 # The schema is versioned so that we can establish code paths differently in the future if we need to change this.
 version: 1
 

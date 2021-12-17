@@ -152,7 +152,6 @@ jobs:
                   - template: 'gatsby-strapi'
                   - template: 'eleventy-strapi'
                   - template: 'gatsby-wordpress'
-                  - template: 'elastic-apm'
                   - template: 'gatsby-drupal'
                   # Lisp
                   - template: 'lisp'

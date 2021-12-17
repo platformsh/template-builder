@@ -13,6 +13,7 @@ class Symfony4(RemoteProject):
             # Keep this in sync with the template's PHP verison.
             'cd {0} && composer config platform.php 7.4'.format(self.builddir),
             'cd {0} && composer require platformsh/symfonyflex-bridge ^2.7'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update'.format(self.builddir),
         ]
 
 class Symfony5(RemoteProject):
@@ -27,4 +28,5 @@ class Symfony5(RemoteProject):
             # Keep this in sync with the template's PHP verison.
             'cd {0} && composer config platform.php 7.4'.format(self.builddir),
             'cd {0} && composer require platformsh/symfonyflex-bridge ^2.7'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update'.format(self.builddir),
         ]

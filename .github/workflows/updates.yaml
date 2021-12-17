@@ -87,31 +87,24 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'pimcore'
-                  - template: 'symfony5'
-                  - template: 'drupal8-opigno'
-                  - template: 'drupal8'
-                  - template: 'backdrop'
+                  - template: 'drupal8-multisite'
+                  - template: 'drupal8-govcms8'
                   - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: 'wordpress-composer'
+                  - template: 'pimcore'
+                  - template: 'backdrop'
                   - template: 'magento2ce'
                   - template: 'nextcloud'
                   - template: 'akeneo'
-                  - template: 'symfony4'
-                  - template: 'wordpress-bedrock'
                   - template: 'typo3'
-                  - template: 'wordpress-vanilla'
-                  - template: 'drupal8-multisite'
-                  - template: 'drupal8-govcms8'
                   - template: 'php'
                   - template: 'laravel'
-                  - template: 'wordpress-composer'
                   - template: 'sculpin'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'express'
                   - template: 'koa'
-                  - template: 'strapi'
-                  - template: 'gatsby'
                   - template: 'nodejs'
                   - template: 'probot'
                   - template: 'directus'
@@ -156,6 +149,7 @@ jobs:
                   - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
+
 
         steps: 
             # 0. Install tools and dependencies.

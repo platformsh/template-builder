@@ -126,7 +126,6 @@ jobs:
                   - template: 'wagtail'
                   - template: 'pelican'
                   # Go
-                  - template: 'mattermost'
                   - template: 'golang'
                   - template: 'beego'
                   - template: 'gin'

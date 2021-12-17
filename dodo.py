@@ -19,6 +19,7 @@ from project.magento import Magento2ce
 from project.pimcore import Pimcore
 from project.laravel import Laravel
 from project.magento import Magento2ce
+from project.mattermost import Mattermost
 from project.mautic import Mautic
 from project.nextjs import Nextjs
 from project.nuxtjs import Nuxtjs

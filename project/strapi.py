@@ -22,7 +22,7 @@ class Strapi(BaseProject):
             # from creating a new project in a nonempty dir, so the quickstart project is made in projectName before its
             # contents are copied into builddir. 
             'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(TEMPLATEDIR, projectName),
-            'cd {0} && cp -r {1}/{2} .'.format(self.builddir, TEMPLATEDIR, projectName),
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
             'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),              
         ] + super(Strapi, self).update
 

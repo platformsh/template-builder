@@ -358,6 +358,7 @@ jobs:
                   echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
                   echo "SLACK_STATUS=skip" >> $GITHUB_ENV
                   echo "PR_STATUS=skip" >> $GITHUB_ENV
+                  echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
                   # exit 110; // we dont want to exit as it causes this job to be marked as "failed"
                 else
                   echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"

@@ -110,6 +110,7 @@ jobs:
                   - template: 'nodejs'
                   - template: 'probot'
                   - template: 'directus'
+                  - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
                   # Python
                   - template: 'django2'
                   - template: 'django3'

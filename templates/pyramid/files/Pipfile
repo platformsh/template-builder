@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyramid = "*"
+pyramid = ">=2.0"
 platformshconfig = "~=2.0"
 redis = "*"
 pymysql = "*"
@@ -12,4 +12,4 @@ pymysql = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"

@@ -1,0 +1,495 @@
+---
+name: 'Updates'
+
+on:
+  push:
+    branches:
+      - 'auto-updates'
+      - 'fixes'
+#   schedule:
+#     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
+
+env:
+    # Update vars.
+    UPDATES_BRANCH: 'auto-updater'
+    UPDATE_COMMIT_MSG: 'scheduled updates.'
+    # Git.
+    GITHUB_TOKEN: ${{ secrets.DEVREL_TOKEN }}
+    GIT_EMAIL: ${{ secrets.DEVREL_EMAIL }}
+    GIT_USER: ${{ secrets.DEVREL_USER }}
+    # Notifications.
+    SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+    SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+    JOB_ID: 'auto-updates'
+    START_MESSAGE: 'Retrieving updates for all templates.'
+    JOB_COLOR: "#145CC6"
+    # Language-specific tools.
+    NODE_VERSION: "14"
+    POETRY_VERSION: "1.1.11"
+    PYTHON_VERSION: "3.9"
+    RUBY_VERSION: "2.7.4"
+    BUNDLER_VERSION: "2.2.26"
+    REPOOWNER: "platformsh"
+    TEMPLATEOWNER: "platformsh-templates"
+    #List of all python-based templates
+    PYTHON_TEMPLATES: 'django2 django3 python3 pyramid python3-uwsgi meilisearch flask wagtail pelican'
+
+jobs:
+    # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).
+    build:
+        runs-on: ubuntu-latest
+        name: 'Get templates'
+        outputs:
+            templates: ${{ steps.getlist.outputs.templates }}
+            threadts: ${{ steps.startslack.outputs.threadts }}
+        steps:
+          - uses: actions/checkout@v2
+          - name: Setup Python
+            uses: actions/setup-python@v2
+            with:
+              python-version: ${{ env.PYTHON_VERSION }}
+          - name: 'Get template list'
+            id: getlist
+            run: |
+              TEMPLATES=$(python -c '
+              import os
+              import json
+              dirs=os.listdir("{}/templates".format(os.getcwd()))
+              dirs.remove("__init__.py")
+              test = {"template": dirs}
+              print(json.dumps(dirs))
+              ')
+              echo "::set-output name=templates::$TEMPLATES"
+          - name: Install Poetry
+            run: |
+              python -m pip install poetry==$POETRY_VERSION
+          - name: Configure Poetry
+            run: |
+              python -m poetry config virtualenvs.in-project true
+          - name: Cache the virtualenv
+            uses: actions/cache@v2
+            with:
+              path: ./.venv
+              key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+          - name: Install dependencies
+            run: |
+              python -m poetry install
+          - name: 'Start notification on Slack'
+            id: startslack
+            run: |
+              RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
+              THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
+              echo "::set-output name=threadts::$THREAD_ID"
+
+    # B. Run the update across the templates list.
+    update:
+        needs: build
+        runs-on: ubuntu-latest
+        name: 'Template'
+        strategy:
+            fail-fast: false
+            matrix:
+                template: ${{fromJSON(needs.build.outputs.templates)}}
+                exclude:
+                  # PHP
+                  - template: 'drupal8-multisite'
+                  - template: 'drupal8-govcms8'
+                  - template: 'drupal8-opigno'
+                  - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: 'wordpress-composer'
+                  - template: 'pimcore'
+                  - template: 'backdrop'
+                  - template: 'magento2ce'
+                  - template: 'nextcloud'
+                  - template: 'akeneo'
+                  - template: 'typo3'
+                  - template: 'laravel'
+                  - template: 'sculpin'
+                  # Node.js
+                  - template: 'nuxtjs'
+                  - template: 'express'
+                  - template: 'koa'
+                  - template: 'nodejs'
+                  - template: 'probot'
+                  - template: 'directus'
+                  - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
+                  # Python
+                  - template: 'django2'
+                  - template: 'django3'
+                  - template: 'python3'
+                  - template: 'pyramid'
+                  - template: 'python3-uwsgi'
+                  - template: 'meilisearch'
+                  - template: 'flask'
+                  - template: 'wagtail'
+                  - template: 'pelican'
+                  # Go
+                  - template: 'golang'
+                  - template: 'beego'
+                  - template: 'gin'
+                  - template: 'mattermost'
+                  # Java
+                  - template: 'microprofile-wildfly'
+                  - template: 'microprofile-openliberty'
+                  - template: 'microprofile-helidon'
+                  - template: 'microprofile-tomee'
+                  - template: 'microprofile-kumuluzee'
+                  - template: 'microprofile-thorntail'
+                  - template: 'microprofile-payara'
+                  - template: 'spring-kotlin'
+                  - template: 'spring-boot-gradle-mysql'
+                  - template: 'spring-boot-maven-mysql'
+                  - template: 'spring-mvc-maven-mongodb'
+                  - template: 'tomcat'
+                  - template: 'jetty'
+                  - template: 'jenkins'
+                  - template: 'quarkus'
+                  - template: 'xwiki'
+                  - template: 'micronaut'
+                  # Multi-apps
+                  - template: 'gatsby-strapi'
+                  - template: 'eleventy-strapi'
+                  - template: 'gatsby-wordpress'
+                  - template: 'gatsby-drupal'
+                  # Lisp
+                  - template: 'lisp'
+                  # .NET
+                  - template: 'aspnet-core'
+                  # Ruby
+                  - template: 'rails'
+        steps:
+            # Before beginning we need set up all our tools and dependencies
+            # 0. Install our tools and dependencies.
+            - uses: actions/checkout@v2
+            - name: Pre-Start a. Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                ruby-version: ${{ env.RUBY_VERSION }}
+            - name: Pre-Start b. Setup Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: ${{ env.PYTHON_VERSION }}
+            - uses: actions/setup-node@v2
+              with:
+                node-version: ${{ env.NODE_VERSION }}
+            - name: Pre-Start c. Install Poetry
+              run: |
+                python -m pip install poetry==$POETRY_VERSION
+            - name: Pre-Start d. Configure Poetry
+              run: |
+                python -m poetry config virtualenvs.in-project true
+            - name: Pre-Start e. Cache the virtualenv
+              uses: actions/cache@v2
+              with:
+                path: ./.venv
+                key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+            - name: Pre-Start f. Install dependencies
+              run: |
+                python -m poetry install
+
+            - name: Pre-Start g. Set default var values
+              run: |
+                # according to the docs we should be able to set *and update* env vars to pass data between steps
+                # @see https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
+                echo "SLACK_MSG=''" >> $GITHUB_ENV
+                echo "PR_STATUS=continue" >> $GITHUB_ENV
+            ##########
+            # Steps 1 - 5 need to happen regardless if we are going to do an update as we need them to be performed for every
+            # template repository
+            ###########
+            # 1. Make sure the template repo exists
+            - name: Step 1. Verify the template repo exists
+              id: template-repo-exists
+              run: |
+                # echo "::set-output name=slack_runurl::https://github.com/${REPOOWNER}/template-builder/actions/runs/${GITHUB_RUN_ID}"
+                # Why curl instead of the gh cli? Because on not found, the gh cli will return an exit code of 1 which immediately fails the step and the job
+                repoData=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }})
+                repoID=$(echo "$repoData" | jq '.id')
+                repoNodeID=$(echo "$repoData" | jq '.node_id')
+                repoFound=$(echo "$repoData" | jq '.message')
+                echo "::notice::Repo Found status - ${repoFound}"
+                if [[ -z ${repoID} || "${repoFound}" == '"Not Found"'  ]]; then
+                  message="The template repo for ${{ matrix.template }} doesn't exist and will need to be created before I can help you."
+                  echo "::error::${message}"
+                  echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+                  echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+                  echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+                  exit 11;
+                else
+                  echo "::set-output name=repoNodeID::${repoNodeID}"
+                fi
+            # 2. Verify the repository is set for automerge
+            - name: Step 2. Check if auto-merge is enabled for repository
+              run: |
+                autoMREnabled=$(gh api /repos/${TEMPLATEOWNER}/${{ matrix.template }} --jq '.allow_auto_merge')
+                if [[ "${autoMREnabled}" != "true" ]]; then
+                  gh api -X PATCH /repos/${TEMPLATEOWNER}/${{ matrix.template }} --field allow_auto_merge=true
+                fi
+
+            #3. Get the template repo's default branch
+            - name: Step 3. Get template default branch
+              id: defaultbranch
+              run: |
+                # Get the default branch.
+                DEFAULT_BRANCH=$(gh api /repos/${TEMPLATEOWNER}/${{ matrix.template }} --jq '.default_branch')
+                echo "Our default branch for this template is ${DEFAULT_BRANCH}"
+                echo "::set-output name=branch::$DEFAULT_BRANCH"
+
+            # 4. Create branch protection if does not exist on the default branch; update to latest version.
+            - name: Step 4. Check if template already has a protection rule on default branch
+              run: |
+                # Step 4a - See if the protection needs to be created.
+                defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+                repoNodeID=${{ steps.template-repo-exists.outputs.repoNodeID }}
+                protectionCheckQuery='
+                query($name: String!, $owner: String!) {
+                    repository(owner: $owner, name: $name) {
+                        branchProtectionRules(first:10) {
+                        nodes {
+                            id
+                            pattern
+                        
+                        }
+                        }
+                    }
+                }
+                '
+                RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
+                DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
+                PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
+
+                # Step 4b - Create the protection if it doesn't exist.
+                if [ ${#PROTECTION_ID} -gt 0 ]; then 
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
+                else 
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is NOT protected. Creating protection.\n"
+                    
+                    branchProtectionRule="
+                        mutation(\$repositoryId:ID!,\$branch:String!) {
+                            createBranchProtectionRule(input: {
+                            repositoryId: \$repositoryId
+                            pattern: \$branch
+                            requiresStatusChecks: true
+                            requiresStrictStatusChecks: true
+                            requiredStatusCheckContexts: [\"platformsh\"]
+                            requiresApprovingReviews: true
+                            requiredApprovingReviewCount: 0
+                            isAdminEnforced: true
+                            }) { clientMutationId }
+                        }
+                    "
+                    # @todo Should we test to see if the mutation failed?
+                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
+
+                    RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
+                    DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
+                    PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
+
+                    printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
+
+                fi
+
+                # Step 4c - Update the current branch protection, in case we've changed it. 
+                branchProtectionRule="
+                    mutation(\$branchProtectionRuleId:ID!,\$branch:String!) {
+                        updateBranchProtectionRule(input: {
+                        branchProtectionRuleId: \$branchProtectionRuleId
+                        pattern: \$branch
+                        requiresStatusChecks: true
+                        requiresStrictStatusChecks: true
+                        requiredStatusCheckContexts: [\"platformsh\"]
+                        requiresApprovingReviews: true
+                        requiredApprovingReviewCount: 0
+                        isAdminEnforced: true
+                        }) { clientMutationId }
+                    }
+                "
+                # @todo Should we test to see if the mutation failed?
+                gh api graphql -F branchProtectionRuleId="${PROTECTION_ID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
+            # 5. Run the update tasks through template-builder.
+            - name: 'Step 5. Cleanup template build area'
+              run: |
+                python -m poetry run doit cleanup:${{ matrix.template }}
+            # 6. Initialize template build.
+            - name: 'Step 6. Initialize template build'
+              uses: actions/checkout@v2
+              with:
+                token: ${{ secrets.DEVREL_TOKEN }}
+                repository: ${{ env.TEMPLATEOWNER }}/${{ matrix.template }}
+                path: templates/${{ matrix.template }}/build
+            # 7. Handle an existing auto-updater branch.
+            - name: Step 7. Check if update branch exists on GH
+              id: branchstatus
+              run: |
+                STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }}/branches/$UPDATES_BRANCH)
+                branchStatus=$( echo $STATUS | jq -r '.message' )
+
+                if [[ 'Branch not found' != "$branchStatus" ]]; then
+                  # our auto-updater branch exists, but has it already been merged and just not deleted?
+                  defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+                  mergeBase=$(git -C templates/${{ matrix.template }}/build merge-base "origin/${defaultBranch}" "origin/${UPDATES_BRANCH}")
+                  # git rev-parse origin/auto-updater
+                  updateBranchHash=$(git -C templates/${{ matrix.template }}/build rev-parse "origin/${UPDATES_BRANCH}")
+                  if [[ "${mergeBase}" != "${updateBranchHash}" ]]; then
+                      message="Update branch already exists and does not appear to have been merged, or merged and then advanced. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
+                      echo "::error::${message}"
+                      echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+                      echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+                      echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+                      exit 12; # should fail the remaining steps
+                  fi
+                fi
+
+                echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+            - name: 'Step 8. Initialize remote'
+              run: |
+                # Get the remote
+                export TEMPLATE=${{ matrix.template }}
+
+                REMOTE_UPSTREAM=$(poetry run python -c '
+                import os
+                import dodo
+                try:
+                    print(dodo.project_factory(os.environ["TEMPLATE"]).remote)
+                except:
+                    print("no remote")
+                ')
+
+                # Set up Git.
+                cd templates/${{ matrix.template }}/build
+                git config --global user.email "$GIT_EMAIL"
+                git config --global user.name "$GIT_USER"
+
+                if [ "$REMOTE_UPSTREAM" == "no remote" ]; then
+                    echo "$TEMPLATE is type Basic. Skipping remote clone."
+                else
+                    echo "Upstream found: $REMOTE_UPSTREAM"
+                    git remote add project $REMOTE_UPSTREAM
+                fi
+            - name: 'Step 9. Update template'
+              run: |
+                # For some reason, in the template-builder app, on first run, python needs a second update before it actually updates
+                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit update:${{ matrix.template }}
+                if [[ ${PYTHON_TEMPLATES} =~ ${{ matrix.template }} ]]; then
+                  UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit update:${{ matrix.template }}
+                fi
+            - name: 'Step 10. Platformify template'
+              run: |
+                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit platformify:${{ matrix.template }}
+            - name: 'Step 11. Branch template'
+              run: |
+                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit branch:${{ matrix.template }}
+            - name: 'Step 12. Push template'
+              run: |
+                UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit push:${{ matrix.template }}
+
+            # 13. Check to see updates have been pushed to a branch.
+            - name: Step 13. Check if updates have been pushed
+              id: pushstatus
+              run: |
+                STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }}/branches/$UPDATES_BRANCH)
+                step11=$( echo $STATUS | jq -r '.message' )
+                echo "pushed branch status is ${step11}"
+
+                if [[ "${step11}" = "Branch not found" ]]; then
+                  message="The update branch ${UPDATES_BRANCH} for the template ${{ matrix.template }} was not found. Can't create a PR without it."
+                  message="${message} Possibly the template had no updates."
+                  echo "::error::${message}"
+                  echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+                  echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+                  echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+                  echo "PR_STATUS=skip" >> $GITHUB_ENV
+                  echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+                  # exit 110; // we dont want to exit as it causes this job to be marked as "failed"
+                else
+                  echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+                  echo "PR_STATUS=continue" >> $GITHUB_ENV
+                fi
+
+            - name: 'Step 14. Open pull request'
+              id: open-pull-request
+              if: env.PR_STATUS != 'skip'
+              run: |
+                  TITLE="Scheduled updates."
+                  BODY="Scheduled updates from template-builder ($(date))."
+
+                  # If successful, the cli will return the URL to the created PR.
+                  response=$(gh pr create --head "$UPDATES_BRANCH" --base "${{ steps.defaultbranch.outputs.branch }}" --title "$TITLE" --body "$BODY" --repo ${TEMPLATEOWNER}/${{ matrix.template }})
+                  # If the CLI returns 1, the step will fail.
+                  boolPRCreated=$?
+                  prRegex="([0-9]+$)"
+                  if [[ -n "${response}" && $response =~ $prRegex ]]; then
+                    PR=${BASH_REMATCH[1]}
+                    echo "::set-output name=pull-request-link::$response"
+                    echo "::set-output name=pull-request-number::$PR"
+                  else
+                    echo "cli didn't fail but response is empty or didnt match the regex?"
+                    echo "${response}"
+                  fi
+
+            # 15. Set the pull request to automerge when checks have passed.
+            - name: Step 15. Automatically merge only after necessary requirements are met
+              if: env.PR_STATUS != 'skip'
+              run: |
+                  gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --delete-branch --repo=${TEMPLATEOWNER}/${{ matrix.template }}
+                  lastcommand=$?
+
+            # 16. Catch all failures and successes.
+            - name: Step 16a. Send failed workflows
+              if: ${{ failure() }}
+              run: |
+                  TEMPLATE=${{ matrix.template }}
+                  RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
+                  THREAD_ID=${{ needs.build.outputs.threadts }}
+                  PR_URL=${SLACK_PRURL}
+                  MESSAGE="Something went wrong. Investigate.\n${{ env.SLACK_MSG }}"
+                  echo "::warning ::I would send the following warning to slack\n${MESSAGE}"
+                  RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py down $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
+            - name: Step 16b. Send successfull workflows to the pull request
+              if: ${{ success() && steps.branchstatus.outputs.status == 'Branch not found' }}
+              run: |
+                TEMPLATE=${{ matrix.template }}
+                THREAD_ID=${{ needs.build.outputs.threadts }}
+                RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
+
+                if [ "${{ steps.pushstatus.outputs.status }}" == "Branch not found" ]; then
+                    PR_URL="_Template already up-to-date._"
+                else
+                    PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                fi
+
+                MESSAGE='All good.'
+                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
+
+    # C. Notify Slack at the end of the run.
+    finish:
+      runs-on: ubuntu-latest
+      name: 'Finish updates'
+      needs: [build, update]
+      if: ${{ always() }}
+      steps:
+        - uses: actions/checkout@v2
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: ${{ env.PYTHON_VERSION }}
+        - name: Install Poetry
+          run: |
+            python -m pip install poetry==$POETRY_VERSION
+        - name: Configure Poetry
+          run: |
+            python -m poetry config virtualenvs.in-project true
+        - name: Cache the virtualenv
+          uses: actions/cache@v2
+          with:
+            path: ./.venv
+            key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+        - name: Install dependencies
+          run: |
+            python -m poetry install
+        - name: 'Notify slack when finished'
+          run: |
+            THREAD_ID=${{ needs.build.outputs.threadts }}
+            RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
+            RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" THREAD_ID=$THREAD_ID JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py finish $RUN_URL "$START_MESSAGE")

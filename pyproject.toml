@@ -9,6 +9,9 @@ license = "MIT"
 python = "!=2.7.*, ^3.8"
 doit = "^0.33.1"
 packaging = "^20.4"
+requests = "^2.26.0"
+slack-sdk = "^3.11.2"
+certifi = "^2021.10.8"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.4"

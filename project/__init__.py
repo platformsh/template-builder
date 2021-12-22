@@ -7,7 +7,6 @@ from collections import OrderedDict
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
-
 class BaseProject(object):
     '''
     Base class storing task actions.
@@ -54,6 +53,16 @@ class BaseProject(object):
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
+        
+        if os.environ.get("UPDATES_BRANCH"):
+            self.updateBranch = os.environ.get("UPDATES_BRANCH")
+        else:
+            self.updateBranch = 'updatesLocal'
+
+        if os.environ.get("UPDATE_COMMIT_MSG"):
+            self.commitMessage = os.environ.get("UPDATE_COMMIT_MSG")
+        else:
+            self.commitMessage = "Update to latest upstream."
 
         # Include default switches on all composer commands. This can be over-ridden per-template in a subclass.
         if 'composer.json' in self.updateCommands:
@@ -112,19 +121,19 @@ class BaseProject(object):
     @property
     def branch(self):
         return [
-            'cd {0} && if git rev-parse --verify --quiet update; then git checkout master && git branch -D update; fi;'.format(
-                self.builddir),
-            'cd {0} && git checkout -b update'.format(self.builddir),
+            'cd {0} && if git rev-parse --verify --quiet {1}; then git checkout master && git branch -D {1}; fi;'.format(
+                self.builddir, self.updateBranch),
+            'cd {0} && git checkout -b {1}'.format(self.builddir, self.updateBranch),
             # git commit exits with 1 if there's nothing to update, so the diff-index check will
             # short circuit the command if there's nothing to update with an exit code of 0.
-            'cd {0} && git add -A && git diff-index --quiet HEAD || git commit -m "Update to latest upstream"'.format(
-                self.builddir),
+            'cd {0} && git add -A && git diff-index --quiet HEAD || git commit -m "{1}"'.format(
+                self.builddir, self.commitMessage),
         ]
 
     @property
     def push(self):
-        return ['cd {0} && if [ `git rev-parse update` != `git rev-parse master` ] ; then git checkout update && git push --force -u origin update; fi'.format(
-            self.builddir)
+        return ['cd {0} && if [ `git rev-parse {1}` != `git rev-parse master` ] ; then git checkout {1} && git push --force -u origin {1}; fi'.format(
+            self.builddir, self.updateBranch)
         ]
 
     def package_update_actions(self):

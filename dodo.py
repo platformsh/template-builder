@@ -11,12 +11,15 @@ from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
 from project.backdrop import Backdrop
 from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
+from project.elasticapm import Elastic_apm
 from project.gatsby import Gatsby
+from project.hugo import Hugo
 from project.laravel import Laravel
 from project.magento import Magento2ce
 from project.pimcore import Pimcore
 from project.laravel import Laravel
 from project.magento import Magento2ce
+from project.mattermost import Mattermost
 from project.mautic import Mautic
 from project.nextjs import Nextjs
 from project.nuxtjs import Nuxtjs

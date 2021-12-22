@@ -143,6 +143,11 @@ jobs:
                   - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
+                  # Multi-app
+                  - template: 'gatsby-drupal'
+                  - template: 'gatsby-strapi'
+                  - template: 'gatsby-wordpress'
+                  - template: 'eleventy-strapi'
         steps:
             # Before beginning we need set up all our tools and dependencies
             # 0. Install our tools and dependencies.

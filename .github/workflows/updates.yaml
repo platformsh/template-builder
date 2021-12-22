@@ -104,7 +104,6 @@ jobs:
                   - template: 'nextcloud'
                   - template: 'akeneo'
                   - template: 'typo3'
-                  - template: 'php'
                   - template: 'laravel'
                   - template: 'sculpin'
                   # Node.js

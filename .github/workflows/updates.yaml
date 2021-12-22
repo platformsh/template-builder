@@ -92,12 +92,13 @@ jobs:
                 exclude:
                   # PHP
                   - template: 'drupal8-govcms8'
+                  - template: 'drupal8-opigno'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
                   - template: 'akeneo'
                   - template: 'typo3'
-                  - template: 'scuplin'
+                  - template: 'sculpin'
                   - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: 'akeneo'

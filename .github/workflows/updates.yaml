@@ -163,6 +163,8 @@ jobs:
                   - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
+                  # Ruby
+                  - template: 'rails'
 
         steps:
             # Before beginning we need set up all our tools and dependencies
@@ -264,9 +266,9 @@ jobs:
 
                 # Step 4b - Create the protection if it doesn't exist.
                 if [ ${#PROTECTION_ID} -gt 0 ]; then 
-                    printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
                 else 
-                    printf "\n$1: the default branch ($defaultBranch) is NOT protected. Creating protection.\n"
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is NOT protected. Creating protection.\n"
                     
                     branchProtectionRule="
                         mutation(\$repositoryId:ID!,\$branch:String!) {
@@ -283,10 +285,10 @@ jobs:
                         }
                     "
                     # @todo Should we test to see if the mutation failed?
-                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${DEFAULT_BRANCH}" -f query="${branchProtectionRule}"
+                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
 
-                    RESULT=$(gh api graphql -F owner="${OWNER}" -F name="${REPO}" -f query="${protectionCheckQuery}")
-                    DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$DEFAULT_BRANCH" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
+                    RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
+                    DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
                     PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
 
                     printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"

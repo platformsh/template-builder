@@ -280,7 +280,7 @@ jobs:
                         }
                     "
                     # @todo Should we test to see if the mutation failed?
-                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${braionRule}"
+                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
 
                     RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
                     DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')

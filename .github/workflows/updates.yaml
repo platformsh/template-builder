@@ -125,24 +125,31 @@ jobs:
                   - template: 'beego'
                   - template: 'gin'
                   - template: 'mattermost'
-                  # Java
+                  # Java - Maven (https://www.baeldung.com/maven-dependency-latest-version)
+                  # 1. mvn versions:use-releases (Convert snapshots to releases)
+                  # 2. mvn versions:use-next-releases
+                  # 3. mvn versions:use-latest-releases
+                  - template: 'jetty'
+                  - template: 'micronaut'
+                  - template: 'quarkus'
+                  - template: 'tomcat'
+                  - template: 'microprofile-payara'
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
                   - template: 'microprofile-helidon'
                   - template: 'microprofile-tomee'
                   - template: 'microprofile-kumuluzee'
                   - template: 'microprofile-thorntail'
-                  - template: 'microprofile-payara'
                   - template: 'spring-kotlin'
-                  - template: 'spring-boot-gradle-mysql'
                   - template: 'spring-boot-maven-mysql'
                   - template: 'spring-mvc-maven-mongodb'
-                  - template: 'tomcat'
-                  - template: 'jetty'
-                  - template: 'jenkins'
-                  - template: 'quarkus'
+                  # Java - Upstream config version handling needed.
                   - template: 'xwiki'
-                  - template: 'micronaut'
+                  - template: 'jenkins' # currently just uses "latest"
+                  # Java - Gradle (https://jmfayard.github.io/refreshVersions/update-dependencies/)
+                  # ./gradlew refreshVersions               
+                  - template: 'spring-boot-gradle-mysql'
+                  
                   # Multi-apps
                   - template: 'gatsby-strapi'
                   - template: 'eleventy-strapi'

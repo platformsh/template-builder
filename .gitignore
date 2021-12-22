@@ -4,4 +4,3 @@
 *.DS_Store
 .idea/*
 .doit.db.db
-protect.sh

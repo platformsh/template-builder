@@ -6,6 +6,7 @@ on:
     branches:
       - 'auto-updates'
       - 'auto-updates-pfg'
+      - 'branch-protect'
 #   schedule:
 #     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 
@@ -162,6 +163,8 @@ jobs:
                   - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
+                  # Ruby
+                  - template: 'rails'
 
         steps:
             # Before beginning we need set up all our tools and dependencies
@@ -238,21 +241,65 @@ jobs:
                 echo "Our default branch for this template is ${DEFAULT_BRANCH}"
                 echo "::set-output name=branch::$DEFAULT_BRANCH"
 
-            # 4. Check if default branch has branch rules in place
-            - name: Step 4. Add branch protection rules to default branch
+            # 4. Create branch protection if does not exist on the default branch; update to latest version.
+            - name: Step 4. Check if template already has a protection rule on default branch
               run: |
-                # If the branch protection rule already exists, the graphQL will ignore the update. In this case,
-                # there's no advantage to checking for the rule first and then attempting to verify all settings, vs
-                # pushing the mutation every time.
-                #
-                # Grab our outputs from the last step and store them for easier access
+                # Step 4a - See if the protection needs to be created.
                 defaultBranch=${{ steps.defaultbranch.outputs.branch }}
                 repoNodeID=${{ steps.template-repo-exists.outputs.repoNodeID }}
+                protectionCheckQuery='
+                query($name: String!, $owner: String!) {
+                    repository(owner: $owner, name: $name) {
+                        branchProtectionRules(first:10) {
+                        nodes {
+                            id
+                            pattern
+                        
+                        }
+                        }
+                    }
+                }
+                '
+                RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
+                DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
+                PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
 
+                # Step 4b - Create the protection if it doesn't exist.
+                if [ ${#PROTECTION_ID} -gt 0 ]; then 
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
+                else 
+                    printf "\n${{ matrix.template }}: the default branch ($defaultBranch) is NOT protected. Creating protection.\n"
+                    
+                    branchProtectionRule="
+                        mutation(\$repositoryId:ID!,\$branch:String!) {
+                            createBranchProtectionRule(input: {
+                            repositoryId: \$repositoryId
+                            pattern: \$branch
+                            requiresStatusChecks: true
+                            requiresStrictStatusChecks: true
+                            requiredStatusCheckContexts: [\"platformsh\"]
+                            requiresApprovingReviews: true
+                            requiredApprovingReviewCount: 0
+                            isAdminEnforced: true
+                            }) { clientMutationId }
+                        }
+                    "
+                    # @todo Should we test to see if the mutation failed?
+                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
+
+                    RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
+                    DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
+                    PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
+
+                    printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
+
+                fi
+
+                # Step 4c - Update the current branch protection, in case we've changed it. 
                 branchProtectionRule="
-                    mutation(\$repositoryId:ID!,\$branch:String!) {
-                      createBranchProtectionRule(input: {
-                        repositoryId: \$repositoryId
+                    mutation(\$branchProtectionRuleId:ID!,\$branch:String!) {
+                        updateBranchProtectionRule(input: {
+                        branchProtectionRuleId: \$branchProtectionRuleId
                         pattern: \$branch
                         requiresStatusChecks: true
                         requiresStrictStatusChecks: true
@@ -260,16 +307,16 @@ jobs:
                         requiresApprovingReviews: true
                         requiredApprovingReviewCount: 0
                         isAdminEnforced: true
-                      }) { clientMutationId }
+                        }) { clientMutationId }
                     }
                 "
                 # @todo Should we test to see if the mutation failed?
-                gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
+                gh api graphql -F branchProtectionRuleId="${PROTECTION_ID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
             # 5. Run the update tasks through template-builder.
             - name: 'Step 5. Cleanup template build area'
               run: |
                 python -m poetry run doit cleanup:${{ matrix.template }}
-            # 6.
+            # 6. Initialize template build.
             - name: 'Step 6. Initialize template build'
               uses: actions/checkout@v2
               with:

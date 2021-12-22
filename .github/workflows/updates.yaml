@@ -110,16 +110,6 @@ jobs:
                   - template: 'probot'
                   - template: 'directus'
                   - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
-                  # Python
-                  - template: 'django2'
-                  - template: 'django3'
-                  - template: 'python3'
-                  - template: 'pyramid'
-                  - template: 'python3-uwsgi'
-                  - template: 'meilisearch'
-                  - template: 'flask'
-                  - template: 'wagtail'
-                  - template: 'pelican'
                   # Go
                   - template: 'golang'
                   - template: 'beego'

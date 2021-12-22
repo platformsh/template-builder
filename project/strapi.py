@@ -1,4 +1,5 @@
 from . import BaseProject
+import os
 
 class Strapi(BaseProject):
 
@@ -10,6 +11,9 @@ class Strapi(BaseProject):
     @property
     def update(self):
 
+        ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        TEMPLATEDIR = os.path.join(ROOTDIR, 'templates/strapi')
+
         # Quickstart project package name, used in the block below.
         projectName = "strapi-quickstart-platformsh"
 
@@ -17,9 +21,9 @@ class Strapi(BaseProject):
             # Create a quickstart Strapi app using Yarn, since there's no dedicated upstream repo for it. Strapi prevents you 
             # from creating a new project in a nonempty dir, so the quickstart project is made in projectName before its
             # contents are copied into builddir. 
-            'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(self.builddir, projectName),
-            'cd {0} && cp -r {1}/ {0}'.format(self.builddir, projectName),
-            'cd {0} && rm -rf {1}'.format(self.builddir, projectName),              
+            'cd {0} && yarn create strapi-app {1} --quickstart --no-run'.format(TEMPLATEDIR, projectName),
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
+            'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),              
         ] + super(Strapi, self).update
 
     @property
@@ -27,7 +31,8 @@ class Strapi(BaseProject):
 
         return super(Strapi, self).platformify + [
             # Add dependencies. 
-            'cd {0} && yarn add platformsh-config pg && yarn strapi install graphql documentation'.format(self.builddir),  
+            'cd {0} && yarn add platformsh-config pg'.format(self.builddir),  
+            'cd {0} && yarn strapi install graphql'.format(self.builddir),  
         ]
 
 class Eleventy_strapi(BaseProject):

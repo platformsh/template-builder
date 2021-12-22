@@ -5,8 +5,7 @@ on:
   push:
     branches:
       - 'auto-updates'
-      - 'auto-updates-pfg'
-      - 'branch-protect'
+      - 'fixes'
 #   schedule:
 #     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 
@@ -25,6 +24,7 @@ env:
     START_MESSAGE: 'Retrieving updates for all templates.'
     JOB_COLOR: "#145CC6"
     # Language-specific tools.
+    NODE_VERSION: "14"
     POETRY_VERSION: "1.1.11"
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
@@ -92,34 +92,29 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'pimcore'
-                  - template: 'symfony5'
+                  - template: 'drupal8-multisite'
+                  - template: 'drupal8-govcms8'
                   - template: 'drupal8-opigno'
-                  - template: 'drupal8'
-                  - template: 'backdrop'
                   - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: 'wordpress-composer'
+                  - template: 'pimcore'
+                  - template: 'backdrop'
                   - template: 'magento2ce'
                   - template: 'nextcloud'
                   - template: 'akeneo'
-                  - template: 'symfony4'
-                  - template: 'wordpress-bedrock'
                   - template: 'typo3'
-                  - template: 'wordpress-vanilla'
-                  - template: 'drupal8-multisite'
-                  - template: 'drupal8-govcms8'
                   - template: 'php'
                   - template: 'laravel'
-                  - template: 'wordpress-composer'
                   - template: 'sculpin'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'express'
                   - template: 'koa'
-                  - template: 'strapi'
-                  - template: 'gatsby'
                   - template: 'nodejs'
                   - template: 'probot'
                   - template: 'directus'
+                  - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
                   # Python
                   - template: 'django2'
                   - template: 'django3'
@@ -131,7 +126,6 @@ jobs:
                   - template: 'wagtail'
                   - template: 'pelican'
                   # Go
-                  - template: 'mattermost'
                   - template: 'golang'
                   - template: 'beego'
                   - template: 'gin'
@@ -157,7 +151,6 @@ jobs:
                   - template: 'gatsby-strapi'
                   - template: 'eleventy-strapi'
                   - template: 'gatsby-wordpress'
-                  - template: 'elastic-apm'
                   - template: 'gatsby-drupal'
                   # Lisp
                   - template: 'lisp'
@@ -165,7 +158,6 @@ jobs:
                   - template: 'aspnet-core'
                   # Ruby
                   - template: 'rails'
-
         steps:
             # Before beginning we need set up all our tools and dependencies
             # 0. Install our tools and dependencies.
@@ -178,6 +170,9 @@ jobs:
               uses: actions/setup-python@v2
               with:
                 python-version: ${{ env.PYTHON_VERSION }}
+            - uses: actions/setup-node@v2
+              with:
+                node-version: ${{ env.NODE_VERSION }}
             - name: Pre-Start c. Install Poetry
               run: |
                 python -m pip install poetry==$POETRY_VERSION
@@ -285,7 +280,7 @@ jobs:
                         }
                     "
                     # @todo Should we test to see if the mutation failed?
-                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${branchProtectionRule}"
+                    gh api graphql -F repositoryId="${repoNodeID}" -F branch="${defaultBranch}" -f query="${braionRule}"
 
                     RESULT=$(gh api graphql -F owner="${TEMPLATEOWNER}" -F name="${{ matrix.template }}" -f query="${protectionCheckQuery}")
                     DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$defaultBranch" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')

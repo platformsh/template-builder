@@ -263,9 +263,9 @@ jobs:
 
                 # Step 4b - Create the protection if it doesn't exist.
                 if [ ${#PROTECTION_ID} -gt 0 ]; then 
-                    printf "\n$1: the default branch ($DEFAULT_BRANCH) is protected ($PROTECTION_ID).\n"
+                    printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
                 else 
-                    printf "\n$1: the default branch ($DEFAULT_BRANCH) is NOT protected. Creating protection.\n"
+                    printf "\n$1: the default branch ($defaultBranch) is NOT protected. Creating protection.\n"
                     
                     branchProtectionRule="
                         mutation(\$repositoryId:ID!,\$branch:String!) {
@@ -288,7 +288,7 @@ jobs:
                     DEFAULT_BRANCH_PROTECTION_EXISTS=$(echo $RESULT | jq --arg DEFAULT_BRANCH "$DEFAULT_BRANCH" '.data.repository.branchProtectionRules.nodes[] | select(.pattern==$DEFAULT_BRANCH)')
                     PROTECTION_ID=$(echo $DEFAULT_BRANCH_PROTECTION_EXISTS | jq -r '.id')
 
-                    printf "\n$1: the default branch ($DEFAULT_BRANCH) is protected ($PROTECTION_ID).\n"
+                    printf "\n$1: the default branch ($defaultBranch) is protected ($PROTECTION_ID).\n"
 
                 fi
 

@@ -90,6 +90,17 @@ jobs:
             matrix:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
+                  # PHP
+                  - template: 'drupal8-govcms8'
+                  - template: 'magento2ce'
+                  - template: 'pimcore'
+                  - template: 'laravel'
+                  - template: 'akeneo'
+                  - template: 'typo3'
+                  - template: 'scuplin'
+                  - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: 'akeneo'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'express'

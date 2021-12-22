@@ -244,6 +244,7 @@ jobs:
               run: |
                 # Step 4a - See if the protection needs to be created.
                 defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+                repoNodeID=${{ steps.template-repo-exists.outputs.repoNodeID }}
                 protectionCheckQuery='
                 query($name: String!, $owner: String!) {
                     repository(owner: $owner, name: $name) {

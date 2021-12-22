@@ -129,6 +129,7 @@ jobs:
                   - template: 'golang'
                   - template: 'beego'
                   - template: 'gin'
+                  - template: 'mattermost'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'

@@ -4,8 +4,7 @@ name: 'Updates'
 on:
   push:
     branches:
-      - 'auto-updates'
-      - 'fixes'
+      - 'wordpress/composer-based-fix'
 #   schedule:
 #     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 

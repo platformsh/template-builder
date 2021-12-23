@@ -63,3 +63,10 @@ mounts:
   "public/uploads":
     source: local
     source_path: uploads
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate

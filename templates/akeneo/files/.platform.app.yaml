@@ -160,3 +160,11 @@ workers:
         commands:
             start: |
                 php /app/bin/console akeneo:batch:job-queue-consumer-daemon
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate
+    

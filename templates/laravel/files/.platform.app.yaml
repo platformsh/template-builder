@@ -99,3 +99,11 @@ crons:
 #            # and get restarted automatically.
 #            start: |
 #                php artisan queue:work --max-time=3600
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate
+    

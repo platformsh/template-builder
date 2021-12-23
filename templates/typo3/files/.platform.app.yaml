@@ -182,3 +182,11 @@ crons:
     typo3:
         spec: "*/5 * * * *"
         cmd: "vendor/bin/typo3 scheduler:run"
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate
+    

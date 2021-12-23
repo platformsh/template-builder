@@ -105,3 +105,11 @@ crons:
     pimcore_cron:
         spec: "*/5 * * * *"
         cmd: "bin/console maintenance"
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate
+    

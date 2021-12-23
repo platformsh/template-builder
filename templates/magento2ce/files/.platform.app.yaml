@@ -104,3 +104,11 @@ workers:
         commands:
             start: |
                 bin/magento queue:consumers:start async.operations.all --single-thread --max-messages=10000
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/install.sh | bash
+        sourceOp autoupdate
+    

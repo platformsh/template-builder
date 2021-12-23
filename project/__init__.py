@@ -28,7 +28,8 @@ class BaseProject(object):
         'Gemfile': 'bundle update',
         'package.json': 'npm update',
         'go.mod': 'go get -u all',
-        'yarn.lock': 'yarn upgrade'
+        'yarn.lock': 'yarn upgrade',
+        'pom.xml': 'mvn versions:use-latest-releases'
     }
 
     def composer_defaults(self):

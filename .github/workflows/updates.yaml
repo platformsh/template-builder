@@ -27,6 +27,7 @@ env:
     POETRY_VERSION: "1.1.11"
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
+    JAVA_VERSION: "14"
     BUNDLER_VERSION: "2.2.26"
     REPOOWNER: "platformsh"
     TEMPLATEOWNER: "platformsh-templates"
@@ -129,7 +130,7 @@ jobs:
                   # 1. mvn versions:use-releases (Convert snapshots to releases)
                   # 2. mvn versions:use-next-releases
                   # 3. mvn versions:use-latest-releases
-                  - template: 'jetty'
+                  # - template: 'jetty'
                   - template: 'micronaut'
                   - template: 'quarkus'
                   - template: 'tomcat'
@@ -176,6 +177,10 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                 node-version: ${{ env.NODE_VERSION }}
+            - name: Set up JDK 14
+              uses: actions/setup-java@v1
+              with:
+                java-version: ${{ env.JAVA_VERSION }}
             - name: Pre-Start c. Install Poetry
               run: |
                 python -m pip install poetry==$POETRY_VERSION

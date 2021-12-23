@@ -149,7 +149,7 @@ jobs:
                   - template: 'jenkins' # currently just uses "latest"
                   # Java - Gradle (https://jmfayard.github.io/refreshVersions/update-dependencies/)
                   # ./gradlew refreshVersions               
-                  - template: 'spring-boot-gradle-mysql'
+                  # - template: 'spring-boot-gradle-mysql'
                   
                   # Multi-apps
                   - template: 'gatsby-strapi'

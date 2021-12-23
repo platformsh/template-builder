@@ -30,6 +30,7 @@ class BaseProject(object):
         'go.mod': 'go get -u all',
         'yarn.lock': 'yarn upgrade',
         'pom.xml': 'mvn versions:use-latest-releases'
+        'build.gradle': './gradlew refreshVersions'
     }
 
     def composer_defaults(self):

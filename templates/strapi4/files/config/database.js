@@ -65,10 +65,3 @@ if (config.isValidPlatform() && !config.inBuild()) {
     );
   }
 }
-
-// module.exports = {
-//   connection: {
-//     settings: settings,
-//     options: options,
-//   },
-// };

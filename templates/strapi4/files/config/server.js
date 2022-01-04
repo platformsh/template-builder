@@ -5,14 +5,6 @@ module.exports = ({ env }) => ({
   host: env("HOST", "0.0.0.0"),
   port: env.int("PORT", 1337),
 
-  // // Admin user JWT configuration.
-  // //
-  // // See https://strapi.io/documentation/v3.x/plugins/users-permissions.html#jwt-configuration
-  // admin: {
-  //   auth: {
-  //     secret: process.env.ADMIN_JWT_SECRET,
-  //   },
-  // },
   // GraphQL endpoint configuration.
   //
   // See https://strapi.io/documentation/v3.x/plugins/graphql.html#usage

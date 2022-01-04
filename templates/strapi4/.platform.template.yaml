@@ -23,7 +23,7 @@ info:
               Automatic TLS certificates<br />
               yarn-based build<br />
 initialize:
-    repository: git://https://github.com/platformsh-templates/strapi-v4-postgresql.git@master
+    repository: git://https://github.com/platformsh-templates/strapi4.git@master
     config: null
     files: []
     profile: strapi

@@ -1,0 +1,29 @@
+version: 1
+
+info:
+    id: platformsh/strapi
+    name: strapi4
+    description: |
+        <p>This template builds a Strapi version 4 backend for Platform.sh, which can be used to quickly create an API that can be served by itself or as a Headless CMS data source for another frontend application in the same project. This repository does not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's <code>.platform.app.yaml</code> file.</p>
+        <p>Strapi is a Headless CMS framework written in Node.js.</p>
+    tags:
+        - Node.js
+        - CMS
+        - API
+        - Headless CMS
+    related_blog_tags:
+        - Strapi
+    image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQ0cHgiIGhlaWdodD0iMjQ0cHgiIHZpZXdCb3g9IjAgMCAyNDQgMjQ0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA1NS4yICg3ODE4MSkgLSBodHRwczovL3NrZXRjaGFwcC5jb20gLS0+CiAgICA8dGl0bGU+TG9nbzwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxnIGlkPSJTb2NpYWwtQ292ZXIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJNb25vZ3JhbS1XaGl0ZS1CYWNrZ3JvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTY3LjAwMDAwMCwgLTM1Ny4wMDAwMDApIiBmaWxsPSIjOEU3NUZGIj4KICAgICAgICAgICAgPGcgaWQ9IkxvZ28iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDU2NC4wMDAwMDAsIDM1Ny4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJNb25vZ3JhbSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsIDAuNzYwMzA1KSI+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTE2NC44OTI2NjIsMTY1LjA3MjQ4IEwxNjQuODkyNjYyLDg2LjM0MzU2NSBDMTY0Ljg5MjY2Miw4My41Mzk1NTI3IDE2Mi42MTk1NjEsODEuMjY2NDUxNiAxNTkuODE1NTQ5LDgxLjI2NjQ1MTYgTDgxLjE3NzkyNiw4MS4yNjY0NTE2IEw4MS4xNzc5MjYsMCBMMjQwLjk5MzQ3NSwwIEMyNDMuNzk3NDg3LC0xLjU0NTc4NjhlLTE0IDI0Ni4wNzA1ODgsMi4yNzMxMDExIDI0Ni4wNzA1ODgsNS4wNzcxMTM0IEwyNDYuMDcwNTg4LDE2NS4wNzI0OCBMMTY0Ljg5MjY2MiwxNjUuMDcyNDggWiIgaWQ9IkNvbWJpbmVkLVNoYXBlLUNvcHkiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNODEuMTc3OTI2LDAgTDgxLjE3NzkyNiw4MS4yNjY0NTE2IEw2LjEyMzg5Nzg3LDgxLjI2NjQ1MTYgQzQuNzIxODkxNzEsODEuMjY2NDUxNiAzLjU4NTM0MTE2LDgwLjEyOTkwMSAzLjU4NTM0MTE2LDc4LjcyNzg5NDkgQzMuNTg1MzQxMTYsNzguMDU1MTA3MSAzLjg1MjQxNTgyLDc3LjQwOTgzNDYgNC4zMjc4ODkyNiw3Ni45MzM4NDI3IEw4MS4xNzc5MjYsMCBaIiBpZD0iUmVjdGFuZ2xlLUNvcHktNiIgb3BhY2l0eT0iMC40MDQ5ODkiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMjQ2LjA3MDU4OCwxNzEuMjA1ODI0IEwyNDYuMDcwNTg4LDI0Ni4zMzg5MzEgTDE2NC44OTI2NjIsMjQ2LjMzODkzMSBMMjQxLjczNjAyMywxNjkuNDExNzcyIEMyNDIuNzI2ODUxLDE2OC40MTk4NjQgMjQ0LjMzNDE3NiwxNjguNDE4OTg4IDI0NS4zMjYwODQsMTY5LjQwOTgxNiBDMjQ1LjgwMjc1NCwxNjkuODg1OTY3IDI0Ni4wNzA1ODgsMTcwLjUzMjA3OCAyNDYuMDcwNTg4LDE3MS4yMDU4MjQgWiIgaWQ9IlJlY3RhbmdsZS1Db3B5LTciIG9wYWNpdHk9IjAuNDA0OTg5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMDUuNDgxNjI1LCAyMDUuNzA1NzA2KSBzY2FsZSgtMSwgLTEpIHRyYW5zbGF0ZSgtMjA1LjQ4MTYyNSwgLTIwNS43MDU3MDYpICI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik04MS4xNzc5MjYsODEuMjY2NDUxNiBMMTYyLjM1NDEwNiw4MS4yNjY0NTE2IEMxNjMuNzU2MTEyLDgxLjI2NjQ1MTYgMTY0Ljg5MjY2Miw4Mi40MDMwMDIxIDE2NC44OTI2NjIsODMuODA1MDA4MyBMMTY0Ljg5MjY2MiwxNjUuMDcyNDggTDg2LjI1NTAzOTQsMTY1LjA3MjQ4IEM4My40NTEwMjcxLDE2NS4wNzI0OCA4MS4xNzc5MjYsMTYyLjc5OTM3OSA4MS4xNzc5MjYsMTU5Ljk5NTM2NiBMODEuMTc3OTI2LDgxLjI2NjQ1MTYgWiIgaWQ9IlJlY3RhbmdsZS1Db3B5LTgiIG9wYWNpdHk9IjAuNDA0OTg5Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==
+
+    notes:
+        - heading: "Features"
+          content: |
+              Node.js 12<br />
+              PostgreSQL 12<br />
+              Automatic TLS certificates<br />
+              yarn-based build<br />
+initialize:
+    repository: git://https://github.com/platformsh-templates/strapi4.git@master
+    config: null
+    files: []
+    profile: strapi

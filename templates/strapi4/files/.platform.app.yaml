@@ -22,7 +22,7 @@ dependencies:
 hooks:
   build: |
     # Download dependencies and build Strapi.
-    yarn --frozen-lockfile
+    yarn
     yarn build
 
 # The relationships of the application with services or other applications.

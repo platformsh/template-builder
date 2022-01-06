@@ -4,19 +4,19 @@ const config = require("platformsh-config").config();
 let dbRelationship = "postgresdatabase";
 
 // Strapi default sqlite settings.
-module.exports = ({ env }) => ({
+let connection = {
   connection: {
     client: "sqlite",
     connection: {
       filename: path.join(
         __dirname,
         "..",
-        env("DATABASE_FILENAME", ".tmp/data.db")
+        process.env.DATABASE_FILENAME || ".tmp/data.db"
       ),
     },
     useNullAsDefault: true,
   },
-});
+};
 
 if (config.isValidPlatform() && !config.inBuild()) {
   // Platform.sh database configuration.
@@ -25,33 +25,31 @@ if (config.isValidPlatform() && !config.inBuild()) {
     `Using Platform.sh configuration with relationship ${dbRelationship}.`
   );
 
-  settings = {
+  let pool = {
+    min: 0,
+    max: 10,
+    acquireTimeoutMillis: 600000,
+    createTimeoutMillis: 30000,
+    idleTimeoutMillis: 20000,
+    reapIntervalMillis: 20000,
+    createRetryIntervalMillis: 200,
+  };
+
+  connection = {
     connection: {
       client: "postgres",
       connection: {
         host: credentials.ip,
         port: credentials.port,
         database: credentials.path,
-        username: credentials.username,
+        user: credentials.username,
         password: credentials.password,
+        ssl: false,
       },
+      debug: false,
+      pool,
     },
   };
-
-  options = ({ env }) => ({
-    ssl: env.bool("DATABASE_SSL", false),
-    debug: false,
-    acquireConnectionTimeout: 100000,
-    pool: {
-      min: 0,
-      max: 10,
-      createTimeoutMillis: 30000,
-      acquireTimeoutMillis: 600000,
-      idleTimeoutMillis: 20000,
-      reapIntervalMillis: 20000,
-      createRetryIntervalMillis: 200,
-    },
-  });
 } else {
   if (config.isValidPlatform()) {
     // Build hook configuration message.
@@ -65,3 +63,8 @@ if (config.isValidPlatform() && !config.inBuild()) {
     );
   }
 }
+
+console.log(connection);
+
+// export strapi database connection
+module.exports = ({ env }) => connection;

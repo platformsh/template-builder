@@ -1,7 +1,7 @@
 version: 1
 
 info:
-    id: platformsh/strapi
+    id: platformsh/strapi4
     name: strapi4
     description: |
         <p>This template builds a Strapi version 4 backend for Platform.sh, which can be used to quickly create an API that can be served by itself or as a Headless CMS data source for another frontend application in the same project. This repository does not include a frontend application, but you can add one of your choice and access Strapi by defining it in a relationship in your frontend's <code>.platform.app.yaml</code> file.</p>
@@ -23,7 +23,7 @@ info:
               Automatic TLS certificates<br />
               yarn-based build<br />
 initialize:
-    repository: git://github.com/platformsh-templates/strapi4.git
+    repository: git://github.com/platformsh-templates/strapi4.git@master
     config: null
     files: []
-    profile: strapi
+    profile: strapi4

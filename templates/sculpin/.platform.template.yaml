@@ -20,7 +20,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/sculpin.git@master
+  repository: https://github.com/platformsh-templates/sculpin.git@master
   config: null
   files: []
   profile: Sculpin

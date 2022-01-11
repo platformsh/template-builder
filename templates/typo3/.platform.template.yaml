@@ -9,7 +9,7 @@ info:
   tags:
   - PHP
   - CMS
-  image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='222.18' height='225'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23ff8700%7D%3C/style%3E%3C/defs%3E%3Cg %3E%3Cg %3E%3Cpath class='cls-1' d='M167.81 155.63a32.17 32.17 0 0 1-9.38.93c-28.12 0-70.31-100.31-70.31-133.12 0-12.19 2.82-15.94 6.57-19.69C60 7.5 17.81 20.63 4.69 36.57 1.87 41.25 0 46.88 0 55.32 0 107.81 55.31 225 94.69 225c17.81 0 47.81-29.06 73.12-69.37zM150 0c36.56 0 72.18 5.62 72.18 26.25 0 41.25-26.25 91.87-39.37 91.87-23.44 0-53.44-66.56-53.44-100.31C128.44 2.81 135 0 150 0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E
+  image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMy43MDAxIDIuODAwMDFDMjMuNzAwMSAwLjYwMDAwMSAxOS45MDAxIDAgMTYuMDAwMSAwQzE0LjQwMDEgMCAxMy43MDAxIDAuMzAwMDAxIDEzLjgwMDEgMS45QzEzLjgwMDEgNS41MDAwMSAxNy4wMDAxIDEyLjYgMTkuNTAwMSAxMi42QzIwLjkwMDEgMTIuNiAyMy43MDAxIDcuMjAwMDIgMjMuNzAwMSAyLjgwMDAxWk0xNi45IDE2LjdDMTcuMyAxNi43IDE3LjUgMTYuNyAxNy45IDE2LjZDMTUuMiAyMC45IDEyIDI0IDEwLjEgMjRDNS45MDAwMiAyNCAwIDExLjQ5OTkgMCA1Ljg5OTkyQzAgNC45OTk5MiAwLjIgNC4zOTk5MiAwLjUwMDAwMSAzLjg5OTkyQzEuOSAyLjE5OTkyIDYuNDAwMDIgMC43OTk5MTIgMTAuMSAwLjM5OTkxMUM5LjcwMDAyIDAuNzk5OTEyIDkuNDAwMDIgMS4xOTk5MSA5LjQwMDAyIDIuNDk5OTJDOS40MDAwMiA1Ljk5OTkyIDEzLjkgMTYuNyAxNi45IDE2LjdaIiBmaWxsPSIjRkY4NzAwIi8+Cjwvc3ZnPgo=
   notes:
     - heading: "Features"
       content: |
@@ -20,7 +20,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/typo3.git@master
+  repository: https://github.com/platformsh-templates/typo3.git@master
   config: null
   files: []
   profile: TYPO3

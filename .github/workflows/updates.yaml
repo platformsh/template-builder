@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'python-updates'
+      - 'go-updates'
 #   schedule:
 #     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 
@@ -24,6 +25,7 @@ env:
     JOB_COLOR: "#145CC6"
     # Language-specific tools.
     NODE_VERSION: "14"
+    GO_VERSION: "1.16"
     POETRY_VERSION: "1.1.11"
     PYTHON_VERSION: "3.9"
     RUBY_VERSION: "2.7.4"
@@ -111,9 +113,6 @@ jobs:
                   - template: 'directus'
                   - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
                   # Go
-                  - template: 'golang'
-                  - template: 'beego'
-                  - template: 'gin'
                   - template: 'mattermost'
                   # Java
                   - template: 'microprofile-wildfly'
@@ -156,25 +155,29 @@ jobs:
               uses: actions/setup-python@v2
               with:
                 python-version: ${{ env.PYTHON_VERSION }}
-            - uses: actions/setup-node@v2
+            - name: Pre-start c. Setup Node
+              uses: actions/setup-node@v2
               with:
                 node-version: ${{ env.NODE_VERSION }}
-            - name: Pre-Start c. Install Poetry
+            - name: Pre-Start d. Setup Go
+              uses: actions/setup-go@v2
+              with:
+                go-version: ${{ env.GO_VERSION }}
+            - name: Pre-Start e. Install Poetry
               run: |
                 python -m pip install poetry==$POETRY_VERSION
-            - name: Pre-Start d. Configure Poetry
+            - name: Pre-Start f. Configure Poetry
               run: |
                 python -m poetry config virtualenvs.in-project true
-            - name: Pre-Start e. Cache the virtualenv
+            - name: Pre-Start g. Cache the virtualenv
               uses: actions/cache@v2
               with:
                 path: ./.venv
                 key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-            - name: Pre-Start f. Install dependencies
+            - name: Pre-Start h. Install dependencies
               run: |
                 python -m poetry install
-
-            - name: Pre-Start g. Set default var values
+            - name: Pre-Start i. Set default var values
               run: |
                 # according to the docs we should be able to set *and update* env vars to pass data between steps
                 # @see https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable

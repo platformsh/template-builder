@@ -7,7 +7,7 @@
 name: app
 
 # The runtime the application uses.
-type: golang:1.15
+type: golang:1.16
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:

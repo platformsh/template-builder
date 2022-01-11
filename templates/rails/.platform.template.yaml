@@ -19,7 +19,7 @@ info:
           Bundler-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/rails.git@master
+  repository: https://github.com/platformsh-templates/rails.git@master
   config: null
   files: []
   profile: Ruby on Rails

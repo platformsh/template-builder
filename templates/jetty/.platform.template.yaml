@@ -18,7 +18,7 @@ info:
           Maven-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/jetty.git@master
+  repository: https://github.com/platformsh-templates/jetty.git@master
   config: null
   files: []
   profile: Jetty

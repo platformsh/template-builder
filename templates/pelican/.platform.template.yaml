@@ -18,7 +18,7 @@ info:
           Pipfile-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/pelican.git@master
+  repository: https://github.com/platformsh-templates/pelican.git@master
   config: null
   files: []
   profile: Pelican

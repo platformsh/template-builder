@@ -19,7 +19,7 @@ info:
           Jenkins downloaded on the fly during build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/jenkins.git@master
+  repository: https://github.com/platformsh-templates/jenkins.git@master
   config: null
   files: []
   profile: Jenkins

@@ -30,7 +30,7 @@ plans:
         - small
 
 initialize:
-  repository: git://github.com/platformsh-templates/eleventy-strapi.git@master
+  repository: https://github.com/platformsh-templates/eleventy-strapi.git@master
   config: null
   files: []
   profile: Eleventy with Strapi

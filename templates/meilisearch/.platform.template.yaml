@@ -18,7 +18,7 @@ info:
           Meilisearch downloaded on the fly during build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/meilisearch.git@master
+  repository: https://github.com/platformsh-templates/meilisearch.git@master
   config: null
   files: []
   profile: Meilisearch

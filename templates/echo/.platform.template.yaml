@@ -20,7 +20,7 @@ info:
           Git module-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/echo.git@master
+  repository: https://github.com/platformsh-templates/echo.git@master
   config: null
   files: []
   profile: Echo

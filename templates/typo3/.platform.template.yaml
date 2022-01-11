@@ -20,7 +20,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/typo3.git@master
+  repository: https://github.com/platformsh-templates/typo3.git@master
   config: null
   files: []
   profile: TYPO3

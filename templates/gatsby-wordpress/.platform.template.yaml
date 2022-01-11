@@ -32,7 +32,7 @@ plans:
         - small
 
 initialize:
-  repository: git://github.com/platformsh-templates/gatsby-wordpress.git@master
+  repository: https://github.com/platformsh-templates/gatsby-wordpress.git@master
   config: null
   files: []
   profile: Gatsby with WordPress

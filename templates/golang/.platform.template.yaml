@@ -19,7 +19,7 @@ info:
           Git module-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/golang.git@master
+  repository: https://github.com/platformsh-templates/golang.git@master
   config: null
   files: []
   profile: Go

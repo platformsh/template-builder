@@ -28,7 +28,7 @@ plans:
         - small
 
 initialize:
-  repository: git://github.com/platformsh-templates/magento2ce.git@master
+  repository: https://github.com/platformsh-templates/magento2ce.git@master
   config: null
   files: []
   profile: Magento 2 Community Edition

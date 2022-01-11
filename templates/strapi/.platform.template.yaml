@@ -27,7 +27,7 @@ info:
           Automatic public API documentation<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/strapi.git@master
+  repository: https://github.com/platformsh-templates/strapi.git@master
   config: null
   files: []
   profile: strapi

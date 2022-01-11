@@ -19,7 +19,7 @@ info:
           * Elasticsearch 7.2
 
 initialize:
-  repository: git://github.com/platformsh-templates/mattermost.git@master
+  repository: https://github.com/platformsh-templates/mattermost.git@master
   config: null
   files: []
   profile: Mattermost

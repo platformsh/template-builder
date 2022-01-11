@@ -21,7 +21,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress-woocommerce.git@master
+  repository: https://github.com/platformsh-templates/wordpress-woocommerce.git@master
   config: null
   files: []
   profile: WooCommerce (Bedrock)

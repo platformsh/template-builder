@@ -26,7 +26,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/drupal8-multisite.git@master
+  repository: https://github.com/platformsh-templates/drupal8-multisite.git@master
   config: null
   files: []
   profile: Drupal 8 Multisite

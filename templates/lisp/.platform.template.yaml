@@ -17,7 +17,7 @@ info:
           Automatic TLS certificates<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/lisp.git@master
+  repository: https://github.com/platformsh-templates/lisp.git@master
   config: null
   files: []
   profile: Lisp

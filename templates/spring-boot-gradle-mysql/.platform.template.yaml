@@ -20,7 +20,7 @@ info:
           Gradle-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/spring-boot-gradle-mysql.git@master
+  repository: https://github.com/platformsh-templates/spring-boot-gradle-mysql.git@master
   config: null
   files: []
   profile: Spring

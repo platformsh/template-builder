@@ -23,7 +23,7 @@ info:
           npm-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/directus.git@master
+  repository: https://github.com/platformsh-templates/directus.git@master
   config: null
   files: []
   profile: Directus

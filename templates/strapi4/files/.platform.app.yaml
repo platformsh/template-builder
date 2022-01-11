@@ -1,0 +1,70 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The runtime the application uses. Strapi not yet suppported with NodeJS 14.
+type: nodejs:12
+
+# Use Yarn instead of npm.
+build:
+  flavor: none
+
+# Build dependencies.
+dependencies:
+  nodejs:
+    yarn: "1.22.5"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+  build: |
+    # Download dependencies and build Strapi.
+    yarn --forzen-lockfile
+    yarn build
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  postgresdatabase: "dbpostgres:postgresql"
+
+# The configuration of app when it is exposed to the web.
+web:
+  commands:
+    start: |
+      # Production start on all environments
+        NODE_ENV=production yarn start
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+mounts:
+  # Strapi's cache directory.
+  "/.cache":
+    source: local
+    source_path: cache
+
+  # Mount .tmp file in the app folder for strapi
+  ".tmp":
+    source: local
+    source_path: app
+
+  # Mount database folder for strapi
+  "database":
+    source: local
+    source_path: database
+
+  # Give write access for extension configuration JSONs.
+  "extensions":
+    source: local
+    source_path: extensions
+
+  # Allow for media uploads at runtime.
+  "public/uploads":
+    source: local
+    source_path: uploads

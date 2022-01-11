@@ -19,7 +19,7 @@ info:
           Maven-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/quarkus.git@master
+  repository: https://github.com/platformsh-templates/quarkus.git@master
   config: null
   files: []
   profile: quarkus

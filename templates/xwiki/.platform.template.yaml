@@ -24,7 +24,7 @@ plans:
     - medium
 
 initialize:
-  repository: git://github.com/platformsh-templates/xwiki.git@master
+  repository: https://github.com/platformsh-templates/xwiki.git@master
   config: null
   files: []
   profile: Wiki

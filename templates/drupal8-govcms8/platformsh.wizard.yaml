@@ -35,7 +35,7 @@ steps:
     required: true
     bodyText: "<p>You'll now create a perfect live replica of production on Platform.sh and switch to that branch locally. Cool, huh!</p>\n<p>You can now modify your code and test your changes locally before pushing them to your live site on Platform.sh.</p>"
     copyCode:
-      - label: 'Clone production master environment to "develop" on Platform.sh and check it out locally.'
+      - label: 'Clone production environment to "develop" on Platform.sh and check it out locally.'
         code:
           - "platform environment:branch develop"
       - label: "Using Git?"
@@ -71,9 +71,9 @@ steps:
           - "platform merge"
           - ""
           - "#Using git?"
-          - "git checkout master"
+          - "git checkout main"
           - "git merge develop"
-          - "git push platform master"
+          - "git push platform main"
   - id: "understanding_infrastructure"
     label: "Know your infrastructure"
     title: "Customize your infrastructure on Platform.sh"

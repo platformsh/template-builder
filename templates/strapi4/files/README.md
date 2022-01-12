@@ -49,7 +49,7 @@ Customizing modules will differ slightly for each plugin. The `strapi-plugin-doc
 
 ## Switching Database
 
-Strapi v4 currently currently has support for just PostgreSQL and MySQL. This template is built with PostgreSQL by default but in the event where you need to use a MySQL database, you can switch to a MySQL database by following these steps:
+Strapi v4 currently has support for PostgreSQL and MySQL. This template is built with PostgreSQL by default but in the event where you need to use a MySQL database, you can switch to a MySQL database by following these steps:
 
 - In the `services.yaml` file, replace the postgres database with mysql:
 

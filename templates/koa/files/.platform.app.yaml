@@ -21,3 +21,9 @@ web:
 
 # The size of the persistent disk of the application (in MB).
 disk: 512
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0

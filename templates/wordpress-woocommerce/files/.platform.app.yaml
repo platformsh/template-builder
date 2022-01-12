@@ -68,3 +68,10 @@ mounts:
     "web/wp/wp-content/uploads":
         source: local
         source_path: "uploads"
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
+    

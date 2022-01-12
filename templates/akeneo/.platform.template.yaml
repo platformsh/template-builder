@@ -26,7 +26,7 @@ plans:
         - small
 
 initialize:
-  repository: git://github.com/platformsh-templates/akeneo.git@master
+  repository: https://github.com/platformsh-templates/akeneo.git@master
   config: null
   files: []
   profile: Akeneo

@@ -17,7 +17,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/php.git@master
+  repository: https://github.com/platformsh-templates/php.git@master
   config: null
   files: []
   profile: PHP

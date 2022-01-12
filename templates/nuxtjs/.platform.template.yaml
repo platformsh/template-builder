@@ -19,7 +19,7 @@ info:
           yarn-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/nuxtjs.git@master
+  repository: https://github.com/platformsh-templates/nuxtjs.git@master
   config: null
   files: []
   profile: NuxtJS

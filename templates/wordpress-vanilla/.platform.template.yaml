@@ -21,7 +21,7 @@ info:
           Automatic TLS certificates<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress-vanilla.git@master
+  repository: https://github.com/platformsh-templates/wordpress-vanilla.git@master
   config: null
   files: []
   profile: WordPress (Vanilla)

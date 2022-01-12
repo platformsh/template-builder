@@ -26,9 +26,9 @@ steps:
       label: "Creating dev branches"
       title: "Clone production to your first development environment!"
       required: true
-      bodyText: "<p>You'll modify your code and test your changes locally before pushing them to Platform.sh.&nbsp;</p>\n<p><code>platform get</code> clones the master branch of your project to your local environment. With the <code>platform environment:develop</code> command, you'll now create a perfect replica of production on Platform.sh <em>and</em> switch to that branch locally. Cool, huh!</p>"
+      bodyText: "<p>You'll modify your code and test your changes locally before pushing them to Platform.sh.&nbsp;</p>\n<p><code>platform get</code> clones the production branch of your project to your local environment. With the <code>platform environment:develop</code> command, you'll now create a perfect replica of production on Platform.sh <em>and</em> switch to that branch locally. Cool, huh!</p>"
       copyCode:
-          - label: 'Clone production master environment to "develop" on Platform.sh and check it out locally.'
+          - label: 'Clone production environment to "develop" on Platform.sh and check it out locally.'
             code:
                 - "platform environment:branch develop"
     - id: "local_development"

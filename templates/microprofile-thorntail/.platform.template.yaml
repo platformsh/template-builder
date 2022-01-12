@@ -20,7 +20,7 @@ info:
 
 
 initialize:
-  repository: git://github.com/platformsh-templates/microprofile-thorntail.git@master
+  repository: https://github.com/platformsh-templates/microprofile-thorntail.git@master
   config: null
   files: []
   profile: MicroProfile

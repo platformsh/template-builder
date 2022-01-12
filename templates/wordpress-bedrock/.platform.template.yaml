@@ -20,7 +20,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/wordpress-bedrock.git@master
+  repository: https://github.com/platformsh-templates/wordpress-bedrock.git@master
   config: null
   files: []
   profile: WordPress (Bedrock)

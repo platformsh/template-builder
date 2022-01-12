@@ -7,11 +7,6 @@ dbpostgres:
     type: postgresql:12
     disk: 256
 
-# Uncomment the line below if you would like to use a mongo database
-# dbmongo:
-#   type: mongodb:3.6
-#   disk: 1024
-
 # Uncomment the line below if you would like to use a mysql database
 # dbmysql:
 #   type: oracle-mysql:8.0

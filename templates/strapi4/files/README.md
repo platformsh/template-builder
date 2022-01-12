@@ -47,7 +47,93 @@ You can add additional plugins for Strapi locally by adding them as dependencies
 
 Customizing modules will differ slightly for each plugin. The `strapi-plugin-documentation` plugin for example generates an OpenAPI specification from your API and public Swagger documentation at `<your-domain>/docs`. Overrides are applied to that process using the `extensions/documentation/config/settings.json` file in this repository. In other cases, there will be a specific `overrides` subdirectory within `extensions/<plugin-name>` you will need to use, so check that plugin's documentation for details. Be aware of whether the plugin needs write access at runtime, and be sure to define matching mounts in your `.platform.app.yaml` file if necessary.
 
-References
+## Switching Database
+
+Strapi v4 currently currently has support for just PostgreSQL and MySQL. This template is built with PostgreSQL by default but in the event where you need to use a MySQL database, you can switch to a MySQL database by following these steps:
+
+- In the `services.yaml` file, replace the postgres database with mysql:
+
+```yaml
+# Uncomment the line below if you would like to use a mysql database
+dbmysql:
+  type: oracle-mysql:8.0
+  disk: 256
+```
+
+- In the `.platform.app.yaml` file, replace the `postgresdatabase` relationship with the following:
+
+```yaml
+relationships:
+  mysqldatabse: "dbmysql:mysql"
+```
+
+- In the `database.js` file, replace the content with the following:
+
+```js
+const path = require("path");
+const config = require("platformsh-config").config();
+
+let dbRelationship = "mysqldatabase";
+
+// Strapi default sqlite settings.
+let connection = {
+  connection: {
+    client: "sqlite",
+    connection: {
+      filename: path.join(
+        __dirname,
+        "..",
+        process.env.DATABASE_FILENAME || ".tmp/data.db"
+      ),
+    },
+    useNullAsDefault: true,
+  },
+};
+
+if (config.isValidPlatform() && !config.inBuild()) {
+  // Platform.sh database configuration.
+  const credentials = config.credentials(dbRelationship);
+  console.log(
+    `Using Platform.sh configuration with relationship ${dbRelationship}.`
+  );
+
+  connection = {
+    connection: {
+      client: "mysql",
+      connection: {
+        host: credentials.ip,
+        port: credentials.port,
+        database: credentials.path,
+        user: credentials.username,
+        password: credentials.password,
+        ssl: false,
+      },
+      debug: false,
+    },
+  };
+} else {
+  if (config.isValidPlatform()) {
+    // Build hook configuration message.
+    console.log(
+      "Using default configuration during Platform.sh build hook until relationships are available."
+    );
+  } else {
+    // Strapi default local configuration.
+    console.log(
+      "Not in a Platform.sh Environment. Using default local sqlite configuration."
+    );
+  }
+}
+
+console.log(connection);
+
+// export strapi database connection
+module.exports = ({ env }) => connection;
+```
+The difference between the above and the existing configuration is that, we have changed the database client to mysql and we removed postgres database connection settings that are not relevant to MYSQL.
+
+- The last step is to commit these settings to your git repository and deploy on Platform.sh
+## References
 
 - [Strapi v4 Documentation](https://docs.strapi.io/developer-docs/latest/getting-started/introduction.html)
 

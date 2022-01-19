@@ -4,8 +4,7 @@ name: 'Updates'
 on:
   push:
     branches:
-      - 'python-updates'
-      - 'go-updates'
+      - 'ruby-updates'
 #   schedule:
 #     - cron:  "42 7 15 * *" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 
@@ -106,10 +105,6 @@ jobs:
                   - template: 'akeneo'
                   # Node.js
                   - template: 'nuxtjs'
-                  - template: 'express'
-                  - template: 'koa'
-                  - template: 'nodejs'
-                  - template: 'probot'
                   - template: 'directus'
                   - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
                   # Go
@@ -132,17 +127,15 @@ jobs:
                   - template: 'quarkus'
                   - template: 'xwiki'
                   - template: 'micronaut'
-                  # Multi-apps
-                  - template: 'gatsby-strapi'
-                  - template: 'eleventy-strapi'
-                  - template: 'gatsby-wordpress'
-                  - template: 'gatsby-drupal'
                   # Lisp
                   - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
-                  # Ruby
-                  - template: 'rails'
+                  # Multi-app
+                  - template: 'gatsby-drupal'
+                  - template: 'gatsby-strapi'
+                  - template: 'gatsby-wordpress'
+                  - template: 'eleventy-strapi'
         steps:
             # Before beginning we need set up all our tools and dependencies
             # 0. Install our tools and dependencies.

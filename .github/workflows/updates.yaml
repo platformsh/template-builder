@@ -2,6 +2,9 @@
 name: 'Updates'
 
 on:
+  push:
+    branches:
+      - 'cli-test'
   schedule:
     - cron:  "0 1 */7 * *" # At 01:00 on every 7th day-of-month.
 

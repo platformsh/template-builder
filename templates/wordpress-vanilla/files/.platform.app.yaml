@@ -9,7 +9,6 @@ type: "php:7.4"
 
 dependencies:
     php:
-        wp-cli/wp-cli: "^2.2.0"
         wp-cli/wp-cli-bundle: "^2.4"
         psy/psysh: "^0.10.4"
 

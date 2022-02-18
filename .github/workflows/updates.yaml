@@ -273,11 +273,18 @@ jobs:
                 branchStatus=$( echo $STATUS | jq -r '.message' )
 
                 if [[ 'Branch not found' != "$branchStatus" ]]; then
+                  echo "::notice::We were able to find our update branch"
                   # our auto-updater branch exists, but has it already been merged and just not deleted?
                   defaultBranch=${{ steps.defaultbranch.outputs.branch }}
                   mergeBase=$(git -C templates/${{ matrix.template }}/build merge-base "origin/${defaultBranch}" "origin/${UPDATES_BRANCH}")
+                  if (( 0 != $? )); then
+                    echo "::error::merge-base failed using origin/${defaultBranch} and origin/${UPDATES_BRANCH}"
+                  fi
                   # git rev-parse origin/auto-updater
                   updateBranchHash=$(git -C templates/${{ matrix.template }}/build rev-parse "origin/${UPDATES_BRANCH}")
+                  if (( 0 != $? )); then
+                    echo "::error::rev-parse failed using templates/${{ matrix.template }}/build and origin/${UPDATES_BRANCH}"
+                  fi
                   if [[ "${mergeBase}" != "${updateBranchHash}" ]]; then
                       message="Update branch already exists and does not appear to have been merged, or merged and then advanced. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
                       echo "::error::${message}"

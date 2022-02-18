@@ -4,6 +4,7 @@ name: 'Updates'
 on:
   schedule:
     - cron:  "0 1 */7 * *" # At 01:00 on every 7th day-of-month.
+  workflow_dispatch:
 
 env:
     # Update vars.
@@ -100,6 +101,32 @@ jobs:
                   - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: 'akeneo'
+                  #TEMPORARY disable
+                  - template: 'drupal8'
+                  - template: 'backdrop'
+                  - template: 'beego'
+                  - template: 'django2'
+                  - template: 'django3'
+                  - template: 'echo'
+                  - template: 'elastic-apm'
+                  - template: 'eleventy-strapi'
+                  - template: 'express'
+                  - template: 'flask'
+                  - template: 'gin'
+                  - template: 'hugo'
+                  - template: 'koa'
+                  - template: 'meilisearch'
+                  - template: 'nextcloud'
+                  - template: 'pelican'
+                  - template: 'php'
+                  - template: 'probot'
+                  - template: 'pyramid'
+                  - template: 'python3-uwsgi'
+                  - template: 'rails'
+                  - template: 'pelican'
+                  - template: 'php'
+                  - template: 'strapi4'
+                  - template: 'wagtail'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'directus'

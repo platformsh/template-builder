@@ -274,7 +274,10 @@ jobs:
 
                 if [[ 'Branch not found' != "$branchStatus" ]]; then
                   echo "::notice::We were able to find our update branch: $UPDATES_BRANCH"
+                  git -C templates/${{ matrix.template }}/build fetch origin
                   remoteBranches=$(git -C templates/${{ matrix.template }}/build branch -r)
+                  remoteBranches="${remoteBranches//$'\n'/'%0A'}"
+                  remoteBranches="${remoteBranches//$'\r'/'%0D'}
                   echo "::notice::List of branches: ${remoteBranches}"
                   # our auto-updater branch exists, but has it already been merged and just not deleted?
                   defaultBranch=${{ steps.defaultbranch.outputs.branch }}

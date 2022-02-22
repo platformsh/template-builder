@@ -27,3 +27,77 @@ class Template(BaseProject):
         'package.json': 'yarn upgrade'
     }
 ```
+
+## Auto-updates
+
+Below shows the templates currently included in the auto-update workflow, which runs every 3 days.
+
+- [ ] akeneo
+- [ ] aspnet-core
+- [ ] backdrop
+- [ ] beego
+- [ ] directus
+- [ ] django2
+- [ ] django3
+- [ ] django4
+- [ ] drupal8
+- [ ] drupal8-govcms8
+- [ ] drupal8-multisite
+- [ ] drupal8-opigno
+- [ ] drupal9
+- [ ] echo
+- [ ] elastic-apm
+- [ ] eleventy-strapi
+- [ ] express
+- [ ] flask
+- [ ] gatsby
+- [ ] gatsby-drupal
+- [ ] gatsby-strapi
+- [ ] gatsby-wordpress
+- [ ] gin
+- [ ] golang
+- [ ] hugo
+- [ ] jenkins
+- [ ] jetty
+- [ ] koa
+- [ ] laravel
+- [ ] lisp
+- [ ] magento2ce
+- [ ] mattermost
+- [ ] meilisearch
+- [ ] micronaut
+- [ ] microprofile-helidon
+- [ ] microprofile-kumuluzee
+- [ ] microprofile-openliberty
+- [ ] microprofile-payara
+- [ ] microprofile-thorntail
+- [ ] microprofile-tomee
+- [ ] microprofile-wildfly
+- [ ] nextcloud
+- [ ] nextjs
+- [ ] nodejs
+- [ ] nuxtjs
+- [ ] pelican
+- [ ] php
+- [ ] pimcore
+- [ ] probot
+- [ ] pyramid
+- [ ] python3
+- [ ] python3-uwsgi
+- [ ] quarkus
+- [ ] rails
+- [ ] sculpin
+- [ ] spring-boot-gradle-mysql
+- [ ] spring-boot-maven-mysql
+- [ ] spring-kotlin
+- [ ] spring-mvc-maven-mongodb
+- [ ] strapi
+- [ ] strapi4
+- [ ] tomcat
+- [ ] typo3
+- [ ] wagtail
+- [ ] wordpress-bedrock
+- [ ] wordpress-composer
+- [ ] wordpress-vanilla
+- [ ] wordpress-woocommerce
+- [ ] xwiki

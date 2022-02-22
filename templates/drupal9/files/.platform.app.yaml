@@ -7,7 +7,7 @@
 name: 'app'
 
 # The runtime the application uses.
-type: 'php:7.4'
+type: 'php:8.1'
 
 dependencies:
     php:
@@ -17,6 +17,7 @@ runtime:
     # Enable the redis extension so Drupal can communicate with the Redis cache.
     extensions:
         - redis
+        - sodium
 
 # The relationships of the application with services or other applications.
 #

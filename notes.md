@@ -32,72 +32,75 @@ class Template(BaseProject):
 
 Below shows the templates currently included in the auto-update workflow, which runs every 3 days.
 
-- [ ] akeneo
-- [ ] aspnet-core
-- [ ] backdrop
-- [ ] beego
-- [ ] directus
-- [ ] django2
-- [ ] django3
-- [ ] django4
-- [ ] drupal8
-- [ ] drupal8-govcms8
-- [ ] drupal8-multisite
-- [ ] drupal8-opigno
-- [ ] drupal9
-- [ ] echo
-- [ ] elastic-apm
-- [ ] eleventy-strapi
-- [ ] express
-- [ ] flask
-- [ ] gatsby
-- [ ] gatsby-drupal
-- [ ] gatsby-strapi
-- [ ] gatsby-wordpress
-- [ ] gin
-- [ ] golang
-- [ ] hugo
-- [ ] jenkins
-- [ ] jetty
-- [ ] koa
-- [ ] laravel
-- [ ] lisp
-- [ ] magento2ce
-- [ ] mattermost
-- [ ] meilisearch
-- [ ] micronaut
-- [ ] microprofile-helidon
-- [ ] microprofile-kumuluzee
-- [ ] microprofile-openliberty
-- [ ] microprofile-payara
-- [ ] microprofile-thorntail
-- [ ] microprofile-tomee
-- [ ] microprofile-wildfly
-- [ ] nextcloud
-- [ ] nextjs
-- [ ] nodejs
-- [ ] nuxtjs
-- [ ] pelican
-- [ ] php
-- [ ] pimcore
-- [ ] probot
-- [ ] pyramid
-- [ ] python3
-- [ ] python3-uwsgi
-- [ ] quarkus
-- [ ] rails
-- [ ] sculpin
-- [ ] spring-boot-gradle-mysql
-- [ ] spring-boot-maven-mysql
-- [ ] spring-kotlin
-- [ ] spring-mvc-maven-mongodb
-- [ ] strapi
-- [ ] strapi4
-- [ ] tomcat
-- [ ] typo3
-- [ ] wagtail
-- [ ] wordpress-bedrock
-- [ ] wordpress-composer
-- [ ] wordpress-vanilla
-- [ ] wordpress-woocommerce
-- [ ] xwiki
+1. nodejs
+1. wordpress-composer
+1. meilisearch
+1. drupal9
+1. django2
+1. nextcloud
+1. gatsby
+1. strapi4
+1. flask
+1. php
+1. django3
+1. python3
+1. python3-uwsgi
+1. pyramid
+1. rails
+1. hugo
+1. backdrop
+1. gin
+1. beego
+1. pelican
+1. probot
+1. nextjs
+1. koa
+1. django4
+1. express
+1. wagtail
+1. echo
+
+Below are those templates that will still need to be integrated.
+
+1. akeneo
+1. aspnet-core
+1. directus
+1. drupal8
+1. drupal8-govcms8
+1. drupal8-multisite
+1. drupal8-opigno
+1. elastic-apm
+1. eleventy-strapi
+1. gatsby-drupal
+1. gatsby-strapi
+1. gatsby-wordpress
+1. golang
+1. jenkins
+1. jetty
+1. laravel
+1. lisp
+1. magento2ce
+1. mattermost
+1. micronaut
+1. microprofile-helidon
+1. microprofile-kumuluzee
+1. microprofile-openliberty
+1. microprofile-payara
+1. microprofile-thorntail
+1. microprofile-tomee
+1. microprofile-wildfly
+1. nuxtjs
+1. pimcore
+1. quarkus
+1. sculpin
+1. spring-boot-gradle-mysql
+1. spring-boot-maven-mysql
+1. spring-kotlin
+1. spring-mvc-maven-mongodb
+1. strapi
+1. tomcat
+1. typo3
+1. wordpress-bedrock
+1. wordpress-vanilla
+1. wordpress-woocommerce
+1. xwiki

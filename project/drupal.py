@@ -28,7 +28,7 @@ class Drupal8(RemoteProject):
 
 class Drupal9(RemoteProject):
     # This can have a common base with Drupal 8 eventually, once modules are updated.
-    major_version = "9.0"
+    major_version = "9.3"
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property

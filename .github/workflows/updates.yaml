@@ -97,7 +97,6 @@ jobs:
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
-                  - template: 'akeneo'
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'wordpress-woocommerce'

@@ -8,3 +8,11 @@ class Gatsby(RemoteProject):
     updateCommands = {
         'package.json': 'yarn upgrade'
     }
+
+    @property
+    def platformify(self):
+
+        return super(Gatsby, self).platformify + [
+            # Add dependencies.
+            'cd {0} && rm -rf package-lock.json'.format(self.builddir),
+        ]

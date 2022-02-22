@@ -60,37 +60,42 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. echo
 1. golang
 1. mattermost
+1. wagtail
+1. strapi
 
 Below are those templates that will still need to be integrated.
 
+- Node.js
+    1. directus
+    1. nuxtjs
 - PHP
-    1. akeneo
-    1. drupal8
-    1. drupal8-govcms8
-    1. drupal8-multisite
-    1. drupal8-opigno
-    1. laravel
-    1. typo3
-    1. wordpress-bedrock
-    1. wordpress-vanilla
-    1. wordpress-woocommerce
-    1. magento2ce
-    1. pimcore
-    1. sculpin
+    - Drupal
+        1. drupal8
+        1. drupal8-govcms8
+        1. drupal8-multisite
+        1. drupal8-opigno
+    - WordPress
+        1. wordpress-bedrock
+        1. wordpress-vanilla
+        1. wordpress-woocommerce  
+    - Other
+        1. akeneo
+        1. laravel
+        1. typo3
+        1. magento2ce
+        1. pimcore
+        1. sculpin
 - Multi-apps
     1. elastic-apm
     1. eleventy-strapi
     1. gatsby-drupal
     1. gatsby-strapi
     1. gatsby-wordpress
-- Python
-    1. wagtail
+
+Below have lower priority, or no clear auto-update path as of yet.
+
 - .NET Core
     1. aspnet-core
-- Node.js
-    1. directus
-    1. strapi
-    1. nuxtjs
 - Java
     1. jenkins
     1. jetty

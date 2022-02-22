@@ -101,16 +101,13 @@ jobs:
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'wordpress-woocommerce'
-                  - template: 'wordpress-bedrock'
-                  - template: 'akeneo'
-                  - template: 'drupal8'
+                  # - template: 'wordpress-bedrock'
+                  # - template: 'akeneo'
+                  # - template: 'drupal8'
                   - template: 'wordpress-vanilla'
-                  # Python
-                  # - template: 'wagtail'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'directus'
-                  # - template: 'strapi'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -140,6 +137,8 @@ jobs:
                   - template: 'eleventy-strapi'
                   - template: 'elastic-apm'
                   # Working excludes for testing
+                  - template: wagtail
+                  - template: strapi
                   - template: mattermost
                   - template: golang
                   - template: nodejs

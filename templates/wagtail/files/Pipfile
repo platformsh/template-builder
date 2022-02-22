@@ -11,6 +11,6 @@ platformshconfig = "~=2.0"
 wagtail = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
 
 [dev-packages]

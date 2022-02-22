@@ -12,7 +12,7 @@ type: 'python:3.8'
 # The build-time dependencies of the app.
 dependencies:
     python3:
-       pipenv: '2018.10.13'
+       pipenv: '2022.1.8'
 
 # The relationships of the application with services or other applications.
 #

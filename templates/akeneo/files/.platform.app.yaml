@@ -4,7 +4,7 @@
 name: app
 
 # The language and version to use to run the application.
-type: php:7.4
+type: php:8.0
 
 dependencies:
     php:

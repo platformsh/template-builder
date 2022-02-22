@@ -3,7 +3,9 @@ name: 'Updates'
 
 on:
   schedule:
-    - cron:  "0 1 */7 * *" # At 01:00 on every 7th day-of-month.
+    - cron:  "0 1 */3 * *" # At 01:00 on every 7th day-of-month.
+  push:
+    branches: 'updates'
 
 env:
     # Update vars.
@@ -91,6 +93,7 @@ jobs:
                   # PHP
                   - template: 'drupal8-govcms8'
                   - template: 'drupal8-opigno'
+                  - template: 'drupal8-multisite'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
@@ -100,12 +103,15 @@ jobs:
                   - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: 'akeneo'
+                  - template: 'drupal8'
+                  - template: 'wordpress-vanilla'
                   # Node.js
                   - template: 'nuxtjs'
                   - template: 'directus'
-                  - template: 'strapi' # Return to this when Shedrack is done investigating 'dialect issue'.
+                  - template: 'strapi'
                   # Go
                   - template: 'mattermost'
+                  - template: 'golang'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -133,6 +139,7 @@ jobs:
                   - template: 'gatsby-strapi'
                   - template: 'gatsby-wordpress'
                   - template: 'eleventy-strapi'
+                  - template: 'elastic-apm'
         steps:
             # Before beginning we need set up all our tools and dependencies
             # 0. Install our tools and dependencies.
@@ -375,13 +382,12 @@ jobs:
                 RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
 
                 if [ "${{ steps.pushstatus.outputs.status }}" == "Branch not found" ]; then
-                    PR_URL="_Template already up-to-date._"
+                    echo "Template already up-to-date. SKIPPING."
                 else
                     PR_URL="<${{ steps.open-pull-request.outputs.pull-request-link}}|View the pull request>"
+                    MESSAGE='All good.'
+                    RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
                 fi
-
-                MESSAGE='All good.'
-                RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
 
     # C. Notify Slack at the end of the run.
     finish:

@@ -57,50 +57,58 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. koa
 1. django4
 1. express
-1. wagtail
 1. echo
 
 Below are those templates that will still need to be integrated.
 
-1. akeneo
-1. aspnet-core
-1. directus
-1. drupal8
-1. drupal8-govcms8
-1. drupal8-multisite
-1. drupal8-opigno
-1. elastic-apm
-1. eleventy-strapi
-1. gatsby-drupal
-1. gatsby-strapi
-1. gatsby-wordpress
-1. golang
-1. jenkins
-1. jetty
-1. laravel
-1. lisp
-1. magento2ce
-1. mattermost
-1. micronaut
-1. microprofile-helidon
-1. microprofile-kumuluzee
-1. microprofile-openliberty
-1. microprofile-payara
-1. microprofile-thorntail
-1. microprofile-tomee
-1. microprofile-wildfly
-1. nuxtjs
-1. pimcore
-1. quarkus
-1. sculpin
-1. spring-boot-gradle-mysql
-1. spring-boot-maven-mysql
-1. spring-kotlin
-1. spring-mvc-maven-mongodb
-1. strapi
-1. tomcat
-1. typo3
-1. wordpress-bedrock
-1. wordpress-vanilla
-1. wordpress-woocommerce
-1. xwiki
+- PHP
+    1. akeneo
+    1. drupal8
+    1. drupal8-govcms8
+    1. drupal8-multisite
+    1. drupal8-opigno
+    1. laravel
+    1. typo3
+    1. wordpress-bedrock
+    1. wordpress-vanilla
+    1. wordpress-woocommerce
+    1. magento2ce
+    1. pimcore
+    1. sculpin
+- Multi-apps
+    1. elastic-apm
+    1. eleventy-strapi
+    1. gatsby-drupal
+    1. gatsby-strapi
+    1. gatsby-wordpress
+- Python
+    1. wagtail
+- .NET Core
+    1. aspnet-core
+- Node.js
+    1. directus
+    1. strapi
+    1. nuxtjs
+- Go
+    1. golang
+    1. mattermost
+- Java
+    1. jenkins
+    1. jetty
+    1. micronaut
+    1. microprofile-helidon
+    1. microprofile-kumuluzee
+    1. microprofile-openliberty
+    1. microprofile-payara
+    1. microprofile-thorntail
+    1. microprofile-tomee
+    1. microprofile-wildfly
+    1. quarkus
+    1. spring-boot-gradle-mysql
+    1. spring-boot-maven-mysql
+    1. spring-kotlin
+    1. spring-mvc-maven-mongodb
+    1. tomcat
+    1. xwiki
+- Lisp
+    1. lisp

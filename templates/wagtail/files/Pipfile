@@ -4,13 +4,13 @@ url = "https://pypi.org/simple"
 name = "pypi"
 
 [packages]
-django = ">=2.2.0,<3.0"
 "psycopg2-binary" = "*"
 gunicorn = "*"
-platformshconfig = "~=2.0"
+platformshconfig = "*"
 wagtail = "*"
+django = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
 
 [dev-packages]

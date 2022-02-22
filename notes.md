@@ -58,6 +58,8 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. django4
 1. express
 1. echo
+1. golang
+1. mattermost
 
 Below are those templates that will still need to be integrated.
 
@@ -89,9 +91,6 @@ Below are those templates that will still need to be integrated.
     1. directus
     1. strapi
     1. nuxtjs
-- Go
-    1. golang
-    1. mattermost
 - Java
     1. jenkins
     1. jetty

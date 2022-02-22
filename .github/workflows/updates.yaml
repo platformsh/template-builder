@@ -105,13 +105,12 @@ jobs:
                   - template: 'akeneo'
                   - template: 'drupal8'
                   - template: 'wordpress-vanilla'
+                  # Python
+                  # - template: 'wagtail'
                   # Node.js
-                  # - template: 'nuxtjs'
-                  # - template: 'directus'
+                  - template: 'nuxtjs'
+                  - template: 'directus'
                   # - template: 'strapi'
-                  # Go
-                  # - template: 'mattermost'
-                  # - template: 'golang'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -141,6 +140,8 @@ jobs:
                   - template: 'eleventy-strapi'
                   - template: 'elastic-apm'
                   # Working excludes for testing
+                  - template: mattermost
+                  - template: golang
                   - template: nodejs
                   - template: wordpress-composer
                   - template: meilisearch

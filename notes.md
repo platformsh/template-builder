@@ -64,6 +64,8 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. strapi
 1. wordpress-bedrock
 1. wordpress-woocommerce
+1. nuxtjs
+1. lisp
 
 Below are those templates that will still need to be integrated.
 
@@ -75,17 +77,16 @@ Below are those templates that will still need to be integrated.
 
 ---
 
-- Node.js (2)
+- Node.js (1)
     1. directus
-    1. nuxtjs
 - PHP
-    - Drupal (4)
+    - Drupal 8 (4)
         1. drupal8
         1. drupal8-govcms8
         1. drupal8-multisite
         1. drupal8-opigno
     - WordPress (1)
-        1. wordpress-vanilla
+        1. wordpress-vanilla (EU-3 issue)
     - Other (6)
         1. akeneo
         1. laravel
@@ -122,5 +123,3 @@ Below have lower priority, or no clear auto-update path as of yet.
     1. spring-mvc-maven-mongodb
     1. tomcat
     1. xwiki
-- Lisp
-    1. lisp

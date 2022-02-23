@@ -91,19 +91,18 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'drupal8-govcms8'
-                  - template: 'drupal8-opigno'
-                  - template: 'drupal8-multisite'
+                  # - template: 'drupal8-govcms8'
+                  # - template: 'drupal8-opigno'
+                  # - template: 'drupal8-multisite'
+                  # - template: 'drupal8'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'akeneo'
-                  - template: 'drupal8'
                   - template: 'wordpress-vanilla'
                   # Node.js
-                  # - template: 'nuxtjs'
                   - template: 'directus'
                   ################################
                   # Java
@@ -137,6 +136,8 @@ jobs:
                   ################################
                   # Working excludes for testing #
                   ################################
+                  - template: nuxtjs
+                  - template: lisp
                   - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: wagtail
@@ -208,6 +209,7 @@ jobs:
               run: |
                 # according to the docs we should be able to set *and update* env vars to pass data between steps
                 # @see https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
+                php --version
                 echo "SLACK_MSG=''" >> $GITHUB_ENV
                 echo "PR_STATUS=continue" >> $GITHUB_ENV
             ##########

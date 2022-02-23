@@ -66,26 +66,28 @@ Below shows the templates currently included in the auto-update workflow, which 
 
 Below are those templates that will still need to be integrated.
 
-- Node.js
+- **Left**: 17
+
+- Node.js (2)
     1. directus
     1. nuxtjs
 - PHP
-    - Drupal
+    - Drupal (4)
         1. drupal8
         1. drupal8-govcms8
         1. drupal8-multisite
         1. drupal8-opigno
-    - WordPress
+    - WordPress (2)
         1. wordpress-vanilla
         1. wordpress-woocommerce  
-    - Other
+    - Other (6)
         1. akeneo
         1. laravel
         1. typo3
         1. magento2ce
         1. pimcore
         1. sculpin
-- Multi-apps
+- Multi-apps (5)
     1. elastic-apm
     1. eleventy-strapi
     1. gatsby-drupal

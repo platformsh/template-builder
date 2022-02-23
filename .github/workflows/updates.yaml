@@ -91,21 +91,21 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'drupal8-govcms8'
-                  - template: 'drupal8-opigno'
-                  - template: 'drupal8-multisite'
+                  # - template: 'drupal8-govcms8'
+                  # - template: 'drupal8-opigno'
+                  # - template: 'drupal8-multisite'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
                   - template: 'typo3'
-                  # - template: 'sculpin'
-                  # - template: 'wordpress-woocommerce'
+                  - template: 'sculpin'
                   - template: 'akeneo'
                   - template: 'drupal8'
-                  # - template: 'wordpress-vanilla'
+                  - template: 'wordpress-vanilla'
                   # Node.js
                   - template: 'nuxtjs'
-                  # - template: 'directus'
+                  - template: 'directus'
+                  ################################
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -137,6 +137,7 @@ jobs:
                   ################################
                   # Working excludes for testing #
                   ################################
+                  - template: 'wordpress-woocommerce'
                   - template: 'wordpress-bedrock'
                   - template: wagtail
                   - template: strapi

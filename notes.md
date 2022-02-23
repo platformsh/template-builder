@@ -63,10 +63,17 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. wagtail
 1. strapi
 1. wordpress-bedrock
+1. wordpress-woocommerce
 
 Below are those templates that will still need to be integrated.
 
-- **Left**: 17
+---
+
+- **Left (excluding multi-app)**: 11
+- **Left (including multi-app)**: 16
+- **Left (all, including Java, .NET Core, & Lisp)**: 35
+
+---
 
 - Node.js (2)
     1. directus
@@ -77,9 +84,8 @@ Below are those templates that will still need to be integrated.
         1. drupal8-govcms8
         1. drupal8-multisite
         1. drupal8-opigno
-    - WordPress (2)
+    - WordPress (1)
         1. wordpress-vanilla
-        1. wordpress-woocommerce  
     - Other (6)
         1. akeneo
         1. laravel

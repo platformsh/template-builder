@@ -91,19 +91,19 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  # - template: 'drupal8-govcms8'
-                  # - template: 'drupal8-opigno'
-                  # - template: 'drupal8-multisite'
-                  - template: 'magento2ce'
+                  - template: 'drupal8-govcms8'
+                  - template: 'drupal8-opigno'
+                  - template: 'drupal8-multisite'
+                  # - template: 'magento2ce'
                   - template: 'pimcore'
-                  - template: 'laravel'
+                  # - template: 'laravel'
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'akeneo'
                   - template: 'drupal8'
                   - template: 'wordpress-vanilla'
                   # Node.js
-                  - template: 'nuxtjs'
+                  # - template: 'nuxtjs'
                   - template: 'directus'
                   ################################
                   # Java

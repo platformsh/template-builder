@@ -36,6 +36,10 @@ Sylius is a modern e-commerce solution for PHP, based on Symfony Framework.
 - Automatic TLS certificates
 - composer-based build
 
+## Post-install
+
+By default, Sylius ignores the `composer.lock` file in Git. Once you have deployed the template, it is a good idea to remove `composer.lock` from `.gitignore` and commit it, so that you can benefit from repeatable builds on Platform.sh.
+
 ## Customization
 
 The following changes have been made relative to a plain Sylius 1.11 project.  If using this project as a reference for your own existing project, replicate the changes below to your project.

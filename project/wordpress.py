@@ -97,7 +97,7 @@ class Wordpress_bedrock(WordPressComposerBase):
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
                 self.builddir) + self.composer_defaults(),
-            'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update'.format(self.builddir),
         ]
 
 

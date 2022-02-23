@@ -12,7 +12,7 @@ Wagtail is a web CMS built using the Django framework for Python.
 
 ## Features
 
-* Python 3.8
+* Python 3.9
 * PostgreSQL 12
 * Automatic TLS certificates
 * Pipfile-based build

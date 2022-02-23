@@ -47,7 +47,7 @@ class Nuxtjs(BaseProject):
             # Disable telemtery so we are not asked for it when running the application the first time
             'cd {0}/{1} && npx nuxt telemetry disable'.format(TEMPLATEDIR, projectName),
             'cd {0} && rm -rf {1}/.git'.format(TEMPLATEDIR, projectName),
-            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName)
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
             'cd {0} && rm -rf {1}'.format(TEMPLATEDIR, projectName),
         ] + super(Nuxtjs, self).update
 

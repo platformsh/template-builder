@@ -94,7 +94,7 @@ jobs:
                   - template: 'drupal8-govcms8'
                   - template: 'drupal8-opigno'
                   - template: 'drupal8-multisite'
-                  # - template: 'magento2ce'
+                  - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
                   - template: 'typo3'

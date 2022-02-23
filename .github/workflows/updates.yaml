@@ -4,8 +4,8 @@ name: 'Updates'
 on:
   schedule:
     - cron:  "0 1 */3 * *" # At 01:00 on every 7th day-of-month.
-  push:
-    branches: 'updates'
+  # push:
+  #   branches: 'updates'
 
 env:
     # Update vars.
@@ -104,6 +104,7 @@ jobs:
                   - template: 'wordpress-vanilla'
                   # Node.js
                   - template: 'directus'
+                  - template: 'probot'
                   ################################
                   # Java
                   - template: 'microprofile-wildfly'

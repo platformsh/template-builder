@@ -52,7 +52,6 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. gin
 1. beego
 1. pelican
-1. probot
 1. nextjs
 1. koa
 1. django4
@@ -79,6 +78,7 @@ Below are those templates that will still need to be integrated.
 
 - Node.js (1)
     1. directus
+    1. probot
 - PHP
     - Drupal 8 (4)
         1. drupal8

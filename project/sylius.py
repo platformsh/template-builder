@@ -7,5 +7,5 @@ class Sylius(RemoteProject):
     @property
     def platformify(self):
         return super(Sylius, self).platformify + [
-            'cd {0} && rm -rf .github',
+            'cd {0} && rm -rf .github'.format(self.builddir),
         ]

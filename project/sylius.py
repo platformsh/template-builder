@@ -1,7 +1,7 @@
 from .remote import RemoteProject
 
 class Sylius(RemoteProject):
-    major_version = '1.11'
+    major_version = 'v1.11'
     remote = 'https://github.com/Sylius/Sylius-Standard.git'
 
     # @property

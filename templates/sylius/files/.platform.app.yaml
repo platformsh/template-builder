@@ -9,7 +9,6 @@ variables:
         APP_ENV: 'prod'
         APP_DEBUG: 0
 
-# The hooks that will be performed when the package is deployed.
 hooks:
     build: |
         set -e
@@ -29,7 +28,6 @@ hooks:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    # NOTE: this will install mariadb because platform.sh uses it instead of mysql.
     database: "db:mysql"
 
 dependencies:

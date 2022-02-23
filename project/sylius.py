@@ -9,5 +9,6 @@ class Sylius(RemoteProject):
         return super(Sylius, self).platformify + [
             'cd {0} && ls -a'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),
+            'cd {0} && cp README.md README_upstream.md'.format(self.builddir),
             'cd {0} && composer require platformsh/symfonyflex-bridge'.format(self.builddir) + self.composer_defaults(),
         ]

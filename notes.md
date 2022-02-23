@@ -62,6 +62,7 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. mattermost
 1. wagtail
 1. strapi
+1. wordpress-bedrock
 
 Below are those templates that will still need to be integrated.
 
@@ -75,7 +76,6 @@ Below are those templates that will still need to be integrated.
         1. drupal8-multisite
         1. drupal8-opigno
     - WordPress
-        1. wordpress-bedrock
         1. wordpress-vanilla
         1. wordpress-woocommerce  
     - Other

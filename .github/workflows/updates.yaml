@@ -175,6 +175,10 @@ jobs:
             # Before beginning we need set up all our tools and dependencies
             # 0. Install our tools and dependencies.
             - uses: actions/checkout@v2
+            - name: Pre start a. Setup PHP with PECL extension
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '7.4'
             - name: Pre-Start a. Setup Ruby
               uses: ruby/setup-ruby@v1
               with:

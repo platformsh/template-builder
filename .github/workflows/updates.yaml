@@ -125,7 +125,7 @@ jobs:
                   - template: 'xwiki'
                   - template: 'micronaut'
                   # Lisp
-                  - template: 'lisp'
+                  # - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
                   # Multi-app

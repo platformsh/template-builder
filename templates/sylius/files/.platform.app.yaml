@@ -1,5 +1,5 @@
 name: app
-type: php:7.3
+type: php:8.0
 build:
     flavor: composer
 

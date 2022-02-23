@@ -28,6 +28,14 @@ class Template(BaseProject):
     }
 ```
 
+## New templates
+
+- [ ] sylius
+- [ ] fastapi
+- [ ] prefect.io
+- [ ] sulu
+- [ ] next-drupal
+
 ## Auto-updates
 
 Below shows the templates currently included in the auto-update workflow, which runs every 3 days.

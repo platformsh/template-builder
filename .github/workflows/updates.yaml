@@ -100,7 +100,6 @@ jobs:
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'wordpress-woocommerce'
-                  # - template: 'wordpress-bedrock'
                   # - template: 'akeneo'
                   # - template: 'drupal8'
                   - template: 'wordpress-vanilla'
@@ -136,6 +135,7 @@ jobs:
                   - template: 'eleventy-strapi'
                   - template: 'elastic-apm'
                   # Working excludes for testing
+                  - template: 'wordpress-bedrock'
                   - template: wagtail
                   - template: strapi
                   - template: mattermost

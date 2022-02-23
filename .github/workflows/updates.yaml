@@ -5,7 +5,7 @@ on:
   schedule:
     - cron:  "0 1 */3 * *" # At 01:00 on every 7th day-of-month.
   # push:
-  #   branches: 'updates'
+  #   branches: 'sylius'
 
 env:
     # Update vars.
@@ -124,8 +124,6 @@ jobs:
                   - template: 'quarkus'
                   - template: 'xwiki'
                   - template: 'micronaut'
-                  # Lisp
-                  # - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
                   # Multi-app

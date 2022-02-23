@@ -124,8 +124,6 @@ jobs:
                   - template: 'quarkus'
                   - template: 'xwiki'
                   - template: 'micronaut'
-                  # Lisp
-                  # - template: 'lisp'
                   # .NET
                   - template: 'aspnet-core'
                   # Multi-app
@@ -134,6 +132,43 @@ jobs:
                   - template: 'gatsby-wordpress'
                   - template: 'eleventy-strapi'
                   - template: 'elastic-apm'
+                  ################################
+                  # Working excludes for testing #
+                  ################################
+                  - template: nuxtjs
+                  - template: lisp
+                  - template: 'wordpress-woocommerce'
+                  - template: 'wordpress-bedrock'
+                  - template: wagtail
+                  - template: strapi
+                  - template: mattermost
+                  - template: golang
+                  - template: nodejs
+                  - template: wordpress-composer
+                  - template: meilisearch
+                  - template: drupal9
+                  - template: django2
+                  - template: nextcloud
+                  - template: gatsby
+                  - template: strapi4
+                  - template: flask
+                  - template: php
+                  - template: django3
+                  - template: python3
+                  - template: python3-uwsgi
+                  - template: pyramid
+                  - template: rails
+                  - template: hugo
+                  - template: backdrop
+                  - template: gin
+                  - template: beego
+                  - template: pelican
+                  - template: probot
+                  - template: nextjs
+                  - template: koa
+                  - template: django4
+                  - template: express
+                  - template: echo
 
         steps:
             # Before beginning we need set up all our tools and dependencies

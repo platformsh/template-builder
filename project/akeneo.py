@@ -30,6 +30,6 @@ class Akeneo(RemoteProject):
     def platformify(self):
         return super(Akeneo, self).platformify + [
                 'cd {0} && composer require platformsh/config-reader --no-scripts'.format(self.builddir) + self.composer_defaults(),
-                'cd {0} && composer update'.format(self.builddir) + self.composer_defaults(),
+                'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
                 # 'cd {0} && composer require --dev psr/cache ^1.0'.format(self.builddir) + self.composer_defaults(),
                 ]

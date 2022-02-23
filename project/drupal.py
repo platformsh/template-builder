@@ -24,7 +24,7 @@ class Drupal8(RemoteProject):
     def platformify(self):
         return super(Drupal8, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir) + self.composer_defaults(),
-            'cd {0} && composer update'.format(self.builddir)
+            'cd {0} && composer update -W'.format(self.builddir)
         ]
 
 class Drupal9(RemoteProject):

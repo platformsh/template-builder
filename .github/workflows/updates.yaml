@@ -97,7 +97,7 @@ jobs:
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
-                  # - template: 'typo3'
+                  - template: 'typo3'
                   # - template: 'sculpin'
                   # - template: 'wordpress-woocommerce'
                   - template: 'akeneo'
@@ -105,7 +105,7 @@ jobs:
                   # - template: 'wordpress-vanilla'
                   # Node.js
                   - template: 'nuxtjs'
-                  - template: 'directus'
+                  # - template: 'directus'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -134,7 +134,9 @@ jobs:
                   - template: 'gatsby-wordpress'
                   - template: 'eleventy-strapi'
                   - template: 'elastic-apm'
-                  # Working excludes for testing
+                  ################################
+                  # Working excludes for testing #
+                  ################################
                   - template: 'wordpress-bedrock'
                   - template: wagtail
                   - template: strapi

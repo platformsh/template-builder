@@ -96,7 +96,7 @@ jobs:
                   - template: 'drupal8-multisite'
                   # - template: 'magento2ce'
                   - template: 'pimcore'
-                  # - template: 'laravel'
+                  - template: 'laravel'
                   - template: 'typo3'
                   - template: 'sculpin'
                   - template: 'akeneo'

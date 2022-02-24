@@ -12,7 +12,7 @@ FastAPI is a modern, fast (high-performance), web framework for building APIs wi
 
 ## Features
 
-* Python 3.8
+* Python 3.9
 * MariaDB 10.4
 * Redis 5.0
 * Automatic TLS certificates

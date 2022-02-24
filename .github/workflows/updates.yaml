@@ -3,9 +3,9 @@ name: 'Updates'
 
 on:
   schedule:
-    - cron:  "0 1 */3 * *" # At 01:00 on every 7th day-of-month.
+    - cron:  "0 1 */3 * *" # At 01:00 on every 3rd day-of-month.
   # push:
-  #   branches: 'sylius'
+  #   branches: 'fastapi'
 
 env:
     # Update vars.
@@ -31,7 +31,7 @@ env:
     REPOOWNER: "platformsh"
     TEMPLATEOWNER: "platformsh-templates"
     #List of all python-based templates
-    PYTHON_TEMPLATES: 'django2 django3 django4 python3 pyramid python3-uwsgi meilisearch flask wagtail pelican'
+    PYTHON_TEMPLATES: 'fastapi django2 django3 django4 python3 pyramid python3-uwsgi meilisearch flask wagtail pelican'
 
 jobs:
     # A. Get the list of templates that will be used in the update (all subdirectories in `templates/`).

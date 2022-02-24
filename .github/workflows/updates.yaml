@@ -3,9 +3,9 @@ name: 'Updates'
 
 on:
   schedule:
-    - cron:  "0 1 */3 * *" # At 01:00 on every 7th day-of-month.
-  # push:
-  #   branches: 'sylius'
+    - cron:  "0 1 */3 * *" # At 01:00 on every 3rd day-of-month.
+  push:
+    branches: 'fastapi'
 
 env:
     # Update vars.

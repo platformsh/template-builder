@@ -135,6 +135,7 @@ jobs:
                   ################################
                   # Working excludes for testing #
                   ################################
+                  - template: sylius
                   - template: nuxtjs
                   - template: lisp
                   - template: 'wordpress-woocommerce'

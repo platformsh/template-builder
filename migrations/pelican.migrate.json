@@ -1,0 +1,28 @@
+{
+    "template": "pelican",
+    "last_updated_on": "2022-02-25-12:29:11",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/pelicanconf.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/tasks.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/Makefile",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/content",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/content/hello.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/Pipfile",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/publishconf.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/Pipfile.lock",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/pelican/build/",
+            "git clone git@github.com:platformsh-templates/pelican.git /Users/chadcarlson/template-builder/templates/pelican/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/pelican/files/ /Users/chadcarlson/template-builder/templates/pelican/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

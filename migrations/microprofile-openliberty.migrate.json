@@ -1,0 +1,52 @@
+{
+    "template": "microprofile-openliberty",
+    "last_updated_on": "2022-02-25-12:29:00",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/pom.xml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/resources",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/resources/META-INF",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/resources/META-INF/beans.xml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform/template",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform/template/AppTest.java",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/.gitkeep",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/microprofile-config.properties",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/index.html",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/.gitkeep",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/WEB-INF",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/WEB-INF/beans.xml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/microprofile",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/microprofile/liberty",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/microprofile/liberty/HelloController.java",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/microprofile/liberty/MicroprofilelibertyRestApplication.java",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/liberty",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/liberty/config",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/liberty/config/server.xml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/microprofile-openliberty/build/",
+            "git clone git@github.com:platformsh-templates/microprofile-openliberty.git /Users/chadcarlson/template-builder/templates/microprofile-openliberty/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/microprofile-openliberty/files/ /Users/chadcarlson/template-builder/templates/microprofile-openliberty/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

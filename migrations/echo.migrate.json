@@ -1,0 +1,24 @@
+{
+    "template": "echo",
+    "last_updated_on": "2022-02-25-12:28:58",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/go.mod",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/server.go",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/go.sum",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/echo/build/",
+            "git clone git@github.com:platformsh-templates/echo.git /Users/chadcarlson/template-builder/templates/echo/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/echo/files/ /Users/chadcarlson/template-builder/templates/echo/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

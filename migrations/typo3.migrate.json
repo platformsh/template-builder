@@ -1,0 +1,40 @@
+{
+    "template": "typo3",
+    "last_updated_on": "2022-02-25-12:29:04",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sites",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sites/main",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sites/main/config.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/public",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/public/typo3conf",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/public/typo3conf/AdditionalConfiguration.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/public/typo3conf/PlatformshConfiguration.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/SetupDatabase.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/src/SetupConfiguration.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/typo3/build/",
+            "git clone git@github.com:platformsh-templates/typo3.git /Users/chadcarlson/template-builder/templates/typo3/build/",
+            "git remote add project https://github.com/TYPO3/TYPO3.CMS.BaseDistribution.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/typo3/files/ /Users/chadcarlson/template-builder/templates/typo3/build/",
+            "composer config extra.typo3/cms.web-dir public",
+            "composer update --no-scripts --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+            "composer require \"php:<8.0\" psr/cache:^1.0 typo3/cms-introduction:~4.3.2 platformsh/config-reader pixelant/pxa-lpeh --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+            "composer update --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

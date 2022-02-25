@@ -1,0 +1,38 @@
+{
+    "template": "wordpress-composer",
+    "last_updated_on": "2022-02-25-12:29:00",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/wp-config.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/wp-cli.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/plugins",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/plugins/README.txt",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/example.wp-config-local.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-composer/build/",
+            "git clone git@github.com:platformsh-templates/wordpress-composer.git /Users/chadcarlson/template-builder/templates/wordpress-composer/build/",
+            "git remote add project https://github.com/johnpbloch/wordpress.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "echo 'Adding composer config:platform:php'",
+            "composer config platform.php 7.4",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-composer/files/ /Users/chadcarlson/template-builder/templates/wordpress-composer/build/",
+            "composer update --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+            "composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+            "composer require None --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+            "echo 'Removing composer config:platform'",
+            "composer config --unset platform",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

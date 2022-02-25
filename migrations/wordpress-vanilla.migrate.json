@@ -1,0 +1,25 @@
+{
+    "template": "wordpress-vanilla",
+    "last_updated_on": "2022-02-25-12:28:59",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/wp-config.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/wp-cli.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
+            "git clone git@github.com:platformsh-templates/wordpress-vanilla.git /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-vanilla/files/ /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
+            "curl https://wordpress.org/latest -o wordpress.tar.gz",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

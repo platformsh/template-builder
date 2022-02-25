@@ -78,8 +78,31 @@ def document_migration_steps(template):
     branch_commands = get_branch_commands()
     push_commands = get_push_commands()
 
+    try:
+        major_version = dodo.project_factory(template).major_version
+    except:
+        major_version = None
+    try:
+        remote = dodo.project_factory(template).remote
+    except:
+        remote = None
+    try:
+        imageType = dodo.project_factory(template).type
+    except:
+        imageType = None
+    try:
+        imageTypeVersion = dodo.project_factory(template).typeVersion
+    except:
+        imageTypeVersion = None
+
     data = {
         "template": template,
+        "type": imageType,
+        "type_version": imageTypeVersion,
+        "remote": {
+            "major_version": major_version,
+            "repository": remote,    
+        },
         "last_updated_on": datetime.today().strftime('%Y-%m-%d-%H:%M:%S'),
         "migration": {
             "files": migrate_files,
@@ -95,13 +118,23 @@ def document_migration_steps(template):
     }
 
     json_data=json.dumps(data, indent = 4)
-    with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), "w") as outfile:
+    projectType = "remote"
+    if remote == None:
+        projectType = "basic"
+    with open("{0}/migrations/{1}/{2}.migrate.json".format(os.getcwd(), projectType, template), "w") as outfile:
         outfile.write(json_data)
 
 def run():
     templates = list(get_templates_list())
     for template in templates:
         document_migration_steps(template)
+
+    # default_attributes = ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_platformify', 'branch', 'builddir', 'cleanup', 'commitMessage', 'composer_defaults', 'init', 'latest_tag', 'major_version', 'name', 'package_update_actions', 'platformify', 'push', 'remote', 'type', 'typeVersion', 'update', 'updateBranch', 'updateCommands']
+    # l_func = lambda x, y: list((set(x)- set(y))) + list((set(y)- set(x))) 
+    # non_match = l_func(default_attributes, dir(dodo.project_factory('wordpress-composer')))
+    # print(non_match)
+    # print(dodo.project_factory('wordpress-composer').wp_modify_composer)
+
 
 if __name__ == "__main__":
     run()

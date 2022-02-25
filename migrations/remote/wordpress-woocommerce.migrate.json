@@ -1,0 +1,36 @@
+{
+    "template": "wordpress-woocommerce",
+    "type": "php",
+    "type_version": "8.1",
+    "remote": {
+        "major_version": "1",
+        "repository": "https://github.com/roots/bedrock.git"
+    },
+    "last_updated_on": "2022-02-25-13:06:51",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-woocommerce/build/",
+            "git clone git@github.com:platformsh-templates/wordpress-woocommerce.git /Users/chadcarlson/template-builder/templates/wordpress-woocommerce/build/",
+            "git remote add project https://github.com/roots/bedrock.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "echo 'Adding composer config:platform:php'",
+            "composer config platform.php 8.1",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-woocommerce/files/ /Users/chadcarlson/template-builder/templates/wordpress-woocommerce/build/",
+            "echo 'Removing composer config:platform'",
+            "composer config --unset platform",
+            "composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

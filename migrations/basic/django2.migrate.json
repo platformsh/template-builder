@@ -1,0 +1,46 @@
+{
+    "template": "django2",
+    "type": "python",
+    "type_version": "3.9",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-02-25-13:06:48",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/myapp",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/myapp/__init__.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/myapp/settings.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/myapp/urls.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/myapp/wsgi.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/Pipfile",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/manage.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/migrations",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/migrations/__init__.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/models.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/__init__.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/apps.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/admin.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/templates",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/templates/base.html",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/tests.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/urls.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/hello/views.py",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/Pipfile.lock",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/django2/build/",
+            "git clone git@github.com:platformsh-templates/django2.git /Users/chadcarlson/template-builder/templates/django2/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/django2/files/ /Users/chadcarlson/template-builder/templates/django2/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

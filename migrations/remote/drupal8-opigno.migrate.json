@@ -1,0 +1,44 @@
+{
+    "template": "drupal8-opigno",
+    "type": "php",
+    "type_version": "7.3",
+    "remote": {
+        "major_version": "2",
+        "repository": "https://bitbucket.org/opigno/opigno-composer.git"
+    },
+    "last_updated_on": "2022-02-25-13:06:48",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sync",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sync/.gitkeep",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/web",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites/default",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites/default/settings.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites/default/settings.platformsh.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/drush",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/drush/platformsh_generate_drush_yml.php",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/drupal8-opigno/build/",
+            "git clone git@github.com:platformsh-templates/drupal8-opigno.git /Users/chadcarlson/template-builder/templates/drupal8-opigno/build/",
+            "git remote add project https://bitbucket.org/opigno/opigno-composer.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/drupal8-opigno/files/ /Users/chadcarlson/template-builder/templates/drupal8-opigno/build/",
+            "composer require platformsh/config-reader drush/drush drupal/console drupal/redis --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

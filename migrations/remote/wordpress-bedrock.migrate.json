@@ -1,0 +1,37 @@
+{
+    "template": "wordpress-bedrock",
+    "type": "php",
+    "type_version": "8.1",
+    "remote": {
+        "major_version": "1",
+        "repository": "https://github.com/roots/bedrock.git"
+    },
+    "last_updated_on": "2022-02-25-13:06:48",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+            "git clone git@github.com:platformsh-templates/wordpress-bedrock.git /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+            "git remote add project https://github.com/roots/bedrock.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "echo 'Adding composer config:platform:php'",
+            "composer config platform.php 8.1",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-bedrock/files/ /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+            "echo 'Removing composer config:platform'",
+            "composer config --unset platform",
+            "composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+            "composer update",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

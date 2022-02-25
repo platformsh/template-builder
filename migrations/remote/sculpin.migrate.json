@@ -1,0 +1,30 @@
+{
+    "template": "sculpin",
+    "type": "php",
+    "type_version": "8.1",
+    "remote": {
+        "major_version": "3",
+        "repository": "https://github.com/sculpin/sculpin-blog-skeleton.git"
+    },
+    "last_updated_on": "2022-02-25-13:06:46",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/sculpin/build/",
+            "git clone git@github.com:platformsh-templates/sculpin.git /Users/chadcarlson/template-builder/templates/sculpin/build/",
+            "git remote add project https://github.com/sculpin/sculpin-blog-skeleton.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/sculpin/files/ /Users/chadcarlson/template-builder/templates/sculpin/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

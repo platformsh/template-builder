@@ -1,5 +1,6 @@
 from . import BaseProject
 from .remote import RemoteProject
+from collections import OrderedDict
 import os
 import json
 from os.path import exists
@@ -59,6 +60,22 @@ class Nextjs_strapi(RemoteProject):
     def update(self):
         actions = super(Nextjs_strapi, self).update
 
+        def unpin_dependency(locked_version):
+            if '^' not in locked_version:
+                return '^{}'.format(locked_version)
+            else:
+                return locked_version
+
+        def strapi_unpin_packagejson():
+            with open('{0}/api/package.json'.format(self.builddir), 'r') as f:
+                # The OrderedDict means that the property orders in composer.json will be preserved.
+                config = json.load(f, object_pairs_hook=OrderedDict)
+                for dependency in config["dependencies"]:
+                    config["dependencies"][dependency] = unpin_dependency(config["dependencies"][dependency])
+
+            with open('{0}/api/package.json'.format(self.builddir), 'w') as out:
+                json.dump(config, out, indent=2)
+
         def strapi_fix_demo_schema():
             # Strapi will produce an error when a collection name in the database is too long, which happens to be 
             #   the case in the demo data provided with Foodadvisor. This block updates the collection name in the 
@@ -76,14 +93,15 @@ class Nextjs_strapi(RemoteProject):
                     json.dump(data, file, indent=4)
                     file.close()
 
+        actions.insert(4, (strapi_unpin_packagejson, []))
         actions.insert(4, (strapi_fix_demo_schema, []))
 
-        return [
+        return actions + [
             # Preserve the upstream README.
             'cd {0} && mv README.md README_upstream.md'.format(self.builddir),
             # Add the missing local server directory to .gitignore.
             'cd {0}/api && printf "\nhttp:/*\n" >> .gitignore'.format(self.builddir), 
-        ] + actions
+        ]
 
     @property
     def platformify(self):

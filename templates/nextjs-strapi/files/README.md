@@ -283,7 +283,9 @@ To login to the Strapi Admin UI, you can use the credentials `admin@example.com/
 
 ### Local development
 
-In all cases, it's important to develop on an isolated environment - do not open SSH tunnels to your production environment when developing locally. Each of the options below assume the following starting point:
+This section provides instructions for running the Next.js + Strapi template locally, connected to a live database instance on an active Platform.sh environment. Alternatively, if you would like to run this demo as originally intended by Strapi using SQLite, you can follow the instructions found in `README_upstream.md`. 
+
+In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not open SSH tunnels to your production environment when developing locally. Each of the options below assume the following starting point:
 
 ```bash
 platform get PROJECT_ID
@@ -378,6 +380,7 @@ The following changes have been made relative to the [Strapi Foodadvisor officia
 
 - `http:/*` was added to `.gitignore`, as this directory was sometimes generated during local development.
 - The `mysql` dependency was added, so as to connect to the database service on Platform.sh.
+- A number of dependencies are pinned to specific versions in the upstream [Foodadvisor](https://github.com/strapi/foodadvisor). Those dependencies have been unpinned so that our template maintenance workflows can reliable update dependencies on a schedule. 
 - A zipped file (`api/foodadvisor.tar.gz`) was added, which contains a database dump and a collection of demo images used in the original Foodadvisor demo, altered to work with Oracle MySQL. It is used on the first deployment within the Strapi deploy hook to set up the database. You are free to delete this file after this demo has been deployed.
 - A `api/.platform.app.yaml` file has been added, which is required to define the build and deploy process for all application containers on Platform.sh. It is set to run Strapi if production mode across all environments, so you will need to clone the repository (`platform get PROJECT_ID`) local and run a development server in order to add new collections. Take a look at the [Application](https://docs.platform.sh/configuration/services.html) documentation for more details about configuration.
 - A `api/config/database.js` file has been added, which does two things. First, it reads from Platform.sh environment variables to detect the database service connected to the `database` relationship in `api/.platform.app.yaml`. In this case, that's Oracle MySQL, and it uses credentials provided in the `PLATFORM_RELATIONSHIPS` environment variable to connect to that service. Second, it detects whether or not Strapi is actually running on Platform.sh, and makes accomodations to run Strapi locally depending on if an SSH tunnel has been opened to a database running on an active Platform.sh environment. 
@@ -445,5 +448,5 @@ See something that's wrong with this template that needs to be fixed? Something 
 
 @todo
 - update user name in tar.gz file from Node Workshop --> Platform.sh Templates
-- plugins?
 - Trailing question mark on title? Dump error?
+- unpin strapi dependencies

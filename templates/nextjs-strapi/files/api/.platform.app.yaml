@@ -24,7 +24,7 @@ hooks:
     # Download dependencies and build Strapi.
     set -e
     yarn --frozen-lockfile
-    yarn build
+    NODE_ENV=production yarn build
   deploy: |
     if [ -f "$DEMO_DEPLOY_DIR/$DEMO_DEPLOY_FILE" ]; then
         printf "\nFoodadvisor demo already initialized. Skipping setup.\n"

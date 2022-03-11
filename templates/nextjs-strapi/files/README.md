@@ -449,4 +449,3 @@ See something that's wrong with this template that needs to be fixed? Something 
 @todo
 - update user name in tar.gz file from Node Workshop --> Platform.sh Templates
 - Trailing question mark on title? Dump error?
-- unpin strapi dependencies

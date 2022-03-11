@@ -1,0 +1,22 @@
+# The routes of the project.
+#
+# Each route describes how an incoming URL is going
+# to be processed by Platform.sh.
+
+# The backend Strapi API.
+"https://www.api.{default}/":
+    type: redirect
+    to: "https://api.{default}/"
+"https://api.{default}/":
+    type: upstream
+    upstream: "strapi:http"
+    id: "api"
+# The frontend Next.js client.
+"https://www.{default}/":
+    type: redirect
+    to: "https://{default}/"
+"https://{default}/":
+    type: upstream
+    primary: true
+    upstream: "nextjs:http"
+    id: "client"

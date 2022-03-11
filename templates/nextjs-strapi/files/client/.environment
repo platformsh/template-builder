@@ -1,0 +1,4 @@
+NEXT_PUBLIC_API_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select (.value.id == "api") | .key')
+stringlen=${#NEXT_PUBLIC_API_URL}
+export NEXT_PUBLIC_API_URL=$(echo $NEXT_PUBLIC_API_URL | awk -v var=$stringlen '{ string=substr($0, 1, var - 1); print string; }' )
+export PREVIEW_SECRET=$PLATFORM_PROJECT-$PLATFORM_BRANCH

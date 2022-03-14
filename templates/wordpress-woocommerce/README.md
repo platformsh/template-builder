@@ -1,5 +1,7 @@
 
 [![Alt text](./test.svg)](https://platform.sh)
+[![Alt text](./test.svg)](https://platform.sh)
+
 
 
 

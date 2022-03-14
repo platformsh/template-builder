@@ -52,7 +52,7 @@ class Drupal8_opigno(RemoteProject):
         return super(Drupal8_opigno, self).platformify + [
             # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
             # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
-            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^2.0'.format(self.builddir)  + self.composer_defaults(),
             'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
         ]
 

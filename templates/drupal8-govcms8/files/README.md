@@ -21,12 +21,6 @@ GovCMS is a Drupal distribution built for the Australian government, and include
 
 ## Post-install
 
-- Closes https://github.com/platformsh-templates/drupal8-opigno/pull/19
-- Closes https://github.com/platformsh-templates/drupal8-opigno/pull/28
-- Resolves https://github.com/platformsh-templates/drupal8-opigno/issues/22
-- Resolves https://github.com/platformsh-templates/drupal8-opigno/issues/21
-- Resolves https://github.com/platformsh-templates/drupal8-opigno/issues/18
-
 Run through the GovCMS installer as normal.  You will not be asked for database credentials as those are already provided.
 
 ## Customizations

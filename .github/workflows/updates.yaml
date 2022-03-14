@@ -91,7 +91,7 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  # - template: 'drupal8-govcms8'
+                  - template: 'drupal8-govcms8'
                   # - template: 'drupal8-opigno'
                   - template: 'magento2ce'
                   - template: 'pimcore'

@@ -91,8 +91,7 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'drupal8-govcms8'
-                  # - template: 'drupal8-opigno'
+                  # - template: 'drupal8-govcms8'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
@@ -115,6 +114,7 @@ jobs:
                   - template: 'gatsby-wordpress'
                   # Other
                   - template: 'elastic-apm'
+                  ################################
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -135,12 +135,6 @@ jobs:
                   - template: 'micronaut'
                   # .NET
                   - template: 'aspnet-core'
-                  # Multi-app
-                  - template: 'gatsby-drupal'
-                  - template: 'gatsby-strapi'
-                  - template: 'gatsby-wordpress'
-                  - template: 'eleventy-strapi'
-                  - template: 'elastic-apm'
                   ################################
                   # Working excludes for testing #
                   ################################
@@ -181,6 +175,7 @@ jobs:
                   - template: express
                   - template: echo
                   - template: fastapi
+                  - template: 'drupal8-opigno'
 
 
         steps:

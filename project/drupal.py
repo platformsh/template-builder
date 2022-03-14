@@ -69,6 +69,6 @@ class Drupal8_govcms8(RemoteProject):
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
         #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
-           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
         ]

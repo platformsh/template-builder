@@ -43,9 +43,18 @@ class Drupal9(RemoteProject):
 class Drupal8_multisite(Drupal8):
     pass
 
-class Drupal8_opigno(Drupal8):
+class Drupal8_opigno(RemoteProject):
     major_version = '2'
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
+
+    @property
+    def platformify(self):
+        return super(Drupal8_opigno, self).platformify + [
+            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
+            # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
+        ]
 
 
 class Drupal8_govcms8(RemoteProject):
@@ -60,5 +69,5 @@ class Drupal8_govcms8(RemoteProject):
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
         #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
-           'cd {0} && composer require platformsh/config-reader drush/drush:^10.6 drupal/redis'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && composer require platformsh/config-reader drush/drush:^9.0 drupal/redis'.format(self.builddir) + self.composer_defaults(),
         ]

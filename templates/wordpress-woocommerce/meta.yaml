@@ -1,0 +1,10 @@
+info:
+    title: "WordPress WooCommerce (Bedrock) for Platform.sh"
+    license:
+        type: "MIT"
+        location: "https://github.com/platformsh-templates/wordpress-woocommerce/blob/master/LICENSE.md"
+    logo: 
+        link: "https://wordpress.org/"
+        src: "https://s.w.org/style/images/about/WordPress-logotype-standard.png"
+        # Define the header
+    #   Need: template repo, logo, logo link, title, LICENSE location

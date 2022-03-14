@@ -1,6 +1,11 @@
 
+[![Alt text](./test.svg)](https://platform.sh)
+
+
+
 <br />
-<p align="left">
+
+<p align="right">
     <a href="https://platform.sh">
         <img src="https://platform.sh/logos/redesign/Platformsh_logo_black.svg" width="150px">
     </a>
@@ -12,9 +17,10 @@
     </a>
 </p>
 
-<h1 align="center">WordPress WooCommerce (Bedrock) for Platform.sh</h1>
+<h2 align="center">WordPress WooCommerce (Bedrock) for Platform.sh</h2>
+<br/><hr>
 
-<p align="center">
+<!-- <p align="center">
     <strong>Contribute to the Platform.sh knowledge base, or check out our resources</strong>
     <br />
     <br />
@@ -24,9 +30,9 @@
     <a href="https://github.com/platformsh-templates/nextjs-strapi/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <a href="https://github.com/platformsh-templates/nextjs-strapi/issues"><strong>Request a feature</strong></a>
     <br /><br />
-</p>
+</p> -->
 
-<p align="center">
+<!-- <p align="center">
     <a href="https://github.com/platformsh-templates/metabase/issues">
         <img src="https://img.shields.io/github/issues/platformsh-templates/nextjs-strapi.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
     </a>&nbsp&nbsp
@@ -41,7 +47,7 @@
         <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="175px" />
     </a>
 </p>
-</p>
+</p> -->
 
-<hr>
-<br />
+<!-- <hr>
+<br /> -->

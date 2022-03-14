@@ -8,7 +8,7 @@
 <br /><br />
 <p align="center">
     <a href="https://wordpress.org/">
-        <img src="https://s.w.org/style/images/about/WordPress-logotype-standard.png" width="300">
+        <img src="https://s.w.org/style/images/about/WordPress-logotype-standard.png" width="500">
     </a>
 </p>
 

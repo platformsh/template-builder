@@ -22,8 +22,6 @@ def build_readme(template):
         except yaml.YAMLError as exc:
             print(exc)
     
-        print(data['info']['title'])
-
     # Define the header
     #   Need: template repo, logo, logo link, title, LICENSE location
     body = """
@@ -36,7 +34,7 @@ def build_readme(template):
 <br /><br />
 <p align="center">
     <a href="{0}">
-        <img src="{1}" width="300">
+        <img src="{1}" width="500">
     </a>
 </p>
 

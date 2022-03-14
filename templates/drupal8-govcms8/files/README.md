@@ -23,6 +23,10 @@ GovCMS is a Drupal distribution built for the Australian government, and include
 
 Run through the GovCMS installer as normal.  You will not be asked for database credentials as those are already provided.
 
+> **Note:**
+>
+> After installation is complete, you may see the following error: `The website encountered an unexpected error. Please try again later.`. If so, SSH into the environment and run `drush -y cache-rebuild` twice to clear the cache.
+
 ## Customizations
 
 The following changes have been made relative to Drupal 8 / GovCMS as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.

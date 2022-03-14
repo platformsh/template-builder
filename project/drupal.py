@@ -62,6 +62,15 @@ class Drupal8_govcms8(RemoteProject):
     remote = 'https://github.com/govCMS/govCMS.git'
 
     @property
+    def update(self):
+        return super(Drupal8_govcms8, self).update + [
+            'cd {0} && rm -rf .circleci'.format(self.builddir),
+            'cd {0} && rm -rf .github'.format(self.builddir),
+            'cd {0} && rm -rf .tugboat'.format(self.builddir),
+            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+        ]
+
+    @property
     def platformify(self):
        return super(Drupal8_govcms8, self).platformify + [
            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but

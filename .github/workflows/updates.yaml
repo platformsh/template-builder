@@ -91,10 +91,8 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  - template: 'drupal8-govcms8'
-                  - template: 'drupal8-opigno'
-                  # - template: 'drupal8-multisite'
-                  # - template: 'drupal8'
+                  # - template: 'drupal8-govcms8'
+                  # - template: 'drupal8-opigno'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
@@ -107,6 +105,16 @@ jobs:
                   - template: 'directus'
                   - template: 'probot'
                   ################################
+                  # Multi-apps
+                  # Strapis
+                  - template: 'eleventy-strapi'
+                  - template: 'gatsby-strapi'
+                  # Drupals
+                  - template: 'gatsby-drupal'
+                  # WP
+                  - template: 'gatsby-wordpress'
+                  # Other
+                  - template: 'elastic-apm'
                   # Java
                   - template: 'microprofile-wildfly'
                   - template: 'microprofile-openliberty'
@@ -147,7 +155,9 @@ jobs:
                   - template: nodejs
                   - template: wordpress-composer
                   - template: meilisearch
-                  # - template: drupal9
+                  - template: drupal9
+                  - template: 'drupal8-multisite'
+                  - template: 'drupal8'
                   - template: django2
                   - template: nextcloud
                   - template: gatsby

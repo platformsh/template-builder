@@ -21,7 +21,11 @@ Drupal is a flexible and extensible PHP-based CMS framework.
 
 ## Post-install
 
-Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
+Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided. 
+
+> **Note:**
+>
+> After installation is complete, you may see the following error: `The website encountered an unexpected error. Please try again later.`. If so, SSH into the environment and run `drush -y cache-rebuild` twice to clear the cache.
 
 ## Customizations
 

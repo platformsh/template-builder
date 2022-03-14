@@ -112,9 +112,43 @@ class MultiAppStrapiDemoBase(RemoteProject):
             'cd {0}/api && yarn add mysql'.format(self.builddir), 
             # Upgrade dependencies once more. 
             'cd {0}/api && yarn upgrade'.format(self.builddir), 
-
         ]
  
+class Eleventy_strapi(MultiAppStrapiDemoBase):
+    upstream_branch = "master"
+    remote = 'https://github.com/strapi/foodadvisor.git'
+
+    @property
+    def update(self):
+        return [
+            # Clear the upstream Next.js client we don't need.
+            'cd {0} && rm -rf client'.format(self.builddir),
+            # Clear the current template (remove post-update).
+            'cd {0} && rm -rf strapi'.format(self.builddir),
+            'cd {0} && rm -rf eleventy'.format(self.builddir),
+            'cd {0} && cp README.md README.original.md'.format(self.builddir),
+            'cd {0} && rm -rf .platform'.format(self.builddir),
+            # Get eleventy base.
+            'cd {0} &&  git clone https://github.com/11ty/eleventy-base-blog.git frontend'.format(self.builddir)
+        ] + super(Eleventy_strapi, self).update
+
+    @property
+    def platformify(self):
+        return super(Eleventy_strapi, self).platformify + [
+            # For now, remove the client subdir.
+            'cd {0} && rm -rf client'.format(self.builddir),
+            # Rename the files eleventy dir.
+            'cd {0} && mv eleventy/ client/'.format(self.builddir),
+            # Add the graphql package.
+            'cd {0}/api && yarn strapi install graphql'.format(self.builddir), 
+            # Upgrade dependencies once more. 
+            'cd {0}/api && yarn upgrade'.format(self.builddir), 
+        ]
+
+# class Gatsby_strapi(MultiAppStrapiDemoBase):
+#     upstream_branch = "master"
+#     remote = 'https://github.com/strapi/foodadvisor.git'
+
 class Nextjs_strapi(MultiAppStrapiDemoBase):
     upstream_branch = "master"
     remote = 'https://github.com/strapi/foodadvisor.git'

@@ -2,7 +2,6 @@
 #
 # Each service listed will be deployed
 # to power your Platform.sh project.
-
-dbpostgres:
-    type: postgresql:12
-    disk: 256
+dbmysql:
+  type: oracle-mysql:8.0
+  disk: 512

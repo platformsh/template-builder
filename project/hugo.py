@@ -9,7 +9,7 @@ class Hugo(BaseProject):
     @property
     def platformify(self):
 
-        headers = {'Authorization': "token {0}".format(os.environ.get("GITHUB_TOKEN"))}
+        headers = {'Authorization': "token {0}".format(os.environ.get("DEVREL_TOKEN"))}
 
         major_version = "0.91"
 

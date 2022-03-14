@@ -131,3 +131,35 @@ Below have lower priority, or no clear auto-update path as of yet.
     1. spring-mvc-maven-mongodb
     1. tomcat
     1. xwiki
+
+
+## Multi-app investigations
+
+### Strapi variations
+
+**Templates:**
+
+- nextjs-strapi
+- eleventy-strapi
+- gatsby-strapi
+
+## Drupal variations
+
+**Templates:**
+
+- nextjs-drupal
+- gatsby-drupal
+
+## WordPress variations
+
+**Templates:**
+
+- gatsby-wordpress
+- frontity-wordpress
+
+## Other
+
+**Templates:**
+
+- elastic-apm
+

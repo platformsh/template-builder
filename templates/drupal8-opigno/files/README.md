@@ -23,6 +23,10 @@ Opigno is a Learning Management system built as a Drupal distribution.
 
 Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
 
+> **Note:**
+>
+> After installation is complete, you may see the following error: `The website encountered an unexpected error. Please try again later.`. If so, SSH into the environment and run `drush -y cache-rebuild` twice to clear the cache.
+
 ## Customizations
 
 The following changes have been made relative to Drupal 8 / Opigno as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.

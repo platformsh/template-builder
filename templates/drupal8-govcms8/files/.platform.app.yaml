@@ -139,13 +139,7 @@ web:
                 # Provide a longer TTL (2 weeks) for aggregated CSS and JS files.
                 '^/sites/default/files/(css|js)':
                     expires: 2w
-
-        #  Allow html files for the /libraries/pdf.js directory.
-        '/libraries/pdf.js':
-          rules:
-            '\.html$':
-              allow: true
-
+                    
 crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:

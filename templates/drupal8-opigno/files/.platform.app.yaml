@@ -7,7 +7,7 @@
 name: 'app'
 
 # The runtime the application uses.
-type: 'php:7.4'
+type: 'php:8.0'
 
 dependencies:
     php:
@@ -17,6 +17,7 @@ runtime:
     # Enable the redis extension so Drupal can communicate with the Redis cache.
     extensions:
         - redis
+        - sodium
 
 # The relationships of the application with services or other applications.
 #
@@ -33,7 +34,7 @@ disk: 2048
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
     # The default Drupal files directory.
-    '/web/sites/default/files':
+    '/docroot/sites/default/files':
         source: local
         source_path: 'files'
     # Drupal gets its own dedicated tmp directory. The settings.platformsh.php
@@ -79,10 +80,14 @@ hooks:
     deploy: |
         set -e
         php ./drush/platformsh_generate_drush_yml.php
-        cd web
-        drush -y cache-rebuild
-        drush -y updatedb
-        drush -y config-import
+        if [ -f docroot/sites/default/files/platform.installed ]; then
+            cd docroot
+            drush -y cache-rebuild
+            drush -y updatedb
+            drush -y config-import
+        else
+            touch docroot/sites/default/files/platform.installed
+        fi
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -92,7 +97,7 @@ web:
             # The folder from which to serve static assets, for this location.
             #
             # This is a filesystem path, relative to the application root.
-            root: 'web'
+            root: 'docroot'
 
             # How long to allow static assets from this location to be cached.
             #
@@ -130,7 +135,7 @@ web:
             allow: true
             expires: 5m
             passthru: '/index.php'
-            root: 'web/sites/default/files'
+            root: 'docroot/sites/default/files'
 
             # Do not execute PHP scripts from the writeable mount.
             scripts: false
@@ -139,19 +144,12 @@ web:
                 # Provide a longer TTL (2 weeks) for aggregated CSS and JS files.
                 '^/sites/default/files/(css|js)':
                     expires: 2w
-
-        #  Allow html files for the /libraries/pdf.js directory.
-        '/libraries/pdf.js':
-          rules:
-            '\.html$':
-              allow: true
-
-
+                    
 crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        cmd: 'cd web ; drush core-cron'
+        cmd: 'cd docroot ; drush core-cron'
 
 source:
   operations:

@@ -74,7 +74,7 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. nuxtjs
 1. lisp
 1. drupal8
-1. drupal8-govcms8
+1. drupal8-opigno
 1. drupal8-multisite
 
 Below are those templates that will still need to be integrated.
@@ -92,7 +92,7 @@ Below are those templates that will still need to be integrated.
     1. probot
 - PHP (9)
     - Drupal 8 (1)
-        1. drupal8-opigno
+        1. drupal8-govcms8
     - WordPress (1)
         1. wordpress-vanilla (EU-3 issue)
     - Other (7)

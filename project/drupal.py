@@ -67,7 +67,8 @@ class Drupal8_govcms8(RemoteProject):
             'cd {0} && rm -rf .circleci'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),
             'cd {0} && rm -rf .tugboat'.format(self.builddir),
-            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+            'cd {0} && composer remove php'.format(self.builddir),
+            # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]
 
     @property
@@ -80,4 +81,5 @@ class Drupal8_govcms8(RemoteProject):
         #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]

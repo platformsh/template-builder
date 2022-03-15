@@ -6,15 +6,9 @@
     </a>
 </p>
 
-[![Alt text](./test.svg)](https://platform.sh)
+[![Alt text](./test.svg)](https://wordpress.org/)
 
-<p align="center">
-    <a href="https://wordpress.org/">
-        <img src="https://s.w.org/style/images/about/WordPress-logotype-standard.png" width="500">
-    </a>
-</p>
-
-<h2 align="center">WordPress WooCommerce (Bedrock) for Platform.sh</h2>
+<h1 align="center">WordPress WooCommerce (Bedrock) for Platform.sh</h1>
 <br/><hr>
 
 <!-- <p align="center">

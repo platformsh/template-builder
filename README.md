@@ -1,3 +1,6 @@
+[![Alt text](templates/wordpress-woocommerce/test.svg)](https://wordpress.org/)
+
+
 # Utility scripts to manage the Platform.sh Template projects
 
 ## Introduction

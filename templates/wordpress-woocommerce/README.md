@@ -1,10 +1,3 @@
-
-[![Alt text](./test.svg)](https://platform.sh)
-[![Alt text](./test.svg)](https://platform.sh)
-
-
-
-
 <br />
 
 <p align="right">
@@ -12,7 +5,9 @@
         <img src="https://platform.sh/logos/redesign/Platformsh_logo_black.svg" width="150px">
     </a>
 </p>
-<br /><br />
+
+[![Alt text](./test.svg)](https://platform.sh)
+
 <p align="center">
     <a href="https://wordpress.org/">
         <img src="https://s.w.org/style/images/about/WordPress-logotype-standard.png" width="500">

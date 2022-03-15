@@ -1,16 +1,16 @@
-<br />
-<p align="left">
+
+<p align="right">
     <a href="https://platform.sh">
         <img src="https://platform.sh/logos/redesign/Platformsh_logo_black.svg" width="150px">
     </a>
 </p>
-<br /><br />
+
 <p align="center">
     <a href="https://github.com/strapi/foodadvisor">
-        <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d2ecfe9f-fa41-4caa-98e6-1354850c39d1/Logo.WhiteBackground.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220311%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220311T182042Z&X-Amz-Expires=86400&X-Amz-Signature=7304a7f6d04754b75ce437049b853bc5abd05998fd17e4f2d1a2bd36d32840b4&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Logo.WhiteBackground.png%22&x-id=GetObject" width="300">
+        <img src="https://raw.githubusercontent.com/platformsh/template-builder/master/templates/nextjs-strapi/header.svg">
     </a>
 </p>
-<br /><br />
+
 <h1 align="center">Deploy Next.js and Strapi on Platform.sh</h1>
 
 <p align="center">
@@ -446,6 +446,3 @@ See something that's wrong with this template that needs to be fixed? Something 
 
 <br />
 
-@todo
-- update user name in tar.gz file from Node Workshop --> Platform.sh Templates
-- Trailing question mark on title? Dump error?

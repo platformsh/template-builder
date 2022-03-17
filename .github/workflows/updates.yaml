@@ -4,8 +4,8 @@ name: 'Updates'
 on:
   schedule:
     - cron:  "0 1 */3 * *" # At 01:00 on every 3rd day-of-month.
-  push:
-    branches: 'd8s'
+#   push:
+#     branches: 'd8s'
 
 env:
     # Update vars.
@@ -91,7 +91,7 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                   # PHP
-                  # - template: 'drupal8-govcms8'
+                  - template: 'drupal8-govcms8'
                   - template: 'magento2ce'
                   - template: 'pimcore'
                   - template: 'laravel'
@@ -138,44 +138,44 @@ jobs:
                   ################################
                   # Working excludes for testing #
                   ################################
-                  - template: nuxtjs
-                  - template: lisp
-                  - template: 'wordpress-woocommerce'
-                  - template: 'wordpress-bedrock'
-                  - template: wagtail
-                  - template: strapi
-                  - template: mattermost
-                  - template: golang
-                  - template: nodejs
-                  - template: wordpress-composer
-                  - template: meilisearch
-                  - template: drupal9
-                  - template: 'drupal8-multisite'
-                  - template: 'drupal8'
-                  - template: django2
-                  - template: nextcloud
-                  - template: gatsby
-                  - template: strapi4
-                  - template: flask
-                  - template: php
-                  - template: django3
-                  - template: python3
-                  - template: python3-uwsgi
-                  - template: pyramid
-                  - template: rails
-                  - template: hugo
-                  - template: backdrop
-                  - template: gin
-                  - template: beego
-                  - template: pelican
-                  - template: probot
-                  - template: nextjs
-                  - template: koa
-                  - template: django4
-                  - template: express
-                  - template: echo
-                  - template: fastapi
-                  - template: 'drupal8-opigno'
+#                   - template: nuxtjs
+#                   - template: lisp
+#                   - template: 'wordpress-woocommerce'
+#                   - template: 'wordpress-bedrock'
+#                   - template: wagtail
+#                   - template: strapi
+#                   - template: mattermost
+#                   - template: golang
+#                   - template: nodejs
+#                   - template: wordpress-composer
+#                   - template: meilisearch
+#                   - template: drupal9
+#                   - template: 'drupal8-multisite'
+#                   - template: 'drupal8'
+#                   - template: django2
+#                   - template: nextcloud
+#                   - template: gatsby
+#                   - template: strapi4
+#                   - template: flask
+#                   - template: php
+#                   - template: django3
+#                   - template: python3
+#                   - template: python3-uwsgi
+#                   - template: pyramid
+#                   - template: rails
+#                   - template: hugo
+#                   - template: backdrop
+#                   - template: gin
+#                   - template: beego
+#                   - template: pelican
+#                   - template: probot
+#                   - template: nextjs
+#                   - template: koa
+#                   - template: django4
+#                   - template: express
+#                   - template: echo
+#                   - template: fastapi
+#                   - template: 'drupal8-opigno'
 
 
         steps:

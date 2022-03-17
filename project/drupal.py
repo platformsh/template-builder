@@ -24,7 +24,8 @@ class Drupal8(RemoteProject):
     def platformify(self):
         return super(Drupal8, self).platformify + [
             # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^10.6 drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
             # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
         ]
 
@@ -42,14 +43,33 @@ class Drupal9(RemoteProject):
 class Drupal8_multisite(Drupal8):
     pass
 
-class Drupal8_opigno(Drupal8):
+class Drupal8_opigno(RemoteProject):
     major_version = '2'
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
+    @property
+    def platformify(self):
+        return super(Drupal8_opigno, self).platformify + [
+            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
+            # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+        ]
+
 
 class Drupal8_govcms8(RemoteProject):
-    major_version = '1'
-    remote = 'https://github.com/govCMS/govCMS8-project.git'
+    major_version = '2.11'
+    remote = 'https://github.com/govCMS/govCMS.git'
+
+    @property
+    def update(self):
+        return super(Drupal8_govcms8, self).update + [
+            'cd {0} && rm -rf .circleci'.format(self.builddir),
+            'cd {0} && rm -rf .github'.format(self.builddir),
+            'cd {0} && rm -rf .tugboat'.format(self.builddir),
+            'cd {0} && composer remove php'.format(self.builddir),
+            # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+        ]
 
     @property
     def platformify(self):
@@ -58,5 +78,8 @@ class Drupal8_govcms8(RemoteProject):
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
-           'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+        #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+           'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]

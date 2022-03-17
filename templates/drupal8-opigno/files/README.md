@@ -23,6 +23,10 @@ Opigno is a Learning Management system built as a Drupal distribution.
 
 Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
 
+> **Note:**
+>
+> After installation is complete, you may see the following error: `The website encountered an unexpected error. Please try again later.`. If so, SSH into the environment and run `drush -y cache-rebuild` twice to clear the cache.
+
 ## Customizations
 
 The following changes have been made relative to Drupal 8 / Opigno as it is downloaded from Drupal.org.  If using this project as a reference for your own existing project, replicate the changes below to your project.
@@ -30,6 +34,7 @@ The following changes have been made relative to Drupal 8 / Opigno as it is down
 * It uses the Drupal Composer project, which allow the site to be managed entirely with Composer. That also causes the `vendor` and `config` directories to be placed outside of the web root for added security.  See the [Drupal documentation](https://www.drupal.org/node/2404989) for tips on how best to leverage Composer with Drupal 8.
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * An additional Composer library, [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
+* A `.environment` file has been added, which allows executable app dependencies from Composer to be run from the path.
 * Drush and Drupal Console have been pre-included in `composer.json`.  You are free to remove one or both if you do not wish to use them.  (Note that the default cron and deploy hooks make use of Drush commands, however.)
 * The Drupal Redis module comes pre-installed.  The placeholder module is not pre-installed, but it is enabled via `settings.platformsh.php` out of the box.
 * The `settings.platformsh.php` file contains Platform.sh-specific code to map environment variables into Drupal configuration. You can add to it as needed. See the documentation for more examples of common snippets to include here.  It uses the Config Reader library.

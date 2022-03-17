@@ -73,35 +73,36 @@ Below shows the templates currently included in the auto-update workflow, which 
 1. wordpress-woocommerce
 1. nuxtjs
 1. lisp
+1. drupal8
+1. drupal8-opigno
+1. drupal8-multisite
 
 Below are those templates that will still need to be integrated.
 
 ---
 
-- **Left (excluding multi-app)**: 11
-- **Left (including multi-app)**: 16
-- **Left (all, including Java, .NET Core, & Lisp)**: 35
+- **Total in workflow**: 36 
+- **Left (excluding multi-app)**: 11 (36/47)
+- **Left (including multi-app)**: 16 (36/52)
 
 ---
 
-- Node.js (1)
+- Node.js (2)
     1. directus
     1. probot
-- PHP
-    - Drupal 8 (4)
-        1. drupal8
+- PHP (9)
+    - Drupal 8 (1)
         1. drupal8-govcms8
-        1. drupal8-multisite
-        1. drupal8-opigno
     - WordPress (1)
         1. wordpress-vanilla (EU-3 issue)
-    - Other (6)
+    - Other (7)
         1. akeneo
         1. laravel
         1. typo3
         1. magento2ce
         1. pimcore
         1. sculpin
+        1. sylius
 - Multi-apps (5)
     1. elastic-apm
     1. eleventy-strapi

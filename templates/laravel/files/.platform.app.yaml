@@ -18,12 +18,23 @@ runtime:
 build:
     flavor: composer
 
+variables:
+    env:
+        N_PREFIX: /app/.global
+
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
         set -e
+
+        # install a specific NodeJS version https://github.com/platformsh/snippets/
+        #   -v requested version
+        #   -y install Yarn
+        # curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 17.5 -y; } 3<&0
+
         # uncomment next line to build assets deploying
         # npm install && npm run production
+
     deploy: |
         set -e
         php artisan migrate --force

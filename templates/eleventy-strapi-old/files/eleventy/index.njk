@@ -1,0 +1,29 @@
+---
+layout: layouts/home.njk
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+
+<h1>{{ metadata.title }}</h1>
+
+<p>{{ metadata.description }}</p>
+
+<h2>Strapi</h2>
+
+<p>During the Eleventy app's <code>post_deploy</code> hook, Strapi data from the <code>/articles</code> endpoint is retrieved with a GraphQL query in <code>_data/blogposts.js</code>.</p>
+
+<p>That data is used to fill and format a list page as well as individual single pages for all of the articles contained in Strapi.</p>
+
+<h3><a href="{{ '/blog/' | url }}">Check out the re-formatted Strapi data here</a></h3>
+
+{% set maxPosts = collections.posts.length | min(3) %}
+<h2>Eleventy default content</h2>
+
+<p>The Eleventy app comes already with a few articles of it's own, committed to the <code>posts</code> subdirectory.</p>
+
+{% set postslist = collections.posts | head(-3) %}
+{% set postslistCounter = collections.posts | length %}
+{% include "postslist.njk" %}
+
+<p>More posts can be found in <a href="{{ '/posts/' | url }}">the archive</a>.</p>

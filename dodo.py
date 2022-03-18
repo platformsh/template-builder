@@ -25,7 +25,7 @@ from project.nextjs import Nextjs
 from project.nuxtjs import Nuxtjs
 from project.rails import Rails
 from project.sculpin import Sculpin
-from project.strapi import Strapi
+from project.strapi import Strapi, Eleventy_strapi, Nextjs_strapi
 from project.sylius import Sylius
 from project.symfony import Symfony4, Symfony5
 from project.typo3 import Typo3

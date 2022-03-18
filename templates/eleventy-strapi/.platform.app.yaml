@@ -1,0 +1,49 @@
+name: nextjs
+
+type: 'nodejs:14'
+
+dependencies:
+    nodejs:
+        yarn: "1.22.17"
+        pm2: "5.2.0"
+
+build:
+    flavor: none
+
+variables:
+    env:
+        NODE_OPTIONS: --max-old-space-size=1536
+
+size: L
+
+resources:
+    base_memory: 1024
+    memory_ratio: 1024
+
+hooks:
+    build: |
+        # 1. Build dependencies.
+        set -e
+        yarn --frozen-lockfile
+    post_deploy: |
+        # 3. Rebuild now that the backend is available.
+        yarn build
+web:
+    commands:
+        start: |
+            # 2. Build the site and start the pm2 process, watching for changes brought by post_deploy.
+            yarn build
+            APP=$(cat package.json | jq -r '.name')
+            pm2 start npm --no-daemon --watch --name $APP -- start -- -p $PORT
+disk: 512
+
+mounts:
+    "/.cache":
+        source: local
+        source_path: cache
+    /.next:
+        source: local
+        source_path: 'next'
+    /.pm2:
+        source: local
+        source_path: 'pm2'

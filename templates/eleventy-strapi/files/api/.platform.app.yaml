@@ -1,0 +1,89 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+#
+# See https://docs.platform.sh/configuration/app.html
+
+# The name of this app. Must be unique within a project.
+name: strapi
+
+# The runtime the application uses.
+type: nodejs:16
+
+# Use Yarn instead of npm.
+build:
+  flavor: none
+
+# Build dependencies.
+dependencies:
+  nodejs:
+    yarn: "1.22.17"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+  build: |
+    # Download dependencies and build Strapi.
+    set -e
+    yarn --frozen-lockfile
+    NODE_ENV=production yarn build
+  deploy: |
+    if [ -f "$DEMO_DEPLOY_DIR/$DEMO_DEPLOY_FILE" ]; then
+        printf "\nFoodadvisor demo already initialized. Skipping setup.\n"
+        if [ -f "$DEMO_DEPLOY_DIR/$DEMO_DATA_FILE" ]; then
+            printf "\nCleaning up DB dump file to save disk.\n"
+            rm $DEMO_DEPLOY_DIR/$DEMO_DATA_FILE
+        fi
+    else
+      # Setup and track the demo.
+      printf "\nSetting up Foodadvisor demo.\n"
+      tar -xf $DEMO_DATA_TAR
+      printf "\nSeeding data.\n"
+      mysql -h $DB_HOST -P $DB_PORT -u $DB_USER --password=$DB_PW $DB_PATH < $DEMO_DEPLOY_DIR/$DEMO_DATA_FILE
+      touch $DEMO_DEPLOY_DIR/$DEMO_DEPLOY_FILE
+    fi
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  database: "dbmysql:mysql"
+
+# The configuration of app when it is exposed to the web.
+web:
+  commands:
+    start: NODE_ENV=production yarn start
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+mounts:
+  # Strapi's cache directory.
+  "/.cache":
+    source: local
+    source_path: cache
+
+  # Mount .tmp file in the app folder for strapi
+  ".tmp":
+    source: local
+    source_path: app
+
+  # Mount database folder for strapi
+  "database":
+    source: local
+    source_path: database
+
+  # Give write access for extension configuration JSONs.
+  "extensions":
+    source: local
+    source_path: extensions
+
+  # Allow for media uploads at runtime.
+  "public/uploads":
+    source: local
+    source_path: uploads
+  
+  # Track demo first deployment.
+  "deploy":
+    source: local
+    source_path: deploy

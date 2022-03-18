@@ -1,0 +1,18 @@
+# Strapi variables.
+export JWT_SECRET="$PLATFORM_PROJECT_ENTROPY"
+export API_TOKEN_SALT="$PLATFORM_PROJECT_ENTROPY"
+CLIENT_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select (.value.id == "client") | .key')
+stringlen=${#CLIENT_URL}
+export STRAPI_ADMIN_CLIENT_URL=$(echo $CLIENT_URL | awk -v var=$stringlen '{ string=substr($0, 1, var - 1); print string; }' )
+export STRAPI_ADMIN_CLIENT_PREVIEW_SECRET=$PLATFORM_PROJECT-$PLATFORM_BRANCH
+# Foodadvisor demo variables.
+export DEMO_DEPLOY_DIR='deploy'
+export DEMO_DEPLOY_FILE='platformsh.installed'
+export DEMO_DATA_TAR='foodadvisor.tar.gz'
+export DEMO_DATA_FILE='foodadvisor.sql'
+DB_CREDENTIALS=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq '.database[0]')
+export DB_HOST=$(echo $DB_CREDENTIALS | jq -r '.host')
+export DB_PORT=$(echo $DB_CREDENTIALS | jq -r '.port')
+export DB_USER=$(echo $DB_CREDENTIALS | jq -r '.username')
+export DB_PW=$(echo $DB_CREDENTIALS | jq -r '.password')
+export DB_PATH=$(echo $DB_CREDENTIALS | jq -r '.path')

@@ -3,19 +3,20 @@
 # Each route describes how an incoming URL is going
 # to be processed by Platform.sh.
 
-"https://www.{default}/":
-    type: upstream
-    upstream: "eleventy:http"
-
-"https://{default}/":
+# The backend Strapi API.
+"https://www.api.{default}/":
     type: redirect
-    to: "https://www.{default}/"
-
-"https://www.backend.{default}/":
+    to: "https://api.{default}/"
+"https://api.{default}/":
     type: upstream
-    id: strapi
     upstream: "strapi:http"
-
-"https://backend.{default}/":
-    type: redirect
-    to: "https://www.backend.{default}/"
+    id: "api"
+# The frontend Next.js client.
+# "https://www.{default}/":
+#     type: redirect
+#     to: "https://{default}/"
+# "https://{default}/":
+#     type: upstream
+#     primary: true
+#     upstream: "nextjs:http"
+#     id: "client"

@@ -18,7 +18,7 @@ info:
 
 
 initialize:
-  repository: git://github.com/platformsh-templates/drupal7.git@master
+  repository: https://github.com/platformsh-templates/drupal7.git@master
   config: null
   files: []
   profile: Drupal 7

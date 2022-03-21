@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/platformsh-templates/nodejs.git"
+    "url": "https://github.com/platformsh-templates/nodejs.git"
   },
   "author": "Platform.sh",
   "license": "MIT",

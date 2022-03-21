@@ -17,7 +17,7 @@ info:
           Pipfile-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/python2.git@master
+  repository: https://github.com/platformsh-templates/python2.git@master
   config: null
   files: []
   profile: Python

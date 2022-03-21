@@ -21,7 +21,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: git://github.com/platformsh-templates/symfony5.git@master
+  repository: https://github.com/platformsh-templates/symfony5.git@master
   config: null
   files: []
   profile: Symfony 5

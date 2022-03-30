@@ -47,8 +47,6 @@ jobs:
               uses: actions/setup-python@v2
               with:
                   python-version: ${{ env.PYTHON_VERSION }}
-            - name: Install pipenv
-              run: pip install --user pipenv
             - name: "Get template list"
               id: getlist
               run: |
@@ -192,6 +190,8 @@ jobs:
               uses: actions/setup-python@v2
               with:
                   python-version: ${{ env.PYTHON_VERSION }}
+            - name: Install pipenv
+              run: pip install --user pipenv
             - name: Pre-start c. Setup Node
               uses: actions/setup-node@v2
               with:

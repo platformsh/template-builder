@@ -109,6 +109,7 @@ class Contentacms(BaseProject):
             'cd {0}/{1} && composer config allow-plugins.cweagans/composer-patches true --no-plugins'.format(TEMPLATEDIR, projectName),
             'cd {0}/{1} && composer config allow-plugins.drupal/core-vendor-hardening true --no-plugins'.format(TEMPLATEDIR, projectName),
             'cd {0}/{1} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.oomphinc/composer-installers-extender true --no-plugins'.format(TEMPLATEDIR, projectName),
             'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
             'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),              
         ] + super(Contentacms, self).update

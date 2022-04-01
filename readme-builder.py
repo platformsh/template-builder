@@ -53,7 +53,7 @@ def create_header(data, template, header_file):
 <h1 align="center">{2}</h1>
 
 <p align="center">
-<strong>Contribute to the Platform.sh knowledge base, or check out our resources</strong>
+<strong>Contribute, request a feature, or check out our resources</strong>
 <br />
 <br />
 <a href="https://community.platform.sh"><strong>Join our community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -66,13 +66,13 @@ def create_header(data, template, header_file):
 
 <p align="center">
 <a href="https://github.com/platformsh-templates/{3}/issues">
-<img src="https://img.shields.io/github/issues/platformsh-templates/{3}.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
+<img src="https://img.shields.io/github/issues/platformsh-templates/{3}.svg?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
 </a>&nbsp&nbsp
 <a href="https://github.com/platformsh-templates/pulls">
-<img src="https://img.shields.io/github/issues-pr/platformsh-templates/{3}.svg?style=flat-square&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
+<img src="https://img.shields.io/github/issues-pr/platformsh-templates/{3}.svg?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
 </a>&nbsp&nbsp
 <a href="https://github.com/platformsh-templates/{3}/blob/master/{4}">
-<img src="https://img.shields.io/static/v1?label=License&message={5}&style=flat-square&labelColor=f4f2f3&color=ffd9d9" alt="License" />
+<img src="https://img.shields.io/static/v1?label=License&message={5}&style=for-the-badge&labelColor=f4f2f3&color=ffd9d9" alt="License" />
 </a>&nbsp&nbsp
 <br /><br />
 <a href="https://console.platform.sh/projects/create-project/?template=https://raw.githubusercontent.com/platformsh-templates/{3}/updates/.platform.template.yaml&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://raw.githubusercontent.com/platformsh-templates/{3}/updates/.platform.template.yaml" target="_blank" title="Deploy with Platform.sh"><img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" width="175px"></a>
@@ -89,26 +89,42 @@ def create_toc():
     content = """
 <p align="center">
 <strong>Contents</strong>
-<br />
-<a href="https://community.platform.sh"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://docs.platform.sh"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://platform.sh/blog"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/{3}/issues"><strong>Migrating</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://docs.platform.sh"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://platform.sh/blog"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/{3}/issues"><strong>Contributing</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<br /><br />
+<a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#customizations"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#migrating"><strong>Migrating</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#contributing"><strong>Contributing</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <br />
 </p>
 <hr>
-
-- [About this project](#about-this-project)
-- [Getting started](#getting-started)
-- [Customizations](#customizations)
-- [Migrating](#migrating)
-- [Contact](#contact)
-- [Resources](#resources)
-- [Contributing](#contributing)
 """
+    return content
+
+def create_about(data):
+
+    description = "\n\n".join(data["description"])
+    with open("{}/common/readme/platformsh_desc.md".format(os.getcwd()), "r") as about_psh:
+        platform = about_psh.read()
+    features = "\n\n-".join(data["features"])
+
+
+    content = """
+## About
+
+{0}
+
+### Features
+
+{1}
+
+### Platform.sh
+
+{2}
+
+""".format(description, features, platform)
     return content
 
 
@@ -129,6 +145,7 @@ for template in templates:
                 # Then build the README.
                 body = create_header(data, template, header_file)
                 body += create_toc()
+                body += create_about(data)
                 
                 readme_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, readme_file)
                 with open(readme_destination, "w") as readme:

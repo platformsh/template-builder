@@ -19,8 +19,9 @@ features:
   - Drush included
   - Automatic TLS certificates
   - Composer-based build
+# Use Markdown for links and formatting.
 description:
-  - This template builds Drupal 9 using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
+  - This template builds **Drupal 9** using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
   - Drupal is a flexible and extensible PHP-based CMS framework.
 logo:
     link: "https://www.drupal.org/"

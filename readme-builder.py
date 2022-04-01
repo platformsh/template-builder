@@ -108,7 +108,8 @@ def create_about(data):
     description = "\n\n".join(data["description"])
     with open("{}/common/readme/platformsh_desc.md".format(os.getcwd()), "r") as about_psh:
         platform = about_psh.read()
-    features = "\n\n-".join(data["features"])
+    
+    features = "- " + "\n- ".join(data["features"])
 
 
     content = """

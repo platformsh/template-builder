@@ -1,6 +1,7 @@
 from . import BaseProject
 from .remote import RemoteProject
 import json
+import os
 from collections import OrderedDict
 
 class Drupal7_vanilla(BaseProject):
@@ -39,6 +40,9 @@ class Drupal9(RemoteProject):
         return super(Drupal9, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
         ]
+
+class Drupal9_multisite(Drupal9):
+    pass
 
 class Drupal8_multisite(Drupal8):
     pass
@@ -83,3 +87,36 @@ class Drupal8_govcms8(RemoteProject):
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]
+
+class Contentacms(BaseProject):
+
+    @property
+    def update(self):
+
+        ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        TEMPLATEDIR = os.path.join(ROOTDIR, 'templates/contentacms')
+
+        # Quickstart project package name, used in the block below.
+        projectName = "contentacms-platformsh"
+
+        return [
+            # Create a quickstart ContentaCMS app using Composer.
+            'cd {0} && composer create-project contentacms/contenta-jsonapi-project {1} --stability dev --no-interaction --remove-vcs --no-progress --prefer-dist --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.cweagans/composer-patches true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.cweagans/composer-patches true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-vendor-hardening true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
+            'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),              
+        ] + super(Contentacms, self).update
+
+    @property
+    def platformify(self):
+        return super(Contentacms, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis drush/drush:^10'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+        ]
+

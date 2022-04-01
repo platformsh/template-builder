@@ -77,3 +77,23 @@ Platform.sh is a unified, secure, enterprise-grade platform for building, runnin
 
 To find out more, go to our [website](https://platform.sh).
 
+
+## Getting started
+
+### Deploy
+
+#### Quickstart
+
+
+The quickest way to deploy this template on Platform.sh is by clicking the button below. This will automatically create a new project and initialize the repository for you.
+
+<p align="center">
+    <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal9/.platform.template.yaml&utm_content=drupal9&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="170px" />
+    </a>
+</p>
+
+> **Note:**
+>
+> If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
+

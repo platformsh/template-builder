@@ -128,6 +128,35 @@ def create_about(data):
 """.format(description, features, platform)
     return content
 
+def create_quickstart(template):
+    content = """
+The quickest way to deploy this template on Platform.sh is by clicking the button below. This will automatically create a new project and initialize the repository for you.
+
+<p align="center">
+    <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/{0}/.platform.template.yaml&utm_content={0}&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+        <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="170px" />
+    </a>
+</p>
+
+> **Note:**
+>
+> If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
+""".format(template)
+    return content
+
+def create_getting_started(template):
+    quickstart = create_quickstart(template)
+
+    content = """
+## Getting started
+
+### Deploy
+
+#### Quickstart
+
+{0}
+""".format(quickstart)
+    return content
 
 for template in templates:
     info_file = "{0}/templates/{1}/info/info.yaml".format(os.getcwd(), template)
@@ -147,6 +176,7 @@ for template in templates:
                 body = create_header(data, template, header_file)
                 body += create_toc()
                 body += create_about(data)
+                body += create_getting_started(template)
                 
                 readme_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, readme_file)
                 with open(readme_destination, "w") as readme:

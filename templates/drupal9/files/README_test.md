@@ -136,7 +136,7 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
 
 
 <details>
-<summary>Deploy directly to Platform.sh from the command line</summary><br />
+<summary>Deploy directly to Platform.sh from the command line</summary>
 <blockquote>
 
 1. Clone this repository:
@@ -186,7 +186,7 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
    git push platform DEFAULT_BRANCH
    ```
 
-
+<br/>
 </blockquote>
 
 </details>
@@ -448,7 +448,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
 
 <details>
-<summary>Deploy directly to Platform.sh from the command line</summary><br />
+<summary>Deploy directly to Platform.sh from the command line</summary>
 <blockquote>
 
 1. Clone this repository:
@@ -498,7 +498,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
    git push platform DEFAULT_BRANCH
    ```
 
-
+<br/>
 </blockquote>
 
 </details>

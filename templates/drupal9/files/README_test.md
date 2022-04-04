@@ -47,7 +47,6 @@
 <br /><br />
 <a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#customizations"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#migration"><strong>Migration</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -410,32 +409,46 @@ After you have created a new environment, you can connect to a backend Drupal in
 
 
 
-## Customizations
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
-
-- [`header_test.svg`](header_test.svg)
-- [`config/sync/.gitkeep`](config/sync/.gitkeep)
-- [`web/sites/default/settings.php`](web/sites/default/settings.php)
-- [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php)
-- [`.editorconfig`](.editorconfig)
-- [`.environment`](.environment)
-- [`README.md`](README.md)
-- [`.gitignore`](.gitignore)
-- [`.lando.upstream.yml`](.lando.upstream.yml)
-- [`.platform.app.yaml`](.platform.app.yaml)
-- [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php)
-- [`README_test.md`](README_test.md)
-- [`.platform/services.yaml`](.platform/services.yaml)
-- [`.platform/routes.yaml`](.platform/routes.yaml)
-
-
-
 ## Migration
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+If you would like to migrate your own project to Platform.sh, the following steps will help you to do so. 
+For context, this template was generated from a central tool, most likely from an upstream open source project repository. 
+Platform.sh uses this management tool to retrieve an upstream, after which a few modifications are made that allows it deploy successfully on our platform.
 
-Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+The steps below outline the important parts of this process - adding files and dependencies, for example.
+Not every step will be applicable to each person's migration.
+These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be built completely from scratch by you. 
+If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application.
+
+### Starting out
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+### Necessary files
+
+A small number of files need to be added to or modified in your repository at this point. 
+Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
+
+| File        | Purpose   |
+|--------------|-----------|
+| **[`config/sync/.gitkeep`](config/sync/.gitkeep)** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.     |
+| **[`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php)**      | This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
+
+- **[`config/sync/.gitkeep`](config/sync/.gitkeep):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`web/sites/default/settings.php`](web/sites/default/settings.php):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php):**  Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis.
+- **[`.environment`](.environment):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`.gitignore`](.gitignore):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`.lando.upstream.yml`](.lando.upstream.yml):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`.platform.app.yaml`](.platform.app.yaml):**  This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file.
+- **[`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`.platform/services.yaml`](.platform/services.yaml):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+- **[`.platform/routes.yaml`](.platform/routes.yaml):**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+
+### Additional dependencies
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
 
 ## Contact
 

@@ -91,6 +91,15 @@ def create_header(data, template, header_file):
 
     return body
 
+
+# About
+# Get started/Deploy
+# Migrate
+# Learn
+# Contribute
+# Contact
+
+
 # Table of contents.
 def create_toc():
     content = """
@@ -99,7 +108,6 @@ def create_toc():
 <br /><br />
 <a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#customizations"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#migration"><strong>Migration</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -291,7 +299,9 @@ platform environment:branch updates
         return content
     return defaultContent
 
-def create_customizations(template, data):
+def create_migration_file_descriptions(template, data):
+
+    ignore_files = ["README.md", "README_test.md", "header_test.svg", ".editorconfig"]
 
     with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), 'r') as myfile:
         migrate_data=myfile.read()
@@ -300,26 +310,55 @@ def create_customizations(template, data):
 
     migrate_content = ""
     for file in migration_files["migration"]["files"]["rel_root"]:
-        migrate_content += "- [`{0}`]({0})\n".format(file)
+        if file not in ignore_files:
+            if "migration" in data["sections"]:
+                if file in data["sections"]["migration"]:
+                    content = "\n- **[`{0}`]({0}):** ".format(file, file)
+                    for entry in data["sections"]["migration"][file]:
+                        if isinstance(entry, str):
+                            content += " {0}".format(entry)
+                        else: 
+                            content += " {0}".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
+                    migrate_content += content
+                else:
+                    migrate_content += "- **[`{0}`]({0})**\n".format(file)
 
     return """
-## Customizations
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
-
 {0}
-
 """.format(migrate_content)
 
 def create_migration(template, data):
+
+    file_descriptions = create_migration_file_descriptions(template, data)
+
     return """
 ## Migration
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+If you would like to migrate your own project to Platform.sh, the following steps will help you to do so. 
+For context, this template was generated from a central tool, most likely from an upstream open source project repository. 
+Platform.sh uses this management tool to retrieve an upstream, after which a few modifications are made that allows it deploy successfully on our platform.
 
-Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+The steps below outline the important parts of this process - adding files and dependencies, for example.
+Not every step will be applicable to each person's migration.
+These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be built completely from scratch by you. 
+If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application.
 
-"""
+### Starting out
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+### Necessary files
+
+A small number of files need to be added to or modified in your repository at this point. 
+Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
+
+{0}
+
+### Additional dependencies
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+""".format(file_descriptions)
 
 # Resources
 def create_resources(template, data):
@@ -408,7 +447,6 @@ for template in templates:
                 body += create_deploy_options(template)
                 body += create_post_install(data)
                 body += create_local_dev(template, data)
-                body += create_customizations(template, data)
                 body += create_migration(template, data)
                 body += read_file("{0}/{1}".format(os.getcwd(), "common/readme/contact.md"))
                 body += create_resources(template, data)

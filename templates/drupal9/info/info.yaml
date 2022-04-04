@@ -42,3 +42,27 @@ sections:
       - "[Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)"
       - "[Platform.sh Node.js documentation](https://docs.platform.sh/languages/nodejs.html)"
       - "[Platform.sh multi-app deployments documentation](https://docs.platform.sh/configuration/app/multi-app.html)"
+    migration:
+      "web/sites/default/settings.platformsh.php": 
+          - "Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis."
+      "config/sync/.gitkeep": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      "web/sites/default/settings.php": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".editorconfig": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".environment": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".gitignore": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".lando.upstream.yml": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".platform.app.yaml": 
+          - file: "common/readme/file_descriptions/appyaml.md"
+          - "Here's a second custom line about the app itself after the shared generic file."
+      "drush/platformsh_generate_drush_yml.php": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".platform/services.yaml": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+      ".platform/routes.yaml": 
+          - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."

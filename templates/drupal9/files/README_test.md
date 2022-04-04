@@ -452,25 +452,25 @@ Every one of our templates is open source, and they're important resources for u
 
 See something that's wrong with this template that needs to be fixed? Something in the documentation unclear or missing? Let us know!
 
-<h4 align="center"><strong>How to contribute</strong></h4>
-<br />
 <p align="center">
-    <a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Report a bug</strong></a><br />
-    <a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Submit a feature request</strong></a><br />
-    <a href="https://github.com/platformsh-templates/drupal9/pulls"><strong>Open a pull request</strong></a><br />
-</p>
-<br />
-<h4 align="center"><strong>Need help?</strong></h4>
-<br />
-<p align="center">
-    <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />
-    <a href="https://chat.platform.sh"><strong>Join us on Slack</strong></a><br />
-</p>
+<strong>How to contribute</strong>
 <br /><br />
-<h3 align="center"><strong>Thanks to all of our amazing <a href="https://github.com/platformsh-templates/drupal9/graphs/contributors">contributors</a>!</strong></h3>
-
+<a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Submit a feature request</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://github.com/platformsh-templates/drupal9/pulls"><strong>Open a pull request</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<br />
+</p>
+<br />
+<p align="center">
+<strong>Need help?</strong>
+<br /><br />
+<a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://chat.platform.sh"><strong>Join us on Slack</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<br />
+</p>
+<br />
+<h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
 <br/>
-
 <p align="center">
 <a href="https://github.com/platformsh-templates/drupal9/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=platformsh-templates/drupal9" />

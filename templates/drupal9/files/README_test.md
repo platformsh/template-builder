@@ -437,7 +437,33 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris u
 
 ### Migrating your data
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
+
+1. Importing the database
+
+    First, obtain a database dump from your current site and save your dump file as `database.sql`. Then, import the database into your Platform.sh site using the CLI:
+
+    ```bash
+    platform sql -e main < database.sql
+    ```
+
+2. Importing files
+
+    You first need to download your files from your current hosting environment. 
+    The easiest way is likely with rsync, but consult your old host's documentation. 
+
+    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once. 
+    Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
+    (There is also a `platform mount:download` command you can use to download files later.) 
+    Run the following from your local Git repository root (modifying the `--source` path if needed and setting `BRANCH_NAME` to the branch you are using).
+
+    ```bash
+    something
+    ```
+
+    Note that `rsync` is picky about its trailing slashes, so be sure to include those.
+
+
 
 ### Next steps
 

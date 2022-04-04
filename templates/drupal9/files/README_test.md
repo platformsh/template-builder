@@ -637,6 +637,12 @@ This template is maintained by the Platform.sh Developer Relations team, and the
 
 ### About Platform.sh
 
+This template has been specifically designed to deploy on Platform.sh.
+
+<hr>
+<details>
+<summary>What is Platform.sh?</summary>
+
 Platform.sh is a unified, secure, enterprise-grade platform for building, running and scaling web applications. We’re the leader in Fleet Ops: Everything you need to manage your fleet of websites and apps is available from the start. Because infrastructure and workflows are handled from the start, apps just work, so teams can focus on what really matters: making faster changes, collaborating confidently, and scaling responsibly. Whether managing a fleet of ten or ten thousand sites and apps, Platform.sh is the Developer- preferred solution that scales right.
 
 Our key features include:
@@ -664,6 +670,10 @@ To find out more, check out the demo below and go to our [website](https://platf
 <p align="center">
 <a href="https://platform.sh/demo/"><img src="https://img.youtube.com/vi/ny2YeD6Qt3M/0.jpg" alt="The Platform.sh demo"></a>
 </p>
+
+
+</details>
+<hr>
 
 
 

@@ -160,15 +160,10 @@ def create_deploy_options():
     bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
 
     content = """
-<hr>
 {0}
-<hr>
 {1}
-<hr>
 {2}
-<hr>
 {3}
-<hr>
 """.format(direct, github, gitlab, bitbucket)
     return content
 # Getting started main.
@@ -214,7 +209,7 @@ def create_local_dev(template, data):
         local_options = ""
         config = data["sections"]["local"]
         for file in data["sections"]["local"]:
-            local_options += read_file("{0}/{1}".format(os.getcwd(), file)) + "\n<hr>"
+            local_options += read_file("{0}/{1}".format(os.getcwd(), file)) + "\n"
 
         content = """
 ### Local development
@@ -228,7 +223,7 @@ platform get PROJECT_ID
 cd project-name
 platform environment:branch updates
 ```
-<hr>
+
 {1}
 
 > **Note:**
@@ -296,7 +291,6 @@ def create_migration_data(template, data):
     return """
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
-<hr>
 <details>
 <summary>Importing the database</summary><br/>
 
@@ -307,7 +301,6 @@ platform sql -e main < database.sql
 ```
 
 </details>
-<hr>
 <details>
 <summary>Importing files</summary><br/>
 
@@ -327,7 +320,6 @@ A few examples are listed below, but repeat for all directories that contain dat
 Note that `rsync` is picky about its trailing slashes, so be sure to include those.
 
 </details>
-<hr>
 
 """.format(mounts)
 # Migrate: Main.

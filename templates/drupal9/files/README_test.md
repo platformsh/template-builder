@@ -100,7 +100,6 @@ If you're trying to deploy from GitHub, you can generate a copy of this reposito
 Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/drupal9.git`.
 
 
-<hr>
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
 <!-- <blockquote>
@@ -151,7 +150,6 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
 <!-- <blockquote>
@@ -186,7 +184,6 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
 <!-- <blockquote>
@@ -225,7 +222,6 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
 <!-- <blockquote>
@@ -264,7 +260,6 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote> -->
 </details>
 
-<hr>
 
 
 ### Post-install
@@ -282,7 +277,7 @@ platform get PROJECT_ID
 cd project-name
 platform environment:branch updates
 ```
-<hr>
+
 <details>
 <summary>Drupal: using ddev</summary><br />
 
@@ -314,7 +309,7 @@ In general, the steps are as follows:
 1. When you have finished with your work, run `ddev stop` and `ddev poweroff`.
 
 </details>
-<hr><details>
+<details>
 <summary>Drupal: using Lando</summary><br />
 
 Lando supports PHP applications configured to run on Platform.sh, and pulls from the same registry Platform.sh uses on your remote environments during your local builds through its own [recipe and plugin](https://docs.lando.dev/platformsh/). 
@@ -323,7 +318,7 @@ Lando supports PHP applications configured to run on Platform.sh, and pulls from
 
 </details>
 
-<hr>
+
 
 > **Note:**
 >
@@ -389,7 +384,6 @@ In order to actually deploy, consult the [Getting started](#getting-started) sec
 When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
 
 
-<hr>
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
 <!-- <blockquote>
@@ -440,7 +434,6 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
 <!-- <blockquote>
@@ -475,7 +468,6 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
 <!-- <blockquote>
@@ -514,7 +506,6 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote> -->
 </details>
 
-<hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
 <!-- <blockquote>
@@ -553,7 +544,6 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote> -->
 </details>
 
-<hr>
 
 
 ### Migrating your data
@@ -561,7 +551,6 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
-<hr>
 <details>
 <summary>Importing the database</summary><br/>
 
@@ -572,7 +561,6 @@ platform sql -e main < database.sql
 ```
 
 </details>
-<hr>
 <details>
 <summary>Importing files</summary><br/>
 
@@ -594,7 +582,6 @@ A few examples are listed below, but repeat for all directories that contain dat
 Note that `rsync` is picky about its trailing slashes, so be sure to include those.
 
 </details>
-<hr>
 
 
 
@@ -647,7 +634,6 @@ This template is maintained by the Platform.sh Developer Relations team, and the
 
 This template has been specifically designed to deploy on Platform.sh.
 
-<hr>
 <details>
 <summary>What is Platform.sh?</summary><br/>
 
@@ -681,7 +667,6 @@ To find out more, check out the demo below and go to our [website](https://platf
 
 
 </details>
-<hr>
 
 
 

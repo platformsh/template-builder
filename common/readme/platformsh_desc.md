@@ -1,6 +1,5 @@
 This template has been specifically designed to deploy on Platform.sh.
 
-<hr>
 <details>
 <summary>What is Platform.sh?</summary><br/>
 
@@ -34,4 +33,3 @@ To find out more, check out the demo below and go to our [website](https://platf
 
 
 </details>
-<hr>

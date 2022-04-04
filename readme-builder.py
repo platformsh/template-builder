@@ -355,11 +355,17 @@ See something that's wrong with this template that needs to be fixed? Something 
     <a href="https://chat.platform.sh"><strong>Join us on Slack</strong></a><br />
 </p>
 <br /><br />
-<h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
+<h3 align="center"><strong>Thanks to all of our amazing <a href="https://github.com/platformsh-templates/{0}/graphs/contributors">contributors</a>!</strong></h3>
 
 <br/>
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=platformsh-templates/{0})
+<p align="center">
+<img src="https://contrib.rocks/image?repo=platformsh-templates/{0}" />
+</p>
+
+<p align="center">
+<em>Made with <a href="https://contrib.rocks">contrib.rocks</a><em>
+</p>
 
 <br />
 """.format(template)

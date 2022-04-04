@@ -626,6 +626,16 @@ After that, here are a collection of additional resources you might find interes
 Troubleshooting ipsum.
 
 
+### Performance
+
+#### Infrastructure metrics
+
+Something about metrics
+
+#### Blackfire.io
+
+Something about the default Blackfire yaml file.
+
 ### Resources
 
 

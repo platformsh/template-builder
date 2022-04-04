@@ -461,6 +461,16 @@ def create_learn(template, data):
 
 {0}
 
+### Performance
+
+#### Infrastructure metrics
+
+Something about metrics
+
+#### Blackfire.io
+
+Something about the default Blackfire yaml file.
+
 ### Resources
 
 {1}

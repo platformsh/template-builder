@@ -433,16 +433,16 @@ Some of them explicitly configure how the application is built and deployed on P
 
 | File          | Purpose    |
 |:--------------|:-----------|
-| **[`config/sync/.gitkeep`](config/sync/.gitkeep):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`web/sites/default/settings.php`](web/sites/default/settings.php):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php):** | Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
-| **[`.environment`](.environment):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`.gitignore`](.gitignore):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`.lando.upstream.yml`](.lando.upstream.yml):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`.platform.app.yaml`](.platform.app.yaml):** | This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
-| **[`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`.platform/services.yaml`](.platform/services.yaml):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| **[`.platform/routes.yaml`](.platform/routes.yaml):** | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`config/sync/.gitkeep`](config/sync/.gitkeep) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`web/sites/default/settings.php`](web/sites/default/settings.php) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
+| [`.environment`](.environment) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.gitignore`](.gitignore) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.lando.upstream.yml`](.lando.upstream.yml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform.app.yaml`](.platform.app.yaml) | This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
+| [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform/services.yaml`](.platform/services.yaml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform/routes.yaml`](.platform/routes.yaml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 
 
 

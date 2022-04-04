@@ -561,32 +561,40 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
-1. **Importing the database**
+<hr>
+<details>
+<summary>Importing the database</summary><br/>
 
-    First, obtain a database dump from your current site and save your dump file as `database.sql`. Then, import the database into your Platform.sh site using the CLI:
+First, obtain a database dump from your current site and save your dump file as `database.sql`. Then, import the database into your Platform.sh site using the CLI:
 
-    ```bash
-    platform sql -e main < database.sql
-    ```
+```bash
+platform sql -e main < database.sql
+```
 
-2. **Importing files**
+</details>
+<hr>
+<details>
+<summary>Importing files</summary><br/>
 
-    You first need to download your files from your current hosting environment. 
-    The easiest way is likely with rsync, but consult your old host's documentation. 
+You first need to download your files from your current hosting environment. 
+The easiest way is likely with rsync, but consult your old host's documentation. 
 
-    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once to a `mount` defined in a `.platform.app.yaml` file. 
-    Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
-    (There is also a `platform mount:download` command you can use to download files later.) 
-    Run the following from your local Git repository root (modifying the `--source` path if needed and setting `BRANCH_NAME` to the branch you are using).
+The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once to a `mount` defined in a `.platform.app.yaml` file. 
+Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
+(There is also a `platform mount:download` command you can use to download files later.) 
+Run the following from your local Git repository root (modifying the `--source` path if needed and setting `BRANCH_NAME` to the branch you are using).
 
-    A few examples are listed below, but repeat for all directories that contain data you would like to migrate.
+A few examples are listed below, but repeat for all directories that contain data you would like to migrate.
 
-    ```bash
+```bash
     $ platform mount:upload -e main --mount web/sites/default/files --source ./web/sites/default/files
     $ platform mount:upload -e main --mount private --source ./private
-    ```
+```
 
-    Note that `rsync` is picky about its trailing slashes, so be sure to include those.
+Note that `rsync` is picky about its trailing slashes, so be sure to include those.
+
+</details>
+<hr>
 
 
 
@@ -641,7 +649,7 @@ This template has been specifically designed to deploy on Platform.sh.
 
 <hr>
 <details>
-<summary>What is Platform.sh?</summary>
+<summary>What is Platform.sh?</summary><br/>
 
 Platform.sh is a unified, secure, enterprise-grade platform for building, running and scaling web applications. We’re the leader in Fleet Ops: Everything you need to manage your fleet of websites and apps is available from the start. Because infrastructure and workflows are handled from the start, apps just work, so teams can focus on what really matters: making faster changes, collaborating confidently, and scaling responsibly. Whether managing a fleet of ten or ten thousand sites and apps, Platform.sh is the Developer- preferred solution that scales right.
 

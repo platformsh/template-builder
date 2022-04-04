@@ -100,7 +100,7 @@ def create_toc():
 <a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#customizations"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#migrating"><strong>Migrating</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#migration"><strong>Migration</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contributing"><strong>Contributing</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -246,10 +246,124 @@ If you would instead to deploy this template from your own repository on Bitbuck
 {4}
 
 </details>
+
 """.format(template, direct, github, gitlab, bitbucket)
 
     return content
 
+
+def create_post_install(data):
+    defaultContent = ""
+    if "postinstall" in data["sections"]:
+        return read_file("{0}/{1}".format(os.getcwd(), data["sections"]["postinstall"]))
+    return defaultContent
+
+def create_local_dev(template, data):
+    defaultContent = ""
+    if "local" in data["sections"]:
+
+        local_options = ""
+        config = data["sections"]["local"]
+        for file in data["sections"]["local"]:
+            local_options += read_file("{0}/{1}".format(os.getcwd(), file))
+
+
+        content = """
+### Local development
+
+This section provides instructions for running the `{0}` template locally, connected to a live database instance on an active Platform.sh environment.
+
+In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. Each of the options below assume the following starting point:
+
+```bash
+platform get PROJECT_ID
+cd project-name
+platform environment:branch updates
+```
+
+> **Note:**
+>
+> For many of the steps below, you may need to include the CLI flags `-p PROJECT_ID` and `-e ENVIRONMENT_ID` if you are not in the project directory or if the environment is associated with an existing pull request.
+
+{1}
+
+""".format(template, local_options)
+        return content
+    return defaultContent
+
+def create_customizations(template, data):
+    return """
+## Customizations
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+
+Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+
+"""
+
+def create_migration(template, data):
+    return """
+## Migration
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+
+Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+
+"""
+
+# Resources
+def create_resources(template, data):
+    if "resources" in data["sections"]:  
+        resource_links = ""
+        for resource in data["sections"]["resources"]:
+            resource_links += "- {0}\n".format(resource)
+        content = """
+
+## Resources
+
+{0}
+
+""".format(resource_links)
+        return content
+    return ""
+
+# Contributing
+def create_contributing(template):
+
+    content = """
+
+## Contributing
+
+<h3 align="center">Help us keep top-notch templates!</h3>
+
+Every one of our templates is open source, and they're important resources for users trying to deploy to Platform.sh for the first time or better understand the platform. They act as getting started guides, but also contain a number of helpful tips and best practices when working with certain languages and frameworks. 
+
+See something that's wrong with this template that needs to be fixed? Something in the documentation unclear or missing? Let us know!
+
+<h4 align="center"><strong>How to contribute</strong></h4>
+<br />
+<p align="center">
+    <a href="https://github.com/platformsh-templates/{0}/issues"><strong>Report a bug</strong></a><br />
+    <a href="https://github.com/platformsh-templates/{0}/issues"><strong>Submit a feature request</strong></a><br />
+    <a href="https://github.com/platformsh-templates/{0}/pulls"><strong>Open a pull request</strong></a><br />
+</p>
+<br />
+<h4 align="center"><strong>Need help?</strong></h4>
+<br />
+<p align="center">
+    <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />
+    <a href="https://chat.platform.sh"><strong>Join us on Slack</strong></a><br />
+</p>
+<br /><br />
+<h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
+
+<br/>
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=platformsh-templates/{0})
+
+<br />
+""".format(template)
+    return content
 
 ############################################################################################################
 # Main loop through all templates (if info.yaml file is present).
@@ -274,13 +388,17 @@ for template in templates:
                 body += create_about(data)
                 body += create_getting_started(template)
                 body += create_deploy_options(template)
+                body += create_post_install(data)
+                body += create_local_dev(template, data)
+                body += create_customizations(template, data)
+                body += create_migration(template, data)
+                body += read_file("{0}/{1}".format(os.getcwd(), "common/readme/contact.md"))
+                body += create_resources(template, data)
+                body += create_contributing(template)
                 
                 readme_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, readme_file)
                 with open(readme_destination, "w") as readme:
                     readme.write(body)
-
-
-
 
             except yaml.YAMLError as exc:
                 print(exc)

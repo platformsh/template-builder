@@ -10,9 +10,9 @@ Every branch becomes a development environment, and nothing can change without a
 </details>
 
 <details>
-<summary><strong>Batteries include: Managed infrastructure</strong></summary><br />
+<summary><strong>Batteries included: Managed infrastructure</strong></summary><br />
 
-[Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure]((https://docs.platform.sh/overview/structure.html), fully managed patch updates, 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html).
+[Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure](https://docs.platform.sh/overview/structure.html), fully managed patch updates, and 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html) that can be added with a single line of code.
 
 </details>
 
@@ -26,13 +26,14 @@ Every branch becomes a development environment, and nothing can change without a
 <details>
 <summary><strong>FleetOps: Fleet management platform</strong></summary><br />
 
-You can leverage our public API along with custom tools like [Source Operations](https://docs.platform.sh/configuration/app/source-operations.html) and [Activity Scripts](https://docs.platform.sh/integrations/activity.html) to [manage thousands of applications](https://youtu.be/MILHG9OqhmE) - their dependency updates, fresh content, and upstream code. 
+Leverage our public API along with custom tools like [Source Operations](https://docs.platform.sh/configuration/app/source-operations.html) and [Activity Scripts](https://docs.platform.sh/integrations/activity.html) to [manage thousands of applications](https://youtu.be/MILHG9OqhmE) - their dependency updates, fresh content, and upstream code. 
 
 </details>
 <br/>
 
 To find out more, check out the demo below and go to our [website](https://platform.sh/product/).
 
+<br/>
 <p align="center">
 <a href="https://platform.sh/demo/"><img src="https://img.youtube.com/vi/ny2YeD6Qt3M/0.jpg" alt="The Platform.sh demo"></a>
 </p>

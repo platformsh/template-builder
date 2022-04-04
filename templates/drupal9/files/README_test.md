@@ -48,7 +48,7 @@
 <a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#customizations"><strong>Customizations</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#migrating"><strong>Migrating</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#migration"><strong>Migration</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#contributing"><strong>Contributing</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -85,9 +85,9 @@ Every branch becomes a development environment, and nothing can change without a
 </details>
 
 <details>
-<summary><strong>Batteries include: Managed infrastructure</strong></summary><br />
+<summary><strong>Batteries included: Managed infrastructure</strong></summary><br />
 
-[Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure]((https://docs.platform.sh/overview/structure.html), fully managed patch updates, 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html).
+[Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure](https://docs.platform.sh/overview/structure.html), fully managed patch updates, and 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html) that can be added with a single line of code.
 
 </details>
 
@@ -101,13 +101,14 @@ Every branch becomes a development environment, and nothing can change without a
 <details>
 <summary><strong>FleetOps: Fleet management platform</strong></summary><br />
 
-You can leverage our public API along with custom tools like [Source Operations](https://docs.platform.sh/configuration/app/source-operations.html) and [Activity Scripts](https://docs.platform.sh/integrations/activity.html) to [manage thousands of applications](https://youtu.be/MILHG9OqhmE) - their dependency updates, fresh content, and upstream code. 
+Leverage our public API along with custom tools like [Source Operations](https://docs.platform.sh/configuration/app/source-operations.html) and [Activity Scripts](https://docs.platform.sh/integrations/activity.html) to [manage thousands of applications](https://youtu.be/MILHG9OqhmE) - their dependency updates, fresh content, and upstream code. 
 
 </details>
 <br/>
 
 To find out more, check out the demo below and go to our [website](https://platform.sh/product/).
 
+<br/>
 <p align="center">
 <a href="https://platform.sh/demo/"><img src="https://img.youtube.com/vi/ny2YeD6Qt3M/0.jpg" alt="The Platform.sh demo"></a>
 </p>
@@ -323,3 +324,153 @@ If you would instead to deploy this template from your own repository on Bitbuck
 
 
 </details>
+
+## Post-install
+
+Run through the Drupal installer as normal.  You will not be asked for database credentials as those are already provided.
+
+### Local development
+
+This section provides instructions for running the `drupal9` template locally, connected to a live database instance on an active Platform.sh environment.
+
+In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. Each of the options below assume the following starting point:
+
+```bash
+platform get PROJECT_ID
+cd project-name
+platform environment:branch updates
+```
+
+> **Note:**
+>
+> For many of the steps below, you may need to include the CLI flags `-p PROJECT_ID` and `-e ENVIRONMENT_ID` if you are not in the project directory or if the environment is associated with an existing pull request.
+
+<details>
+<summary><strong>Drupal: using ddev</strong></summary><br />
+
+ddev provides an integration with Platform.sh that makes it simple to develop Drupal locally. Check the [providers documentation](https://ddev.readthedocs.io/en/latest/users/providers/platform/) for the most up-to-date information. 
+
+In general, the steps are as follows:
+
+1. A configuration file has already been provided at `.ddev/providers/platform.yaml`, so you should not need to run `ddev config`.
+1. [Retrieve an API token](https://docs.platform.sh/development/cli/api-tokens.html#get-a-token) for your organization via the management console.
+1. Update your dedev global configuration file to use the token you've just retrieved:
+    
+    ```yaml
+    web_environment:
+    - PLATFORMSH_CLI_TOKEN=abcdeyourtoken`
+    ```
+
+1. Run `ddev restart`.
+1. Get your project ID with `platform project:info`. If you have not already connected your local repo with the project (as is the case with a source integration, by default), you can run `platform project:list` to locate the project ID, and `platform project:set-remote PROJECT_ID` to configure Platform.sh locally.
+1. Update the `.ddev/providers/platform.yaml` file for your current setup:
+
+    ```yaml
+    environment_variables:
+    project_id: PROJECT_ID
+    environment: CURRENT_ENVIRONMENT
+    application: drupal
+    ```
+
+1. Get the current environment's data with `ddev pull platform`. 
+1. When you have finished with your work, run `ddev stop` and `ddev poweroff`.
+
+</details><details>
+<summary><strong>Drupal: using Lando</strong></summary><br />
+
+Lando supports PHP applications configured to run on Platform.sh, and pulls from the same registry Platform.sh uses on your remote environments during your local builds through its own [recipe and plugin](https://docs.lando.dev/platformsh/). 
+
+1. When you have finished with your work, run `lando stop` and `lando poweroff`.
+
+</details>
+<details>
+<summary><strong>Next.js: building the frontend locally</strong></summary><br />
+
+After you have created a new environment, you can connect to a backend Drupal instance and develop the frontend locally with the following steps.
+
+1. `cd client`
+1. Update the environment variables for the current environment by running `./get_local_config.sh`. This will pull the generated `.env.local` file for the current environment.
+
+   ```bash
+   # This .env file is generated programmatically within the backend Drupal app for each Platform.sh environment
+   # and stored within an network storage mount so it can be used locally.
+
+   NEXT_PUBLIC_DRUPAL_BASE_URL=https://api.ENVIRONMENT-HASH-PROJECTID.REGION.platformsh.site
+   NEXT_IMAGE_DOMAIN=api.ENVIRONMENT-HASH-PROJECTID.REGION.platformsh.site
+   DRUPAL_SITE_ID=nextjs_site
+   DRUPAL_FRONT_PAGE=/node
+   DRUPAL_CLIENT_ID=CONSUMER_CLIENT_ID
+   DRUPAL_CLIENT_SECRET=GENERATED_SECRET
+   ```
+
+1. Install dependencies: `yarn --frozen-lockfile`.
+1. Run the development server: `yarn dev`. Next.js will then run on http://localhost:3000.
+
+</details>
+
+
+
+## Customizations
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+
+Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+
+
+## Migration
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
+
+Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+
+## Contact
+
+This template is maintained by the Platform.sh Developer Relations team, and they will be notified of all issues and pull requests you open here.
+
+- **Community:** Share your question with the community, or see if it's already been asked on our [Community site](https://community.platform.sh).
+- **Slack:** If you haven't done so already, you can join Platform.sh's [public Slack](https://chat.platform.sh/) channels and ping the `@devrel_team` with any questions.
+
+
+## Resources
+
+- [Next.js Drupal website](https://next-drupal.org/)
+- [Quickstart documentation](https://next-drupal.org/learn/quick-start)
+- [Documentation](https://next-drupal.org/docs)
+- [Drupal 9 on Platform.sh](https://docs.platform.sh/guides/drupal9/deploy.html)
+- [Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)
+- [Platform.sh Node.js documentation](https://docs.platform.sh/languages/nodejs.html)
+- [Platform.sh multi-app deployments documentation](https://docs.platform.sh/configuration/app/multi-app.html)
+
+
+
+
+## Contributing
+
+<h3 align="center">Help us keep top-notch templates!</h3>
+
+Every one of our templates is open source, and they're important resources for users trying to deploy to Platform.sh for the first time or better understand the platform. They act as getting started guides, but also contain a number of helpful tips and best practices when working with certain languages and frameworks. 
+
+See something that's wrong with this template that needs to be fixed? Something in the documentation unclear or missing? Let us know!
+
+<h4 align="center"><strong>How to contribute</strong></h4>
+<br />
+<p align="center">
+    <a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Report a bug</strong></a><br />
+    <a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Submit a feature request</strong></a><br />
+    <a href="https://github.com/platformsh-templates/drupal9/pulls"><strong>Open a pull request</strong></a><br />
+</p>
+<br />
+<h4 align="center"><strong>Need help?</strong></h4>
+<br />
+<p align="center">
+    <a href="https://community.platform.sh"><strong>Ask the Platform.sh Community</strong></a><br />
+    <a href="https://chat.platform.sh"><strong>Join us on Slack</strong></a><br />
+</p>
+<br /><br />
+<h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
+
+<br/>
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=platformsh-templates/drupal9)
+
+<br />

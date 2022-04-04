@@ -1,5 +1,5 @@
 <details>
-<summary><strong>Drupal: using ddev</strong></summary><br />
+<summary>Drupal: using ddev</summary><br />
 
 ddev provides an integration with Platform.sh that makes it simple to develop Drupal locally. Check the [providers documentation](https://ddev.readthedocs.io/en/latest/users/providers/platform/) for the most up-to-date information. 
 

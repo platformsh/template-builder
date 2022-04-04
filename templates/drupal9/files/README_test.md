@@ -100,6 +100,7 @@ If you're trying to deploy from GitHub, you can generate a copy of this reposito
 Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/drupal9.git`.
 
 
+<hr>
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
 <!-- <blockquote>
@@ -281,9 +282,9 @@ platform get PROJECT_ID
 cd project-name
 platform environment:branch updates
 ```
-
+<hr>
 <details>
-<summary><strong>Drupal: using ddev</strong></summary><br />
+<summary>Drupal: using ddev</summary><br />
 
 ddev provides an integration with Platform.sh that makes it simple to develop Drupal locally. Check the [providers documentation](https://ddev.readthedocs.io/en/latest/users/providers/platform/) for the most up-to-date information. 
 
@@ -312,8 +313,9 @@ In general, the steps are as follows:
 1. Get the current environment's data with `ddev pull platform`. 
 1. When you have finished with your work, run `ddev stop` and `ddev poweroff`.
 
-</details><details>
-<summary><strong>Drupal: using Lando</strong></summary><br />
+</details>
+<hr><details>
+<summary>Drupal: using Lando</summary><br />
 
 Lando supports PHP applications configured to run on Platform.sh, and pulls from the same registry Platform.sh uses on your remote environments during your local builds through its own [recipe and plugin](https://docs.lando.dev/platformsh/). 
 
@@ -321,6 +323,7 @@ Lando supports PHP applications configured to run on Platform.sh, and pulls from
 
 </details>
 
+<hr>
 
 > **Note:**
 >
@@ -386,6 +389,7 @@ In order to actually deploy, consult the [Getting started](#getting-started) sec
 When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
 
 
+<hr>
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
 <!-- <blockquote>

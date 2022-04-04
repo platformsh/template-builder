@@ -160,6 +160,7 @@ def create_deploy_options():
     bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
 
     content = """
+<hr>
 {0}
 <hr>
 {1}
@@ -213,7 +214,7 @@ def create_local_dev(template, data):
         local_options = ""
         config = data["sections"]["local"]
         for file in data["sections"]["local"]:
-            local_options += read_file("{0}/{1}".format(os.getcwd(), file))
+            local_options += read_file("{0}/{1}".format(os.getcwd(), file)) + "\n<hr>"
 
         content = """
 ### Local development
@@ -227,7 +228,7 @@ platform get PROJECT_ID
 cd project-name
 platform environment:branch updates
 ```
-
+<hr>
 {1}
 
 > **Note:**

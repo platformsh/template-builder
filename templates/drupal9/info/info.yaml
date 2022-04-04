@@ -58,7 +58,7 @@ sections:
             - "Here's a second custom line about the app itself after the shared generic file."
         "drush/platformsh_generate_drush_yml.php": 
             - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
-        ".platform/services.yaml": 
-            - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
-        ".platform/routes.yaml": 
-            - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+        # ".platform/services.yaml": 
+        #     - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+        # ".platform/routes.yaml": 
+        #     - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."

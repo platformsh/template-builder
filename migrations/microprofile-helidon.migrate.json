@@ -1,0 +1,68 @@
+{
+    "template": "microprofile-helidon",
+    "type": "java",
+    "type_version": "11",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-04-04-11:32:35",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/resources/logging.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/resources/META-INF/native-image/reflect-config.json",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/resources/META-INF/beans.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/resources/META-INF/microprofile-config.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/java/sh/platform/template/helidon/HelloWorldResource.java",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/java/sh/platform/template/helidon/GreetingProvider.java",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/java/sh/platform/template/helidon/GreetResource.java",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-helidon/master/src/main/java/sh/platform/template/helidon/package-info.java"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/logging.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/native-image/reflect-config.json",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/beans.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/microprofile-config.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/helidon/HelloWorldResource.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/helidon/GreetingProvider.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/helidon/GreetResource.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/helidon/package-info.java"
+            ],
+            "rel_root": [
+                "pom.xml",
+                "README.md",
+                ".gitignore",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml",
+                "src/main/resources/logging.properties",
+                "src/main/resources/META-INF/native-image/reflect-config.json",
+                "src/main/resources/META-INF/beans.xml",
+                "src/main/resources/META-INF/microprofile-config.properties",
+                "src/main/java/sh/platform/template/helidon/HelloWorldResource.java",
+                "src/main/java/sh/platform/template/helidon/GreetingProvider.java",
+                "src/main/java/sh/platform/template/helidon/GreetResource.java",
+                "src/main/java/sh/platform/template/helidon/package-info.java"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/microprofile-helidon/build/",
+            "git clone git@github.com:platformsh-templates/microprofile-helidon.git /Users/chadcarlson/template-builder/templates/microprofile-helidon/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/microprofile-helidon/files/ /Users/chadcarlson/template-builder/templates/microprofile-helidon/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

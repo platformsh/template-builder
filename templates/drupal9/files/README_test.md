@@ -414,7 +414,21 @@ After you have created a new environment, you can connect to a backend Drupal in
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
 
-Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+- `[header_test.svg](header_test.svg)`
+- `[config/sync/.gitkeep](config/sync/.gitkeep)`
+- `[web/sites/default/settings.php](web/sites/default/settings.php)`
+- `[web/sites/default/settings.platformsh.php](web/sites/default/settings.platformsh.php)`
+- `[.editorconfig](.editorconfig)`
+- `[.environment](.environment)`
+- `[README.md](README.md)`
+- `[.gitignore](.gitignore)`
+- `[.lando.upstream.yml](.lando.upstream.yml)`
+- `[.platform.app.yaml](.platform.app.yaml)`
+- `[drush/platformsh_generate_drush_yml.php](drush/platformsh_generate_drush_yml.php)`
+- `[README_test.md](README_test.md)`
+- `[.platform/services.yaml](.platform/services.yaml)`
+- `[.platform/routes.yaml](.platform/routes.yaml)`
+
 
 
 ## Migration

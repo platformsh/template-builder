@@ -1,0 +1,68 @@
+{
+    "template": "spring-boot-maven-mysql",
+    "type": "java",
+    "type_version": "11",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-04-04-11:32:37",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/.environment",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/test/java/sh/platform/template/AppTest.java",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/resources/application.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/java/sh/platform/template/PersonController.java",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/java/sh/platform/template/HelloWorldController.java",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/java/sh/platform/template/Person.java",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/java/sh/platform/template/PersonRepository.java",
+                "https://raw.githubusercontent.com/platformsh-templates/spring-boot-maven-mysql/master/src/main/java/sh/platform/template/App.java"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform/template/AppTest.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/application.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/PersonController.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/HelloWorldController.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/Person.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/PersonRepository.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/App.java"
+            ],
+            "rel_root": [
+                "pom.xml",
+                ".environment",
+                "README.md",
+                ".gitignore",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml",
+                "src/test/java/sh/platform/template/AppTest.java",
+                "src/main/resources/application.properties",
+                "src/main/java/sh/platform/template/PersonController.java",
+                "src/main/java/sh/platform/template/HelloWorldController.java",
+                "src/main/java/sh/platform/template/Person.java",
+                "src/main/java/sh/platform/template/PersonRepository.java",
+                "src/main/java/sh/platform/template/App.java"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/spring-boot-maven-mysql/build/",
+            "git clone git@github.com:platformsh-templates/spring-boot-maven-mysql.git /Users/chadcarlson/template-builder/templates/spring-boot-maven-mysql/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/spring-boot-maven-mysql/files/ /Users/chadcarlson/template-builder/templates/spring-boot-maven-mysql/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

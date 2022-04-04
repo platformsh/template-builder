@@ -1,0 +1,44 @@
+{
+    "template": "xwiki",
+    "type": "java",
+    "type_version": "8",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-04-04-11:32:35",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/hibernate.cfg.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/xwiki/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/hibernate.cfg.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "README.md",
+                "hibernate.cfg.xml",
+                ".gitignore",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/xwiki/build/",
+            "git clone git@github.com:platformsh-templates/xwiki.git /Users/chadcarlson/template-builder/templates/xwiki/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/xwiki/files/ /Users/chadcarlson/template-builder/templates/xwiki/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

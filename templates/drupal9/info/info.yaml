@@ -2,6 +2,7 @@ title: "Deploy Drupal 9 on Platform.sh"
 id: platformsh/drupal9
 profile: Drupal 9
 name: Drupal 9
+default_branch: master
 tags:
   - PHP
   - Drupal

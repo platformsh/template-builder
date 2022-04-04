@@ -292,14 +292,24 @@ platform environment:branch updates
     return defaultContent
 
 def create_customizations(template, data):
+
+    with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), 'r') as myfile:
+        migrate_data=myfile.read()
+
+    migration_files = json.loads(migrate_data)
+
+    migrate_content = ""
+    for file in migration_files["migration"]["files"]["rel_root"]:
+        migrate_content += "- `[{0}]({0})`\n".format(file)
+
     return """
 ## Customizations
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
 
-Ut nisi nulla, facilisis convallis tortor sed, ultricies accumsan magna. Fusce pretium velit id purus luctus luctus. In ac libero nunc. Integer mattis, ligula non ullamcorper sollicitudin, augue ex finibus elit, quis ornare tellus ex finibus tortor. Maecenas vel suscipit nunc, eget mollis turpis. Sed nunc nibh, rutrum ut diam quis, sagittis porta ex. Suspendisse potenti. Nulla faucibus justo ligula, eget vestibulum mauris sodales non. Donec commodo rhoncus elit ut malesuada. Aenean ac ex libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla luctus tempor justo, et rutrum purus ullamcorper et.
+{0}
 
-"""
+""".format(migrate_content)
 
 def create_migration(template, data):
     return """

@@ -1,0 +1,65 @@
+{
+    "template": "microprofile-wildfly",
+    "type": "java",
+    "type_version": "11",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-04-04-11:27:00",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/readme.md",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/resources/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/resources/META-INF/microprofile-config.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/webapp/index.html",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/webapp/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/webapp/WEB-INF/beans.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/java/sh/platform/template/wildfly/HelloController.java",
+                "https://raw.githubusercontent.com/platformsh-templates/microprofile-wildfly/master/src/main/java/sh/platform/template/wildfly/ApplicationConfig.java"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/readme.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/microprofile-config.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/index.html",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/webapp/WEB-INF/beans.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/wildfly/HelloController.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/wildfly/ApplicationConfig.java"
+            ],
+            "rel_root": [
+                "pom.xml",
+                "readme.md",
+                ".gitignore",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml",
+                "src/main/resources/.gitkeep",
+                "src/main/resources/META-INF/microprofile-config.properties",
+                "src/main/webapp/index.html",
+                "src/main/webapp/.gitkeep",
+                "src/main/webapp/WEB-INF/beans.xml",
+                "src/main/java/sh/platform/template/wildfly/HelloController.java",
+                "src/main/java/sh/platform/template/wildfly/ApplicationConfig.java"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
+            "git clone git@github.com:platformsh-templates/microprofile-wildfly.git /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/microprofile-wildfly/files/ /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

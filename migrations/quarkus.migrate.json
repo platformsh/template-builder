@@ -1,0 +1,74 @@
+{
+    "template": "quarkus",
+    "type": "java",
+    "type_version": "11",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-04-04-11:32:35",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/mvnw.cmd",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.mvn/wrapper/MavenWrapperDownloader.java",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.mvn/wrapper/maven-wrapper.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.mvn/wrapper/maven-wrapper.jar",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/mvnw",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/src/test/java/sh/platform/template/ExampleResourceTest.java",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/src/test/java/sh/platform/template/NativeExampleResourceIT.java",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/src/main/resources/META-INF/resources/index.html",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/src/main/resources/application.properties",
+                "https://raw.githubusercontent.com/platformsh-templates/quarkus/master/src/main/java/sh/platform/template/ExampleResource.java"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/mvnw.cmd",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/pom.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.mvn/wrapper/MavenWrapperDownloader.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.mvn/wrapper/maven-wrapper.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.mvn/wrapper/maven-wrapper.jar",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/mvnw",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform/template/ExampleResourceTest.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/test/java/sh/platform/template/NativeExampleResourceIT.java",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/META-INF/resources/index.html",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/resources/application.properties",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/src/main/java/sh/platform/template/ExampleResource.java"
+            ],
+            "rel_root": [
+                "mvnw.cmd",
+                "pom.xml",
+                "README.md",
+                ".gitignore",
+                ".mvn/wrapper/MavenWrapperDownloader.java",
+                ".mvn/wrapper/maven-wrapper.properties",
+                ".mvn/wrapper/maven-wrapper.jar",
+                ".platform.app.yaml",
+                "mvnw",
+                ".platform/services.yaml",
+                ".platform/routes.yaml",
+                "src/test/java/sh/platform/template/ExampleResourceTest.java",
+                "src/test/java/sh/platform/template/NativeExampleResourceIT.java",
+                "src/main/resources/META-INF/resources/index.html",
+                "src/main/resources/application.properties",
+                "src/main/java/sh/platform/template/ExampleResource.java"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/quarkus/build/",
+            "git clone git@github.com:platformsh-templates/quarkus.git /Users/chadcarlson/template-builder/templates/quarkus/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/quarkus/files/ /Users/chadcarlson/template-builder/templates/quarkus/build/",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

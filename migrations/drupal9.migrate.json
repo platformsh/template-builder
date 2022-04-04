@@ -1,0 +1,73 @@
+{
+    "template": "drupal9",
+    "type": "php",
+    "type_version": "8.1",
+    "remote": {
+        "major_version": "9.3",
+        "repository": "https://github.com/drupal/recommended-project.git"
+    },
+    "last_updated_on": "2022-04-04-11:27:00",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/header_test.svg",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/config/sync/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/web/sites/default/settings.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/web/sites/default/settings.platformsh.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.editorconfig",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.environment",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/drush/platformsh_generate_drush_yml.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/README_test.md",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal9/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/header_test.svg",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sync/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites/default/settings.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/web/sites/default/settings.platformsh.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/drush/platformsh_generate_drush_yml.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README_test.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "header_test.svg",
+                "config/sync/.gitkeep",
+                "web/sites/default/settings.php",
+                "web/sites/default/settings.platformsh.php",
+                ".editorconfig",
+                ".environment",
+                "README.md",
+                ".gitignore",
+                ".lando.upstream.yml",
+                ".platform.app.yaml",
+                "drush/platformsh_generate_drush_yml.php",
+                "README_test.md",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/drupal9/build/",
+            "git clone git@github.com:platformsh-templates/drupal9.git /Users/chadcarlson/template-builder/templates/drupal9/build/",
+            "git remote add project https://github.com/drupal/recommended-project.git",
+            "git checkout master",
+            "git fetch --all --depth=2",
+            "git fetch --all --tags",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/drupal9/files/ /Users/chadcarlson/template-builder/templates/drupal9/build/",
+            "composer require platformsh/config-reader drush/drush drupal/redis --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

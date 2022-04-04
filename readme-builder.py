@@ -318,9 +318,9 @@ def create_migration_file_descriptions(template, data):
     for file in migration_files["migration"]["files"]["rel_root"]:
         if file not in ignore_files:
             if "migration" in data["sections"]:
-                if file in data["sections"]["migration"]:
+                if file in data["sections"]["migration"]["files"]:
                     content = "| [`{0}`]({0}) |".format(file, file)
-                    for entry in data["sections"]["migration"][file]:
+                    for entry in data["sections"]["migration"]["files"][file]:
                         if isinstance(entry, str):
                             content += " {0}".format(entry)
                         else: 
@@ -340,29 +340,46 @@ def create_migration(template, data):
     return """
 ## Migration
 
-If you would like to migrate your own project to Platform.sh, the following steps will help you to do so. 
-For context, this template was generated from a central tool, most likely from an upstream open source project repository. 
-Platform.sh uses this management tool to retrieve an upstream, after which a few modifications are made that allows it deploy successfully on our platform.
-
-The steps below outline the important parts of this process - adding files and dependencies, for example.
+The steps below outline the important steps for migrating your application to Platform.sh - adding the required configuration files and dependencies, for example.
 Not every step will be applicable to each person's migration.
-These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be built completely from scratch by you. 
+These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be rebuilt completely from scratch.
+
+- [Getting started](#)
+- [Adding and updating files](#)
+- [Dependencies](#)
+- [Deploying to Platform.sh](#)
+- [Migrating your data](#)
+- [Next steps](#)
+
 If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application.
 
-### Starting out
+### Getting started
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
 
-### Necessary files
+### Adding and updating files
 
 A small number of files need to be added to or modified in your repository at this point. 
 Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
 
 {0}
 
-### Additional dependencies
+### Dependencies
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+### Deploying to Platform.sh
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+### Migrating your data
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+### Next steps
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
 
 """.format(file_descriptions)
 

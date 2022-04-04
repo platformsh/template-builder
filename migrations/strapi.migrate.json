@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:06",
+    "last_updated_on": "2022-04-04-13:04:55",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,16 +43,27 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/strapi/build/",
-            "git clone git@github.com:platformsh-templates/strapi.git /Users/chadcarlson/template-builder/templates/strapi/build/",
-            "yarn create strapi-app strapi-quickstart-platformsh --quickstart --no-run",
-            "cp -r /Users/chadcarlson/template-builder/templates/strapi/strapi-quickstart-platformsh/* .",
-            "rm -rf /Users/chadcarlson/template-builder/templates/strapi/strapi-quickstart-platformsh",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/strapi/files/ /Users/chadcarlson/template-builder/templates/strapi/build/",
-            "yarn add platformsh-config pg",
-            "yarn strapi install graphql",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/strapi/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/strapi.git /Users/chadcarlson/template-builder/templates/strapi/build/"
+            ],
+            "update": [
+                "yarn create strapi-app strapi-quickstart-platformsh --quickstart --no-run",
+                "cp -r /Users/chadcarlson/template-builder/templates/strapi/strapi-quickstart-platformsh/* .",
+                "rm -rf /Users/chadcarlson/template-builder/templates/strapi/strapi-quickstart-platformsh"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/strapi/files/ /Users/chadcarlson/template-builder/templates/strapi/build/",
+                "yarn add platformsh-config pg",
+                "yarn strapi install graphql"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

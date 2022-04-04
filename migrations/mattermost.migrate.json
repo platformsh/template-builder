@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:03",
+    "last_updated_on": "2022-04-04-13:04:52",
     "migration": {
         "files": {
             "rel_template": [
@@ -40,12 +40,22 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/mattermost/build/",
-            "git clone git@github.com:platformsh-templates/mattermost.git /Users/chadcarlson/template-builder/templates/mattermost/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/mattermost/files/ /Users/chadcarlson/template-builder/templates/mattermost/build/",
-            "echo 6.1.3 > mattermost_version",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/mattermost/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/mattermost.git /Users/chadcarlson/template-builder/templates/mattermost/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/mattermost/files/ /Users/chadcarlson/template-builder/templates/mattermost/build/",
+                "echo 6.1.3 > mattermost_version"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

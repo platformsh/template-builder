@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": "https://wordpress.org/latest"
     },
-    "last_updated_on": "2022-04-04-11:32:36",
+    "last_updated_on": "2022-04-04-13:04:40",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,12 +43,22 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
-            "git clone git@github.com:platformsh-templates/wordpress-vanilla.git /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-vanilla/files/ /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
-            "curl https://wordpress.org/latest -o wordpress.tar.gz",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/wordpress-vanilla.git /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-vanilla/files/ /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/",
+                "curl https://wordpress.org/latest -o wordpress.tar.gz"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

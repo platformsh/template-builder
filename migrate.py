@@ -48,7 +48,7 @@ def document_migration_steps(template):
                         commands.append(item)
         return commands
 
-    'cleanup', 'init', 'update', 'platformify', 'branch', 'push'
+    # 'cleanup', 'init', 'update', 'platformify', 'branch', 'push'
 
     def get_cleanup_commands():
         return get_commands(dodo.project_factory(template).cleanup)
@@ -116,14 +116,25 @@ def document_migration_steps(template):
                 "rel_tb": migrate_files,
                 "rel_root": migrate_rel
             },
-            "commands": [
-                *cleanup_commands, 
-                *init_commands, 
-                *update_commands, 
-                *platformify_commands,
-                *branch_commands,
-                *push_commands
-            ]
+            "commands": {
+                "cleanup": [*cleanup_commands],
+                "init": [*init_commands],
+                "update": [*update_commands],
+                "platformify": [*platformify_commands],
+                "branch": [*branch_commands],
+                "push": [*push_commands]
+            },
+            "migrate": {
+                "init": [],
+            }
+            # "commands": [
+            #     # *cleanup_commands, 
+            #     *init_commands, 
+            #     *update_commands, 
+            #     *platformify_commands,
+            #     # *branch_commands,
+            #     # *push_commands
+            # ]
         }
     }
 

@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:35",
+    "last_updated_on": "2022-04-04-13:04:38",
     "migration": {
         "files": {
             "rel_template": [
@@ -67,11 +67,21 @@
                 "src/main/java/sh/platform/template/UserController.java"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/",
-            "git clone git@github.com:platformsh-templates/spring-mvc-maven-mongodb.git /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/files/ /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/spring-mvc-maven-mongodb.git /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/files/ /Users/chadcarlson/template-builder/templates/spring-mvc-maven-mongodb/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

@@ -96,10 +96,11 @@ def create_header(data, template, header_file):
 # Deploy
 # Migrate
 # Learn
+    # Troubleshooting
     # Resources
+    # Contact
     # About Platform.sh
 # Contribute
-# Contact
 
 
 # Table of contents.
@@ -311,15 +312,15 @@ def create_migration_file_descriptions(template, data):
     migration_files = json.loads(migrate_data)
 
     migrate_content = """
-| File          | Purpose    |
-|:--------------|:-----------|
+| File          | Action | Purpose    |
+|:--------------|:-----------|:--------|
 """
 
     for file in migration_files["migration"]["files"]["rel_root"]:
         if file not in ignore_files:
             if "migration" in data["sections"]:
                 if file in data["sections"]["migration"]["files"]:
-                    content = "| [`{0}`]({0}) |".format(file, file)
+                    content = "| [`{0}`]({0}) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9)".format(file, file)
                     for entry in data["sections"]["migration"]["files"][file]:
                         if isinstance(entry, str):
                             content += " {0}".format(entry)
@@ -327,7 +328,7 @@ def create_migration_file_descriptions(template, data):
                             content += " {0}".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
                     migrate_content += content + " |\n"
                 else:
-                    migrate_content += "| [`{0}`]({0}) |   |\n".format(file)
+                    migrate_content += "| [`{0}`]({0}) |  ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9)|    |\n".format(file)
 
     return """
 {0}
@@ -344,18 +345,19 @@ The steps below outline the important steps for migrating your application to Pl
 Not every step will be applicable to each person's migration.
 These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be rebuilt completely from scratch.
 
-- [Getting started](#)
-- [Adding and updating files](#)
-- [Dependencies](#)
-- [Deploying to Platform.sh](#)
-- [Migrating your data](#)
-- [Next steps](#)
+- [Getting started](#getting-started-1)
+- [Adding and updating files](#adding-and-updating-files)
+- [Dependencies](#dependencies)
+- [Deploying to Platform.sh](#deploying-to-platformsh)
+- [Migrating your data](#migrating-your-data)
+- [Next steps](#next-steps)
 
-If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application.
+If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application and skip the first section.
 
 ### Getting started
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
+
 
 ### Adding and updating files
 

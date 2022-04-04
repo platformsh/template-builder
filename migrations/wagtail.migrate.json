@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:37",
+    "last_updated_on": "2022-04-04-13:04:40",
     "migration": {
         "files": {
             "rel_template": [
@@ -52,11 +52,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/wagtail/build/",
-            "git clone git@github.com:platformsh-templates/wagtail.git /Users/chadcarlson/template-builder/templates/wagtail/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/wagtail/files/ /Users/chadcarlson/template-builder/templates/wagtail/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/wagtail/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/wagtail.git /Users/chadcarlson/template-builder/templates/wagtail/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/wagtail/files/ /Users/chadcarlson/template-builder/templates/wagtail/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

@@ -6,7 +6,7 @@
         "major_version": "v2.7",
         "repository": "https://github.com/pimcore/skeleton.git"
     },
-    "last_updated_on": "2022-04-04-11:32:37",
+    "last_updated_on": "2022-04-04-13:04:40",
     "migration": {
         "files": {
             "rel_template": [
@@ -40,17 +40,28 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/pimcore/build/",
-            "git clone git@github.com:platformsh-templates/pimcore.git /Users/chadcarlson/template-builder/templates/pimcore/build/",
-            "git remote add project https://github.com/pimcore/skeleton.git",
-            "git checkout master",
-            "git fetch --all --depth=2",
-            "git fetch --all --tags",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/pimcore/files/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
-            "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/config.patch",
-            "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/gitignore.patch",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/pimcore/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/pimcore.git /Users/chadcarlson/template-builder/templates/pimcore/build/",
+                "git remote add project https://github.com/pimcore/skeleton.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/pimcore/files/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/config.patch",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/gitignore.patch"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

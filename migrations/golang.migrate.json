@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:37",
+    "last_updated_on": "2022-04-04-13:04:40",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,11 +43,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/golang/build/",
-            "git clone git@github.com:platformsh-templates/golang.git /Users/chadcarlson/template-builder/templates/golang/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/golang/files/ /Users/chadcarlson/template-builder/templates/golang/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/golang/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/golang.git /Users/chadcarlson/template-builder/templates/golang/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/golang/files/ /Users/chadcarlson/template-builder/templates/golang/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

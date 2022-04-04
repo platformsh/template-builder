@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:39",
+    "last_updated_on": "2022-04-04-13:04:43",
     "migration": {
         "files": {
             "rel_template": [
@@ -79,11 +79,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/django4/build/",
-            "git clone git@github.com:platformsh-templates/django4.git /Users/chadcarlson/template-builder/templates/django4/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/django4/files/ /Users/chadcarlson/template-builder/templates/django4/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/django4/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/django4.git /Users/chadcarlson/template-builder/templates/django4/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/django4/files/ /Users/chadcarlson/template-builder/templates/django4/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

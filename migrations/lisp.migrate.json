@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:35",
+    "last_updated_on": "2022-04-04-13:04:39",
     "migration": {
         "files": {
             "rel_template": [
@@ -40,11 +40,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/lisp/build/",
-            "git clone git@github.com:platformsh-templates/lisp.git /Users/chadcarlson/template-builder/templates/lisp/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/lisp/files/ /Users/chadcarlson/template-builder/templates/lisp/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/lisp/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/lisp.git /Users/chadcarlson/template-builder/templates/lisp/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/lisp/files/ /Users/chadcarlson/template-builder/templates/lisp/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:32:40",
+    "last_updated_on": "2022-04-04-13:04:43",
     "migration": {
         "files": {
             "rel_template": [
@@ -79,11 +79,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/django3/build/",
-            "git clone git@github.com:platformsh-templates/django3.git /Users/chadcarlson/template-builder/templates/django3/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/django3/files/ /Users/chadcarlson/template-builder/templates/django3/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/django3/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/django3.git /Users/chadcarlson/template-builder/templates/django3/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/django3/files/ /Users/chadcarlson/template-builder/templates/django3/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

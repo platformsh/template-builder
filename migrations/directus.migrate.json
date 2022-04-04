@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:06",
+    "last_updated_on": "2022-04-04-13:04:56",
     "migration": {
         "files": {
             "rel_template": [
@@ -37,11 +37,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/directus/build/",
-            "git clone git@github.com:platformsh-templates/directus.git /Users/chadcarlson/template-builder/templates/directus/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/directus/files/ /Users/chadcarlson/template-builder/templates/directus/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/directus/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/directus.git /Users/chadcarlson/template-builder/templates/directus/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/directus/files/ /Users/chadcarlson/template-builder/templates/directus/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

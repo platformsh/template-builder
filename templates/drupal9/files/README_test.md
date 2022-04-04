@@ -382,30 +382,6 @@ Lando supports PHP applications configured to run on Platform.sh, and pulls from
 1. When you have finished with your work, run `lando stop` and `lando poweroff`.
 
 </details>
-<details>
-<summary><strong>Next.js: building the frontend locally</strong></summary><br />
-
-After you have created a new environment, you can connect to a backend Drupal instance and develop the frontend locally with the following steps.
-
-1. `cd client`
-1. Update the environment variables for the current environment by running `./get_local_config.sh`. This will pull the generated `.env.local` file for the current environment.
-
-   ```bash
-   # This .env file is generated programmatically within the backend Drupal app for each Platform.sh environment
-   # and stored within an network storage mount so it can be used locally.
-
-   NEXT_PUBLIC_DRUPAL_BASE_URL=https://api.ENVIRONMENT-HASH-PROJECTID.REGION.platformsh.site
-   NEXT_IMAGE_DOMAIN=api.ENVIRONMENT-HASH-PROJECTID.REGION.platformsh.site
-   DRUPAL_SITE_ID=nextjs_site
-   DRUPAL_FRONT_PAGE=/node
-   DRUPAL_CLIENT_ID=CONSUMER_CLIENT_ID
-   DRUPAL_CLIENT_SECRET=GENERATED_SECRET
-   ```
-
-1. Install dependencies: `yarn --frozen-lockfile`.
-1. Run the development server: `yarn dev`. Next.js will then run on http://localhost:3000.
-
-</details>
 
 
 
@@ -415,18 +391,19 @@ The steps below outline the important steps for migrating your application to Pl
 Not every step will be applicable to each person's migration.
 These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be rebuilt completely from scratch.
 
-- [Getting started](#)
-- [Adding and updating files](#)
-- [Dependencies](#)
-- [Deploying to Platform.sh](#)
-- [Migrating your data](#)
-- [Next steps](#)
+- [Getting started](#getting-started-1)
+- [Adding and updating files](#adding-and-updating-files)
+- [Dependencies](#dependencies)
+- [Deploying to Platform.sh](#deploying-to-platformsh)
+- [Migrating your data](#migrating-your-data)
+- [Next steps](#next-steps)
 
-If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application.
+If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application and skip the first section.
 
 ### Getting started
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
+
 
 ### Adding and updating files
 
@@ -435,18 +412,18 @@ Some of them explicitly configure how the application is built and deployed on P
 
 
 
-| File          | Purpose    |
-|:--------------|:-----------|
-| [`config/sync/.gitkeep`](config/sync/.gitkeep) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`web/sites/default/settings.php`](web/sites/default/settings.php) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
-| [`.environment`](.environment) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.gitignore`](.gitignore) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.lando.upstream.yml`](.lando.upstream.yml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform.app.yaml`](.platform.app.yaml) | This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
-| [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform/services.yaml`](.platform/services.yaml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform/routes.yaml`](.platform/routes.yaml) | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| File          | Action | Purpose    |
+|:--------------|:-----------|:--------|
+| [`config/sync/.gitkeep`](config/sync/.gitkeep) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`web/sites/default/settings.php`](web/sites/default/settings.php) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
+| [`.environment`](.environment) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.gitignore`](.gitignore) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.lando.upstream.yml`](.lando.upstream.yml) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform.app.yaml`](.platform.app.yaml) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
+| [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform/services.yaml`](.platform/services.yaml) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform/routes.yaml`](.platform/routes.yaml) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 
 
 
@@ -477,13 +454,9 @@ This template is maintained by the Platform.sh Developer Relations team, and the
 
 ## Resources
 
-- [Next.js Drupal website](https://next-drupal.org/)
-- [Quickstart documentation](https://next-drupal.org/learn/quick-start)
-- [Documentation](https://next-drupal.org/docs)
+- [Drupal](https://www.drupal.org/)
 - [Drupal 9 on Platform.sh](https://docs.platform.sh/guides/drupal9/deploy.html)
 - [Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)
-- [Platform.sh Node.js documentation](https://docs.platform.sh/languages/nodejs.html)
-- [Platform.sh multi-app deployments documentation](https://docs.platform.sh/configuration/app/multi-app.html)
 
 
 

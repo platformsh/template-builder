@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:00",
+    "last_updated_on": "2022-04-04-13:04:49",
     "migration": {
         "files": {
             "rel_template": [
@@ -55,11 +55,21 @@
                 "src/main/java/sh/platform/template/wildfly/ApplicationConfig.java"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
-            "git clone git@github.com:platformsh-templates/microprofile-wildfly.git /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/microprofile-wildfly/files/ /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/microprofile-wildfly.git /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/microprofile-wildfly/files/ /Users/chadcarlson/template-builder/templates/microprofile-wildfly/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

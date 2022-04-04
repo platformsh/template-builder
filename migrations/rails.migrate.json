@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:06",
+    "last_updated_on": "2022-04-04-13:04:56",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,17 +43,28 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/rails/build/",
-            "git clone git@github.com:platformsh-templates/rails.git /Users/chadcarlson/template-builder/templates/rails/build/",
-            "bundle update",
-            "BUNDLE_GEMFILE=/Users/chadcarlson/template-builder/templates/rails/build//Gemfile bundle exec rails new /Users/chadcarlson/template-builder/templates/rails/build/ --force",
-            "cd /Users/chadcarlson/template-builder/templates/rails/build/ git checkout README.md",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/rails/files/ /Users/chadcarlson/template-builder/templates/rails/build/",
-            "if ! grep -q platform_sh_rails Gemfile; then bundle add unicorn pg platform_sh_rails --group \"production\"; fi;",
-            "rm -f .ruby-version",
-            "if ! grep -q platform_sh config/boot.rb; then cat ../files/_boot.rb >> config/boot.rb; fi; rm _boot.rb",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/rails/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/rails.git /Users/chadcarlson/template-builder/templates/rails/build/"
+            ],
+            "update": [
+                "bundle update",
+                "BUNDLE_GEMFILE=/Users/chadcarlson/template-builder/templates/rails/build//Gemfile bundle exec rails new /Users/chadcarlson/template-builder/templates/rails/build/ --force",
+                "cd /Users/chadcarlson/template-builder/templates/rails/build/ git checkout README.md"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/rails/files/ /Users/chadcarlson/template-builder/templates/rails/build/",
+                "if ! grep -q platform_sh_rails Gemfile; then bundle add unicorn pg platform_sh_rails --group \"production\"; fi;",
+                "rm -f .ruby-version",
+                "if ! grep -q platform_sh config/boot.rb; then cat ../files/_boot.rb >> config/boot.rb; fi; rm _boot.rb"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

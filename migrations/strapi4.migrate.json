@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:04",
+    "last_updated_on": "2022-04-04-13:04:54",
     "migration": {
         "files": {
             "rel_template": [
@@ -103,11 +103,21 @@
                 "src/api/.gitkeep"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/strapi4/build/",
-            "git clone git@github.com:platformsh-templates/strapi4.git /Users/chadcarlson/template-builder/templates/strapi4/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/strapi4/files/ /Users/chadcarlson/template-builder/templates/strapi4/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/strapi4/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/strapi4.git /Users/chadcarlson/template-builder/templates/strapi4/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/strapi4/files/ /Users/chadcarlson/template-builder/templates/strapi4/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

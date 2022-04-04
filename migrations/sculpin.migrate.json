@@ -6,7 +6,7 @@
         "major_version": "3",
         "repository": "https://github.com/sculpin/sculpin-blog-skeleton.git"
     },
-    "last_updated_on": "2022-04-04-11:32:35",
+    "last_updated_on": "2022-04-04-13:04:39",
     "migration": {
         "files": {
             "rel_template": [
@@ -31,15 +31,26 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/sculpin/build/",
-            "git clone git@github.com:platformsh-templates/sculpin.git /Users/chadcarlson/template-builder/templates/sculpin/build/",
-            "git remote add project https://github.com/sculpin/sculpin-blog-skeleton.git",
-            "git checkout master",
-            "git fetch --all --depth=2",
-            "git fetch --all --tags",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/sculpin/files/ /Users/chadcarlson/template-builder/templates/sculpin/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/sculpin/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/sculpin.git /Users/chadcarlson/template-builder/templates/sculpin/build/",
+                "git remote add project https://github.com/sculpin/sculpin-blog-skeleton.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/sculpin/files/ /Users/chadcarlson/template-builder/templates/sculpin/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

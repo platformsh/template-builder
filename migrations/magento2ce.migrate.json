@@ -6,7 +6,7 @@
         "major_version": "2.4",
         "repository": "https://github.com/magento/magento2.git"
     },
-    "last_updated_on": "2022-04-04-11:32:40",
+    "last_updated_on": "2022-04-04-13:04:43",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,16 +43,27 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/magento2ce/build/",
-            "git clone git@github.com:platformsh-templates/magento2ce.git /Users/chadcarlson/template-builder/templates/magento2ce/build/",
-            "git remote add project https://github.com/magento/magento2.git",
-            "git checkout master",
-            "git fetch --all --depth=2",
-            "git fetch --all --tags",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/magento2ce/files/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
-            "patch -p1 < /Users/chadcarlson/template-builder/templates/magento2ce/platformsh.patch",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/magento2ce/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/magento2ce.git /Users/chadcarlson/template-builder/templates/magento2ce/build/",
+                "git remote add project https://github.com/magento/magento2.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/magento2ce/files/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/magento2ce/platformsh.patch"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

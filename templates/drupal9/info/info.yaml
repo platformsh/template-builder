@@ -20,7 +20,7 @@ features:
   - Drush included
   - Automatic TLS certificates
   - Composer-based build
-# Use Markdown for links and formatting.
+# Use Markdown for links and formatting. They will be converted to HTML automatically when the .platform.template.yaml file is generated.
 description:
   - This template builds Drupal 9 using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
   - Drupal is a flexible and extensible PHP-based CMS framework.
@@ -33,15 +33,10 @@ sections:
     local:
       - "common/readme/drupal/local_ddev.md"
       - "common/readme/drupal/local_lando.md"
-      - "templates/drupal9/info/local_nextjs.md"
     resources:
-      - "[Next.js Drupal website](https://next-drupal.org/)"
-      - "[Quickstart documentation](https://next-drupal.org/learn/quick-start)"
-      - "[Documentation](https://next-drupal.org/docs)"
+      - "[Drupal](https://www.drupal.org/)"
       - "[Drupal 9 on Platform.sh](https://docs.platform.sh/guides/drupal9/deploy.html)"
       - "[Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)"
-      - "[Platform.sh Node.js documentation](https://docs.platform.sh/languages/nodejs.html)"
-      - "[Platform.sh multi-app deployments documentation](https://docs.platform.sh/configuration/app/multi-app.html)"
     migration:
       files:
         "web/sites/default/settings.platformsh.php": 

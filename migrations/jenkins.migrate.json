@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": null
     },
-    "last_updated_on": "2022-04-04-11:27:04",
+    "last_updated_on": "2022-04-04-13:04:54",
     "migration": {
         "files": {
             "rel_template": [
@@ -31,11 +31,21 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/jenkins/build/",
-            "git clone git@github.com:platformsh-templates/jenkins.git /Users/chadcarlson/template-builder/templates/jenkins/build/",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/jenkins/files/ /Users/chadcarlson/template-builder/templates/jenkins/build/",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/jenkins/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/jenkins.git /Users/chadcarlson/template-builder/templates/jenkins/build/"
+            ],
+            "update": [],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/jenkins/files/ /Users/chadcarlson/template-builder/templates/jenkins/build/"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

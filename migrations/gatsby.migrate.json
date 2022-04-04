@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": "https://github.com/gatsbyjs/gatsby-starter-blog.git"
     },
-    "last_updated_on": "2022-04-04-11:32:40",
+    "last_updated_on": "2022-04-04-13:04:43",
     "migration": {
         "files": {
             "rel_template": [
@@ -28,17 +28,28 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commands": [
-            "rm -rf /Users/chadcarlson/template-builder/templates/gatsby/build/",
-            "git clone git@github.com:platformsh-templates/gatsby.git /Users/chadcarlson/template-builder/templates/gatsby/build/",
-            "git remote add project https://github.com/gatsbyjs/gatsby-starter-blog.git",
-            "git checkout master",
-            "git fetch --all --depth=2",
-            "git fetch --all --tags",
-            "git merge --allow-unrelated-histories -X theirs --squash project/master",
-            "rsync -aP /Users/chadcarlson/template-builder/templates/gatsby/files/ /Users/chadcarlson/template-builder/templates/gatsby/build/",
-            "rm -rf package-lock.json",
-            "git checkout -b updatesLocal"
-        ]
+        "commends": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/gatsby/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/gatsby.git /Users/chadcarlson/template-builder/templates/gatsby/build/",
+                "git remote add project https://github.com/gatsbyjs/gatsby-starter-blog.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs --squash project/master"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/templates/gatsby/files/ /Users/chadcarlson/template-builder/templates/gatsby/build/",
+                "rm -rf package-lock.json"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        }
     }
 }

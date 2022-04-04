@@ -191,6 +191,7 @@ def create_deploy_options(template):
 
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary><br />
+<blockquote>
 
 1. Clone this repository:
 
@@ -199,6 +200,8 @@ def create_deploy_options(template):
    ```
 
 {1}
+
+</blockquote>
 
 </details>
 

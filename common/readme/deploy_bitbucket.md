@@ -1,7 +1,7 @@
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -32,6 +32,6 @@
 
    Consult the [Bitbucket integration documentation](https://docs.platform.sh/integrations/source/bitbucket.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on Bitbucket to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>

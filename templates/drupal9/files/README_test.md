@@ -102,8 +102,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -146,15 +146,15 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
    git push platform DEFAULT_BRANCH
    ```
    
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -181,15 +181,15 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
    Consult the [GitHub integration documentation](https://docs.platform.sh/integrations/source/github.html#setup) to finish connecting your repository to a project on Platform.sh. You will need to create an Access token on GitHub to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -220,15 +220,15 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
    Consult the [GitLab integration documentation](https://docs.platform.sh/integrations/source/gitlab.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on GitLab to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -259,8 +259,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
    Consult the [Bitbucket integration documentation](https://docs.platform.sh/integrations/source/bitbucket.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on Bitbucket to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
@@ -388,8 +388,8 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -432,15 +432,15 @@ When you've finished, come back to this section to learn how to [Migrate your da
    git push platform DEFAULT_BRANCH
    ```
    
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -467,15 +467,15 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
    Consult the [GitHub integration documentation](https://docs.platform.sh/integrations/source/github.html#setup) to finish connecting your repository to a project on Platform.sh. You will need to create an Access token on GitHub to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -506,15 +506,15 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
    Consult the [GitLab integration documentation](https://docs.platform.sh/integrations/source/gitlab.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on GitLab to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -545,8 +545,8 @@ When you've finished, come back to this section to learn how to [Migrate your da
 
    Consult the [Bitbucket integration documentation](https://docs.platform.sh/integrations/source/bitbucket.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on Bitbucket to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>
 
 <hr>

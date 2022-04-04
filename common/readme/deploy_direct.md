@@ -1,7 +1,7 @@
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -44,6 +44,6 @@
    git push platform DEFAULT_BRANCH
    ```
    
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>

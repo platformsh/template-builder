@@ -1,7 +1,7 @@
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -32,6 +32,6 @@
 
    Consult the [GitLab integration documentation](https://docs.platform.sh/integrations/source/gitlab.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on GitLab to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>

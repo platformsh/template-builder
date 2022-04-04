@@ -1,7 +1,7 @@
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
-<blockquote>
-<br/>
+<!-- <blockquote>
+<br/> -->
 
 1. Create a free trial:
 
@@ -28,6 +28,6 @@
 
    Consult the [GitHub integration documentation](https://docs.platform.sh/integrations/source/github.html#setup) to finish connecting your repository to a project on Platform.sh. You will need to create an Access token on GitHub to do so.
 
-<br/>
-</blockquote>
+<!-- <br/>
+</blockquote> -->
 </details>

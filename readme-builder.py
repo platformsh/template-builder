@@ -9,6 +9,13 @@ templates.remove(".DS_Store")
 readme_file = "README_test.md"
 header_file = "header_test.svg"
 
+# Generic read file function.
+def read_file(file_location):
+    with open(file_location, "r") as data:
+        content = data.read()
+    return content
+
+# Create the header graphic so we can test template logos.
 def create_header_image(data, destination):
     image_height = 150
     translate_x = image_height/2
@@ -17,7 +24,6 @@ def create_header_image(data, destination):
     banner_height = 250
     banner_fill = "#f4f2f3"
 
-    # First create the header graphic.
     header = """
 <svg xmlns="http://www.w3.org/2000/svg" width="{0}" height="{1}">
 <rect x="0" y="0" width="{0}" height="{1}" fill="#f4f2f3"/>""".format(banner_width, banner_height, banner_fill)
@@ -36,6 +42,7 @@ def create_header_image(data, destination):
     with open(image_destination, "w") as header_img:
         header_img.write(header)
 
+# Create the common header text, with title, CTAs, and badges. 
 def create_header(data, template, header_file):
     body = """
 <p align="right">
@@ -84,7 +91,7 @@ def create_header(data, template, header_file):
 
     return body
 
-
+# Table of contents.
 def create_toc():
     content = """
 <p align="center">
@@ -103,6 +110,7 @@ def create_toc():
 """
     return content
 
+# About the template, its features, and a short about Platform.sh.
 def create_about(data):
 
     description = "\n\n".join(data["description"])
@@ -128,6 +136,7 @@ def create_about(data):
 """.format(description, features, platform)
     return content
 
+# Quickstart instructions (DoP repeat).
 def create_quickstart(template):
     content = """
 The quickest way to deploy this template on Platform.sh is by clicking the button below. This will automatically create a new project and initialize the repository for you.
@@ -144,6 +153,7 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
 """.format(template)
     return content
 
+# Getting started.
 def create_getting_started(template):
     quickstart = create_quickstart(template)
 
@@ -158,6 +168,92 @@ def create_getting_started(template):
 """.format(quickstart)
     return content
 
+# Getting started: Alt deploy options.
+def create_deploy_options(template):
+
+    direct = read_file("{}/common/readme/deploy_direct.md".format(os.getcwd()))
+    github = read_file("{}/common/readme/deploy_github.md".format(os.getcwd()))
+    gitlab = read_file("{}/common/readme/deploy_gitlab.md".format(os.getcwd()))
+    bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
+
+    content = """
+#### Other deployment options
+
+<details>
+<summary>Deploy directly to Platform.sh from the command line</summary><br />
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/{0}
+   ```
+
+{1}
+
+</details>
+
+<details>
+<summary>Deploy from GitHub</summary><br />
+
+If you would instead to deploy this template from your own repository on GitHub, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [GitHub integration documentation here](https://docs.platform.sh/integrations/source/github.html).
+
+1. Clone this repository:
+
+   Click the [Use this template](https://github.com/platformsh-templates/{0}/generate) button at the top of this page to create a new repository in your namespace containing this demo. Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{0}.git`.
+
+{2}
+
+</details>
+
+<details>
+<summary>Deploy from GitLab</summary><br />
+
+If you would instead to deploy this template from your own repository on GitLab, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [GitLab integration documentation here](https://docs.platform.sh/integrations/source/gitlab.html).
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/{0}
+   ```
+
+{3}
+
+</details>
+
+<details>
+<summary>Deploy from Bitbucket</summary><br />
+
+If you would instead to deploy this template from your own repository on Bitbucket, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [Bitbucket integration documentation here](https://docs.platform.sh/integrations/source/bitbucket.html).
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/{0}
+   ```
+
+{4}
+
+</details>
+""".format(template, direct, github, gitlab, bitbucket)
+
+    return content
+
+
+############################################################################################################
+# Main loop through all templates (if info.yaml file is present).
+############################################################################################################
 for template in templates:
     info_file = "{0}/templates/{1}/info/info.yaml".format(os.getcwd(), template)
     if os.path.isfile(info_file):
@@ -177,6 +273,7 @@ for template in templates:
                 body += create_toc()
                 body += create_about(data)
                 body += create_getting_started(template)
+                body += create_deploy_options(template)
                 
                 readme_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, readme_file)
                 with open(readme_destination, "w") as readme:
@@ -187,6 +284,3 @@ for template in templates:
 
             except yaml.YAMLError as exc:
                 print(exc)
-
-
-

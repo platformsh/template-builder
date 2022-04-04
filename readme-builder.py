@@ -161,12 +161,13 @@ def create_deploy_options():
 
     content = """
 {0}
-
+<hr>
 {1}
-
+<hr>
 {2}
-
+<hr>
 {3}
+<hr>
 """.format(direct, github, gitlab, bitbucket)
     return content
 # Getting started main.

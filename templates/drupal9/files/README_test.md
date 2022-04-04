@@ -150,7 +150,7 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
 <blockquote>
@@ -185,7 +185,7 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
 <blockquote>
@@ -224,7 +224,7 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
 <blockquote>
@@ -263,6 +263,7 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 </blockquote>
 </details>
 
+<hr>
 
 
 ### Post-install
@@ -435,7 +436,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a GitHub repo and deploy pull requests</summary>
 <blockquote>
@@ -470,7 +471,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a GitLab repo and deploy merge requests</summary>
 <blockquote>
@@ -509,7 +510,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote>
 </details>
 
-
+<hr>
 <details>
 <summary>Integrate with a Bitbucket repo and deploy pull requests</summary>
 <blockquote>
@@ -548,6 +549,7 @@ When you've finished, come back to this section to learn how to [Migrate your da
 </blockquote>
 </details>
 
+<hr>
 
 
 ### Migrating your data

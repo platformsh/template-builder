@@ -93,9 +93,11 @@ def create_header(data, template, header_file):
 
 
 # About
-# Get started/Deploy
+# Deploy
 # Migrate
 # Learn
+    # Resources
+    # About Platform.sh
 # Contribute
 # Contact
 
@@ -308,20 +310,24 @@ def create_migration_file_descriptions(template, data):
 
     migration_files = json.loads(migrate_data)
 
-    migrate_content = ""
+    migrate_content = """
+| File          | Purpose    |
+|:--------------|:-----------|
+"""
+
     for file in migration_files["migration"]["files"]["rel_root"]:
         if file not in ignore_files:
             if "migration" in data["sections"]:
                 if file in data["sections"]["migration"]:
-                    content = "\n- **[`{0}`]({0}):** ".format(file, file)
+                    content = "| **[`{0}`]({0}):** |".format(file, file)
                     for entry in data["sections"]["migration"][file]:
                         if isinstance(entry, str):
                             content += " {0}".format(entry)
                         else: 
                             content += " {0}".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
-                    migrate_content += content
+                    migrate_content += content + " |\n"
                 else:
-                    migrate_content += "- **[`{0}`]({0})**\n".format(file)
+                    migrate_content += "| **[`{0}`]({0})** |   |\n".format(file)
 
     return """
 {0}

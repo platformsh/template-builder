@@ -478,10 +478,6 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 
 <p align="center">
-<img src="https://contrib.rocks/image?repo=platformsh-templates/drupal9" />
-</p>
-
-<p align="center">
 <em>Made with <a href="https://contrib.rocks">contrib.rocks</a><em>
 </p>
 

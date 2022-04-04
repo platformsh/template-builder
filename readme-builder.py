@@ -320,7 +320,7 @@ def create_migration_file_descriptions(template, data):
         if file not in ignore_files:
             if "migration" in data["sections"]:
                 if file in data["sections"]["migration"]["files"]:
-                    content = "| [`{0}`]({0}) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9)".format(file, file)
+                    content = "| [`{0}`]({0}) | ![update](https://img.shields.io/badge/update-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) |".format(file, file)
                     for entry in data["sections"]["migration"]["files"][file]:
                         if isinstance(entry, str):
                             content += " {0}".format(entry)

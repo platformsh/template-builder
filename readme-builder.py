@@ -2,10 +2,12 @@ import os
 import json
 import yaml 
 
+############################################################################################################
+# Helpers
+############################################################################################################
 templates=os.listdir("{}/templates".format(os.getcwd()))
 templates.remove("__init__.py")
 templates.remove(".DS_Store")
-
 readme_file = "README_test.md"
 header_file = "header_test.svg"
 
@@ -15,7 +17,10 @@ def read_file(file_location):
         content = data.read()
     return content
 
-# Create the header graphic so we can test template logos.
+############################################################################################################
+# Header image
+############################################################################################################
+# Create the header graphic so we can test template logos that show up in console.
 def create_header_image(data, destination):
     image_height = 150
     translate_x = image_height/2
@@ -41,7 +46,9 @@ def create_header_image(data, destination):
 
     with open(image_destination, "w") as header_img:
         header_img.write(header)
-
+############################################################################################################
+# Header
+############################################################################################################
 # Create the common header text, with title, CTAs, and badges. 
 def create_header(data, template, header_file):
     body = """
@@ -91,18 +98,6 @@ def create_header(data, template, header_file):
 
     return body
 
-
-# About
-# Deploy
-# Migrate
-# Learn
-    # Troubleshooting
-    # Resources
-    # Contact
-    # About Platform.sh
-# Contribute
-
-
 # Table of contents.
 def create_toc():
     content = """
@@ -111,25 +106,22 @@ def create_toc():
 <br /><br />
 <a href="#about"><strong>About</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="#getting-started"><strong>Getting started</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#migration"><strong>Migration</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#contact"><strong>Contact</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#resources"><strong>Resources</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="#contributing"><strong>Contributing</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#migrate"><strong>Migrate</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#learn"><strong>Learn</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="#contribute"><strong>Contribute</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <br />
 </p>
 <hr>
 """
     return content
-
+############################################################################################################
+# About
+############################################################################################################
 # About the template, its features, and a short about Platform.sh.
 def create_about(data):
 
     description = "\n\n".join(data["description"])
-    with open("{}/common/readme/platformsh_desc.md".format(os.getcwd()), "r") as about_psh:
-        platform = about_psh.read()
-    
     features = "- " + "\n- ".join(data["features"])
-
 
     content = """
 ## About
@@ -140,17 +132,16 @@ def create_about(data):
 
 {1}
 
-### Platform.sh
-
-{2}
-
-""".format(description, features, platform)
+""".format(description, features)
     return content
-
+############################################################################################################
+# Getting started
+############################################################################################################
 # Quickstart instructions (DoP repeat).
 def create_quickstart(template):
     content = """
-The quickest way to deploy this template on Platform.sh is by clicking the button below. This will automatically create a new project and initialize the repository for you.
+The quickest way to deploy this template on Platform.sh is by clicking the button below. 
+This will automatically create a new project and initialize the repository for you.
 
 <p align="center">
     <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/{0}/.platform.template.yaml&utm_content={0}&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
@@ -160,10 +151,28 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
 <br/>
 """.format(template)
     return content
+# Getting started: Alt deploy options.
+def create_deploy_options():
 
-# Getting started.
+    direct = read_file("{}/common/readme/deploy_direct.md".format(os.getcwd()))
+    github = read_file("{}/common/readme/deploy_github.md".format(os.getcwd()))
+    gitlab = read_file("{}/common/readme/deploy_gitlab.md".format(os.getcwd()))
+    bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
+
+    content = """
+{0}
+
+{1}
+
+{2}
+
+{3}
+""".format(direct, github, gitlab, bitbucket)
+    return content
+# Getting started main.
 def create_getting_started(template):
     quickstart = create_quickstart(template)
+    deploy_options = create_deploy_options()
 
     content = """
 ## Getting started
@@ -176,101 +185,26 @@ def create_getting_started(template):
 
 #### Other deployment options
 
-""".format(quickstart)
-    return content
+For all of the other options below, clone this repository first:
 
-# Getting started: Alt deploy options.
-def create_deploy_options(template):
+```bash
+git clone https://github.com/platformsh-templates/{1}
+```
 
-    direct = read_file("{}/common/readme/deploy_direct.md".format(os.getcwd()))
-    github = read_file("{}/common/readme/deploy_github.md".format(os.getcwd()))
-    gitlab = read_file("{}/common/readme/deploy_gitlab.md".format(os.getcwd()))
-    bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
-
-    content = """
-
-<details>
-<summary>Deploy directly to Platform.sh from the command line</summary>
-<blockquote>
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/platformsh-templates/{0}
-   ```
-
-{1}
-<br/>
-</blockquote>
-
-</details>
-
-<details>
-<summary>Deploy from GitHub</summary><br />
-
-If you would instead to deploy this template from your own repository on GitHub, you can do so through the following steps.
-
-> **Note:**
->
-> You can find the full [GitHub integration documentation here](https://docs.platform.sh/integrations/source/github.html).
-
-1. Clone this repository:
-
-   Click the [Use this template](https://github.com/platformsh-templates/{0}/generate) button at the top of this page to create a new repository in your namespace containing this demo. Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{0}.git`.
+If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/{1}/generate) button at the top of this page. 
+Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{1}.git`.
 
 {2}
 
-</details>
-
-<details>
-<summary>Deploy from GitLab</summary><br />
-
-If you would instead to deploy this template from your own repository on GitLab, you can do so through the following steps.
-
-> **Note:**
->
-> You can find the full [GitLab integration documentation here](https://docs.platform.sh/integrations/source/gitlab.html).
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/platformsh-templates/{0}
-   ```
-
-{3}
-
-</details>
-
-<details>
-<summary>Deploy from Bitbucket</summary><br />
-
-If you would instead to deploy this template from your own repository on Bitbucket, you can do so through the following steps.
-
-> **Note:**
->
-> You can find the full [Bitbucket integration documentation here](https://docs.platform.sh/integrations/source/bitbucket.html).
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/platformsh-templates/{0}
-   ```
-
-{4}
-
-</details>
-
-""".format(template, direct, github, gitlab, bitbucket)
-
+""".format(quickstart, template, deploy_options)
     return content
-
-
+# Getting started: post-install.
 def create_post_install(data):
     defaultContent = ""
     if "postinstall" in data["sections"]:
         return read_file("{0}/{1}".format(os.getcwd(), data["sections"]["postinstall"]))
     return defaultContent
-
+# Getting started: local dev.
 def create_local_dev(template, data):
     defaultContent = ""
     if "local" in data["sections"]:
@@ -279,7 +213,6 @@ def create_local_dev(template, data):
         config = data["sections"]["local"]
         for file in data["sections"]["local"]:
             local_options += read_file("{0}/{1}".format(os.getcwd(), file))
-
 
         content = """
 ### Local development
@@ -303,7 +236,10 @@ platform environment:branch updates
 """.format(template, local_options)
         return content
     return defaultContent
-
+############################################################################################################
+# Migrate
+############################################################################################################
+# Migration: Adding/updating files.
 def create_migration_file_descriptions(template, data):
 
     ignore_files = ["README.md", "README_test.md", "header_test.svg", ".editorconfig"]
@@ -335,20 +271,20 @@ def create_migration_file_descriptions(template, data):
     return """
 {0}
 """.format(migrate_content)
-
+# Migrate: getting started.
 def create_migration_getting_started(template, data):
     return """
 
 If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
 
 """
-
+# Migrate: dependencies.
 def create_migration_dependencies(template, data):
     return """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
 
 """
-
+# Migrate: data.
 def create_migration_data(template, data):
     return """
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
@@ -378,13 +314,13 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
     Note that `rsync` is picky about its trailing slashes, so be sure to include those.
 
 """
-
+# Migrate: Main.
 def create_migration(template, data):
 
     getting_started = create_migration_getting_started(template, data)
     file_descriptions = create_migration_file_descriptions(template, data)
     dependencies = create_migration_dependencies(template, data)
-    deploy_options = create_deploy_options(template)
+    deploy_options = create_deploy_options()
     data_migrate = create_migration_data(template, data)
 
     return """
@@ -450,23 +386,58 @@ After that, here are a collection of additional resources you might find interes
 - [Security and compliance](https://docs.platform.sh/security.html)
 
 """.format(getting_started, file_descriptions, dependencies, deploy_options, data_migrate)
-
-# Resources
+############################################################################################################
+# Learn
+############################################################################################################
+# Learn: Troubleshooting
+def create_troubleshooting():
+    return """
+Troubleshooting ipsum.
+"""
+# Learn: Resources
 def create_resources(template, data):
     if "resources" in data["sections"]:  
         resource_links = ""
         for resource in data["sections"]["resources"]:
             resource_links += "- {0}\n".format(resource)
         content = """
-
-## Resources
-
 {0}
-
 """.format(resource_links)
         return content
     return ""
+# Learn: Contact
+def create_contact():
+    return read_file("{0}/{1}".format(os.getcwd(), "common/readme/contact.md"))
+# Learn: About Platform.sh.
+def create_about_platformsh():
+    return read_file("{0}/{1}".format(os.getcwd(), "common/readme/platformsh_desc.md"))
+def create_learn(template, data):
+    troubleshooting = create_troubleshooting()
+    resources = create_resources(template, data)
+    contact = create_contact()
+    about_platformsh = create_about_platformsh()
+    return """
+## Learn
 
+### Troubleshooting
+
+{0}
+
+### Resources
+
+{1}
+
+### Contact
+
+{2}
+
+### About Platform.sh
+
+{3}
+""".format(troubleshooting, resources, contact, about_platformsh)
+############################################################################################################
+# Contribute
+############################################################################################################
 # Contributing
 def create_contributing(template):
 
@@ -515,7 +486,6 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 """.format(template)
     return content
-
 ############################################################################################################
 # Main loop through all templates (if info.yaml file is present).
 ############################################################################################################
@@ -532,18 +502,20 @@ for template in templates:
                 # First create the header image.
                 image_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, header_file)
                 create_header_image(data, image_destination)
-
-                # Then build the README.
+                # Header.
                 body = create_header(data, template, header_file)
                 body += create_toc()
+                # About.
                 body += create_about(data)
+                # Getting started.
                 body += create_getting_started(template)
-                body += create_deploy_options(template)
                 body += create_post_install(data)
                 body += create_local_dev(template, data)
+                # Migrate.
                 body += create_migration(template, data)
-                body += read_file("{0}/{1}".format(os.getcwd(), "common/readme/contact.md"))
-                body += create_resources(template, data)
+                # Learn.
+                body += create_learn(template, data)
+                # Contribute.
                 body += create_contributing(template)
                 
                 readme_destination = "{0}/templates/{1}/files/{2}".format(os.getcwd(), template, readme_file)

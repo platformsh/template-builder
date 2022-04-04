@@ -6,7 +6,7 @@
         "major_version": "v1.11",
         "repository": "https://github.com/Sylius/Sylius-Standard.git"
     },
-    "last_updated_on": "2022-04-04-13:04:54",
+    "last_updated_on": "2022-04-04-16:21:00",
     "migration": {
         "files": {
             "rel_template": [
@@ -28,7 +28,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/sylius/build/"
             ],
@@ -52,6 +52,20 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir sylius && cd sylius",
+                "git init",
+                "git remote add upstream https://github.com/Sylius/Sylius-Standard.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs v1.11"
+            ],
+            "deps": [
+                "composer require platformsh/symfonyflex-bridge"
+            ]
         }
     }
 }

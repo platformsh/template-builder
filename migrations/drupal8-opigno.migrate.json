@@ -6,7 +6,7 @@
         "major_version": "2",
         "repository": "https://bitbucket.org/opigno/opigno-composer.git"
     },
-    "last_updated_on": "2022-04-04-13:04:40",
+    "last_updated_on": "2022-04-04-16:20:55",
     "migration": {
         "files": {
             "rel_template": [
@@ -52,7 +52,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/drupal8-opigno/build/"
             ],
@@ -74,6 +74,20 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir drupal8-opigno && cd drupal8-opigno",
+                "git init",
+                "git remote add upstream https://bitbucket.org/opigno/opigno-composer.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 2"
+            ],
+            "deps": [
+                "composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0"
+            ]
         }
     }
 }

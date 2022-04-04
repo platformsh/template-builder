@@ -233,6 +233,16 @@ platform environment:branch updates
 """.format(template, local_options)
         return content
     return defaultContent
+# Create customizations.
+def create_customizations():
+    return """
+### Customizations
+
+A number of changes have been made to this repository from its source that you may already be familiar with. 
+Configuration files have been added, and other small changes were necessary to deploy on Platform.sh
+
+See [Migrate](#migrate) for more details.
+"""
 ############################################################################################################
 # Migrate
 ############################################################################################################
@@ -270,24 +280,44 @@ def create_migration_file_descriptions(template, data):
 """.format(migrate_content)
 # Migrate: getting started.
 def create_migration_getting_started(template, data):
+    with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), 'r') as myfile:
+        migrate_data=myfile.read()
+    migration_files = json.loads(migrate_data)
+    deps_content = ""
+    for commands in migration_files["migration"]["migrate"]["init"]:
+        deps_content += "$ {0}\n".format(commands)
+
     return """
 
-If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
+```bash
+{0}
+```
 
-"""
+""".format(deps_content)
 # Migrate: dependencies.
 def create_migration_dependencies(template, data):
-    return """
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+    with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), 'r') as myfile:
+        migrate_data=myfile.read()
+    migration_files = json.loads(migrate_data)
+    deps_content = ""
+    for commands in migration_files["migration"]["migrate"]["deps"]:
+        deps_content += "$ {0}\n".format(commands)
 
-"""
+    return """
+
+```bash
+{0}
+```
+
+""".format(deps_content)
+
 # Migrate: data.
 def create_migration_data(template, data):
 
     mounts = ""
     for mount in data["sections"]["migration"]["mounts"]:
         mounts += """
-    $ platform mount:upload -e main --mount {0} --source ./{0}""".format(mount)
+$ platform mount:upload -e main --mount {0} --source ./{0}""".format(mount)
     return """
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 

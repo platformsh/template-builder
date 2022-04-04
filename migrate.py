@@ -84,10 +84,12 @@ def document_migration_steps(template):
     branch_commands = get_branch_commands()
     push_commands = get_push_commands()
 
+    dependencies = [command.split(" --")[0] for command in [*platformify_commands] if "composer require" in command]
+
     try:
         major_version = dodo.project_factory(template).major_version
     except:
-        major_version = None
+        major_version = dodo.project_factory(template).upstream_branch
     try:
         remote = dodo.project_factory(template).remote
     except:
@@ -125,16 +127,17 @@ def document_migration_steps(template):
                 "push": [*push_commands]
             },
             "migrate": {
-                "init": [],
+                "init": [
+                    "mkdir {0} && cd {0}".format(template),
+                    "git init",
+                    "git remote add upstream {0}".format(dodo.project_factory(template).remote),
+                    "git checkout main",
+                    "git fetch --all --depth=2",
+                    "git fetch --all --tags",
+                    "git merge --allow-unrelated-histories -X theirs {0}".format(major_version)
+                ],
+                "deps": dependencies
             }
-            # "commands": [
-            #     # *cleanup_commands, 
-            #     *init_commands, 
-            #     *update_commands, 
-            #     *platformify_commands,
-            #     # *branch_commands,
-            #     # *push_commands
-            # ]
         }
     }
 
@@ -147,15 +150,15 @@ def document_migration_steps(template):
 
 def run():
     templates = list(get_templates_list())
+    ignore_templates = ['wordpress-vanilla']
     for template in templates:
-        document_migration_steps(template)
-
-    # default_attributes = ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_platformify', 'branch', 'builddir', 'cleanup', 'commitMessage', 'composer_defaults', 'init', 'latest_tag', 'major_version', 'name', 'package_update_actions', 'platformify', 'push', 'remote', 'type', 'typeVersion', 'update', 'updateBranch', 'updateCommands']
-    # l_func = lambda x, y: list((set(x)- set(y))) + list((set(y)- set(x))) 
-    # non_match = l_func(default_attributes, dir(dodo.project_factory('wordpress-composer')))
-    # print(non_match)
-    # print(dodo.project_factory('wordpress-composer').wp_modify_composer)
-
+        try:
+            remote = dodo.project_factory(template).remote
+        except:
+            remote = None
+        if remote is not None:
+            if template not in ignore_templates:
+                document_migration_steps(template)
 
 if __name__ == "__main__":
     run()

@@ -6,7 +6,7 @@
         "major_version": null,
         "repository": "https://wordpress.org/latest"
     },
-    "last_updated_on": "2022-04-04-13:04:40",
+    "last_updated_on": "2022-04-04-16:12:26",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,7 +43,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-vanilla/build/"
             ],
@@ -59,6 +59,13 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir wordpress-vanilla && cd wordpress-vanilla",
+                "git init",
+                "git remote add upstream https://wordpress.org/latest"
+            ]
         }
     }
 }

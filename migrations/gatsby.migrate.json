@@ -3,10 +3,10 @@
     "type": "nodejs",
     "type_version": "16",
     "remote": {
-        "major_version": null,
+        "major_version": "master",
         "repository": "https://github.com/gatsbyjs/gatsby-starter-blog.git"
     },
-    "last_updated_on": "2022-04-04-13:04:43",
+    "last_updated_on": "2022-04-04-16:20:55",
     "migration": {
         "files": {
             "rel_template": [
@@ -28,7 +28,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/gatsby/build/"
             ],
@@ -50,6 +50,18 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir gatsby && cd gatsby",
+                "git init",
+                "git remote add upstream https://github.com/gatsbyjs/gatsby-starter-blog.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs master"
+            ],
+            "deps": []
         }
     }
 }

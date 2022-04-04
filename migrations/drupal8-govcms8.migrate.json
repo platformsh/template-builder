@@ -6,7 +6,7 @@
         "major_version": "2.11",
         "repository": "https://github.com/govCMS/govCMS.git"
     },
-    "last_updated_on": "2022-04-04-13:04:38",
+    "last_updated_on": "2022-04-04-16:20:54",
     "migration": {
         "files": {
             "rel_template": [
@@ -55,7 +55,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/"
             ],
@@ -83,6 +83,20 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir drupal8-govcms8 && cd drupal8-govcms8",
+                "git init",
+                "git remote add upstream https://github.com/govCMS/govCMS.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 2.11"
+            ],
+            "deps": [
+                "composer require platformsh/config-reader drush/drush:^10 drupal/redis"
+            ]
         }
     }
 }

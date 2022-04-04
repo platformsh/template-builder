@@ -6,7 +6,7 @@
         "major_version": "1",
         "repository": "https://github.com/roots/bedrock.git"
     },
-    "last_updated_on": "2022-04-04-13:04:49",
+    "last_updated_on": "2022-04-04-16:20:57",
     "migration": {
         "files": {
             "rel_template": [
@@ -34,7 +34,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-woocommerce/build/"
             ],
@@ -59,6 +59,20 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir wordpress-woocommerce && cd wordpress-woocommerce",
+                "git init",
+                "git remote add upstream https://github.com/roots/bedrock.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 1"
+            ],
+            "deps": [
+                "composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack"
+            ]
         }
     }
 }

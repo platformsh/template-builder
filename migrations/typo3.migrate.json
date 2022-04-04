@@ -6,7 +6,7 @@
         "major_version": "v10",
         "repository": "https://github.com/TYPO3/TYPO3.CMS.BaseDistribution.git"
     },
-    "last_updated_on": "2022-04-04-13:04:49",
+    "last_updated_on": "2022-04-04-16:20:57",
     "migration": {
         "files": {
             "rel_template": [
@@ -49,7 +49,7 @@
                 "src/SetupConfiguration.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/typo3/build/"
             ],
@@ -73,6 +73,20 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir typo3 && cd typo3",
+                "git init",
+                "git remote add upstream https://github.com/TYPO3/TYPO3.CMS.BaseDistribution.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs v10"
+            ],
+            "deps": [
+                "composer require \"php:<8.0\" psr/cache:^1.0 typo3/cms-introduction:~4.3.2 platformsh/config-reader pixelant/pxa-lpeh"
+            ]
         }
     }
 }

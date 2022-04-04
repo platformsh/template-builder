@@ -6,7 +6,7 @@
         "major_version": "2.4",
         "repository": "https://github.com/magento/magento2.git"
     },
-    "last_updated_on": "2022-04-04-13:04:43",
+    "last_updated_on": "2022-04-04-16:20:55",
     "migration": {
         "files": {
             "rel_template": [
@@ -43,7 +43,7 @@
                 ".platform/routes.yaml"
             ]
         },
-        "commends": {
+        "commands": {
             "cleanup": [
                 "rm -rf /Users/chadcarlson/template-builder/templates/magento2ce/build/"
             ],
@@ -64,6 +64,18 @@
                 "git checkout -b updatesLocal"
             ],
             "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir magento2ce && cd magento2ce",
+                "git init",
+                "git remote add upstream https://github.com/magento/magento2.git",
+                "git checkout main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 2.4"
+            ],
+            "deps": []
         }
     }
 }

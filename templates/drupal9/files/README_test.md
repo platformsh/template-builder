@@ -344,7 +344,16 @@ If you already have code you'd like to migrate, feel free to focus on the steps 
 
 
 
-If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
+```bash
+$ mkdir drupal9 && cd drupal9
+$ git init
+$ git remote add upstream https://github.com/drupal/recommended-project.git
+$ git checkout main
+$ git fetch --all --depth=2
+$ git fetch --all --tags
+$ git merge --allow-unrelated-histories -X theirs 9.3
+
+```
 
 
 
@@ -373,7 +382,11 @@ Some of them explicitly configure how the application is built and deployed on P
 ### Dependencies
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+```bash
+$ composer require platformsh/config-reader drush/drush drupal/redis
+
+```
 
 
 
@@ -575,8 +588,8 @@ Run the following from your local Git repository root (modifying the `--source` 
 A few examples are listed below, but repeat for all directories that contain data you would like to migrate.
 
 ```bash
-    $ platform mount:upload -e main --mount web/sites/default/files --source ./web/sites/default/files
-    $ platform mount:upload -e main --mount private --source ./private
+$ platform mount:upload -e main --mount web/sites/default/files --source ./web/sites/default/files
+$ platform mount:upload -e main --mount private --source ./private
 ```
 
 Note that `rsync` is picky about its trailing slashes, so be sure to include those.

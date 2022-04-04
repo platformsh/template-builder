@@ -2,21 +2,34 @@ Platform.sh is a unified, secure, enterprise-grade platform for building, runnin
 
 Our key features include:
 
-1. **GitOps: Git as the source of truth**
+<details>
+<summary><strong>GitOps: Git as the source of truth</strong></summary><br />
 
-    Every branch becomes a development environment, and nothing can change without a commit. 
+Every branch becomes a development environment, and nothing can change without a commit. 
 
-1. **Batteries include: Managed infrastructure**
+</details>
 
-    [Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure]((https://docs.platform.sh/overview/structure.html), fully managed patch updates, 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html).
+<details>
+<summary><strong>Batteries include: Managed infrastructure</strong></summary><br />
 
-1. **Instant cloning: Branch, merge, repeat**
+[Simple abstraction in YAML](https://docs.platform.sh/configuration/yaml.html) for [committing and configuring infrastructure]((https://docs.platform.sh/overview/structure.html), fully managed patch updates, 24 [runtimes](https://docs.platform.sh/languages.html) & [services](https://docs.platform.sh/configuration/services.html).
 
-    [Reusable builds](https://docs.platform.sh/overview/build-deploy.html) and automatically inherited production data provide true staging environments - experiment in isolation, test, then destroy or merge.  
+</details>
 
-1. **FleetOps: Fleet management platform**
+<details>
+<summary><strong>Instant cloning: Branch, merge, repeat</strong></summary><br />
 
-    You can leverage our public API along with custom tools like [Source Operations]() and [Activity Scripts]() to manage thousands of applications - their dependency updates, fresh content, and upstream code. 
+[Reusable builds](https://docs.platform.sh/overview/build-deploy.html) and automatically inherited production data provide true staging environments - experiment in isolation, test, then destroy or merge.  
+
+</details>
+
+<details>
+<summary><strong>FleetOps: Fleet management platform</strong></summary><br />
+
+You can leverage our public API along with custom tools like [Source Operations](https://docs.platform.sh/configuration/app/source-operations.html) and [Activity Scripts](https://docs.platform.sh/integrations/activity.html) to [manage thousands of applications](https://youtu.be/MILHG9OqhmE) - their dependency updates, fresh content, and upstream code. 
+
+</details>
+<br/>
 
 To find out more, check out the demo below and go to our [website](https://platform.sh/product/).
 

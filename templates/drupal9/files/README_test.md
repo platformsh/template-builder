@@ -414,20 +414,20 @@ After you have created a new environment, you can connect to a backend Drupal in
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. Aliquam sed est egestas neque ultricies dictum a non dui. Maecenas placerat non tortor non porta. Curabitur iaculis nisi risus, vel sollicitudin diam cursus a. Proin in cursus ipsum, eget semper eros. Nulla in semper urna. Etiam lorem magna, pretium ac nibh eu, consequat facilisis odio. Aliquam auctor efficitur nisi sit amet sollicitudin. Morbi ut lacus metus. Nam lacinia eget enim eu molestie.
 
-- `[header_test.svg](header_test.svg)`
-- `[config/sync/.gitkeep](config/sync/.gitkeep)`
-- `[web/sites/default/settings.php](web/sites/default/settings.php)`
-- `[web/sites/default/settings.platformsh.php](web/sites/default/settings.platformsh.php)`
-- `[.editorconfig](.editorconfig)`
-- `[.environment](.environment)`
-- `[README.md](README.md)`
-- `[.gitignore](.gitignore)`
-- `[.lando.upstream.yml](.lando.upstream.yml)`
-- `[.platform.app.yaml](.platform.app.yaml)`
-- `[drush/platformsh_generate_drush_yml.php](drush/platformsh_generate_drush_yml.php)`
-- `[README_test.md](README_test.md)`
-- `[.platform/services.yaml](.platform/services.yaml)`
-- `[.platform/routes.yaml](.platform/routes.yaml)`
+- [`header_test.svg`](header_test.svg)
+- [`config/sync/.gitkeep`](config/sync/.gitkeep)
+- [`web/sites/default/settings.php`](web/sites/default/settings.php)
+- [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php)
+- [`.editorconfig`](.editorconfig)
+- [`.environment`](.environment)
+- [`README.md`](README.md)
+- [`.gitignore`](.gitignore)
+- [`.lando.upstream.yml`](.lando.upstream.yml)
+- [`.platform.app.yaml`](.platform.app.yaml)
+- [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php)
+- [`README_test.md`](README_test.md)
+- [`.platform/services.yaml`](.platform/services.yaml)
+- [`.platform/routes.yaml`](.platform/routes.yaml)
 
 
 

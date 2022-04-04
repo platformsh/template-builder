@@ -300,7 +300,7 @@ def create_customizations(template, data):
 
     migrate_content = ""
     for file in migration_files["migration"]["files"]["rel_root"]:
-        migrate_content += "- `[{0}]({0})`\n".format(file)
+        migrate_content += "- [`{0}`]({0})\n".format(file)
 
     return """
 ## Customizations

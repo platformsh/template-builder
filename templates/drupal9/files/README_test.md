@@ -128,10 +128,7 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
         <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="170px" />
     </a>
 </p>
-
-> **Note:**
->
-> If you do not already have a Platform.sh account, you will be asked to fill out some basic information, after which you will be given a 30-day free trial to experiment with our platform.
+<br/>
 
 
 #### Other deployment options
@@ -340,10 +337,6 @@ cd project-name
 platform environment:branch updates
 ```
 
-> **Note:**
->
-> For many of the steps below, you may need to include the CLI flags `-p PROJECT_ID` and `-e ENVIRONMENT_ID` if you are not in the project directory or if the environment is associated with an existing pull request.
-
 <details>
 <summary><strong>Drupal: using ddev</strong></summary><br />
 
@@ -383,6 +376,10 @@ Lando supports PHP applications configured to run on Platform.sh, and pulls from
 
 </details>
 
+
+> **Note:**
+>
+> For many of the steps above, you may need to include the CLI flags `-p PROJECT_ID` and `-e ENVIRONMENT_ID` if you are not in the project directory or if the environment is associated with an existing pull request.
 
 
 ## Migration

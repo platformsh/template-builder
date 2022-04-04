@@ -312,15 +312,15 @@ def create_migration_file_descriptions(template, data):
     migration_files = json.loads(migrate_data)
 
     migrate_content = """
-| Action         | File | Purpose    |
-|:--------------|:-----------|:--------|
+|  File | Purpose    |
+|:-----------|:--------|
 """
 
     for file in migration_files["migration"]["files"]["rel_root"]:
         if file not in ignore_files:
             if "migration" in data["sections"]:
                 if file in data["sections"]["migration"]["files"]:
-                    content = "| ![update](https://img.shields.io/badge/mod-%20?style=for-the-badge&labelColor=f4f2f3&color=23b7b7) | [`{0}`]({0}) |".format(file, file)
+                    content = "| [`{0}`]({0}) |".format(file, file)
                     for entry in data["sections"]["migration"]["files"][file]:
                         if isinstance(entry, str):
                             content += " {0}".format(entry)
@@ -328,7 +328,7 @@ def create_migration_file_descriptions(template, data):
                             content += " {0}".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
                     migrate_content += content + " |\n"
                 else:
-                    migrate_content += "| ![update](https://img.shields.io/badge/add-%20?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9) | [`{0}`]({0}) |    |\n".format(file)
+                    migrate_content += "| [`{0}`]({0}) |    |\n".format(file)
 
     return """
 {0}

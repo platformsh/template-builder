@@ -293,6 +293,11 @@ def create_migration_getting_started(template, data):
 {0}
 ```
 
+> **Note**
+>
+> This final command will include an upstream branch our template's pull from, or a *major version* of a tag. 
+When you run it locally, view the list of resulting tags and choose the latest one that still fits that major version.
+
 """.format(deps_content)
 # Migrate: dependencies.
 def create_migration_dependencies(template, data):

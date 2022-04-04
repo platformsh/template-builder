@@ -355,6 +355,11 @@ $ git merge --allow-unrelated-histories -X theirs 9.3
 
 ```
 
+> **Note**
+>
+> This final command will include an upstream branch our template's pull from, or a *major version* of a tag. 
+When you run it locally, view the list of resulting tags and choose the latest one that still fits that major version.
+
 
 
 ### Adding and updating files

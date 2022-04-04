@@ -286,6 +286,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris u
 """
 # Migrate: data.
 def create_migration_data(template, data):
+
+    mounts = ""
+    for mount in data["sections"]["migration"]["mounts"]:
+        mounts += """
+    $ platform mount:upload -e main --mount {0} --source ./{0}""".format(mount)
     return """
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
@@ -302,18 +307,19 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
     You first need to download your files from your current hosting environment. 
     The easiest way is likely with rsync, but consult your old host's documentation. 
 
-    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once. 
+    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once to a `mount` defined in a `.platform.app.yaml` file. 
     Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
     (There is also a `platform mount:download` command you can use to download files later.) 
     Run the following from your local Git repository root (modifying the `--source` path if needed and setting `BRANCH_NAME` to the branch you are using).
 
-    ```bash
-    something
+    A few examples are listed below, but repeat for all directories that contain data you would like to migrate.
+
+    ```bash{0}
     ```
 
     Note that `rsync` is picky about its trailing slashes, so be sure to include those.
 
-"""
+""".format(mounts)
 # Migrate: Main.
 def create_migration(template, data):
 
@@ -324,7 +330,7 @@ def create_migration(template, data):
     data_migrate = create_migration_data(template, data)
 
     return """
-## Migration
+## Migrate
 
 The steps below outline the important steps for migrating your application to Platform.sh - adding the required configuration files and dependencies, for example.
 Not every step will be applicable to each person's migration.
@@ -481,9 +487,6 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 
 <br />
-<p align="center">
-<img src="https://platform.sh/images/linked-block/people.svg" width="100%">
-</p>
 """.format(template)
     return content
 ############################################################################################################

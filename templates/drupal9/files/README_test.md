@@ -326,7 +326,7 @@ Lando supports PHP applications configured to run on Platform.sh, and pulls from
 > For many of the steps above, you may need to include the CLI flags `-p PROJECT_ID` and `-e ENVIRONMENT_ID` if you are not in the project directory or if the environment is associated with an existing pull request.
 
 
-## Migration
+## Migrate
 
 The steps below outline the important steps for migrating your application to Platform.sh - adding the required configuration files and dependencies, for example.
 Not every step will be applicable to each person's migration.
@@ -568,13 +568,16 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
     You first need to download your files from your current hosting environment. 
     The easiest way is likely with rsync, but consult your old host's documentation. 
 
-    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once. 
+    The `platform mount:upload` command provides a straightforward way to upload an entire directory to your site at once to a `mount` defined in a `.platform.app.yaml` file. 
     Under the hood, it uses an SSH tunnel and rsync, so it is as efficient as possible. 
     (There is also a `platform mount:download` command you can use to download files later.) 
     Run the following from your local Git repository root (modifying the `--source` path if needed and setting `BRANCH_NAME` to the branch you are using).
 
+    A few examples are listed below, but repeat for all directories that contain data you would like to migrate.
+
     ```bash
-    something
+    $ platform mount:upload -e main --mount web/sites/default/files --source ./web/sites/default/files
+    $ platform mount:upload -e main --mount private --source ./private
     ```
 
     Note that `rsync` is picky about its trailing slashes, so be sure to include those.
@@ -708,6 +711,3 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 
 <br />
-<p align="center">
-<img src="https://platform.sh/images/linked-block/people.svg" width="100%">
-</p>

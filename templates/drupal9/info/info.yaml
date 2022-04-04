@@ -39,7 +39,7 @@ sections:
       - "[Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)"
     migration:
       mounts:
-        - "/web/sites/default/files"
+        - "web/sites/default/files"
         - "private"
       files:
         "web/sites/default/settings.platformsh.php": 

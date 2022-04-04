@@ -369,13 +369,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris u
 
 ### Deploying to Platform.sh
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+Your repository now has all of the code it needs in order to deploy to Platform.sh. 
+In order to actually deploy, consult the [Getting started](#getting-started) section of this document, which contains all of the information to either push directly to Platform.sh or to integrate with an external service like GitHub.
+When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
 
 ### Migrating your data
 
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
-1. Importing the database
+1. **Importing the database**
 
     First, obtain a database dump from your current site and save your dump file as `database.sql`. Then, import the database into your Platform.sh site using the CLI:
 
@@ -383,7 +385,7 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
     platform sql -e main < database.sql
     ```
 
-2. Importing files
+2. **Importing files**
 
     You first need to download your files from your current hosting environment. 
     The easiest way is likely with rsync, but consult your old host's documentation. 
@@ -403,8 +405,23 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
 
 ### Next steps
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+With your application now deployed on Platform.sh, things get more interesting. 
+Run the command `platform environment:branch new-feature` for your project, or open a trivial pull request off of your current branch. 
 
+The resulting environment is an *exact* copy of production.
+It contains identical infrastructure to what's been defined in your configuration files, and even includes data copied from your production environment in its services. 
+
+On this isolated environment, you're free to make any changes to your application you need to, and really test how they will behave on production. 
+
+After that, here are a collection of additional resources you might find interesting as you continue with your migration to Platform.sh:
+
+- [Local development](#local-development)
+- [Troubleshooting](#troubleshooting)
+- [Adding a domain and going live](https://docs.platform.sh/domains/steps.html)
+- [(CDN) Content Delivery Networks](https://docs.platform.sh/domains/cdn.html)
+- [Performance and observability with Blackfire.io](https://docs.platform.sh/integrations/observability/blackfire.html)
+- [Pricing](https://docs.platform.sh/overview/pricing.html)
+- [Security and compliance](https://docs.platform.sh/security.html)
 
 """.format(file_descriptions)
 
@@ -467,6 +484,9 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 
 <br />
+<p align="center">
+<img src="https://platform.sh/images/linked-block/people.svg" width="100%">
+</p>
 """.format(template)
     return content
 

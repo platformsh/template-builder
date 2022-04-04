@@ -472,6 +472,12 @@ See something that's wrong with this template that needs to be fixed? Something 
 <br/>
 
 <p align="center">
+<a href="https://github.com/platformsh-templates/drupal9/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=platformsh-templates/drupal9" />
+</a>
+</p>
+
+<p align="center">
 <img src="https://contrib.rocks/image?repo=platformsh-templates/drupal9" />
 </p>
 

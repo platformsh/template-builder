@@ -38,6 +38,9 @@ sections:
       - "[Drupal 9 on Platform.sh](https://docs.platform.sh/guides/drupal9/deploy.html)"
       - "[Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)"
     migration:
+      mounts:
+        - "/web/sites/default/files"
+        - "private"
       files:
         "web/sites/default/settings.platformsh.php": 
             - "Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis."

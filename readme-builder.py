@@ -173,6 +173,9 @@ def create_getting_started(template):
 #### Quickstart
 
 {0}
+
+#### Other deployment options
+
 """.format(quickstart)
     return content
 
@@ -185,7 +188,6 @@ def create_deploy_options(template):
     bitbucket = read_file("{}/common/readme/deploy_bitbucket.md".format(os.getcwd()))
 
     content = """
-#### Other deployment options
 
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary><br />
@@ -331,50 +333,21 @@ def create_migration_file_descriptions(template, data):
 {0}
 """.format(migrate_content)
 
-def create_migration(template, data):
-
-    file_descriptions = create_migration_file_descriptions(template, data)
-
+def create_migration_getting_started(template, data):
     return """
-## Migration
-
-The steps below outline the important steps for migrating your application to Platform.sh - adding the required configuration files and dependencies, for example.
-Not every step will be applicable to each person's migration.
-These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be rebuilt completely from scratch.
-
-- [Getting started](#getting-started-1)
-- [Adding and updating files](#adding-and-updating-files)
-- [Dependencies](#dependencies)
-- [Deploying to Platform.sh](#deploying-to-platformsh)
-- [Migrating your data](#migrating-your-data)
-- [Next steps](#next-steps)
-
-If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application and skip the first section.
-
-### Getting started
 
 If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
 
+"""
 
-### Adding and updating files
-
-A small number of files need to be added to or modified in your repository at this point. 
-Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
-
-{0}
-
-### Dependencies
-
+def create_migration_dependencies(template, data):
+    return """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
 
-### Deploying to Platform.sh
+"""
 
-Your repository now has all of the code it needs in order to deploy to Platform.sh. 
-In order to actually deploy, consult the [Getting started](#getting-started) section of this document, which contains all of the information to either push directly to Platform.sh or to integrate with an external service like GitHub.
-When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
-
-### Migrating your data
-
+def create_migration_data(template, data):
+    return """
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
 1. **Importing the database**
@@ -401,7 +374,58 @@ If you are moving an existing site to Platform.sh, then in addition to code you 
 
     Note that `rsync` is picky about its trailing slashes, so be sure to include those.
 
+"""
 
+def create_migration(template, data):
+
+    getting_started = create_migration_getting_started(template, data)
+    file_descriptions = create_migration_file_descriptions(template, data)
+    dependencies = create_migration_dependencies(template, data)
+    deploy_options = create_deploy_options(template)
+    data_migrate = create_migration_data(template, data)
+
+    return """
+## Migration
+
+The steps below outline the important steps for migrating your application to Platform.sh - adding the required configuration files and dependencies, for example.
+Not every step will be applicable to each person's migration.
+These steps actually assume the earliest starting point possible - that there is no code at all locally, and that this template repository will be rebuilt completely from scratch.
+
+- [Getting started](#getting-started-1)
+- [Adding and updating files](#adding-and-updating-files)
+- [Dependencies](#dependencies)
+- [Deploying to Platform.sh](#deploying-to-platformsh)
+- [Migrating your data](#migrating-your-data)
+- [Next steps](#next-steps)
+
+If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application and skip the first section.
+
+### Getting started
+
+{0}
+
+### Adding and updating files
+
+A small number of files need to be added to or modified in your repository at this point. 
+Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
+
+{1}
+
+### Dependencies
+
+{2}
+
+### Deploying to Platform.sh
+
+Your repository now has all of the code it needs in order to deploy to Platform.sh. 
+In order to actually deploy, consult the [Getting started](#getting-started) section of this document, which contains all of the information to either push directly to Platform.sh or to integrate with an external service like GitHub.
+When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
+
+{3}
+
+### Migrating your data
+
+{4}
 
 ### Next steps
 
@@ -410,7 +434,6 @@ Run the command `platform environment:branch new-feature` for your project, or o
 
 The resulting environment is an *exact* copy of production.
 It contains identical infrastructure to what's been defined in your configuration files, and even includes data copied from your production environment in its services. 
-
 On this isolated environment, you're free to make any changes to your application you need to, and really test how they will behave on production. 
 
 After that, here are a collection of additional resources you might find interesting as you continue with your migration to Platform.sh:
@@ -423,7 +446,7 @@ After that, here are a collection of additional resources you might find interes
 - [Pricing](https://docs.platform.sh/overview/pricing.html)
 - [Security and compliance](https://docs.platform.sh/security.html)
 
-""".format(file_descriptions)
+""".format(getting_started, file_descriptions, dependencies, deploy_options, data_migrate)
 
 # Resources
 def create_resources(template, data):

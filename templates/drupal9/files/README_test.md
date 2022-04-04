@@ -133,6 +133,8 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
 
 #### Other deployment options
 
+
+
 <details>
 <summary>Deploy directly to Platform.sh from the command line</summary><br />
 
@@ -399,7 +401,10 @@ If you already have code you'd like to migrate, feel free to focus on the steps 
 
 ### Getting started
 
+
+
 If you are coming to this README with no local application to start with, begin with this section. Otherwise, move on to [Adding and updating files](#adding-and-updating-files) below.
+
 
 
 ### Adding and updating files
@@ -426,7 +431,10 @@ Some of them explicitly configure how the application is built and deployed on P
 
 ### Dependencies
 
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor.
+
+
 
 ### Deploying to Platform.sh
 
@@ -434,7 +442,200 @@ Your repository now has all of the code it needs in order to deploy to Platform.
 In order to actually deploy, consult the [Getting started](#getting-started) section of this document, which contains all of the information to either push directly to Platform.sh or to integrate with an external service like GitHub.
 When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
 
+
+
+<details>
+<summary>Deploy directly to Platform.sh from the command line</summary><br />
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/drupal9
+   ```
+
+1. Create a free trial:
+
+   [Register for a 30 day free trial with Platform.sh](https://auth.api.platform.sh/register). When you have completed signup, select the **Create from scratch** project option. Give you project a name, and select a region where you would like it to be deployed. As for the *Production environment* option, make sure to match it to this repository's settings, or to what you have updated the default branch to locally.
+
+1. Install the Platform.sh CLI
+
+   #### Linux/OSX
+
+   ```bash
+   curl -sS https://platform.sh/cli/installer | php
+   ```
+
+   #### Windows
+
+   ```bash
+   curl -f https://platform.sh/cli/installer -o cli-installer.php
+   php cli-installer.php
+   ```
+
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+
+1. Set the project remote
+
+   Find your `PROJECT_ID` by running the command `platform project:list` 
+
+   ```bash
+   +---------------+------------------------------------+------------------+---------------------------------+
+   | ID            | Title                              | Region           | Organization                    |
+   +---------------+------------------------------------+------------------+---------------------------------+
+   | PROJECT_ID    | Your Project Name                  | xx-5.platform.sh | your-username                   |
+   +---------------+------------------------------------+------------------+---------------------------------+
+   ```
+
+   Then from within your local copy, run the command `platform project:set-remote PROJECT_ID`.
+
+1. Push
+
+   ```bash
+   git push platform DEFAULT_BRANCH
+   ```
+
+
+</details>
+
+<details>
+<summary>Deploy from GitHub</summary><br />
+
+If you would instead to deploy this template from your own repository on GitHub, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [GitHub integration documentation here](https://docs.platform.sh/integrations/source/github.html).
+
+1. Clone this repository:
+
+   Click the [Use this template](https://github.com/platformsh-templates/drupal9/generate) button at the top of this page to create a new repository in your namespace containing this demo. Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/drupal9.git`.
+
+1. Create a free trial:
+
+   [Register for a 30 day free trial with Platform.sh](https://auth.api.platform.sh/register). When you have completed signup, select the **Create from scratch** project option. Give you project a name, and select a region where you would like it to be deployed. As for the *Production environment* option, make sure to match it to whatever you have set at `https://YOUR_NAMESPACE/nextjs-drupal`.
+
+1. Install the Platform.sh CLI
+
+   #### Linux/OSX
+
+   ```bash
+   curl -sS https://platform.sh/cli/installer | php
+   ```
+
+   #### Windows
+
+   ```bash
+   curl -f https://platform.sh/cli/installer -o cli-installer.php
+   php cli-installer.php
+   ```
+
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+
+1. Setup the integration:
+
+   Consult the [GitHub integration documentation](https://docs.platform.sh/integrations/source/github.html#setup) to finish connecting your repository to a project on Platform.sh. You will need to create an Access token on GitHub to do so.
+
+
+</details>
+
+<details>
+<summary>Deploy from GitLab</summary><br />
+
+If you would instead to deploy this template from your own repository on GitLab, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [GitLab integration documentation here](https://docs.platform.sh/integrations/source/gitlab.html).
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/drupal9
+   ```
+
+1. Create a free trial:
+
+   [Register for a 30 day free trial with Platform.sh](https://auth.api.platform.sh/register). When you have completed signup, select the **Create from scratch** project option. Give you project a name, and select a region where you would like it to be deployed. As for the *Production environment* option, make sure to match it to this repository's settings, or to what you have updated the default branch to locally.
+
+1. Install the Platform.sh CLI
+
+   #### Linux/OSX
+
+   ```bash
+   curl -sS https://platform.sh/cli/installer | php
+   ```
+
+   #### Windows
+
+   ```bash
+   curl -f https://platform.sh/cli/installer -o cli-installer.php
+   php cli-installer.php
+   ```
+
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+
+1. Create the repository
+
+   Create a new repository on GitLab, set it as a new remote for your local copy, and push to the default branch. 
+
+1. Setup the integration:
+
+   Consult the [GitLab integration documentation](https://docs.platform.sh/integrations/source/gitlab.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on GitLab to do so.
+
+
+</details>
+
+<details>
+<summary>Deploy from Bitbucket</summary><br />
+
+If you would instead to deploy this template from your own repository on Bitbucket, you can do so through the following steps.
+
+> **Note:**
+>
+> You can find the full [Bitbucket integration documentation here](https://docs.platform.sh/integrations/source/bitbucket.html).
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/platformsh-templates/drupal9
+   ```
+
+1. Create a free trial:
+
+   [Register for a 30 day free trial with Platform.sh](https://auth.api.platform.sh/register). When you have completed signup, select the **Create from scratch** project option. Give you project a name, and select a region where you would like it to be deployed. As for the *Production environment* option, make sure to match it to this repository's settings, or to what you have updated the default branch to locally.
+
+1. Install the Platform.sh CLI
+
+   #### Linux/OSX
+
+   ```bash
+   curl -sS https://platform.sh/cli/installer | php
+   ```
+
+   #### Windows
+
+   ```bash
+   curl -f https://platform.sh/cli/installer -o cli-installer.php
+   php cli-installer.php
+   ```
+
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+
+1. Create the repository
+
+   Create a new repository on Bitbucket, set it as a new remote for your local copy, and push to the default branch. 
+
+1. Setup the integration:
+
+   Consult the [Bitbucket integration documentation](https://docs.platform.sh/integrations/source/bitbucket.html#setup) to finish connecting a repository to a project on Platform.sh. You will need to create an Access token on Bitbucket to do so.
+
+
+</details>
+
+
+
 ### Migrating your data
+
 
 If you are moving an existing site to Platform.sh, then in addition to code you also need to migrate your data. That means your database and your files.
 
@@ -471,7 +672,6 @@ Run the command `platform environment:branch new-feature` for your project, or o
 
 The resulting environment is an *exact* copy of production.
 It contains identical infrastructure to what's been defined in your configuration files, and even includes data copied from your production environment in its services. 
-
 On this isolated environment, you're free to make any changes to your application you need to, and really test how they will behave on production. 
 
 After that, here are a collection of additional resources you might find interesting as you continue with your migration to Platform.sh:

@@ -78,3 +78,6 @@ sections:
             - "**Added:**<br><br>"
             - file: "common/readme/file_descriptions/.platform.routes.yaml.md"
             - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+    troubleshoot:
+      - file: "common/readme/troubleshoot_ssh.md"
+      - file: "common/readme/drupal/troubleshoot_cache.md"

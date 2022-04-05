@@ -125,15 +125,20 @@ class BaseProject(object):
     def platformify(self):
         """
         The default implementation of this method will
-        1) Copy the contents of the files/ directory in the project over the
+        1) Copy the contents of common files that we want in all templates.
+        2) Copy the contents of the files/ directory in the project over the
            application, replacing what's there.
-        2) Apply any *.patch files found in the project directory, in alphabetical order.
+        3) Apply any *.patch files found in the project directory, in alphabetical order.
 
         Individual projects may expand on these tasks as needed.
         """
         actions = ['rsync -aP {0} {1}'.format(
+            os.path.join(ROOTDIR,'common/all/'),  self.builddir
+        ),
+        'rsync -aP {0} {1}'.format(
             os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
-        )]
+        )
+        ]
         patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
         for patch in patches:
             actions.append('cd {0} && patch -p1 < {1}'.format(

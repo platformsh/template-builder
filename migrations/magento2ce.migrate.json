@@ -7,7 +7,7 @@
         "repository": "https://github.com/magento/magento2.git",
         "latest_tag": null
     },
-    "last_updated_on": "2022-04-05-09:52:33",
+    "last_updated_on": "2022-04-05-10:16:12",
     "migration": {
         "files": {
             "rel_template": [
@@ -58,6 +58,7 @@
                 "git fetch --all --tags"
             ],
             "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
                 "rsync -aP /Users/chadcarlson/template-builder/templates/magento2ce/files/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
                 "patch -p1 < /Users/chadcarlson/template-builder/templates/magento2ce/platformsh.patch"
             ],

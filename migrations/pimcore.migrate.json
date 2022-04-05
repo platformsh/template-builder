@@ -7,7 +7,7 @@
         "repository": "https://github.com/pimcore/skeleton.git",
         "latest_tag": null
     },
-    "last_updated_on": "2022-04-05-09:52:32",
+    "last_updated_on": "2022-04-05-10:16:11",
     "migration": {
         "files": {
             "rel_template": [
@@ -55,6 +55,7 @@
                 "git fetch --all --tags"
             ],
             "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
                 "rsync -aP /Users/chadcarlson/template-builder/templates/pimcore/files/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
                 "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/config.patch",
                 "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/gitignore.patch"

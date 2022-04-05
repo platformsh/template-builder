@@ -7,7 +7,7 @@
         "repository": "https://github.com/roots/bedrock.git",
         "latest_tag": null
     },
-    "last_updated_on": "2022-04-05-09:52:32",
+    "last_updated_on": "2022-04-05-10:16:12",
     "migration": {
         "files": {
             "rel_template": [
@@ -51,6 +51,7 @@
             "platformify": [
                 "echo 'Adding composer config:platform:php'",
                 "composer config platform.php 8.1",
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
                 "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-bedrock/files/ /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
                 "echo 'Removing composer config:platform'",
                 "composer config --unset platform",

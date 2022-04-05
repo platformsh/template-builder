@@ -465,17 +465,16 @@ After that, here are a collection of additional resources you might find interes
 # Learn
 ############################################################################################################
 # Learn: Troubleshooting
-def create_troubleshooting():
-    return """
-After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
+def create_troubleshooting(data):
 
-```bash
-platform ssh
-```
+    troubleshoot_content = ""
+    if "troubleshoot" in data["sections"]:
+        for file in data["sections"]["troubleshoot"]:
+            troubleshoot_content += """
+{0}
+""".format(read_file("{0}/{1}".format(os.getcwd(), file["file"])))
 
-If you are running the command outside of a local copy of the project, you will need to include the `-p` (project) and/or `-e` (environment) flags as well. 
-Once you have connected to the container, [logs](https://docs.platform.sh/development/logs.html#container-logs) are available within `/var/log/` for you to investigate.
-"""
+    return troubleshoot_content
 # Learn: Resources
 def create_resources(template, data):
     if "resources" in data["sections"]:  
@@ -494,7 +493,7 @@ def create_contact():
 def create_about_platformsh():
     return read_file("{0}/{1}".format(os.getcwd(), "common/readme/platformsh_desc.md"))
 def create_learn(template, data):
-    troubleshooting = create_troubleshooting()
+    troubleshooting = create_troubleshooting(data)
     resources = create_resources(template, data)
     contact = create_contact()
     about_platformsh = create_about_platformsh()
@@ -505,13 +504,11 @@ def create_learn(template, data):
 
 {0}
 
-### Performance
-
-#### Infrastructure metrics
+### Infrastructure metrics
 
 Something about metrics
 
-#### Blackfire.io
+### Blackfire.io
 
 Something about the default Blackfire yaml file.
 

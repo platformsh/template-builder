@@ -252,9 +252,13 @@ def create_migration_file_descriptions(template, data):
 
     ignore_files = ["README.md", "README_test.md", "header_test.svg", ".editorconfig"]
 
+    with open("{0}/common/readme/file_ignore.json".format(os.getcwd(), template), 'r') as ignore_file:
+        ignore_data=ignore_file.read()
+
     with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), 'r') as myfile:
         migrate_data=myfile.read()
 
+    ignore_files = json.loads(ignore_data)
     migration_files = json.loads(migrate_data)
 
     migrate_content = """

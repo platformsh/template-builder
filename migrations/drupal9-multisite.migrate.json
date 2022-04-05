@@ -7,7 +7,7 @@
         "repository": "https://github.com/drupal/recommended-project.git",
         "latest_tag": "9.3.9"
     },
-    "last_updated_on": "2022-04-05-08:25:44",
+    "last_updated_on": "2022-04-05-09:52:41",
     "migration": {
         "files": {
             "rel_template": [

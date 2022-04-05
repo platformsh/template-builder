@@ -56,7 +56,7 @@
 
 ## About
 
-This template builds Drupal 9 using the "Drupal Recommended" Composer project.  It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
+This template builds Drupal 9 using the "Drupal Recommended" Composer project. It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
 
 Drupal is a flexible and extensible PHP-based CMS framework.
 
@@ -360,10 +360,10 @@ $ git merge --allow-unrelated-histories -X theirs 9.3.6
 
 <blockquote>
 <details>
-<summary><strong>Note: </strong><code>not something we can merge</code></summary>
+<summary><strong>Note: </strong><code>not something we can merge</code></summary><br/>
 
-All template repositories (a repo in the github.com/platform-templates organization) are artifacts of a central tool that helps our team keep them updated.
-The template repos themselves are an *artifact* of the process described here.
+All template repositories (a repo in the github.com/platform-templates organization) are *artifacts* of a central tool that helps our team keep them updated.
+The steps described here are the steps taken by that tool to produce those artifact repositories.
 This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
 
 Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
@@ -390,18 +390,21 @@ Some of them explicitly configure how the application is built and deployed on P
 | [`config/sync/.gitkeep`](config/sync/.gitkeep) | **Added** |
 | [`web/sites/default/settings.php`](web/sites/default/settings.php) | **Updated:**  The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`. |
 | [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | **Added:**  Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
-| [`.environment`](.environment) | **Added:**  The `.environment` file is a convenient place to [set environment variables](https://docs.platform.sh/development/variables/set-variables.html#set-variables-via-script) relevant to your applications that may be dependent on the current environment. It is sourced before the start command is run, as the first step in the `deploy` and `post_deploy` hooks, and at the beginning of each session when you SSH into an application container. It is written in dash, so be aware of the differences to bash. It can be used to set any environment variable, including ones that depend on Platform.sh-provided variables like `PLATFORM_RELATIONSHIPS` and `PLATFORM_ROUTES`, or to modify `PATH`. This file should not [produce output](https://docs.platform.sh/development/variables/set-variables.html#testing-environment-scripts).
- The `.environment` file is a convenient place to  |
-| [`.gitignore`](.gitignore) | **Updated:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.lando.upstream.yml`](.lando.upstream.yml) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform.app.yaml`](.platform.app.yaml) | **Added:**  This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
-| [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform/services.yaml`](.platform/services.yaml) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.platform/routes.yaml`](.platform/routes.yaml) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.environment`](.environment) | **Added:**  The `.environment` file is a convenient place to [set environment variables](https://docs.platform.sh/development/variables/set-variables.html#set-variables-via-script) relevant to your applications that may be dependent on the current environment. It is sourced before the start command is run, as the first step in the `deploy` and `post_deploy` hooks, and at the beginning of each session when you SSH into an application container. It is written in dash, so be aware of the differences to bash. It can be used to set any environment variable, including ones that depend on Platform.sh-provided variables like `PLATFORM_RELATIONSHIPS` and `PLATFORM_ROUTES`, or to modify `PATH`. This file should not [produce output](https://docs.platform.sh/development/variables/set-variables.html#testing-environment-scripts). Here, the Composer config and `PATH` are updated to allow executable app dependencies from Composer to be run from the path (i.e. `drush`). |
+| [`.gitignore`](.gitignore) | **Added:**  A `.gitignore` file is not included in the upstream, so one has been added. |
+| [`.lando.upstream.yml`](.lando.upstream.yml) | **Added:**  This file configures [Lando](https://docs.platform.sh/development/local/lando.html) as a local development option for this template. See the [Platform.sh Lando plugin documentation](https://docs.lando.dev/platformsh/) for more information about configuration. see the [Local development](#local-development) section of this README for how to get started. |
+| [`.platform.app.yaml`](.platform.app.yaml) | **Added:**  This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. It's also in this file that it is defined what dependencies are installed, when they are installed, and that package manager will be used to do so. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. For more information about the sequence of events that lead from a build to deployment, see the [Build and deploy timeline documentation](https://docs.platform.sh/overview/build-deploy.html). This template uses Composer 2 to install dependencies using the default `composer` [build flavor](https://docs.platform.sh/languages/php.html#build-flavor) prior to the `build` hook. Drush tasks are run during the `deploy` hook, and referenced again during the defined `cron` job. |
+| [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | **Added:**  This file has been included to generate the drush yaml configuration on every deployment. |
+| [`.platform/services.yaml`](.platform/services.yaml) | **Added:**  Services desc Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.platform/routes.yaml`](.platform/routes.yaml) | **Added:**  Routes desc Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 
 
 
 ### Dependencies
+
+Sometimes it is necessary to install additional dependencies to an upstream project to deploy on Platform.sh. 
+When it is, we do our best to keep these modifications to the minimum necessary. 
+Run the commands below to reproduce the dependencies in this template. 
 
 
 
@@ -645,7 +648,14 @@ After that, here are a collection of additional resources you might find interes
 ### Troubleshooting
 
 
-Troubleshooting ipsum.
+After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
+
+```bash
+platform ssh
+```
+
+If you are running the command outside of a local copy of the project, you will need to include the `-p` (project) and/or `-e` (environment) flags as well. 
+Once you have connected to the container, [logs](https://docs.platform.sh/development/logs.html#container-logs) are available within `/var/log/` for you to investigate.
 
 
 ### Performance

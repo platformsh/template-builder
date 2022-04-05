@@ -295,10 +295,10 @@ def create_migration_getting_started(template, data):
 
 <blockquote>
 <details>
-<summary><strong>Note: </strong><code>not something we can merge</code></summary>
+<summary><strong>Note: </strong><code>not something we can merge</code></summary><br/>
 
-All template repositories (a repo in the github.com/platform-templates organization) are artifacts of a central tool that helps our team keep them updated.
-The template repos themselves are an *artifact* of the process described here.
+All template repositories (a repo in the github.com/platform-templates organization) are *artifacts* of a central tool that helps our team keep them updated.
+The steps described here are the steps taken by that tool to produce those artifact repositories.
 This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
 
 Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
@@ -411,6 +411,10 @@ Some of them explicitly configure how the application is built and deployed on P
 
 ### Dependencies
 
+Sometimes it is necessary to install additional dependencies to an upstream project to deploy on Platform.sh. 
+When it is, we do our best to keep these modifications to the minimum necessary. 
+Run the commands below to reproduce the dependencies in this template. 
+
 {2}
 
 ### Deploying to Platform.sh
@@ -451,7 +455,14 @@ After that, here are a collection of additional resources you might find interes
 # Learn: Troubleshooting
 def create_troubleshooting():
     return """
-Troubleshooting ipsum.
+After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
+
+```bash
+platform ssh
+```
+
+If you are running the command outside of a local copy of the project, you will need to include the `-p` (project) and/or `-e` (environment) flags as well. 
+Once you have connected to the container, [logs](https://docs.platform.sh/development/logs.html#container-logs) are available within `/var/log/` for you to investigate.
 """
 # Learn: Resources
 def create_resources(template, data):

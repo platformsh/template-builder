@@ -3,11 +3,11 @@
     "type": "php",
     "type_version": "8.1",
     "remote": {
-        "major_version": "1",
+        "major_version": "1.19.2",
         "repository": "https://github.com/roots/bedrock.git",
-        "latest_tag": null
+        "latest_tag": "1.19.2"
     },
-    "last_updated_on": "2022-04-05-10:16:12",
+    "last_updated_on": "2022-04-05-14:17:18",
     "migration": {
         "files": {
             "rel_template": [
@@ -71,7 +71,7 @@
                 "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
-                "git merge --allow-unrelated-histories -X theirs 1"
+                "git merge --allow-unrelated-histories -X theirs 1.19.2"
             ],
             "deps": [
                 "composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh"

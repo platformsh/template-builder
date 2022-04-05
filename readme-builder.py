@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import yaml 
 
@@ -8,8 +9,8 @@ import yaml
 templates=os.listdir("{}/templates".format(os.getcwd()))
 templates.remove("__init__.py")
 templates.remove(".DS_Store")
-readme_file = "README_test.md"
-header_file = "header_test.svg"
+readme_file = "README.md"
+header_file = "header.svg"
 
 # Generic read file function.
 def read_file(file_location):
@@ -21,7 +22,7 @@ def read_file(file_location):
 # Header image
 ############################################################################################################
 # Create the header graphic so we can test template logos that show up in console.
-def create_header_image(data, destination):
+def create_header_image(data, image_destination):
     image_height = 150
     translate_x = image_height/2
     translate_y = image_height/2
@@ -298,24 +299,6 @@ def create_migration_getting_started(template, data):
 {0}
 ```
 
-<blockquote>
-<details>
-<summary><strong>Note: </strong><code>not something we can merge</code></summary><br/>
-
-All template repositories (a repo in the github.com/platform-templates organization) are *artifacts* of a central tool that helps our team keep them updated.
-The steps described here are the steps taken by that tool to produce those artifact repositories.
-This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
-
-Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
-In some cases, those projects will only have a primary stable branch to pull from, and you will see the command as `git merge --allow-unrelated-histories -X theirs main` for example.
-Feel free to copy this command exactly. 
-
-In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.X`), and simply pull the latest patch when updates are periodically run. 
-If the command above contains a patch version, copy it exactly locally.
-If it only contains a major or minor version, take a look at the output of `git fetch --all --depth=2` to find the latest tag version that fits the version listed above and use that instead.
-
-</details>
-</blockquote>
 """.format(deps_content)
 # Migrate: dependencies.
 def create_migration_dependencies(template, data):
@@ -421,9 +404,9 @@ Open the dropdown below to view all of the **Added** and **Updated** files you'l
 
 </details>
 
-### Dependencies
+### Dependencies and configuration
 
-Sometimes it is necessary to install additional dependencies to an upstream project to deploy on Platform.sh. 
+Sometimes it is necessary to install additional dependencies to and modify the configuration of an upstream project to deploy on Platform.sh. 
 When it is, we do our best to keep these modifications to the minimum necessary. 
 Run the commands below to reproduce the dependencies in this template. 
 
@@ -492,8 +475,23 @@ def create_contact():
 # Learn: About Platform.sh.
 def create_about_platformsh():
     return read_file("{0}/{1}".format(os.getcwd(), "common/readme/platformsh_desc.md"))
+def create_metrics(data):
+    content = ""
+    if "metrics" in data["sections"]:
+        if data["sections"]["metrics"] == True:
+            content = read_file("{0}/{1}".format(os.getcwd(), "common/readme/metrics.md"))
+    return content
+
+def create_blackfire(data):
+    content = ""
+    if "blackfire" in data["sections"]:
+        if data["sections"]["blackfire"] == True:
+            content = read_file("{0}/{1}".format(os.getcwd(), "common/readme/blackfire.md"))
+    return content
 def create_learn(template, data):
     troubleshooting = create_troubleshooting(data)
+    metrics = create_metrics(data)
+    blackfire = create_blackfire(data)
     resources = create_resources(template, data)
     contact = create_contact()
     about_platformsh = create_about_platformsh()
@@ -504,26 +502,22 @@ def create_learn(template, data):
 
 {0}
 
-### Infrastructure metrics
-
-Something about metrics
-
-### Blackfire.io
-
-Something about the default Blackfire yaml file.
-
-### Resources
-
 {1}
-
-### Contact
 
 {2}
 
-### About Platform.sh
+### Resources
 
 {3}
-""".format(troubleshooting, resources, contact, about_platformsh)
+
+### Contact
+
+{4}
+
+### About Platform.sh
+
+{5}
+""".format(troubleshooting, metrics, blackfire, resources, contact, about_platformsh)
 ############################################################################################################
 # Contribute
 ############################################################################################################
@@ -543,8 +537,8 @@ See something that's wrong with this template that needs to be fixed? Something 
 <p align="center">
 <strong>How to contribute</strong>
 <br /><br />
-<a href="https://github.com/platformsh-templates/{0}/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/{0}/issues"><strong>Submit a feature request</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://github.com/platformsh-templates/{0}/issues/new?assignees=&labels=bug&template=bug_report.yml"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://github.com/platformsh-templates/{0}/issues/new?assignees=&labels=feature+request&template=improvements.yml"><strong>Submit a feature request</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="https://github.com/platformsh-templates/{0}/pulls"><strong>Open a pull request</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <br />
 </p>
@@ -575,7 +569,7 @@ See something that's wrong with this template that needs to be fixed? Something 
 ############################################################################################################
 # Main loop through all templates (if info.yaml file is present).
 ############################################################################################################
-for template in templates:
+def generate_readme(template):
     info_file = "{0}/templates/{1}/info/info.yaml".format(os.getcwd(), template)
     if os.path.isfile(info_file):
         print("\n{0}".format(template))
@@ -610,3 +604,13 @@ for template in templates:
 
             except yaml.YAMLError as exc:
                 print(exc)
+def run(args):
+    if len(args) > 1:
+        template = args[1]
+        generate_readme(template)
+    else:
+        for template in templates:
+            generate_readme(template)
+
+if __name__ == "__main__":
+    run(sys.argv)

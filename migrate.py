@@ -1,6 +1,7 @@
 # test.py in template-builder root
 
 import os
+import sys
 import json
 import dodo
 from datetime import datetime
@@ -25,6 +26,9 @@ def document_migration_steps(template):
             for entry in p:
                 file_link = entry.path.replace("{0}/".format(mypath),template_link)
                 if not entry.is_dir():
+                    if template_link not in file_link:
+                        stripped_file = "/".join(file_link.split("{0}/common".format(os.getcwd()))[1].split("/")[2:])
+                        file_link = "{0}{1}".format(template_link, stripped_file)
                     yield file_link
                 if entry.is_dir() and depth > 0:
                     yield from get_files(entry.path, depth)
@@ -68,13 +72,6 @@ def document_migration_steps(template):
     def get_push_commands():
         return get_commands(dodo.project_factory(template).push)
 
-    # Files.
-    migrate_files = list(get_files(mypath, 10))
-    migrate_trimmed_files = []
-    migrate_rel = []
-    if len(migrate_files) > 0:
-        migrate_trimmed_files = ["https://raw.githubusercontent.com/platformsh-templates/{0}/master/{1}".format(template, file.split("template-builder/master/")[1]) for file in migrate_files]
-        migrate_rel = [file.split("template-builder/master/")[1] for file in migrate_files]
 
     # Commands.
     cleanup_commands = get_cleanup_commands()
@@ -84,14 +81,28 @@ def document_migration_steps(template):
     branch_commands = get_branch_commands()
     push_commands = get_push_commands()
 
-    dependencies = [command.split(" --")[0] for command in [*platformify_commands] if "composer require" in command]
+    composer_dependencies = [command.split(" --")[0] for command in [*platformify_commands] if "composer require" in command]
+    composer_config = [command for command in [*platformify_commands] if "composer config allow-plugins" in command]
+
+    dependencies = [*composer_dependencies, *composer_config]
+
+    # Files.
+
+    rsync_files = [command for command in [*platformify_commands] if "rsync" in command]
+    migrate_files = []
+    for command in rsync_files:
+        migrate_files += list(get_files(command.split(" ")[2], 10))
+
+    migrate_trimmed_files = []
+    migrate_rel = []
+    if len(migrate_files) > 0:
+        migrate_trimmed_files = ["https://raw.githubusercontent.com/platformsh-templates/{0}/master/{1}".format(template, file.split("template-builder/master/")[1]) for file in migrate_files]
+        migrate_rel = [file.split("template-builder/master/")[1] for file in migrate_files]
 
     try:
         major_version = dodo.project_factory(template).major_version
-        # latest_tag = dodo.project_factory(template).latest_tag()
     except:
         major_version = dodo.project_factory(template).upstream_branch
-        # latest_tag = None
 
 
     try: 
@@ -161,17 +172,25 @@ def document_migration_steps(template):
     with open("{0}/migrations/{1}.migrate.json".format(os.getcwd(), template), "w") as outfile:
         outfile.write(json_data)
 
-def run():
-    templates = list(get_templates_list())
+def get_migration_data(template):
     ignore_templates = ['wordpress-vanilla']
-    for template in templates:
-        try:
-            remote = dodo.project_factory(template).remote
-        except:
-            remote = None
-        if remote is not None:
-            if template not in ignore_templates:
-                document_migration_steps(template)
+    try:
+        remote = dodo.project_factory(template).remote
+    except:
+        remote = None
+    if remote is not None:
+        if template not in ignore_templates:
+            document_migration_steps(template)
+
+def run(args):
+    
+    if len(args) > 1:
+        template = args[1]
+        get_migration_data(template)
+    else:
+        templates = list(get_templates_list())
+        for template in templates:
+            get_migration_data(template)
 
 if __name__ == "__main__":
-    run()
+    run(sys.argv)

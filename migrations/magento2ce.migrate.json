@@ -7,7 +7,7 @@
         "repository": "https://github.com/magento/magento2.git",
         "latest_tag": null
     },
-    "last_updated_on": "2022-04-05-10:16:12",
+    "last_updated_on": "2022-04-05-13:59:53",
     "migration": {
         "files": {
             "rel_template": [

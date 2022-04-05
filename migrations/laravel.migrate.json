@@ -7,7 +7,7 @@
         "repository": "https://github.com/laravel/laravel.git",
         "latest_tag": null
     },
-    "last_updated_on": "2022-04-05-10:16:22",
+    "last_updated_on": "2022-04-05-14:00:17",
     "migration": {
         "files": {
             "rel_template": [

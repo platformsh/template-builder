@@ -7,7 +7,7 @@
         "repository": "https://github.com/Sylius/Sylius-Standard.git",
         "latest_tag": "v1.11.0"
     },
-    "last_updated_on": "2022-04-05-10:16:20",
+    "last_updated_on": "2022-04-05-14:00:09",
     "migration": {
         "files": {
             "rel_template": [

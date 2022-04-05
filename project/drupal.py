@@ -4,6 +4,9 @@ import json
 import os
 from collections import OrderedDict
 
+ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
+
 class Drupal7_vanilla(BaseProject):
     version = '7.67'
 
@@ -38,7 +41,18 @@ class Drupal9(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal9, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
+            # composer config -g allow-plugins.composer/installers true --no-plugins
+            # composer config allow-plugins.composer/installers true --no-plugins
+            # composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins
+            # composer config allow-plugins.drupal/core-project-message true --no-plugins
+            # composer config allow-plugins.cweagans/composer-patches true --no-plugins 
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir)
         ]
 
 class Drupal9_multisite(Drupal9):

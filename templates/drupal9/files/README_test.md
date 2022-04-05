@@ -358,19 +358,24 @@ $ git merge --allow-unrelated-histories -X theirs 9.3.6
 
 ```
 
-> **Note**
->
-> All template repositories (a repo in the github.com/platform-templates organization) are artifacts of a central tool that helps our team keep them updated.
-> The template repos themselves are an *artifact* of the process described here.
-> This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
->
-> Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
-> In some cases, those projects will only have a primary stable branch to pull from, and you will see the command as `git merge --allow-unrelated-histories -X theirs main` for example.
-> Feel free to copy this command exactly. 
->
-> In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.`), and simply pull the latest patch when updates are periodically run. 
-> If the command above contains a patch version, copy it exactly locally.
-> If it only contains a major or minor version, take a look at the output of `git fetch --all --depth=2` to find the latest tag version that fits the version listed above and use that instead. 
+<blockquote>
+<details>
+<summary><strong>Note: </strong><code>not something we can merge</code></summary>
+
+All template repositories (a repo in the github.com/platform-templates organization) are artifacts of a central tool that helps our team keep them updated.
+The template repos themselves are an *artifact* of the process described here.
+This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
+
+Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
+In some cases, those projects will only have a primary stable branch to pull from, and you will see the command as `git merge --allow-unrelated-histories -X theirs main` for example.
+Feel free to copy this command exactly. 
+
+In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.`), and simply pull the latest patch when updates are periodically run. 
+If the command above contains a patch version, copy it exactly locally.
+If it only contains a major or minor version, take a look at the output of `git fetch --all --depth=2` to find the latest tag version that fits the version listed above and use that instead.
+
+</details>
+</blockquote>
 
 
 ### Adding and updating files
@@ -382,11 +387,12 @@ Some of them explicitly configure how the application is built and deployed on P
 
 |  File | Purpose    |
 |:-----------|:--------|
-| [`config/sync/.gitkeep`](config/sync/.gitkeep) |    |
-| [`web/sites/default/settings.php`](web/sites/default/settings.php) | **Modified:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`config/sync/.gitkeep`](config/sync/.gitkeep) | **Added** |
+| [`web/sites/default/settings.php`](web/sites/default/settings.php) | **Updated:**  The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`. |
 | [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | **Added:**  Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
-| [`.environment`](.environment) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
-| [`.gitignore`](.gitignore) | **Modified:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
+| [`.environment`](.environment) | **Added:**  The `.environment` file is a convenient place to [set environment variables](https://docs.platform.sh/development/variables/set-variables.html#set-variables-via-script) relevant to your applications that may be dependent on the current environment. It is sourced before the start command is run, as the first step in the `deploy` and `post_deploy` hooks, and at the beginning of each session when you SSH into an application container. It is written in dash, so be aware of the differences to bash. It can be used to set any environment variable, including ones that depend on Platform.sh-provided variables like `PLATFORM_RELATIONSHIPS` and `PLATFORM_ROUTES`, or to modify `PATH`. This file should not [produce output](https://docs.platform.sh/development/variables/set-variables.html#testing-environment-scripts).
+ The `.environment` file is a convenient place to  |
+| [`.gitignore`](.gitignore) | **Updated:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 | [`.lando.upstream.yml`](.lando.upstream.yml) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 | [`.platform.app.yaml`](.platform.app.yaml) | **Added:**  This file is required to define the build and deploy process for all application containers on Platform.sh. Within this file, the runtime version, relationships to service containers, and writable mounts are configured. Take a look at the [Application](https://docs.platform.sh/configuration/app.html) documentation for more details about configuration. Here's a second custom line about the app itself after the shared generic file. |
 | [`drush/platformsh_generate_drush_yml.php`](drush/platformsh_generate_drush_yml.php) | **Added:**  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |

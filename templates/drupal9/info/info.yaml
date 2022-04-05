@@ -45,21 +45,24 @@ sections:
         "web/sites/default/settings.platformsh.php": 
             - "**Added:** "
             - "Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis."
+        "config/sync/.gitkeep": 
+            - "**Added**"
         "web/sites/default/settings.php": 
-            - "**Modified:** "
-            - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+            - "**Updated:** "
+            - "The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`."
         ".environment": 
             - "**Added:** "
-            - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
+            - file: "common/readme/file_descriptions/.environment.md"
+            - "The `.environment` file is a convenient place to "
         ".gitignore": 
-            - "**Modified:** "
+            - "**Updated:** "
             - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
         ".lando.upstream.yml":
             - "**Added:** "
             - "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor."
         ".platform.app.yaml": 
             - "**Added:** "
-            - file: "common/readme/file_descriptions/appyaml.md"
+            - file: "common/readme/file_descriptions/.platform.app.yaml.md"
             - "Here's a second custom line about the app itself after the shared generic file."
         "drush/platformsh_generate_drush_yml.php":
             - "**Added:** "

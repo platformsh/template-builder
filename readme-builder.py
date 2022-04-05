@@ -268,9 +268,9 @@ def create_migration_file_descriptions(template, data):
                     content = "| [`{0}`]({0}) |".format(file, file)
                     for entry in data["sections"]["migration"]["files"][file]:
                         if isinstance(entry, str):
-                            content += " {0}<br><br>".format(entry)
+                            content += " {0}".format(entry)
                         else: 
-                            content += " {0}<br><br>".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
+                            content += " {0}".format(read_file("{0}/{1}".format(os.getcwd(), entry["file"])))
                     migrate_content += content + " |\n"
                 else:
                     migrate_content += "| [`{0}`]({0}) |    |\n".format(file)

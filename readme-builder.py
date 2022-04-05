@@ -408,7 +408,14 @@ If you already have a codebase you are trying to migrate, move onto the next ste
 A small number of files need to be added to or modified in your repository at this point. 
 Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
 
+Open the dropdown below to view all of the **Added** and **Updated** files you'll need to reproduce in your migration.
+
+<details>
+<summary><strong>View files</strong></summary><br/>
+
 {1}
+
+</details>
 
 ### Dependencies
 

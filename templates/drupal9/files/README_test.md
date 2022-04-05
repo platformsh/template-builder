@@ -384,11 +384,16 @@ If it only contains a major or minor version, take a look at the output of `git 
 A small number of files need to be added to or modified in your repository at this point. 
 Some of them explicitly configure how the application is built and deployed on Platform.sh, while others simply modify files you may already have locally, in which case you will need to replicate those changes.
 
+Open the dropdown below to view all of the **Added** and **Updated** files you'll need to reproduce in your migration.
+
+<details>
+<summary><strong>View files</strong></summary><br/>
+
 
 
 |  File | Purpose    |
 |:-----------|:--------|
-| [`config/sync/.gitkeep`](config/sync/.gitkeep) | **Added**<br><br> |
+| [`config/sync/.gitkeep`](config/sync/.gitkeep) | **Added** |
 | [`web/sites/default/settings.php`](web/sites/default/settings.php) | **Updated:**<br><br> The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`. |
 | [`web/sites/default/settings.platformsh.php`](web/sites/default/settings.platformsh.php) | **Added:**<br><br> Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis. |
 | [`.environment`](.environment) | **Added:**<br><br> The `.environment` file is a convenient place to [set environment variables](https://docs.platform.sh/development/variables/set-variables.html#set-variables-via-script) relevant to your applications that may be dependent on the current environment. It is sourced before the start command is run, as the first step in the `deploy` and `post_deploy` hooks, and at the beginning of each session when you SSH into an application container. It is written in dash, so be aware of the differences to bash.<br><br>It can be used to set any environment variable, including ones that depend on Platform.sh-provided variables like `PLATFORM_RELATIONSHIPS` and `PLATFORM_ROUTES`, or to modify `PATH`. This file should not [produce output](https://docs.platform.sh/development/variables/set-variables.html#testing-environment-scripts).<br><br> Here, the Composer config and `PATH` are updated to allow executable app dependencies from Composer to be run from the path (i.e. `drush`). |
@@ -400,6 +405,8 @@ Some of them explicitly configure how the application is built and deployed on P
 | [`.platform/routes.yaml`](.platform/routes.yaml) | **Added:**<br><br> Routes desc Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie mauris ut magna laoreet tempor. |
 
 
+
+</details>
 
 ### Dependencies
 

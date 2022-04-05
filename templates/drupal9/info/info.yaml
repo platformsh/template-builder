@@ -46,7 +46,7 @@ sections:
             - "**Added:**<br><br>"
             - "Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis."
         "config/sync/.gitkeep": 
-            - "**Added**<br><br>"
+            - "**Added**"
         "web/sites/default/settings.php": 
             - "**Updated:**<br><br>"
             - "The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`."

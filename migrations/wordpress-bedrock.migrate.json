@@ -4,9 +4,10 @@
     "type_version": "8.1",
     "remote": {
         "major_version": "1",
-        "repository": "https://github.com/roots/bedrock.git"
+        "repository": "https://github.com/roots/bedrock.git",
+        "latest_tag": null
     },
-    "last_updated_on": "2022-04-04-16:20:55",
+    "last_updated_on": "2022-04-05-08:25:37",
     "migration": {
         "files": {
             "rel_template": [
@@ -66,7 +67,7 @@
                 "mkdir wordpress-bedrock && cd wordpress-bedrock",
                 "git init",
                 "git remote add upstream https://github.com/roots/bedrock.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
                 "git merge --allow-unrelated-histories -X theirs 1"

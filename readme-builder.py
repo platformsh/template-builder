@@ -295,9 +295,17 @@ def create_migration_getting_started(template, data):
 
 > **Note**
 >
-> This final command will include an upstream branch our template's pull from, or a *major version* of a tag. 
-When you run it locally, view the list of resulting tags and choose the latest one that still fits that major version.
-
+> All template repositories (a repo in the github.com/platform-templates organization) are artifacts of a central tool that helps our team keep them updated.
+> The template repos themselves are an *artifact* of the process described here.
+> This is advantageous, because we are able to describe the exact steps taken to build a working template you can use in your own migrations.
+>
+> Related to this, the final line above (`git merge --allow-unrelated-histories -X theirs M.m.P`) pulls "upstream" code from the open source project used to build this template.
+> In some cases, those projects will only have a primary stable branch to pull from, and you will see the command as `git merge --allow-unrelated-histories -X theirs main` for example.
+> Feel free to copy this command exactly. 
+>
+> In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.`), and simply pull the latest patch when updates are periodically run. 
+> If the command above contains a patch version, copy it exactly locally.
+> If it only contains a major or minor version, take a look at the output of `git fetch --all --depth=2` to find the latest tag version that fits the version listed above and use that instead. 
 """.format(deps_content)
 # Migrate: dependencies.
 def create_migration_dependencies(template, data):
@@ -383,6 +391,9 @@ These steps actually assume the earliest starting point possible - that there is
 If you already have code you'd like to migrate, feel free to focus on the steps most relevant to your application and skip the first section.
 
 ### Getting started
+
+Assuming that your starting point is no local code, the steps below will setup a starting repository we can begin to make changes to to rebuild this template and migrate to Platform.sh. 
+If you already have a codebase you are trying to migrate, move onto the next step - [Adding and updating files](#adding-and-updating-files).
 
 {0}
 

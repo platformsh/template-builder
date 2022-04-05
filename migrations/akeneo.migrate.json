@@ -3,10 +3,11 @@
     "type": "php",
     "type_version": "8.0",
     "remote": {
-        "major_version": "v6",
-        "repository": "https://github.com/akeneo/pim-community-standard.git"
+        "major_version": "v6.0.6",
+        "repository": "https://github.com/akeneo/pim-community-standard.git",
+        "latest_tag": "v6.0.6"
     },
-    "last_updated_on": "2022-04-04-16:20:58",
+    "last_updated_on": "2022-04-05-08:25:41",
     "migration": {
         "files": {
             "rel_template": [
@@ -62,10 +63,10 @@
                 "mkdir akeneo && cd akeneo",
                 "git init",
                 "git remote add upstream https://github.com/akeneo/pim-community-standard.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
-                "git merge --allow-unrelated-histories -X theirs v6"
+                "git merge --allow-unrelated-histories -X theirs v6.0.6"
             ],
             "deps": [
                 "composer require platformsh/config-reader"

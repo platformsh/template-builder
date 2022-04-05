@@ -88,8 +88,20 @@ def document_migration_steps(template):
 
     try:
         major_version = dodo.project_factory(template).major_version
+        # latest_tag = dodo.project_factory(template).latest_tag()
     except:
         major_version = dodo.project_factory(template).upstream_branch
+        # latest_tag = None
+
+
+    try: 
+        latest_tag = dodo.project_factory(template).latest_tag()
+    except:
+        latest_tag = None
+
+    if latest_tag is not None:
+        major_version = latest_tag
+
     try:
         remote = dodo.project_factory(template).remote
     except:
@@ -109,7 +121,8 @@ def document_migration_steps(template):
         "type_version": imageTypeVersion,
         "remote": {
             "major_version": major_version,
-            "repository": remote,    
+            "repository": remote,
+            "latest_tag": latest_tag,
         },
         "last_updated_on": datetime.today().strftime('%Y-%m-%d-%H:%M:%S'),
         "migration": {
@@ -131,7 +144,7 @@ def document_migration_steps(template):
                     "mkdir {0} && cd {0}".format(template),
                     "git init",
                     "git remote add upstream {0}".format(dodo.project_factory(template).remote),
-                    "git checkout main",
+                    "git branch -m main",
                     "git fetch --all --depth=2",
                     "git fetch --all --tags",
                     "git merge --allow-unrelated-histories -X theirs {0}".format(major_version)

@@ -3,10 +3,11 @@
     "type": "php",
     "type_version": "8.1",
     "remote": {
-        "major_version": "9.3",
-        "repository": "https://github.com/drupal/recommended-project.git"
+        "major_version": "9.3.9",
+        "repository": "https://github.com/drupal/recommended-project.git",
+        "latest_tag": "9.3.9"
     },
-    "last_updated_on": "2022-04-04-16:21:01",
+    "last_updated_on": "2022-04-05-08:25:44",
     "migration": {
         "files": {
             "rel_template": [
@@ -118,10 +119,10 @@
                 "mkdir drupal9-multisite && cd drupal9-multisite",
                 "git init",
                 "git remote add upstream https://github.com/drupal/recommended-project.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
-                "git merge --allow-unrelated-histories -X theirs 9.3"
+                "git merge --allow-unrelated-histories -X theirs 9.3.9"
             ],
             "deps": [
                 "composer require platformsh/config-reader drush/drush drupal/redis"

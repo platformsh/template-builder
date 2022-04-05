@@ -4,9 +4,10 @@
     "type_version": "7.4",
     "remote": {
         "major_version": "8.9",
-        "repository": "https://github.com/drupal/recommended-project.git"
+        "repository": "https://github.com/drupal/recommended-project.git",
+        "latest_tag": null
     },
-    "last_updated_on": "2022-04-04-16:20:55",
+    "last_updated_on": "2022-04-05-08:25:38",
     "migration": {
         "files": {
             "rel_template": [
@@ -118,7 +119,7 @@
                 "mkdir drupal8-multisite && cd drupal8-multisite",
                 "git init",
                 "git remote add upstream https://github.com/drupal/recommended-project.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
                 "git merge --allow-unrelated-histories -X theirs 8.9"

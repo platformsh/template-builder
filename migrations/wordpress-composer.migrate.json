@@ -4,9 +4,10 @@
     "type_version": "7.4",
     "remote": {
         "major_version": "5",
-        "repository": "https://github.com/johnpbloch/wordpress.git"
+        "repository": "https://github.com/johnpbloch/wordpress.git",
+        "latest_tag": null
     },
-    "last_updated_on": "2022-04-04-16:20:55",
+    "last_updated_on": "2022-04-05-08:25:37",
     "migration": {
         "files": {
             "rel_template": [
@@ -82,7 +83,7 @@
                 "mkdir wordpress-composer && cd wordpress-composer",
                 "git init",
                 "git remote add upstream https://github.com/johnpbloch/wordpress.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
                 "git merge --allow-unrelated-histories -X theirs 5"

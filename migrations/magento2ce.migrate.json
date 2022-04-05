@@ -4,9 +4,10 @@
     "type_version": "7.2",
     "remote": {
         "major_version": "2.4",
-        "repository": "https://github.com/magento/magento2.git"
+        "repository": "https://github.com/magento/magento2.git",
+        "latest_tag": null
     },
-    "last_updated_on": "2022-04-04-16:20:55",
+    "last_updated_on": "2022-04-05-08:25:37",
     "migration": {
         "files": {
             "rel_template": [
@@ -70,7 +71,7 @@
                 "mkdir magento2ce && cd magento2ce",
                 "git init",
                 "git remote add upstream https://github.com/magento/magento2.git",
-                "git checkout main",
+                "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
                 "git merge --allow-unrelated-histories -X theirs 2.4"

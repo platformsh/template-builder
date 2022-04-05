@@ -1,5 +1,5 @@
 <details>
-<summary><strong>SSH and logs</strong></summary><br/>
+<summary><strong>Accessing logs</strong></summary><br/>
 
 After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
 

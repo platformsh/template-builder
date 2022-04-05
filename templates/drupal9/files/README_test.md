@@ -20,8 +20,8 @@
 <a href="https://community.platform.sh"><strong>Join our community</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="https://docs.platform.sh"><strong>Documentation</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="https://platform.sh/blog"><strong>Blog</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/drupal9/issues"><strong>Request a feature</strong></a>
+<a href="https://github.com/platformsh-templates/drupal9/issues/new?assignees=&labels=bug&template=bug_report.yml"><strong>Report a bug</strong></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="https://github.com/platformsh-templates/drupal9/issues/new?assignees=&labels=feature+request&template=improvements.yml"><strong>Request a feature</strong></a>
 <br /><br />
 </p>
 
@@ -661,7 +661,7 @@ After that, here are a collection of additional resources you might find interes
 
 
 <details>
-<summary><strong>SSH and logs</strong></summary><br/>
+<summary><strong>Accessing logs</strong></summary><br/>
 
 After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
 
@@ -676,16 +676,14 @@ Once you have connected to the container, [logs](https://docs.platform.sh/develo
 
 
 <details>
-<summary><strong>Clearing the cache</strong></summary><br/>
+<summary><strong>Rebuilding cache</strong></summary><br/>
 
-After the environment has finished its deployment, you can investigate issues that occured on startup, `deploy` and `post_deploy` hooks, and generally at runtime using the CLI. Run the command:
+You may run into a database error after installing Drupal on your production environment initially.
+To fix, SSH into the application container (`platform ssh`) and rebuild the cache using Drush:
 
 ```bash
-platform ssh
+drush cache-rebuild
 ```
-
-If you are running the command outside of a local copy of the project, you will need to include the `-p` (project) and/or `-e` (environment) flags as well. 
-Once you have connected to the container, [logs](https://docs.platform.sh/development/logs.html#container-logs) are available within `/var/log/` for you to investigate.
 
 </details>
 

@@ -56,6 +56,9 @@ sections:
             - "**Added:**<br><br>"
             - file: "common/readme/file_descriptions/.environment.md"
             - "Here, the Composer config and `PATH` are updated to allow executable app dependencies from Composer to be run from the path (i.e. `drush`)."
+        ".blackfire.yml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.blackfire.yml.md"
         ".gitignore": 
             - "**Added:**<br><br>"
             - "A `.gitignore` file is not included in the upstream, so one has been added."

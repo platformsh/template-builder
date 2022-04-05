@@ -65,7 +65,7 @@ sections:
         ".platform.app.yaml": 
             - "**Added:**<br><br>"
             - file: "common/readme/file_descriptions/.platform.app.yaml.md"
-            - "This template uses Composer 2 to install dependencies using the default `composer` [build flavor](https://docs.platform.sh/languages/php.html#build-flavor) prior to the `build` hook."
+            - "<br><br>This template uses Composer 2 to install dependencies using the default `composer` [build flavor](https://docs.platform.sh/languages/php.html#build-flavor) prior to the `build` hook."
             - "Drush tasks are run during the `deploy` hook, and referenced again during the defined `cron` job."
         "drush/platformsh_generate_drush_yml.php":
             - "**Added:**<br><br>"

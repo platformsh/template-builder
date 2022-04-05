@@ -189,6 +189,7 @@ git clone https://github.com/platformsh-templates/{1}
 ```
 
 If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/{1}/generate) button at the top of this page. 
+
 Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{1}.git`.
 
 {2}
@@ -305,7 +306,7 @@ Related to this, the final line above (`git merge --allow-unrelated-histories -X
 In some cases, those projects will only have a primary stable branch to pull from, and you will see the command as `git merge --allow-unrelated-histories -X theirs main` for example.
 Feel free to copy this command exactly. 
 
-In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.`), and simply pull the latest patch when updates are periodically run. 
+In other cases, we will track a major version of a tag on that upstream repo (i.e. `9.3.X`), and simply pull the latest patch when updates are periodically run. 
 If the command above contains a patch version, copy it exactly locally.
 If it only contains a major or minor version, take a look at the output of `git fetch --all --depth=2` to find the latest tag version that fits the version listed above and use that instead.
 

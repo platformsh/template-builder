@@ -1,0 +1,24 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+db:
+    type: 'mariadb:10.4'
+    disk: 2048
+    configuration:
+        schemas:
+            - firstdb
+            - seconddb
+        endpoints:
+            first:
+                default_schema: firstdb
+                privileges:
+                    firstdb: admin
+            second:
+                default_schema: seconddb
+                privileges:
+                    seconddb: admin
+
+cache:
+    type: redis:6.0

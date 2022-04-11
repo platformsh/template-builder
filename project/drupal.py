@@ -1,7 +1,11 @@
 from . import BaseProject
 from .remote import RemoteProject
 import json
+import os
 from collections import OrderedDict
+
+ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
 class Drupal7_vanilla(BaseProject):
     version = '7.67'
@@ -35,10 +39,37 @@ class Drupal9(RemoteProject):
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
+    def update(self):
+        projectName = "drupal-recommended-project"
+        def drupal9_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds Drupal 9 for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal9, self).update + [
+            (self.modify_composer, [drupal9_modify_composer])
+        ]
+
+
+    @property
     def platformify(self):
         return super(Drupal9, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults()
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir),
         ]
+
+class Drupal9_multisite(Drupal9):
+    pass
 
 class Drupal8_multisite(Drupal8):
     pass
@@ -83,3 +114,37 @@ class Drupal8_govcms8(RemoteProject):
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]
+
+class Contentacms(BaseProject):
+
+    @property
+    def update(self):
+
+        ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        TEMPLATEDIR = os.path.join(ROOTDIR, 'templates/contentacms')
+
+        # Quickstart project package name, used in the block below.
+        projectName = "contentacms-platformsh"
+
+        return [
+            # Create a quickstart ContentaCMS app using Composer.
+            'cd {0} && composer create-project contentacms/contenta-jsonapi-project {1} --stability dev --no-interaction --remove-vcs --no-progress --prefer-dist --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.cweagans/composer-patches true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.cweagans/composer-patches true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-vendor-hardening true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0}/{1} && composer config allow-plugins.oomphinc/composer-installers-extender true --no-plugins'.format(TEMPLATEDIR, projectName),
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
+            'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),              
+        ] + super(Contentacms, self).update
+
+    @property
+    def platformify(self):
+        return super(Contentacms, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis drush/drush:^10'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+        ]
+

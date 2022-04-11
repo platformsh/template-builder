@@ -1,0 +1,83 @@
+{
+    "template": "magento2ce",
+    "type": "php",
+    "type_version": "7.2",
+    "remote": {
+        "major_version": "2.4",
+        "repository": "https://github.com/magento/magento2.git",
+        "latest_tag": null
+    },
+    "last_updated_on": "2022-04-05-13:59:53",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/app/etc/local.xml",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/deploy",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/disable-cron-workers.php",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/pub/static-versioned.php",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/magento2ce/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/app/etc/local.xml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/deploy",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/disable-cron-workers.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/pub/static-versioned.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "app/etc/local.xml",
+                "deploy",
+                "disable-cron-workers.php",
+                "README.md",
+                ".lando.upstream.yml",
+                ".platform.app.yaml",
+                "pub/static-versioned.php",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/magento2ce/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/magento2ce.git /Users/chadcarlson/template-builder/templates/magento2ce/build/",
+                "git remote add project https://github.com/magento/magento2.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/magento2ce/files/ /Users/chadcarlson/template-builder/templates/magento2ce/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/magento2ce/platformsh.patch"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir magento2ce && cd magento2ce",
+                "git init",
+                "git remote add upstream https://github.com/magento/magento2.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 2.4"
+            ],
+            "deps": []
+        }
+    }
+}

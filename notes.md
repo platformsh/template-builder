@@ -28,6 +28,15 @@ class Template(BaseProject):
     }
 ```
 
+## `composer create-project platformsh/X`
+
+- Use the namespace `platformsh/SOMETHING`, preferably where `SOMETHING` matches the upstream name. 
+- Merge into the default branch
+- Register the repo on packagist.
+- add the `push` event webhook to the GitHub repo settings.
+- `Update` the package on packagist.
+- With no releases on the template repo, the final command will be `composer create-project platformsh/XXX -s dev` (the `-s dev` is necessary without releases on the repo)
+
 ## New templates
 
 - [ ] sylius

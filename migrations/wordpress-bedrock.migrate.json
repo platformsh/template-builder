@@ -1,0 +1,81 @@
+{
+    "template": "wordpress-bedrock",
+    "type": "php",
+    "type_version": "8.1",
+    "remote": {
+        "major_version": "1.19.2",
+        "repository": "https://github.com/roots/bedrock.git",
+        "latest_tag": "1.19.2"
+    },
+    "last_updated_on": "2022-04-05-14:17:18",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/.lando.upstream.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/.environment",
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/wordpress-bedrock/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                ".lando.upstream.yaml",
+                ".environment",
+                "README.md",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/wordpress-bedrock.git /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+                "git remote add project https://github.com/roots/bedrock.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "echo 'Adding composer config:platform:php'",
+                "composer config platform.php 8.1",
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/wordpress-bedrock/files/ /Users/chadcarlson/template-builder/templates/wordpress-bedrock/build/",
+                "echo 'Removing composer config:platform'",
+                "composer config --unset platform",
+                "composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip",
+                "composer update"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir wordpress-bedrock && cd wordpress-bedrock",
+                "git init",
+                "git remote add upstream https://github.com/roots/bedrock.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 1.19.2"
+            ],
+            "deps": [
+                "composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh"
+            ]
+        }
+    }
+}

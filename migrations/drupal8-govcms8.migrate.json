@@ -1,0 +1,104 @@
+{
+    "template": "drupal8-govcms8",
+    "type": "php",
+    "type_version": "7.4",
+    "remote": {
+        "major_version": "2.11",
+        "repository": "https://github.com/govCMS/govCMS.git",
+        "latest_tag": null
+    },
+    "last_updated_on": "2022-04-05-13:59:52",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/config/sync/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.editorconfig",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.environment",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/scripts/composer/ScriptHandler.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/docroot/sites/default/settings.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/docroot/sites/default/settings.platformsh.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/drush/platformsh_generate_drush_yml.php",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sync/.gitkeep",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/scripts/composer/ScriptHandler.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/docroot/sites/default/settings.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/docroot/sites/default/settings.platformsh.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/drush/platformsh_generate_drush_yml.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "config/sync/.gitkeep",
+                ".editorconfig",
+                ".environment",
+                "README.md",
+                ".gitignore",
+                "scripts/composer/ScriptHandler.php",
+                ".lando.upstream.yml",
+                ".platform.app.yaml",
+                "docroot/sites/default/settings.php",
+                "docroot/sites/default/settings.platformsh.php",
+                "drush/platformsh_generate_drush_yml.php",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/drupal8-govcms8.git /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/",
+                "git remote add project https://github.com/govCMS/govCMS.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "rm -rf .circleci",
+                "rm -rf .github",
+                "rm -rf .tugboat",
+                "composer remove php"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/drupal8-govcms8/files/ /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/drupal8-govcms8/gitignore.patch",
+                "composer require platformsh/config-reader drush/drush:^10 drupal/redis --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+                "composer update -W --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
+                "rm -rf web/profiles/govcms"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir drupal8-govcms8 && cd drupal8-govcms8",
+                "git init",
+                "git remote add upstream https://github.com/govCMS/govCMS.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs 2.11"
+            ],
+            "deps": [
+                "composer require platformsh/config-reader drush/drush:^10 drupal/redis"
+            ]
+        }
+    }
+}

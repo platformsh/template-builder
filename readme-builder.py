@@ -221,9 +221,9 @@ This section provides instructions for running the `{0}` template locally, conne
 In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. Each of the options below assume the following starting point:
 
 ```bash
-platform get PROJECT_ID
-cd project-name
-platform environment:branch updates
+$ platform get PROJECT_ID
+$ cd project-name
+$ platform environment:branch updates
 ```
 
 {1}
@@ -386,7 +386,7 @@ If you already have code you'd like to migrate, feel free to focus on the steps 
 ### Getting started
 
 Assuming that your starting point is no local code, the steps below will setup a starting repository we can begin to make changes to to rebuild this template and migrate to Platform.sh. 
-If you already have a codebase you are trying to migrate, move onto the next step - [Adding and updating files](#adding-and-updating-files).
+If you already have a codebase you are trying to migrate, move onto the next step - [Adding and updating files](#adding-and-updating-files) - and substitute any reference to the default branch `main` with some other branch name.
 
 {0}
 
@@ -415,8 +415,6 @@ Run the commands below to reproduce the dependencies in this template.
 ### Deploying to Platform.sh
 
 Your repository now has all of the code it needs in order to deploy to Platform.sh. 
-In order to actually deploy, consult the [Getting started](#getting-started) section of this document, which contains all of the information to either push directly to Platform.sh or to integrate with an external service like GitHub.
-When you've finished, come back to this section to learn how to [Migrate your data](#migrating-your-data).
 
 {3}
 

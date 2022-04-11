@@ -218,7 +218,8 @@ def create_local_dev(template, data):
 
 This section provides instructions for running the `{0}` template locally, connected to a live database instance on an active Platform.sh environment.
 
-In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. Each of the options below assume the following starting point:
+In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. 
+Each of the options below assume that you have already deployed this template to Platform.sh, as well as the following starting commands:
 
 ```bash
 $ platform get PROJECT_ID

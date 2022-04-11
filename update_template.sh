@@ -13,7 +13,7 @@ poetry run doit platformify:$TEMPLATE
 poetry run python migrate.py $TEMPLATE
 
 # Update the README and header image.
-# poetry run python readme-builder.py $TEMPLATE
+poetry run python readme-builder.py $TEMPLATE
 
-# # Update the template and push it.
-# poetry run doit full:$TEMPLATE
+# Update the template and push it.
+poetry run doit full:$TEMPLATE

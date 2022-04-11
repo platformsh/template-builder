@@ -7,28 +7,11 @@
 name: 'drupal'
 
 # The runtime the application uses.
-type: 'php:8.1'
+type: 'php:8.0'
 
 dependencies:
     php:
         composer/composer: '^2'
-
-variables:
-    php:
-        assert.active: 'off'
-        display_errors: 'off'
-        display_startup_errors: 'off'
-        max_execution_time: '30'
-        session.use_strict_mode: 'On'
-        zend.detect_unicode: 'Off'
-        opcache.memory_consumption: '128'
-        opcache.interned_strings_buffer: '8'
-        opcache.max_accelerated_files: '4000'
-        opcache.revalidate_freq: '60'
-        opcache.fast_shutdown: '1'
-        opcache.enable_cli: '1'
-        realpath_cache_ttl: '3600'
-        session.gc_probability: '0'
 
 runtime:
     # Enable the redis extension so Drupal can communicate with the Redis cache.

@@ -14,7 +14,7 @@ license:
   type: "MIT"
   location: "LICENSE"
 features:
-  - PHP 8.1
+  - PHP 8.0
   - MariaDB 10.4
   - Redis 6
   - Drush included

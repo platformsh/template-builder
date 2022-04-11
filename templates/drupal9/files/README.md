@@ -62,7 +62,7 @@ Drupal is a flexible and extensible PHP-based CMS framework.
 
 ### Features
 
-- PHP 8.1
+- PHP 8.0
 - MariaDB 10.4
 - Redis 6
 - Drush included
@@ -271,7 +271,8 @@ Run through the Drupal installer as normal.  You will not be asked for database 
 
 This section provides instructions for running the `drupal9` template locally, connected to a live database instance on an active Platform.sh environment.
 
-In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. Each of the options below assume the following starting point:
+In all cases for developing with Platform.sh, it's important to develop on an isolated environment - do not connect to data on your production environment when developing locally. 
+Each of the options below assume that you have already deployed this template to Platform.sh, as well as the following starting commands:
 
 ```bash
 $ platform get PROJECT_ID
@@ -286,26 +287,23 @@ ddev provides an integration with Platform.sh that makes it simple to develop Dr
 
 In general, the steps are as follows:
 
+1. [Install ddev](https://ddev.readthedocs.io/en/stable/#installation).
 1. A configuration file has already been provided at `.ddev/providers/platform.yaml`, so you should not need to run `ddev config`.
 1. [Retrieve an API token](https://docs.platform.sh/development/cli/api-tokens.html#get-a-token) for your organization via the management console.
-1. Update your dedev global configuration file to use the token you've just retrieved:
-    
+1. Update your dedev global configuration file to use the token you've just retrieved: 
     ```yaml
     web_environment:
     - PLATFORMSH_CLI_TOKEN=abcdeyourtoken`
     ```
-
 1. Run `ddev restart`.
 1. Get your project ID with `platform project:info`. If you have not already connected your local repo with the project (as is the case with a source integration, by default), you can run `platform project:list` to locate the project ID, and `platform project:set-remote PROJECT_ID` to configure Platform.sh locally.
 1. Update the `.ddev/providers/platform.yaml` file for your current setup:
-
     ```yaml
     environment_variables:
     project_id: PROJECT_ID
     environment: CURRENT_ENVIRONMENT
     application: drupal
     ```
-
 1. Get the current environment's data with `ddev pull platform`. 
 1. When you have finished with your work, run `ddev stop` and `ddev poweroff`.
 
@@ -313,8 +311,13 @@ In general, the steps are as follows:
 <details>
 <summary>Drupal: using Lando</summary><br />
 
-Lando supports PHP applications configured to run on Platform.sh, and pulls from the same registry Platform.sh uses on your remote environments during your local builds through its own [recipe and plugin](https://docs.lando.dev/platformsh/). 
+Lando supports PHP applications [configured to run on Platform.sh](https://docs.platform.sh/development/local/lando.html), and pulls from the same container registry Platform.sh uses on your remote environments during your local builds through its own [recipe and plugin](https://docs.lando.dev/platformsh/). 
 
+1. [Install Lando](https://docs.lando.dev/getting-started/installation.html).
+1. Make sure Docker is already running - Lando will attempt to start Docker for you, but it's best to have it running in the background before beginning.
+1. Start your apps and services with the command `lando start`.
+1. To get up-to-date data from your Platform.sh environment ([services *and* mounts](https://docs.lando.dev/platformsh/sync.html#pulling)), run the command `lando pull`.
+1. If at any time you have updated your Platform.sh configuration files, run the command `lando rebuild`.
 1. When you have finished with your work, run `lando stop` and `lando poweroff`.
 
 </details>
@@ -676,7 +679,7 @@ drush cache-rebuild
 
 ### Blackfire.io: creating a Continuous Observability Strategy
 
-This template includes a starting `.blackfire.yml` file that can be used to enable Application Performance Monitoring, Profiling, and Performance Testing on your project. Platform.sh comes with Blackfire pre-installed on application containers, and setting up requires minimal configuration. 
+This template includes a starting [`.blackfire.yml`](.blackfire.yml) file that can be used to enable [Application Performance Monitoring](https://blackfire.io/docs/monitoring-cookbooks/index), [Profiling](https://blackfire.io/docs/profiling-cookbooks/index), [Builds](https://blackfire.io/docs/builds-cookbooks/index) and [Performance Testing](https://blackfire.io/docs/testing-cookbooks/index) on your project. Platform.sh comes with Blackfire pre-installed on application containers, and [setting up requires minimal configuration](https://docs.platform.sh/integrations/observability/blackfire.html). 
 
 * [What is Blackfire?](https://blackfire.io/docs/introduction)
 * [Configuring Blackfire.io on a Platform.sh project](https://docs.platform.sh/integrations/observability/blackfire.html)

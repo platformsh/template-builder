@@ -217,7 +217,7 @@ For all of the other options below, clone this repository first:
 git clone https://github.com/platformsh-templates/{2}
 ```
 
-If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/{1}/generate) button at the top of this page. 
+If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/{2}/generate) button at the top of this page. 
 
 Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{2}.git`.
 

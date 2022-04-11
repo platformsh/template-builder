@@ -153,6 +153,31 @@ This will automatically create a new project and initialize the repository for y
 """.format(template)
     return content
 # Getting started: Alt deploy options.
+
+def create_project_options(data):
+    content = ""
+    about_dev_flag = ""
+
+    if "create-project" in data["sections"]:
+
+        if "-s dev" in data["sections"]["create-project"]:
+                about_dev_flag = """
+> **Note:**    
+>
+> Platform.sh templates prioritize upstream release versions over our own. Despite this, we update template dependencies on a scheduled basis independent of those upstreams. Because of this, template repos do not contain releases. This may change in the future, but until then the `-s dev` flag is necessary to use `composer create-project`.
+"""
+
+        content = """
+You can also quickly recreate this project locally with the following command:
+
+```bash
+{0}
+```
+
+{1}
+""".format(data["sections"]["create-project"], about_dev_flag)
+    return content
+
 def create_deploy_options():
 
     direct = read_file("{}/common/readme/deploy_direct.md".format(os.getcwd()))
@@ -168,9 +193,10 @@ def create_deploy_options():
 """.format(direct, github, gitlab, bitbucket)
     return content
 # Getting started main.
-def create_getting_started(template):
+def create_getting_started(template, data):
     quickstart = create_quickstart(template)
     deploy_options = create_deploy_options()
+    createProject_options = create_project_options(data)
 
     content = """
 ## Getting started
@@ -181,21 +207,23 @@ def create_getting_started(template):
 
 {0}
 
+{1}
+
 #### Other deployment options
 
 For all of the other options below, clone this repository first:
 
 ```bash
-git clone https://github.com/platformsh-templates/{1}
+git clone https://github.com/platformsh-templates/{2}
 ```
 
 If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/{1}/generate) button at the top of this page. 
 
-Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{1}.git`.
+Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/{2}.git`.
 
-{2}
+{3}
 
-""".format(quickstart, template, deploy_options)
+""".format(quickstart, createProject_options, template, deploy_options)
     return content
 # Getting started: post-install.
 def create_post_install(data):
@@ -587,7 +615,7 @@ def generate_readme(template):
                 # About.
                 body += create_about(data)
                 # Getting started.
-                body += create_getting_started(template)
+                body += create_getting_started(template, data)
                 body += create_post_install(data)
                 body += create_local_dev(template, data)
                 # Migrate.

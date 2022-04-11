@@ -88,6 +88,20 @@ This will automatically create a new project and initialize the repository for y
 <br/>
 
 
+
+You can also quickly recreate this project locally with the following command:
+
+```bash
+composer create-project platformsh/drupal-recommended-project -s dev
+```
+
+
+> **Note:**    
+>
+> Platform.sh templates prioritize upstream release versions over our own. Despite this, we update template dependencies on a scheduled basis independent of those upstreams. Because of this, template repos do not contain releases. This may change in the future, but until then the `-s dev` flag is necessary to use `composer create-project`.
+
+
+
 #### Other deployment options
 
 For all of the other options below, clone this repository first:
@@ -96,7 +110,19 @@ For all of the other options below, clone this repository first:
 git clone https://github.com/platformsh-templates/drupal9
 ```
 
-If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/drupal9/generate) button at the top of this page. 
+If you're trying to deploy from GitHub, you can generate a copy of this repository first in your own namespace by clicking the [Use this template](https://github.com/platformsh-templates/
+You can also quickly recreate this project locally with the following command:
+
+```bash
+composer create-project platformsh/drupal-recommended-project -s dev
+```
+
+
+> **Note:**    
+>
+> Platform.sh templates prioritize upstream release versions over our own. Despite this, we update template dependencies on a scheduled basis independent of those upstreams. Because of this, template repos do not contain releases. This may change in the future, but until then the `-s dev` flag is necessary to use `composer create-project`.
+
+/generate) button at the top of this page. 
 
 Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAMESPACE/drupal9.git`.
 

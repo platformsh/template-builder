@@ -39,6 +39,24 @@ class Drupal9(RemoteProject):
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
+    def update(self):
+        projectName = "drupal-recommended-project"
+        def drupal9_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds Drupal 9 for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal9, self).update + [
+            (self.modify_composer, [drupal9_modify_composer])
+        ]
+
+
+    @property
     def platformify(self):
         return super(Drupal9, self).platformify + [
             'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
@@ -47,12 +65,7 @@ class Drupal9(RemoteProject):
             'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
-            # composer config -g allow-plugins.composer/installers true --no-plugins
-            # composer config allow-plugins.composer/installers true --no-plugins
-            # composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins
-            # composer config allow-plugins.drupal/core-project-message true --no-plugins
-            # composer config allow-plugins.cweagans/composer-patches true --no-plugins 
-            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir)
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir),
         ]
 
 class Drupal9_multisite(Drupal9):

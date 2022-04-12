@@ -73,5 +73,19 @@
     ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/ISSUE_TEMPLATE/config.yaml",
     ".github/ISSUE_TEMPLATE/improvements.yaml",
-    ".github/ISSUE_TEMPLATE/bug_report.yaml"
+    ".github/ISSUE_TEMPLATE/bug_report.yaml",
+    "config/sync/first/.gitkeep",
+    "config/sync/second/.gitkeep",
+    "config/sync/main/.gitkeep",
+    "web/sites/second/services.yml",
+    "web/sites/first/services.yml",
+    "web/sites/second/drushrc.php",
+    "web/sites/first/drushrc.php",
+    "web/sites/second/settings.php",
+    "web/sites/first/settings.php",
+    "web/sites/default.settings.php",
+    "web/sites/default.services.yml",
+    "web/sites/main/settings.php",
+    "web/sites/main/services.yml",
+    "web/sites/main/drushrc.php"
 ]

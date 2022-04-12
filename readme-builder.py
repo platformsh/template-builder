@@ -83,7 +83,7 @@ def create_header(data, template, header_file):
 <a href="https://github.com/platformsh-templates/{3}/issues">
 <img src="https://img.shields.io/github/issues/platformsh-templates/{3}.svg?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9&label=Issues" alt="Open issues" />
 </a>&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/pulls">
+<a href="https://github.com/platformsh-templates/{3}/pulls">
 <img src="https://img.shields.io/github/issues-pr/platformsh-templates/{3}.svg?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
 </a>&nbsp&nbsp
 <a href="https://github.com/platformsh-templates/{3}/blob/master/{4}">

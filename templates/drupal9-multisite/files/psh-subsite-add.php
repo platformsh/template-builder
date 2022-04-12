@@ -77,7 +77,7 @@ function addRoute(string $subsiteName) {
   $route = <<<END
 "https://{$subsiteName}.{default}/":
     type: upstream
-    upstream: "app:http"
+    upstream: "drupal:http"
     cache:
         enabled: true
         # Base the cache on the session cookie and custom Drupal cookies. Ignore all other cookies.

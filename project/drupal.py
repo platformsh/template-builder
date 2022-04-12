@@ -69,7 +69,22 @@ class Drupal9(RemoteProject):
         ]
 
 class Drupal9_multisite(Drupal9):
-    pass
+    @property
+    def update(self):
+        projectName = "drupal9-multisite"
+        def drupal9_multisite_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds Drupal 9 in the multi-site configuration for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal9_multisite, self).update + [
+            (self.modify_composer, [drupal9_multisite_modify_composer])
+        ]
 
 class Drupal8_multisite(Drupal8):
     pass

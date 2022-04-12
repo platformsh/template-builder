@@ -4,7 +4,7 @@
 # See https://docs.platform.sh/configuration/app.html
 
 # The name of this app. Must be unique within a project.
-name: 'app'
+name: 'drupal'
 
 # The runtime the application uses.
 type: 'php:7.4'
@@ -17,6 +17,9 @@ runtime:
     # Enable the redis extension so Drupal can communicate with the Redis cache.
     extensions:
         - redis
+        - blackfire
+        - sodium
+        - apcu
 
 # The relationships of the application with services or other applications.
 #

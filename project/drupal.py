@@ -25,12 +25,33 @@ class Drupal8(RemoteProject):
     remote = 'https://github.com/drupal/recommended-project.git'
 
     @property
+    def update(self):
+        projectName = "drupal8"
+        def drupal8_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds Drupal 8 for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal8, self).update + [
+            (self.modify_composer, [drupal8_modify_composer])
+        ]
+
+
+    @property
     def platformify(self):
         return super(Drupal8, self).platformify + [
-            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
-            # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
             'cd {0} && composer require platformsh/config-reader drush/drush:^10.6 drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
-            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
+            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),
         ]
 
 class Drupal9(RemoteProject):
@@ -40,7 +61,7 @@ class Drupal9(RemoteProject):
 
     @property
     def update(self):
-        projectName = "drupal-recommended-project"
+        projectName = "drupal9"
         def drupal9_modify_composer(composer):
             """
             This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
@@ -87,7 +108,22 @@ class Drupal9_multisite(Drupal9):
         ]
 
 class Drupal8_multisite(Drupal8):
-    pass
+    @property
+    def update(self):
+        projectName = "drupal8-multisite"
+        def drupal8_multisite_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds Drupal 8 in the multi-site configuration for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal8_multisite, self).update + [
+            (self.modify_composer, [drupal8_multisite_modify_composer])
+        ]
 
 class Drupal8_opigno(RemoteProject):
     major_version = '2'

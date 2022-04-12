@@ -37,6 +37,16 @@ class Template(BaseProject):
 - `Update` the package on packagist.
 - With no releases on the template repo, the final command will be `composer create-project platformsh/XXX -s dev` (the `-s dev` is necessary without releases on the repo)
 
+## `TypeError: string indices must be integers`
+
+There are a few `Remote` type templates that retrieve the latest upstream tag with a call to `https://api.github.com` (see `project/hugo.py` for an example). This error simply means that you have exceeded GitHub's unauthenticated request limit. 
+
+Every template where this call needs to take place has an authentication path. All you need to resume your work is retrieve a GitHub API token, and then set it in your terminal:
+
+```bash
+$ export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXX
+```
+
 ## New templates
 
 - [ ] sylius

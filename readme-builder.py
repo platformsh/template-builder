@@ -553,7 +553,7 @@ def create_contributing(template):
 
     content = """
 
-## Contributing
+## Contribute
 
 <h3 align="center">Help us keep top-notch templates!</h3>
 
@@ -581,8 +581,8 @@ See something that's wrong with this template that needs to be fixed? Something 
 <h3 align="center"><strong>Thanks to all of our amazing contributors!</strong></h3>
 <br/>
 <p align="center">
-<a href="https://github.com/platformsh-templates/drupal9/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=platformsh-templates/drupal9" />
+<a href="https://github.com/platformsh-templates/{0}/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=platformsh-templates/{0}" />
 </a>
 </p>
 

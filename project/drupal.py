@@ -145,6 +145,23 @@ class Drupal8_govcms8(RemoteProject):
 
     @property
     def update(self):
+        projectName = "drupal8-govcms8"
+        def drupal8_govcms8_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds the Australian government's GovCMS Drupal 8 distribution using the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal8_govcms8, self).update + [
+            (self.modify_composer, [drupal8_govcms8_modify_composer])
+        ]
+
+    @property
+    def update(self):
         return super(Drupal8_govcms8, self).update + [
             'cd {0} && rm -rf .circleci'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),

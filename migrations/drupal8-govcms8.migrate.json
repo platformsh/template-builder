@@ -3,14 +3,18 @@
     "type": "php",
     "type_version": "7.4",
     "remote": {
-        "major_version": "2.11",
+        "major_version": "2.11.0",
         "repository": "https://github.com/govCMS/govCMS.git",
-        "latest_tag": null
+        "latest_tag": "2.11.0"
     },
-    "last_updated_on": "2022-04-05-13:59:52",
+    "last_updated_on": "2022-04-12-15:22:08",
     "migration": {
         "files": {
             "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.github/PULL_REQUEST_TEMPLATE.md",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.github/ISSUE_TEMPLATE/config.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.github/ISSUE_TEMPLATE/improvements.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.github/ISSUE_TEMPLATE/bug_report.yaml",
                 "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/config/sync/.gitkeep",
                 "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.editorconfig",
                 "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.environment",
@@ -26,6 +30,10 @@
                 "https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/master/.platform/routes.yaml"
             ],
             "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.github/PULL_REQUEST_TEMPLATE.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.github/ISSUE_TEMPLATE/config.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.github/ISSUE_TEMPLATE/improvements.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.github/ISSUE_TEMPLATE/bug_report.yaml",
                 "https://raw.githubusercontent.com/platformsh/template-builder/master/config/sync/.gitkeep",
                 "https://raw.githubusercontent.com/platformsh/template-builder/master/.editorconfig",
                 "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
@@ -41,6 +49,10 @@
                 "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
             ],
             "rel_root": [
+                ".github/PULL_REQUEST_TEMPLATE.md",
+                ".github/ISSUE_TEMPLATE/config.yaml",
+                ".github/ISSUE_TEMPLATE/improvements.yaml",
+                ".github/ISSUE_TEMPLATE/bug_report.yaml",
                 "config/sync/.gitkeep",
                 ".editorconfig",
                 ".environment",
@@ -94,7 +106,7 @@
                 "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
-                "git merge --allow-unrelated-histories -X theirs 2.11"
+                "git merge --allow-unrelated-histories -X theirs 2.11.0"
             ],
             "deps": [
                 "composer require platformsh/config-reader drush/drush:^10 drupal/redis"

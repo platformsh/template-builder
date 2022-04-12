@@ -139,44 +139,35 @@ jobs:
                     ################################
                     # Working excludes for testing #
                     ################################
-#                     - template: nuxtjs
-#                     - template: lisp
-#                     - template: 'wordpress-woocommerce'
-#                     - template: 'wordpress-bedrock'
-#                     - template: wagtail
-#                     - template: strapi
-#                     - template: mattermost
-#                     - template: golang
-#                     - template: nodejs
-#                     - template: wordpress-composer
-#                     - template: meilisearch
-#                     - template: drupal9
-#                     - template: 'drupal8-multisite'
-#                     - template: 'drupal8'
-#                     - template: django2
-#                     - template: nextcloud
-#                     - template: gatsby
-#                     - template: strapi4
-#                     - template: flask
-#                     - template: php
-#                     - template: django3
-#                     - template: python3
-#                     - template: python3-uwsgi
-#                     - template: pyramid
-#                     - template: rails
-#                     - template: hugo
-#                     - template: backdrop
-#                     - template: gin
-#                     - template: beego
-#                     - template: pelican
-#                     - template: probot
-#                     - template: nextjs
-#                     - template: koa
-#                     - template: django4
-#                     - template: express
-#                     - template: echo
-#                     - template: fastapi
-#                     - template: 'drupal8-opigno'
+                    - template: koa
+                    - template: wagtail
+                    - template: backdrop
+                    - template: drupal8
+                    - template: wordpress-bedrock
+                    - template: wordpress-composer
+                    - template: django2
+                    - template: rails
+                    - template: echo
+                    - template: beego
+                    - template: nodejs
+                    - template: django4
+                    - template: nuxtjs
+                    - template: drupal8-opigno
+                    - template: nextcloud
+                    - template: drupal9-multisite
+                    - template: mattermost
+                    - template: gatsby
+                    - template: hugo
+                    - template: drupal8-multisite
+                    - template: php
+                    - template: django3
+                    - template: lisp
+                    - template: wordpress-woocommerce
+                    - template: golang
+                    - template: express
+                    - template: strapi4
+                    - template: python3-uwsgi
+
 
         steps:
             # Before beginning we need set up all our tools and dependencies

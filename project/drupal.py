@@ -193,7 +193,8 @@ class Drupal8_govcms8(RemoteProject):
 
     @property
     def platformify(self):
-       return super(Drupal8_govcms8, self).platformify + [
+       return [
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.

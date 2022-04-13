@@ -161,7 +161,7 @@ class Drupal8_opigno(RemoteProject):
         ]
 
 class Drupal8_govcms8(RemoteProject):
-    major_version = '2.11'
+    major_version = '1.9'
     remote = 'https://github.com/govCMS/GovCMS8.git'
 
     @property

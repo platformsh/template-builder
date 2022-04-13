@@ -1,13 +1,13 @@
 {
     "template": "drupal8-govcms8",
     "type": "php",
-    "type_version": "7.4",
+    "type_version": "8.0",
     "remote": {
-        "major_version": "2.11.0",
-        "repository": "https://github.com/govCMS/govCMS.git",
-        "latest_tag": "2.11.0"
+        "major_version": "2.12.0",
+        "repository": "https://github.com/govCMS/GovCMS.git",
+        "latest_tag": "2.12.0"
     },
-    "last_updated_on": "2022-04-13-10:59:50",
+    "last_updated_on": "2022-04-13-14:35:36",
     "migration": {
         "files": {
             "rel_template": [
@@ -293,7 +293,7 @@
             ],
             "init": [
                 "git clone git@github.com:platformsh-templates/drupal8-govcms8.git /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/",
-                "git remote add project https://github.com/govCMS/govCMS.git"
+                "git remote add project https://github.com/govCMS/GovCMS.git"
             ],
             "update": [
                 "git checkout master",
@@ -301,7 +301,8 @@
                 "git fetch --all --tags",
                 "rm -rf .circleci",
                 "rm -rf .github",
-                "rm -rf .tugboat"
+                "rm -rf .tugboat",
+                "composer remove php"
             ],
             "platformify": [
                 "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/",
@@ -315,7 +316,7 @@
                 "composer config allow-plugins.cweagans/composer-patches true --no-plugins ",
                 "composer update -W --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php",
                 "rm -rf web/profiles/govcms",
-                "rsync -aP /Users/chadcarlson/template-builder/common/drupal8/ /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/"
+                "rsync -aP /Users/chadcarlson/template-builder/common/drupal9/ /Users/chadcarlson/template-builder/templates/drupal8-govcms8/build/"
             ],
             "branch": [
                 "git checkout -b updatesLocal"
@@ -326,11 +327,11 @@
             "init": [
                 "mkdir drupal8-govcms8 && cd drupal8-govcms8",
                 "git init",
-                "git remote add upstream https://github.com/govCMS/govCMS.git",
+                "git remote add upstream https://github.com/govCMS/GovCMS.git",
                 "git branch -m main",
                 "git fetch --all --depth=2",
                 "git fetch --all --tags",
-                "git merge --allow-unrelated-histories -X theirs 2.11.0"
+                "git merge --allow-unrelated-histories -X theirs 2.12.0"
             ],
             "deps": [
                 "composer require platformsh/config-reader drush/drush:^10 drupal/redis",

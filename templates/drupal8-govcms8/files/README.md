@@ -32,8 +32,8 @@
 <a href="https://github.com/platformsh-templates/drupal8-govcms8/pulls">
 <img src="https://img.shields.io/github/issues-pr/platformsh-templates/drupal8-govcms8.svg?style=for-the-badge&labelColor=f4f2f3&color=ffd9d9&label=Pull%20requests" alt="Open PRs" />
 </a>&nbsp&nbsp
-<a href="https://github.com/platformsh-templates/drupal8-govcms8/blob/master/LICENSE">
-<img src="https://img.shields.io/static/v1?label=License&message=MIT&style=for-the-badge&labelColor=f4f2f3&color=ffd9d9" alt="License" />
+<a href="https://github.com/platformsh-templates/drupal8-govcms8/blob/master/LICENSE.txt">
+<img src="https://img.shields.io/static/v1?label=License&message=GPL-2.0&style=for-the-badge&labelColor=f4f2f3&color=ffd9d9" alt="License" />
 </a>&nbsp&nbsp
 <br /><br />
 <a href="https://console.platform.sh/projects/create-project/?template=https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/updates/.platform.template.yaml&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://raw.githubusercontent.com/platformsh-templates/drupal8-govcms8/updates/.platform.template.yaml" target="_blank" title="Deploy with Platform.sh"><img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" width="175px"></a>
@@ -56,13 +56,13 @@
 
 ## About
 
-This template builds the Australian government's GovCMS Drupal 8 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.
+This template builds the Australian government's GovCMS Drupal 9 distribution using the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) for better flexibility.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.
 
 GovCMS is a Drupal distribution built for the Australian government, and includes configuration optimized for managing government websites.
 
 ### Features
 
-- PHP 7.4
+- PHP 8.0
 - MariaDB 10.4
 - Redis 6
 - Drush included
@@ -92,7 +92,7 @@ This will automatically create a new project and initialize the repository for y
 You can also quickly recreate this project locally with the following command:
 
 ```bash
-composer create-project platformsh/drupal8-govcms8 -s dev
+composer create-project platformsh/govcms9 -s dev
 ```
 
 
@@ -368,11 +368,11 @@ If you already have a codebase you are trying to migrate, move onto the next ste
 ```bash
 $ mkdir drupal8-govcms8 && cd drupal8-govcms8
 $ git init
-$ git remote add upstream https://github.com/govCMS/govCMS.git
+$ git remote add upstream https://github.com/govCMS/GovCMS.git
 $ git branch -m main
 $ git fetch --all --depth=2
 $ git fetch --all --tags
-$ git merge --allow-unrelated-histories -X theirs 2.11.0
+$ git merge --allow-unrelated-histories -X theirs 2.12.0
 
 ```
 

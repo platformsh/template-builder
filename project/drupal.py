@@ -161,19 +161,19 @@ class Drupal8_opigno(RemoteProject):
         ]
 
 class Drupal8_govcms8(RemoteProject):
-    major_version = '1.9'
-    remote = 'https://github.com/govCMS/GovCMS8.git'
+    major_version = '2.12'
+    remote = 'https://github.com/govCMS/GovCMS.git'
 
     @property
     def update(self):
-        projectName = "drupal8-govcms8"
+        projectName = "govcms9"
         def drupal8_govcms8_modify_composer(composer):
             """
             This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
             """
 
             composer['name']= "platformsh/{0}".format(projectName)
-            composer['description']= "This template builds the Australian government's GovCMS Drupal 8 distribution using the \"Drupal Recommended\" Composer project."
+            composer['description']= "This template builds the Australian government's GovCMS Drupal 9 distribution using the \"Drupal Recommended\" Composer project."
 
             return composer
 
@@ -187,14 +187,13 @@ class Drupal8_govcms8(RemoteProject):
             'cd {0} && rm -rf .circleci'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),
             'cd {0} && rm -rf .tugboat'.format(self.builddir),
-            # 'cd {0} && composer remove php'.format(self.builddir),
+            'cd {0} && composer remove php'.format(self.builddir),
             # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]
 
     @property
     def platformify(self):
-       return [
-            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+       return super(Drupal8_govcms8, self).platformify + [
            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but
            # drupal/console only works with the 3.x version, and therefore will fail.
            # It should work to remove the lock file first, but for some reason that is still failing.
@@ -208,7 +207,7 @@ class Drupal8_govcms8(RemoteProject):
             'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
-           'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),
+           'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir),
         ]
 
 class Contentacms(BaseProject):

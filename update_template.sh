@@ -16,4 +16,4 @@ poetry run python migrate.py $TEMPLATE
 poetry run python readme-builder.py $TEMPLATE
 
 # Update the template and push it.
-# poetry run doit full:$TEMPLATE
+poetry run doit full:$TEMPLATE

@@ -1,0 +1,30 @@
+{
+    "template": "mattermost",
+    "type": "golang",
+    "type_version": "1.14",
+    "remote": {
+        "major_version": null,
+        "repository": null
+    },
+    "last_updated_on": "2022-02-25-13:06:55",
+    "migration": {
+        "files": [
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.environment",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/build.sh",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.gitignore",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/deploy.sh",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+            "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+        ],
+        "commands": [
+            "rm -rf /Users/chadcarlson/template-builder/templates/mattermost/build/",
+            "git clone git@github.com:platformsh-templates/mattermost.git /Users/chadcarlson/template-builder/templates/mattermost/build/",
+            "rsync -aP /Users/chadcarlson/template-builder/templates/mattermost/files/ /Users/chadcarlson/template-builder/templates/mattermost/build/",
+            "echo 6.1.3 > mattermost_version",
+            "git checkout -b updatesLocal"
+        ]
+    }
+}

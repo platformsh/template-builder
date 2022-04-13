@@ -206,7 +206,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: "7.4"
+                  php-version: "8.0"
             - name: Pre-Start e. Install Poetry
               run: |
                   python -m pip install poetry==$POETRY_VERSION

@@ -139,6 +139,7 @@ jobs:
                     ################################
                     # Working excludes for testing #
                     ################################
+                    - template: contentacms
                     - template: koa
                     - template: wagtail
                     - template: backdrop
@@ -152,7 +153,7 @@ jobs:
                     - template: nodejs
                     - template: django4
                     - template: nuxtjs
-                    - template: drupal8-opigno
+                    # - template: drupal8-opigno
                     - template: nextcloud
                     - template: drupal9-multisite
                     - template: mattermost
@@ -167,6 +168,17 @@ jobs:
                     - template: express
                     - template: strapi4
                     - template: python3-uwsgi
+                    - template: python3
+                    - template: nextjs
+                    - template: meilisearch
+                    - template: drupal9
+                    - template: flask
+                    - template: fastapi
+                    - template: pyramid
+                    - template: contentacms
+                    - template: gin
+                    - template: pelican
+                    
 
 
         steps:

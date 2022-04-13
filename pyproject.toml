@@ -13,6 +13,7 @@ pyyaml = "^5.0"
 requests = "^2.26.0"
 slack-sdk = "^3.11.2"
 certifi = "^2021.10.8"
+Markdown = "^3.3.6"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.4"

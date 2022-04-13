@@ -1,0 +1,74 @@
+{
+    "template": "laravel",
+    "type": "php",
+    "type_version": "7.4",
+    "remote": {
+        "major_version": "v8",
+        "repository": "https://github.com/laravel/laravel.git",
+        "latest_tag": null
+    },
+    "last_updated_on": "2022-04-05-14:00:17",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/laravel/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/laravel/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/laravel/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/laravel/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/laravel/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.lando.upstream.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "README.md",
+                ".lando.upstream.yml",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/laravel/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/laravel.git /Users/chadcarlson/template-builder/templates/laravel/build/",
+                "git remote add project https://github.com/laravel/laravel.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/laravel/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/laravel/files/ /Users/chadcarlson/template-builder/templates/laravel/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/laravel/gitignore.patch",
+                "composer require platformsh/laravel-bridge --prefer-dist --no-interaction --ignore-platform-req=ext-redis --ignore-platform-req=ext-apcu --ignore-platform-req=ext-intl --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-exif --ignore-platform-req=ext-gd --ignore-platform-req=ext-imagick --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-memcache --ignore-platform-req=ext-pdo --ignore-platform-req=ext-openssl --ignore-platform-req=ext-zip --ignore-platform-req=php"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir laravel && cd laravel",
+                "git init",
+                "git remote add upstream https://github.com/laravel/laravel.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs v8"
+            ],
+            "deps": [
+                "composer require platformsh/laravel-bridge"
+            ]
+        }
+    }
+}

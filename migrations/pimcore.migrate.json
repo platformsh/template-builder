@@ -1,0 +1,81 @@
+{
+    "template": "pimcore",
+    "type": "php",
+    "type_version": "7.4",
+    "remote": {
+        "major_version": "v2.7",
+        "repository": "https://github.com/pimcore/skeleton.git",
+        "latest_tag": null
+    },
+    "last_updated_on": "2022-04-05-13:59:52",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/app/config/installer.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/app/config/parameters.yml",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/app/config/parameters_platformsh.php",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/install-redis.sh",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/pimcore/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/app/config/installer.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/app/config/parameters.yml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/app/config/parameters_platformsh.php",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/install-redis.sh",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "app/config/installer.yml",
+                "app/config/parameters.yml",
+                "app/config/parameters_platformsh.php",
+                "README.md",
+                "install-redis.sh",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/pimcore/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/pimcore.git /Users/chadcarlson/template-builder/templates/pimcore/build/",
+                "git remote add project https://github.com/pimcore/skeleton.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/pimcore/files/ /Users/chadcarlson/template-builder/templates/pimcore/build/",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/config.patch",
+                "patch -p1 < /Users/chadcarlson/template-builder/templates/pimcore/gitignore.patch"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir pimcore && cd pimcore",
+                "git init",
+                "git remote add upstream https://github.com/pimcore/skeleton.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs v2.7"
+            ],
+            "deps": []
+        }
+    }
+}

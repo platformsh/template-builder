@@ -1,0 +1,69 @@
+{
+    "template": "gatsby",
+    "type": "nodejs",
+    "type_version": "16",
+    "remote": {
+        "major_version": "master",
+        "repository": "https://github.com/gatsbyjs/gatsby-starter-blog.git",
+        "latest_tag": null
+    },
+    "last_updated_on": "2022-04-05-13:59:54",
+    "migration": {
+        "files": {
+            "rel_template": [
+                "https://raw.githubusercontent.com/platformsh-templates/gatsby/master/README.md",
+                "https://raw.githubusercontent.com/platformsh-templates/gatsby/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/gatsby/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh-templates/gatsby/master/.platform/routes.yaml"
+            ],
+            "rel_tb": [
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/README.md",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform.app.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/services.yaml",
+                "https://raw.githubusercontent.com/platformsh/template-builder/master/.platform/routes.yaml"
+            ],
+            "rel_root": [
+                "README.md",
+                ".platform.app.yaml",
+                ".platform/services.yaml",
+                ".platform/routes.yaml"
+            ]
+        },
+        "commands": {
+            "cleanup": [
+                "rm -rf /Users/chadcarlson/template-builder/templates/gatsby/build/"
+            ],
+            "init": [
+                "git clone git@github.com:platformsh-templates/gatsby.git /Users/chadcarlson/template-builder/templates/gatsby/build/",
+                "git remote add project https://github.com/gatsbyjs/gatsby-starter-blog.git"
+            ],
+            "update": [
+                "git checkout master",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs --squash project/master"
+            ],
+            "platformify": [
+                "rsync -aP /Users/chadcarlson/template-builder/common/all/ /Users/chadcarlson/template-builder/templates/gatsby/build/",
+                "rsync -aP /Users/chadcarlson/template-builder/templates/gatsby/files/ /Users/chadcarlson/template-builder/templates/gatsby/build/",
+                "rm -rf package-lock.json"
+            ],
+            "branch": [
+                "git checkout -b updatesLocal"
+            ],
+            "push": []
+        },
+        "migrate": {
+            "init": [
+                "mkdir gatsby && cd gatsby",
+                "git init",
+                "git remote add upstream https://github.com/gatsbyjs/gatsby-starter-blog.git",
+                "git branch -m main",
+                "git fetch --all --depth=2",
+                "git fetch --all --tags",
+                "git merge --allow-unrelated-histories -X theirs master"
+            ],
+            "deps": []
+        }
+    }
+}

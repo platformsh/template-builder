@@ -98,6 +98,10 @@ if ($platformsh->hasRelationship('rediscache') && !InstallerKernel::installation
   ];
 }
 
+// Configure asset access/management for multi-site.
+$config['system.performance']['css.preprocess'] = 0;
+$config['system.performance']['js.preprocess'] = 0;
+
 // Configure file paths.
 if ($platformsh->inRuntime()) {
   if (!isset($settings['file_public_path'])) {

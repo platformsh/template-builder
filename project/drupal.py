@@ -130,14 +130,35 @@ class Drupal8_opigno(RemoteProject):
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
     @property
-    def platformify(self):
-        return super(Drupal8_opigno, self).platformify + [
-            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults()
-            # 'cd {0} && composer require platformsh/config-reader drush/drush drupal/console drupal/redis'.format(self.builddir)  + self.composer_defaults(),
-            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
-            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+    def update(self):
+        projectName = "drupal8-opigno"
+        def drupal8_opigno_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "This template builds the Opigno Drupal 8 distribution using the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal8_opigno, self).update + [
+            (self.modify_composer, [drupal8_opigno_modify_composer])
         ]
 
+
+    @property
+    def platformify(self):
+        return super(Drupal8_opigno, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
+            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),
+        ]
 
 class Drupal8_govcms8(RemoteProject):
     major_version = '2.11'
@@ -166,7 +187,7 @@ class Drupal8_govcms8(RemoteProject):
             'cd {0} && rm -rf .circleci'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),
             'cd {0} && rm -rf .tugboat'.format(self.builddir),
-            'cd {0} && composer remove php'.format(self.builddir),
+            # 'cd {0} && composer remove php'.format(self.builddir),
             # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
         ]
 
@@ -178,9 +199,15 @@ class Drupal8_govcms8(RemoteProject):
            # It should work to remove the lock file first, but for some reason that is still failing.
            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
         #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
-           'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+           'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),
         ]
 
 class Contentacms(BaseProject):

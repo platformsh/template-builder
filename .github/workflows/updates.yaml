@@ -91,7 +91,7 @@ jobs:
                 template: ${{fromJSON(needs.build.outputs.templates)}}
                 exclude:
                     # PHP
-                    - template: "drupal8-govcms8"
+                    # - template: "drupal8-govcms8"
                     - template: "magento2ce"
                     - template: "pimcore"
                     - template: "laravel"
@@ -153,7 +153,7 @@ jobs:
                     - template: nodejs
                     - template: django4
                     - template: nuxtjs
-                    # - template: drupal8-opigno
+                    - template: drupal8-opigno
                     - template: nextcloud
                     - template: drupal9-multisite
                     - template: mattermost

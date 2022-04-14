@@ -15,7 +15,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          PHP 7.4<br />
+          PHP 8.0<br />
           MariaDB 10.4<br />
           Redis 6<br />
           Drush and Drupal Console included<br />

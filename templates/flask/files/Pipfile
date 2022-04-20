@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = ">=1.1.1"
+flask = ">=2.0.0"
 redis = "*"
 pymysql = "*"
 gevent = "*"
@@ -13,4 +13,4 @@ platformshconfig = "~=2.0"
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.7.0"

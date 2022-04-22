@@ -320,7 +320,7 @@ Platform.sh provides support for locally running a Flask application that has be
 
 -   Run the application server
 
-            pipenv run python server.py
+        pipenv run python server.py
 
     Now your Flask app should be running locally with a connection to a remote database that’s separate from your production database.
 

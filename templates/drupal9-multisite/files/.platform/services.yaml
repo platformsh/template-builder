@@ -23,7 +23,7 @@ db:
             main:
                 default_schema: maindb
                 privileges:
-                    seconddb: admin
+                    maindb: admin
 
 
 cache:

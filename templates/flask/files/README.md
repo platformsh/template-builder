@@ -4,6 +4,12 @@
 </a>
 </p>
 
+<p align="center">
+<a href="https://flask.palletsprojects.com/en/2.1.x/">
+<img src="flask.png">
+</a>
+</p>
+
 <h1 align="center">Deploy Flask on Platform.sh</h1>
 
 <p align="center">
@@ -56,13 +62,16 @@ Flask is a lightweight web microframework for Python.
 
 ## Features
 
--   Python 3.8
+-   Python 3.7
+-   Flask 2
 -   MariaDB 10.4
 -   Redis 5.0
 -   Automatic TLS certificates
 -   Pipfile-based build
 
 ## Getting Started
+
+### Deploy
 
 #### Quickstart
 
@@ -247,6 +256,25 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 <!-- <br/>
 </blockquote> -->
 </details>
+
+### Next steps
+
+With your application now deployed on Platform.sh, things get more interesting.
+Run the command `platform environment:branch new-feature` for your project, or open a trivial pull request off of your current branch.
+
+The resulting environment is an _exact_ copy of production.
+It contains identical infrastructure to what's been defined in your configuration files, and even includes data copied from your production environment in its services.
+On this isolated environment, you're free to make any changes to your application you need to, and really test how they will behave on production.
+
+After that, here are a collection of additional resources you might find interesting as you continue with your migration to Platform.sh:
+
+-   [Local development](#local-development)
+-   [Troubleshooting](#troubleshooting)
+-   [Adding a domain and going live](https://docs.platform.sh/domains/steps.html)
+-   [(CDN) Content Delivery Networks](https://docs.platform.sh/domains/cdn.html)
+-   [Performance and observability with Blackfire.io](https://docs.platform.sh/integrations/observability/blackfire.html)
+-   [Pricing](https://docs.platform.sh/overview/pricing.html)
+-   [Security and compliance](https://docs.platform.sh/security.html)
 
 ## Customizations
 

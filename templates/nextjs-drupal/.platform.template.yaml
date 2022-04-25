@@ -1,0 +1,60 @@
+# Platform.sh Project Initialization Template
+#
+# This file defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL.
+# Each template is selectable at the project-creation step.
+info:
+    # Unique machine name, prefaced by a vendor or organization identifier.
+    # The vendor should be the lowercase name of your company, organization, or project, and the project name
+    # the lowercase name of the template. This may be the same as the vendor in a single-product case.
+    id: platformsh/nextjs-drupal
+    # The human-readable name of the template.  This is how the template will be named in the user interface.
+    name: 'Next.js Drupal'
+    # Human-readable descriptive text for the template. Supports limited HTML.
+    # This field should be 1-3 sentences describing how the project is setup, assuming the reader already knows what
+    # the application is.
+    description: |
+      <p>This template demonstrates a multi-app deployment on Platform.sh, in this case, a Next.js frontend consuming data from a Drupal 9 backend running on the same environment. It is based largely on the configuration instructions provided by the Next-Drupal project by Chapter Three.</p>
+      <p>Next.js is an open-source web framework written for Javascript, and Drupal is a flexible and extensible PHP-based CMS framework.</p>
+    # A list of tags associated with the template.  These should be highly generic terms like "CMS", "Framework", and
+    # the language in which the application is written.
+    tags:
+        - PHP
+        - CMS
+        - Node.js
+        - Decoupled
+        - Multi-app
+    # An image URI (either base64-encoded or a URL) representing the template.  Base64-encoded SVG strongly preferred.
+    image: data:image/svg+xml;...
+    # Additional notes displayed in the template's detail view.
+    # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+    # The most important is a section that lists the "Apps and Services" (container images) that the project uses.
+    # These are the name/version of the Platform.sh containers, not including the Nginx router.
+    notes:
+        - heading: "Apps & Services"
+          content: "PHP 8.1<br/>Node.js 16<br/>MariaDB 10.4<br/>Redis 6.0<br/>Network Storage<br/>Automatic TLS certificates<br/>Multi-app configuration<br/>yarn-based builds<br/>Delayed SSG build (post deploy hook)"
+
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exits now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+    repository: https://github.com/platformsh-templates/nextjs-drupal.git@master
+    config: null
+    files: []
+    profile: 'Next.js Drupal'

@@ -28,6 +28,7 @@ runtime:
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
     rediscache: 'cache:redis'
+    main: 'db:main'
     first: 'db:first'
     second: 'db:second'
 

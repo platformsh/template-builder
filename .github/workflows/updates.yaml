@@ -140,7 +140,7 @@ jobs:
                     ################################
                     # - template: contentacms
                     # - template: koa
-                    # - template: wagtail
+                    - template: wagtail
                     # - template: backdrop
                     # - template: drupal8
                     # - template: wordpress-bedrock
@@ -150,7 +150,7 @@ jobs:
                     # - template: echo
                     # - template: beego
                     # - template: nodejs
-                    # - template: django4
+                    - template: django4
                     # - template: nuxtjs
                     # - template: drupal8-opigno
                     # - template: nextcloud
@@ -160,7 +160,7 @@ jobs:
                     # - template: hugo
                     # - template: drupal8-multisite
                     # - template: php
-                    # - template: django3
+                    - template: django3
                     # - template: lisp
                     # - template: wordpress-woocommerce
                     # - template: golang
@@ -171,9 +171,9 @@ jobs:
                     # - template: nextjs
                     # - template: meilisearch
                     # - template: drupal9
-                    # - template: flask
+                    - template: flask
                     # - template: fastapi
-                    # - template: pyramid
+                    - template: pyramid
                     # - template: contentacms
                     # - template: gin
                     # - template: pelican

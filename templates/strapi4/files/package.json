@@ -26,7 +26,7 @@
     "mysql": "^2.18.1",
     "pg": "^8.7.1",
     "platformsh-config": "^2.4.1",
-    "sqlite3": "5.0.0",
+    "sqlite3": "5.0.3",
     "strapi-connector-bookshelf": "3.6.5"
   },
   "author": {

@@ -67,7 +67,11 @@ class WordPressComposerBase(RemoteProject):
         #get the versions
         actions = super(WordPressComposerBase, self).platformify
         if hasattr(self,'type') and hasattr(self,'typeVersion') and 'php' == self.type:
-            actions = ["echo 'Adding composer config:platform:php'","cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)] + actions
+            actions = [
+                "cd {0} && composer config --no-plugins allow-plugins.johnpbloch/wordpress-core-installer true".format(self.builddir),
+                "echo 'Adding composer config:platform:php'",
+                "cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)
+            ] + actions
             # now add the child commands
             actions = actions + self._platformify
             actions = actions + ["echo 'Removing composer config:platform'", "cd {0} && composer config --unset platform".format(self.builddir)]
@@ -124,7 +128,7 @@ class Wordpress_woocommerce(WordPressComposerBase):
 
 
 class Wordpress_composer(WordPressComposerBase):
-    major_version = '5'
+    major_version = '6'
     remote = 'https://github.com/johnpbloch/wordpress.git'
     unPinDependencies = ['johnpbloch/wordpress-core']
 

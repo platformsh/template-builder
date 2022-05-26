@@ -3,7 +3,7 @@ tests:
         path:
             - "/"
         assertions:
-            - "main.wall_time <= 250ms"
+            - "main.wall_time <= 1.5s"
 
 scenarios: |
     #!blackfire-player
@@ -14,5 +14,5 @@ scenarios: |
             expect status_code() == 200
 
     scenario
-        name "Anonymous Visit"
-        include homepages
+        name "Visit Homepage"
+        include homepage

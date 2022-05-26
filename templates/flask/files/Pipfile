@@ -13,4 +13,4 @@ platformshconfig = "~=2.0"
 [dev-packages]
 
 [requires]
-python_version = "3.7.0"
+python_version == "3.9"

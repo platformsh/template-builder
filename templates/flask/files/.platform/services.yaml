@@ -1,6 +1,12 @@
+# The services of the project.
+#
+# Each service listed will be deployed in its own container as part of your
+# Platform.sh project.
+#
+# See https://docs.platform.sh/user_guide/reference/services-yaml.html
 db:
-  type: 'mariadb:10.4'
-  disk: 2048
+    type: "mariadb:10.4"
+    disk: 2048
 
 cache:
-  type: 'redis:5.0'
+    type: "redis:5.0"

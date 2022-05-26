@@ -391,7 +391,7 @@ As mentioned above, this template includes a starting `.blackfire.yaml` file tha
 
 -   A new section at the top of your browser will be displayed to showcase the profiling in progress.
     <br>
-    <img src="/ProfileBar.png" align="center" width="700px">
+    <img src="./ProfileBar.png" align="center" width="700px">
     <br>
 
 -   After profiling is done, you can click on any of the buttons on that section to see more information about the application profiling results.

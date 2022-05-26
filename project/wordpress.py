@@ -68,7 +68,6 @@ class WordPressComposerBase(RemoteProject):
         actions = super(WordPressComposerBase, self).platformify
         if hasattr(self,'type') and hasattr(self,'typeVersion') and 'php' == self.type:
             actions = [
-                # 'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
                 "cd {0} && composer config --no-plugins allow-plugins.johnpbloch/wordpress-core-installer true".format(self.builddir),
                 "echo 'Adding composer config:platform:php'",
                 "cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)
@@ -156,7 +155,6 @@ class Wordpress_composer(WordPressComposerBase):
                 # Find default themes and plugins subdirectories.
                 installerPaths = [x for x in os.listdir(self.builddir + root) if
                                   os.path.isdir(self.builddir + root + x)]
-                print(installerPaths)
                 for path in installerPaths:
                     installerPath = '{0}{1}{2}/'.format(self.builddir, root, path)
                     # For each subdirectory, require the package, adding the right namespace to it.

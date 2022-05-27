@@ -1,0 +1,63 @@
+{
+  "project": {
+	"production": {
+	  "installed": false
+	},
+	"title": "Headless WordPress",
+	"plugins": [
+	  "wp-graphql",
+	  "wp-gatsby"
+	],
+	"admin_user": {
+	  "name": "admin",
+	  "email": "admin@example.com"
+	},
+	"posts": {
+	  "demo": {
+		"data": "04-dummy-posts.json",
+		"num_posts": 15
+	  }
+	},
+	"permalink": {
+	  "structure": "/%year%/%monthnum%/%postname%/",
+	  "option_key": "permalink_structure"
+	}
+  },
+  "environment": {
+	"branch": null,
+	"key_path": "/app/private",
+	"consumer": {
+	  "name": "client_wpgraphql_user",
+	  "id": null,
+	  "email": "wpgraphql@example.com",
+	  "secret" : null,
+	  "label": "Gatsby Consumer",
+	  "description": "This is the Gatsby user account. It was created programmatically by Platform.sh during this environment's first deploy to enable post previews. Please do not delete.",
+	  "site": "Gatsby OAuth Env Consumer Site",
+	  "application_password_name": "headless-preview"
+	},
+	"api": {
+	  "id": "nextjs_site",
+	  "label": "Next.js Site",
+	  "front_page": "/node",
+	  "resolver": {
+		"id": "node.article",
+		"type": "site_selector"
+	  },
+	  "preview_secret": null,
+	  "url": {
+		"base": null,
+		"preview": null,
+		"image_domain": null,
+		"graphql": null
+	  },
+	  "login_mutation": null
+	},
+	"client": {
+	  "url": {
+		"base": null,
+		"preview": null
+	  }
+	}
+  }
+}

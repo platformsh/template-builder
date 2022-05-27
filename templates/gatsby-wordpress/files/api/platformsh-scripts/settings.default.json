@@ -37,8 +37,8 @@
 	  "application_password_name": "headless-preview"
 	},
 	"api": {
-	  "id": "nextjs_site",
-	  "label": "Next.js Site",
+	  "id": "gatsby_site",
+	  "label": "Gatsby Site",
 	  "front_page": "/node",
 	  "resolver": {
 		"id": "node.article",

@@ -3,7 +3,7 @@
 # NOTE:
 # Generates dummy content sourced from NASA.
 ########################################################################################################################
-demoPostsLink="https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress#step-2-populate-content"
+demoPostsLink="https://www.gatsbyjs.com/guides/wordpress/"
 # 1. Create some dummy content.
 if [ -z ${CREATE_DEMO_CONTENT+x} ]; then
     printf "    ✔ Skipping content generation.\n"

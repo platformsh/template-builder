@@ -2,18 +2,18 @@
 ########################################################################################################################
 # NOTE:
 #
-# This script tracks settings that have changed related to the the Next.js-WordPress connection for a particular
+# This script tracks settings that have changed related to the the Gatsby-WordPress connection for a particular
 #   environment on Platform.sh. Throughout setup, plenty has been updated to ensure that for any given environment,
-#   a unique Next.js app container connects with its own unique Drupal container, and that this relationship is seemless
+#   a unique Gatsby app container connects with its own unique Drupal container, and that this relationship is seemless
 #   across branching commits as well as local development work.
 #
 # Here, a few last minute things are updated:
 #   1) The current frontend URL is updated for the environment.
 #   2) If this is the project's first every push, successful installation is logged.
-#   3) Next.js, both on Platform.sh and locally, relies on environment variables typically included in a .env file.
-#       Rather than forcing the Next.js container to build this file, the CMS is considered to be the source of truth and
-#       assumes that responsibility here. This script pulls everything Next.js needs from our settings file we've been
-#       using to track the environment, and generates the required file in a Network Storage mount that Next.js can access.
+#   3) Gatsby, both on Platform.sh and locally, relies on environment variables typically included in a .env file.
+#       Rather than forcing the Gatsby container to build this file, the CMS is considered to be the source of truth and
+#       assumes that responsibility here. This script pulls everything Gatsby needs from our settings file we've been
+#       using to track the environment, and generates the required file in a Network Storage mount that Gatsby can access.
 #       For now, this approach seemed best, as it gives a readily accessible environment file for switching out a variety
 #       of frontend consumers simply by defining a mount. This may change, but seemed like the best option currently.
 #

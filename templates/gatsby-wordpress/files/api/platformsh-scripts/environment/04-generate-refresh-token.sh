@@ -2,10 +2,10 @@
 ########################################################################################################################
 # NOTE:
 #
-# Generates a refresh token nextjs can use to retrieve draft posts in order to generate post previews
+# Generates a refresh token Gatsby can use to retrieve draft posts in order to generate post previews
 #
 # We need to get a refresh token from wp-graphql-jwt-authentication plugin and then store it as an environmental
-# variable named WORDPRESS_AUTH_REFRESH_TOKEN that is loaded into the nextjs app container.
+# variable named WORDPRESS_AUTH_REFRESH_TOKEN that is loaded into the Gatsby app container.
 #
 ########################################################################################################################
 

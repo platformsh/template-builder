@@ -1,0 +1,18 @@
+tests:
+    "The homepage should be fast":
+        path:
+            - "/"
+        assertions:
+            - "main.wall_time <= 1.5s"
+
+scenarios: |
+    #!blackfire-player
+    name "Flask Scenarios"
+    group homepage
+        visit url("/")
+            name "Home"
+            expect status_code() == 200
+
+    scenario
+        name "Visit Homepage"
+        include homepage

@@ -10,15 +10,28 @@ type: 'nodejs:14'
 variables:
     env:
         NODE_OPTIONS: --max_old_space_size=1536
-
+        GATSBY_CPU_COUNT: 2
+size: L
+resources:
+    base_memory: 1024
+    memory_ratio: 1024
 # The hooks that will be triggered when the package is deployed.
 hooks:
+    build: |
+        # symlink .env.production over to the platformsh.env file
+        ln -sf "${PLATFORM_APP_DIR}"/deploy/platformsh.env "${PLATFORM_APP_DIR}"/.env.production
+        # temp rename .config that was built during initial build so we can sync it during deploy
+        mv /app/.config/ /app/.config-from-build/
     # Post deploy hook builds Gatsby frontend now that backend content is available.
+    deploy: |
+        rsync -a /app/.config-from-build/* /app/.config/
     post_deploy: |
+        # something is adding --max_old_space_size=96 which is WAY too small.
+        export NODE_OPTIONS="--max_old_space_size=1536"
         npm run build
 
 relationships:
-    wordpress: "wordpress:http"
+    wordpress: "api:http"
 
 # The size of the persistent disk of the application (in MB).
 disk: 1280
@@ -43,3 +56,7 @@ mounts:
   'public':
       source: local
       source_path: public
+  deploy:
+      source: service
+      service: files
+      source_path: deploy

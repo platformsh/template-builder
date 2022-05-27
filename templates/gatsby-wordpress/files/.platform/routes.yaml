@@ -1,11 +1,31 @@
-"https://www.{default}/":
+# The routes of the project.
+#
+# Each route describes how an incoming URL is going
+# to be processed by Platform.sh.
+
+"https://api.{default}/":
   type: upstream
+  id: "api"
+  upstream: "api:http"
+  cache:
+    enabled: true
+    # Base the cache on the session cookies. Ignore all other cookies.
+    cookies:
+      - '/^wordpress_logged_in_/'
+      - '/^wordpress_sec_/'
+      - 'wordpress_test_cookie'
+      - '/^wp-settings-/'
+      - '/^wp-postpass/'
+
+"https://www.api.{default}/":
+  type: redirect
+  to: "https://{default}/"
+
+https://www.{default}/:
+  type: redirect
+  to: "https://{default}/"
+https://{default}/:
+  type: upstream
+  primary: true
+  id: "client"
   upstream: "gatsby:http"
-
-"https://{default}/":
-    type: redirect
-    to: "https://www.{default}/"
-
-"https://backend.{default}/":
-    type: upstream
-    upstream: "wordpress:http"

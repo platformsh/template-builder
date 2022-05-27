@@ -25,10 +25,11 @@
   "require": {
     "php": ">=5.6.20",
     "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
-    "johnpbloch/wordpress-core": "5.6.0",
+    "johnpbloch/wordpress-core": "^5.6.0",
     "platformsh/config-reader": "^2.4",
-    "wp-cli/wp-cli-bundle": "^2.4",
-    "psy/psysh": "^0.10.6"
+    "wpackagist-plugin/wp-gatsby": "^2.3.3",
+    "wpackagist-plugin/wp-graphql": "^1.8.2"
+
   },
   "scripts": {
     "copywpconfig": [
@@ -54,5 +55,11 @@
       "type": "composer",
       "url": "https://wpackagist.org"
     }
-  ]
+  ],
+  "config": {
+    "allow-plugins": {
+      "johnpbloch/wordpress-core-installer": true,
+      "composer/installers": true
+    }
+  }
 }

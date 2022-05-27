@@ -28,7 +28,7 @@ The following changes have been made relative to Bedrock's project creation comm
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
 * A `.environment` file has been included which sets Bedrock's configuration on Platform.sh. It defines the connection to the MariaDB database, the primary site URL, and security keys and salts.
 * A base [Landofile](https://docs.lando.dev/config/lando.html#base-file) provides configuration to use this template locally using [Lando](https://docs.lando.dev).
-* In order to preserve 1-to-1 clones of development environments, `WP_ENV` has been set to `production` in [`.environment`](./.environment). If you would instead prefer to have `WP_ENV` match the type of platform.sh environment (i.e. development, staging), you can set change that line to `export WP_ENV="${PLATFORM_ENVIRONMENT_TYPE}"`.
+* In order to preserve 1-to-1 clones of development environments, `WP_ENV` has been set to `production` in [`.environment`](./.environment). If you would instead prefer to have `WP_ENV` match the type of Platform.sh environment (i.e. development, staging), you can set change that line to `export WP_ENV="${PLATFORM_ENVIRONMENT_TYPE}"`.
 
 ## Local development
 

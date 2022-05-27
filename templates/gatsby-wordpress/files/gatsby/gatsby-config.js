@@ -1,73 +1,84 @@
-const config = require("platformsh-config").config();
-
-var backend_route = "";
-if ( config.isValidPlatform() && !config.inBuild()) {
-  require("dotenv").config({
-    path: `.env.${process.env.NODE_ENV}`,
-  })
-  backend_route = config.credentials("wordpress")["host"]
-} else {
-  require("dotenv").config()
-  backend_route = process.env.API_URL;
-}
+/**
+ * 👋 Hey there!
+ * This file is the starting point for your new WordPress/Gatsby site! 🚀
+ * For more information about what this file is and does, see
+ * https://www.gatsbyjs.com/docs/gatsby-config/
+ *
+ */
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
-  siteMetadata: {
-    title: `Gatsby + Wordpress on Platform.sh`,
-    description: `An example to learn how to source data from WordPress.`,
-    author: `@gatsbyjs`,
-  },
+  /**
+   * Adding plugins to this array adds them to your Gatsby site.
+   *
+   * Gatsby has a rich ecosystem of plugins.
+   * If you need any more you can search here: https://www.gatsbyjs.com/plugins/
+   */
   plugins: [
-    // https://public-api.wordpress.com/wp/v2/sites/gatsbyjsexamplewordpress.wordpress.com/pages/
-    /*
-     * Gatsby's data processing layer begins with “source”
-     * plugins. Here the site sources its data from WordPress.
-     */
     {
+      /**
+       * First up is the WordPress source plugin that connects Gatsby
+       * to your WordPress site.
+       *
+       * visit the plugin docs to learn more
+       * https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-wordpress/README.md
+       *
+       */
       resolve: `gatsby-source-wordpress`,
       options: {
-        /*
-         * The base URL of the WordPress site without the trailingslash and the protocol. This is required.
-         * Example : 'demo.wp-api.org' or 'www.example-site.com'
-         */
-        baseUrl: backend_route,
-        // The protocol. This can be http or https.
-        protocol: `http`,
-        // Indicates whether the site is hosted on wordpress.com.
-        // If false, then the assumption is made that the site is self hosted.
-        // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
-        // If your site is hosted on wordpress.org, then set this to false.
-        hostingWPCOM: false,
-        // If useACF is true, then the source plugin will try to import the WordPress ACF Plugin contents.
-        // This feature is untested for sites hosted on WordPress.com
-        useACF: true,
+        // the only required plugin option for WordPress is the GraphQL url.
+        url:
+          process.env.WORDPRESS_API_URL,
       },
     },
+    {
+      resolve: "gatsby-plugin-no-sourcemaps",
+    },
     /**
-     * The following plugins aren't required for gatsby-source-wordpress,
-     * but we need them so the default starter we installed above will keep working.
-     **/
-    `gatsby-plugin-react-helmet`,
+     * We need this plugin so that it adds the "File.publicURL" to our site
+     * It will allow us to access static url's for assets like PDF's
+     *
+     * See https://www.gatsbyjs.org/packages/gatsby-source-filesystem/ for more info
+     */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `assets`,
+        path: `${__dirname}/content/assets`,
       },
     },
+
+    /**
+     * The following two plugins are required if you want to use Gatsby image
+     * See https://www.gatsbyjs.com/docs/gatsby-image/#setting-up-gatsby-image
+     * if you're curious about it.
+     */
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-image`,
     {
+      // See https://www.gatsbyjs.com/plugins/gatsby-plugin-manifest/?=gatsby-plugin-manifest
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Gatsby Starter WordPress Blog`,
+        short_name: `GatsbyJS & WP`,
         start_url: `/`,
-        background_color: `#663399`,
+        background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `content/assets/gatsby-icon.png`,
       },
     },
+
+    // See https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/?=gatsby-plugin-react-helmet
+    `gatsby-plugin-react-helmet`,
+
+    /**
+     * this (optional) plugin enables Progressive Web App + Offline functionality
+     * To learn more, visit: https://gatsby.dev/offline
+     */
+    // `gatsby-plugin-offline`,
   ],
 }

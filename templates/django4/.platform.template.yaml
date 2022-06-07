@@ -35,7 +35,7 @@ info:
   # Additional notes displayed in the template's detail view.
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
+    - heading: "Features"
       content: "Python 3.9<br/>PostgreSQL 12"
 
 # This key describes the initialization call made to the master environment at

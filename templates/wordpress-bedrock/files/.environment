@@ -7,12 +7,9 @@ export DB_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".da
 export WP_HOME=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select(.value.primary == true) | .key')
 export WP_SITEURL="${WP_HOME}wp"
 export WP_DEBUG_LOG=/var/log/app.log
-if [ "$PLATFORM_BRANCH" != "master" ] ; then
-    export WP_ENV='development'
-else
-    export WP_ENV='production'
-fi
-
+export WP_ENV=production
+# Uncomment this line if you would like development versions of WordPress on non-production environments.
+# export WP_ENV="${PLATFORM_ENVIRONMENT_TYPE}"
 export AUTH_KEY=$PLATFORM_PROJECT_ENTROPY
 export SECURE_AUTH_KEY=$PLATFORM_PROJECT_ENTROPY
 export LOGGED_IN_KEY=$PLATFORM_PROJECT_ENTROPY

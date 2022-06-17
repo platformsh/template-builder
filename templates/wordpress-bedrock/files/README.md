@@ -6,9 +6,9 @@
 </a>
 </p>
 
-This template builds WordPress on Platform.sh using the Bedrock boilerplate by Roots with Composer. Plugins and themes should be managed with Composer exclusively. The only modifications made to the standard Bedrock boilerplate have been providing database credentials and main site url parameters via environment variables. With this configuration, the database is automatically configured such that the installer will not ask you for database credentials. While Bedrock provides support to replicate this configuration in a `.env` file for local development, an example Lando configuration file is included as the recommendated method to do so. 
+This template builds WordPress on Platform.sh using the Bedrock boilerplate by Roots with Composer. Plugins and themes should be managed with Composer exclusively. The only modifications made to the standard Bedrock boilerplate have been providing database credentials and main site url parameters via environment variables. With this configuration, the database is automatically configured such that the installer will not ask you for database credentials. While Bedrock provides support to replicate this configuration in a `.env` file for local development, an example Lando configuration file is included as the recommendated method to do so.
 
-WordPress is a blogging and lightweight CMS written in PHP, and Bedrock is a Composer-based WordPress boilerplate project with a slightly modified project structure and configuration protocol. 
+WordPress is a blogging and lightweight CMS written in PHP, and Bedrock is a Composer-based WordPress boilerplate project with a slightly modified project structure and configuration protocol.
 
 ## Features
 
@@ -26,8 +26,9 @@ Run through the WordPress installer as normal. You will not be asked for databas
 The following changes have been made relative to Bedrock's project creation command `composer create-project roots/bedrock`. If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
-* A `.environment` file has been included which sets Bedrock's configuration on Platform.sh. It defines the connection to the MariaDB database, the primary site URL, and security keys and salts. 
+* A `.environment` file has been included which sets Bedrock's configuration on Platform.sh. It defines the connection to the MariaDB database, the primary site URL, and security keys and salts.
 * A base [Landofile](https://docs.lando.dev/config/lando.html#base-file) provides configuration to use this template locally using [Lando](https://docs.lando.dev).
+* In order to preserve 1-to-1 clones of development environments, `WP_ENV` has been set to `production` in [`.environment`](./.environment). If you would instead prefer to have `WP_ENV` match the type of Platform.sh environment (i.e. development, staging), you can set change that line to `export WP_ENV="${PLATFORM_ENVIRONMENT_TYPE}"`.
 
 ## Local development
 

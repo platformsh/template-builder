@@ -4,5 +4,5 @@
 # to power your Platform.sh project.
 
 dbpostgres:
-    type: postgresql:12
-    disk: 256
+  type: postgresql:12
+  disk: 256

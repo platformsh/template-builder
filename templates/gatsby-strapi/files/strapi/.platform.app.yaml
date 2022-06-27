@@ -15,10 +15,10 @@ dependencies:
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
-    build: !include
-      type: string
-      path: build.sh
+  # Build hooks can modify the application files on disk but not access any services like databases.
+  build: !include
+    type: string
+    path: build.sh
 
 # The relationships of the application with services or other applications.
 #
@@ -34,24 +34,24 @@ web:
     start: ./start.sh
 
 # The size of the persistent disk of the application (in MB).
-disk: 1024
+disk: 2048
 
 mounts:
-    '/.tmp':
-        source: local
-        source_path: tmp
-    '/.cache':
-        source: local
-        source_path: cache
-    'api':
-        source: local
-        source_path: api
-    'components':
-        source: local
-        source_path: components
-    'public/uploads':
-        source: local
-        source_path: uploads
-    'extensions':
-        source: local
-        source_path: extensions
+  "/.tmp":
+    source: local
+    source_path: tmp
+  "/.cache":
+    source: local
+    source_path: cache
+  "api":
+    source: local
+    source_path: api
+  "components":
+    source: local
+    source_path: components
+  "public/uploads":
+    source: local
+    source_path: uploads
+  "extensions":
+    source: local
+    source_path: extensions

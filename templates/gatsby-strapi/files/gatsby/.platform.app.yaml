@@ -4,36 +4,40 @@
 name: gatsby
 
 # The type key specifies the language and version for your application.
-type: 'nodejs:14'
+type: "nodejs:14"
+
+dependencies:
+  nodejs:
+    yarn: "^1.22.0"
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
-    post_deploy: |
-      npm run build
+  post_deploy: |
+    yarn run build
+
 # The size of the persistent disk of the application (in MB).
-disk: 1024
+disk: 2048
 
 relationships:
-   strapi: "strapi:http"
+  strapi: "strapi:http"
 
 # The configuration of the application when it is exposed to the web.
 web:
-    locations:
-        '/':
-            # The public directory of the application relative to its root.
-            root: 'public'
-            index: ['index.html']
-            scripts: false
-            allow: true
+  locations:
+    "/":
+      # The public directory of the application relative to its root.
+      root: "public"
+      index: ["index.html"]
+      scripts: false
+      allow: true
 
 mounts:
-  '/.cache':
-      source: local
-      source_path: cache
-  '/.config':
-      source: local
-      source_path: config
-  'public':
-      source: local
-      source_path: public
+  "/.cache":
+    source: local
+    source_path: cache
+  "/.config":
+    source: local
+    source_path: config
+  "public":
+    source: local
+    source_path: public

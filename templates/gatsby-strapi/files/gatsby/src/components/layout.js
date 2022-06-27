@@ -1,21 +1,17 @@
 import React from "react"
-import PropTypes from "prop-types"
-
-import Nav from "./nav"
-import Seo from "./seo"
+import Footer from "./footer"
+import Navbar from "./navbar"
 
 const Layout = ({ children }) => {
   return (
-    <>
-      <Seo />
-      <Nav />
-      <main>{children}</main>
-    </>
+    <div class="flex min-h-screen flex-col justify-between bg-neutral-50 text-neutral-900">
+      <div>
+        <Navbar />
+        {children}
+      </div>
+      <Footer />
+    </div>
   )
 }
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout  
+export default Layout

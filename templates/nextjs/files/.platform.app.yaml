@@ -10,6 +10,9 @@ dependencies:
     nodejs:
         yarn: "^1.22.0"
 
+build:
+    flavor: none
+
 # The hooks that will be triggered when the package is deployed.
 hooks:
     # The build hook runs after yarn has been downloaded.

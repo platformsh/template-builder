@@ -38,7 +38,7 @@ export default function Home() {
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
 
-          <a
+          {/* <a
             href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
           >
@@ -46,19 +46,19 @@ export default function Home() {
             <p>
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
-          </a>
+          </a> */}
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
+        {/* <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{' '}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+        </a> */}
       </footer>
     </div>
   )

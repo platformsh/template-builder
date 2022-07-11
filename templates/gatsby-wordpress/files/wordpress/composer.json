@@ -30,6 +30,12 @@
     "wp-cli/wp-cli-bundle": "^2.4",
     "psy/psysh": "^0.10.6"
   },
+  "config": {
+    "allow-plugins": {
+      "johnpbloch/wordpress-core-installer": true,
+      "composer/installers": true
+    }
+  },
   "scripts": {
     "copywpconfig": [
       "cp wp-config.php wordpress/"

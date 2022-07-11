@@ -69,6 +69,7 @@ class WordPressComposerBase(RemoteProject):
         if hasattr(self,'type') and hasattr(self,'typeVersion') and 'php' == self.type:
             actions = [
                 "cd {0} && composer config --no-plugins allow-plugins.johnpbloch/wordpress-core-installer true".format(self.builddir),
+                "cd {0} && composer config --no-plugins allow-plugins.composer/installers true".format(self.builddir),
                 "echo 'Adding composer config:platform:php'",
                 "cd {0} && composer config platform.php {1}".format(self.builddir,self.typeVersion)
             ] + actions

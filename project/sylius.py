@@ -11,4 +11,5 @@ class Sylius(RemoteProject):
             'cd {0} && ls -a'.format(self.builddir),
             'cd {0} && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require platformsh/symfonyflex-bridge'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer config allow-plugins.symfony/flex true --no-plugins '.format(self.builddir),
         ] + super(Sylius, self).platformify

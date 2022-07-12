@@ -19,7 +19,6 @@ runtime:
         - imagick
         - memcached
         - intl
-        - amqp
         - redis
         - sodium
 

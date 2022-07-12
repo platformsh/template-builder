@@ -49,6 +49,7 @@ class Drupal8(RemoteProject):
             'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/console-extend-plugin true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
             'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),

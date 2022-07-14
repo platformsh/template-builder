@@ -155,6 +155,8 @@ class Drupal8_opigno(RemoteProject):
             'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.drupal/console-extend-plugin true --no-plugins'.format(self.builddir),
+            'cd {0} && composer config allow-plugins.wikimedia/composer-merge-plugin true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
             'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
             'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),

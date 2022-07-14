@@ -4,7 +4,7 @@
 name: app
 
 # The language and version to use to run the application.
-type: php:8.0
+type: php:8.1
 
 dependencies:
     php:
@@ -19,6 +19,7 @@ runtime:
         - imagick
         - memcached
         - intl
+        - amqp
         - redis
         - sodium
 

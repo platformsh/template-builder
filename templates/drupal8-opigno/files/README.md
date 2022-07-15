@@ -92,7 +92,7 @@ This will automatically create a new project and initialize the repository for y
 You can also quickly recreate this project locally with the following command:
 
 ```bash
-composer create-project platformsh/drupal8-opigno -s dev
+composer create-project platformsh/opigno-composer -s dev
 ```
 
 
@@ -279,7 +279,13 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 ### Post-install
 
-Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
+This template installs the Opigno LMS profile automatically on the first deployment. An initial admin user is created with the username `admin`. The password is pulled from the built-in environment variable `PLATFORM_PROJECT_ENTROPY`, which you can find using the command below. Note, if you have not already cloned a local copy of the project (`platform get`), be sure to pass the project flag (`-p PROJECT_ID`) as well.
+
+```bash
+platform ssh 'echo $PLATFORM_PROJECT_ENTROPY' -q
+```
+
+After you have logged in for the first time, be sure to update your email and password.
 
 ### Local development
 

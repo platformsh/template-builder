@@ -127,19 +127,21 @@ class Drupal8_multisite(Drupal8):
         ]
 
 class Drupal8_opigno(RemoteProject):
-    major_version = '2'
+    # major_version = '2'
+    major_version = '3'
+    # todo: update all of the bottom to d9
     remote = 'https://bitbucket.org/opigno/opigno-composer.git'
 
     @property
     def update(self):
-        projectName = "drupal8-opigno"
+        projectName = "opigno-composer"
         def drupal8_opigno_modify_composer(composer):
             """
             This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
             """
 
             composer['name']= "platformsh/{0}".format(projectName)
-            composer['description']= "This template builds the Opigno Drupal 8 distribution using the \"Drupal Recommended\" Composer project."
+            composer['description']= "This template builds the Opigno Drupal 9 distribution using the \"Drupal Recommended\" Composer project."
 
             return composer
 
@@ -151,16 +153,17 @@ class Drupal8_opigno(RemoteProject):
     @property
     def platformify(self):
         return super(Drupal8_opigno, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
-            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.drupal/console-extend-plugin true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.wikimedia/composer-merge-plugin true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
+            'cd {0} && composer require platformsh/config-reader drupal/redis'.format(self.builddir)  + self.composer_defaults(),
+            # 'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
+            # 'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.drupal/console-extend-plugin true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.wikimedia/composer-merge-plugin true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(self.builddir),
+            # 'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(self.builddir),
             'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
-            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal8/'),  self.builddir),
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR,'common/drupal9/'),  self.builddir),
         ]
 
 class Drupal8_govcms8(RemoteProject):

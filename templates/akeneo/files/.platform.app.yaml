@@ -1,7 +1,7 @@
 # This file describes an application.
 
 # The name of this app. Must be unique within a project.
-name: app
+name: akeneo
 
 # The language and version to use to run the application.
 type: php:8.0

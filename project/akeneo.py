@@ -10,7 +10,6 @@ class Akeneo(BaseProject):
 
     # Keeps package-lock.json out of repo. See notes.md (Yarn - Overwriting updateCommands) for more details.
     updateCommands = {
-        'package.json': 'yarn upgrade',
         'composer.json': 'composer update -W --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick',
     }
 

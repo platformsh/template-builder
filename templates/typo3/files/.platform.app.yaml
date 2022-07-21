@@ -172,7 +172,7 @@ hooks:
         set -e
 
         # if the images location existed in the build hook, it was converted to a symlink. we now to need to make sure
-        # the target of the symlink exists, and then rsync any new files to the writable location
+        # the target of the symlink exists, and then rsync any new files to the writable location 
         if [ -L public/typo3conf/ext/introduction/Initialisation/Files/images ]; then
             #make sure our images directory exists in var mount
             if [ ! -d var/images ]; then

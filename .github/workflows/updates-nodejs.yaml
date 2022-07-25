@@ -15,7 +15,6 @@ env:
     UPDATE_COMMIT_MSG: "scheduled updates."
     
     JOB_ID: "auto-updates"
-    START_MESSAGE: "Retrieving updates for all templates."
     JOB_COLOR: "#145CC6"
 
     REPOOWNER: "platformsh"

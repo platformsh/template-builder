@@ -1,0 +1,111 @@
+---
+name: "nodejs:14 scheduled updates"
+
+on:
+    push:
+        branches: 'cleanup'
+
+env:
+    TB_POETRY_VERSION: "1.1.11"
+    TB_PYTHON_VERSION: "3.9"
+
+    UPDATES_BRANCH: "auto-updater"
+    UPDATE_COMMIT_MSG: "scheduled updates."
+    
+    JOB_ID: "auto-updates"
+    START_MESSAGE: "Retrieving updates for all templates."
+    JOB_COLOR: "#145CC6"
+
+    REPOOWNER: "platformsh"
+    TEMPLATEOWNER: "platformsh-templates"
+
+    # Git.
+    GITHUB_TOKEN: ${{ secrets.DEVREL_TOKEN }}
+    GIT_EMAIL: ${{ secrets.DEVREL_EMAIL }}
+    GIT_USER: ${{ secrets.DEVREL_USER }}
+    # Notifications.
+    SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+    SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+
+jobs:
+    create-slack-thread:
+        runs-on: ubuntu-latest
+        name: "Start auto-updates thread"
+        outputs:
+            threadts: ${{ steps.startslack.outputs.threadts }}
+        steps: 
+            - uses: actions/checkout@v2
+            - name: Setup Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: ${{ env.TB_PYTHON_VERSION }}
+            - name: Install Poetry
+              run: |
+                  python -m pip install poetry==$TB_POETRY_VERSION
+            - name: Configure Poetry
+              run: |
+                  python -m poetry config virtualenvs.in-project true
+            - name: Cache the virtualenv
+              uses: actions/cache@v2
+              with:
+                  path: ./.venv
+                  key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+            - name: Install dependencies
+              run: |
+                  python -m poetry install
+            - name: "Start notification on Slack"
+              id: startslack
+              run: |
+                  RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
+                  THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
+                  echo "::set-output name=threadts::$THREAD_ID"
+
+    update:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                    - repo: koa
+                      node-version: 10
+                    - repo: directus
+                      node-version: 12
+                    - repo: probot
+                      node-version: 12
+                    - repo: strapi
+                      node-version: 12
+                    - repo: strapi4
+                      node-version: 12
+                    - repo: express
+                      node-version: 14
+                    - repo: nextjs
+                      node-version: 14
+                    - repo: nodejs
+                      node-version: 14
+                    - repo: nuxtjs
+                      node-version: 14
+        steps: 
+            - uses: actions/checkout@v2
+            - name: Setup Python to run template-builder
+              uses: actions/setup-python@v2
+              with:
+                  python-version: 3.8
+            - name: Pre-Start e. Install Poetry
+              run: |
+                  python -m pip install poetry==$POETRY_VERSION
+            - name: Pre-Start f. Configure Poetry
+              run: |
+                  python -m poetry config virtualenvs.in-project true
+            - name: Pre-Start g. Cache the virtualenv
+              uses: actions/cache@v2
+              with:
+                  path: ./.venv
+                  key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+            - name: Pre-Start h. Install dependencies
+              run: |
+                  python -m poetry install
+
+            - name: Setup the example's runtime (nodejs)
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+

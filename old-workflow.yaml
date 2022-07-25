@@ -11,6 +11,22 @@ env:
     # Update vars.
     UPDATES_BRANCH: "auto-updater"
     UPDATE_COMMIT_MSG: "scheduled updates."
+    
+    JOB_ID: "auto-updates"
+    START_MESSAGE: "Retrieving updates for all templates."
+    JOB_COLOR: "#145CC6"
+
+
+    REPOOWNER: "platformsh"
+    TEMPLATEOWNER: "platformsh-templates"
+
+    NODE_VERSION: "14"
+    GO_VERSION: "1.16"
+    POETRY_VERSION: "1.1.11"
+    PYTHON_VERSION: "3.9"
+    RUBY_VERSION: "2.7.4"
+    BUNDLER_VERSION: "2.2.26"
+
     # Git.
     GITHUB_TOKEN: ${{ secrets.DEVREL_TOKEN }}
     GIT_EMAIL: ${{ secrets.DEVREL_EMAIL }}
@@ -18,18 +34,7 @@ env:
     # Notifications.
     SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
     SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-    JOB_ID: "auto-updates"
-    START_MESSAGE: "Retrieving updates for all templates."
-    JOB_COLOR: "#145CC6"
-    # Language-specific tools.
-    NODE_VERSION: "14"
-    GO_VERSION: "1.16"
-    POETRY_VERSION: "1.1.11"
-    PYTHON_VERSION: "3.9"
-    RUBY_VERSION: "2.7.4"
-    BUNDLER_VERSION: "2.2.26"
-    REPOOWNER: "platformsh"
-    TEMPLATEOWNER: "platformsh-templates"
+
     #List of all python-based templates
     PYTHON_TEMPLATES: "fastapi django2 django3 django4 python3 pyramid python3-uwsgi meilisearch flask wagtail pelican"
 

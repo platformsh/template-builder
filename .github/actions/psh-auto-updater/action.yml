@@ -1,0 +1,73 @@
+name: 'Platform.sh Example Code auto-updater'
+description: 'Action for updating Platform.sh example code on a schedule'
+branding:
+    icon: 'award'  
+    color: 'blue'
+inputs:
+    GIT_BRANCH:
+        description: 'Branch auto-updates will occur on.'
+        required: false
+        default: 'scheduled-updates'
+    GIT_COMMIT_MSG:
+        description: 'Commit message as it appears in history.'
+        required: false
+        default: 'scheduled updates'
+    GIT_EMAIL:
+        description: 'E-mail address used as commit author.'
+        required: true
+    GIT_USER:
+        description: 'Commit author info.'
+        required: true
+    GITHUB_ORG:
+        description: 'The GitHub organization updates are performed on.'
+        required: false
+        default: 'platformsh'
+    GITHUB_TOKEN:
+        description: 'Auth for GitHub API requests.'
+        required: true
+    SLACK_TOKEN:
+        description: 'Auth for Slack messages.'
+        required: true
+    SLACK_CHANNEL_ID:
+        description: 'Unique Slack channel ID.'
+        required: true
+    SLACK_JOB_ID:
+        description: 'Name of the job communicated to Slack.'
+        required: true
+    SLACK_JOB_COLOR:
+        description: 'Color for the job on Slack.'
+    
+
+
+  
+
+
+
+
+
+
+
+
+
+# inputs:
+#     GITHUB_TOKEN:
+#         description: 'Github token to the repository so we can work with the GitHub API.'
+#         required: false
+#     PLATFORMSH_CLI_TOKEN:
+#         description: 'Platform.sh API token.'
+#         required: false
+#     wait:
+#         description: 'Advise the Platform.sh action to wait for a deployment to finish.'
+#         required: false
+#         default: true
+#     checkout:
+#         description: 'Define whether, when authenticated, the PR environment should be checked out within the workflow.'
+#         required: false
+#         default: true
+# outputs:
+#     status:
+#         description: "Status of the deployment."
+#         value: ${{ steps.status.outputs.env_status }}
+#     url:
+#         description: "Deployed environment URL."
+#         value: ${{ steps.url.outputs.env_url }}

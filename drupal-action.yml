@@ -1,0 +1,187 @@
+###################################################################################################################################################
+# A Platform.sh GitHub Action
+#
+# ToDos:
+#   - Investigate better ways to trigger workflows  https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_call
+#   - allowed_status + failure updates: https://platform.sh/blog/2021/share-your-activities-with-robots-surfacing-activities-with-github-actions/
+#   - allow a user to turn off the "checkout" step
+#
+# Example options:
+#
+# jobs:
+#     test:
+#         name: Setup standard scenario
+#         runs-on: ubuntu-latest
+#         steps:
+#            - uses: actions/checkout@v2
+#            - name: Setup Platform.sh
+#              id: platformsh
+#              uses: ./.github/actions/platformsh
+#              with:
+#                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#                  PLATFORMSH_CLI_TOKEN: ${{ secrets.PLATFORMSH_CLI_TOKEN }}
+#                  wait: true
+#                  checkout: true # TODO
+#                  allowed_statuses: [success, failure] # TODO
+#                  BLACKFIRE_SERVER_ID: '${{ secrets.BLACKFIRE_SERVER_ID }}'
+#                  BLACKFIRE_SERVER_TOKEN: '${{ secrets.BLACKFIRE_SERVER_TOKEN }}'
+#                  BLACKFIRE_CLIENT_ID: '${{ secrets.BLACKFIRE_CLIENT_ID }}'
+#                  BLACKFIRE_CLIENT_TOKEN: '${{ secrets.BLACKFIRE_CLIENT_TOKEN }}'
+#                  BLACKFIRE_ENV_UUID: '${{ secrets.BLACKFIRE_ENV_UUID }}'
+#                  BLACKFIRE_BUILD_TOKEN: '${{ secrets.BLACKFIRE_BUILD_TOKEN }}'
+#
+###################################################################################################################################################
+name: 'Platform.sh toolkit'
+description: 'Provides simplified integration with Platform.sh, such that post-deployment tests and CLI commands can be run.'
+branding:
+  icon: 'award'  
+  color: 'blue'
+inputs:
+    GITHUB_TOKEN:
+        description: 'Github token to the repository so we can work with the GitHub API.'
+        required: false
+    PLATFORMSH_CLI_TOKEN:
+        description: 'Platform.sh API token.'
+        required: false
+    wait:
+        description: 'Advise the Platform.sh action to wait for a deployment to finish.'
+        required: false
+        default: true
+    checkout:
+        description: 'Define whether, when authenticated, the PR environment should be checked out within the workflow.'
+        required: false
+        default: true
+outputs:
+    status:
+        description: "Status of the deployment."
+        value: ${{ steps.status.outputs.env_status }}
+    url:
+        description: "Deployed environment URL."
+        value: ${{ steps.url.outputs.env_url }}
+
+runs:
+    using: "composite"
+    steps:
+        - name: 'Set up tokens'
+          id: setup-tokens
+          shell: bash
+          run: |
+              echo "GITHUB_TOKEN=${{ inputs.GITHUB_TOKEN }}" >> $GITHUB_ENV
+              PLATFORMSH_CLI_TOKEN=${{ inputs.PLATFORMSH_CLI_TOKEN }}
+              if [[ ! -z "${PLATFORMSH_CLI_TOKEN}" ]]; then
+                  echo "A Platform.sh API token has been provided."
+                  echo "PLATFORMSH_CLI_TOKEN=${{ inputs.PLATFORMSH_CLI_TOKEN }}" >> $GITHUB_ENV
+                  echo "::set-output name=auth:true"
+              else
+                  echo "No Platform.sh API token has been provided. This action has limited scope without one. See README for more details."
+                  echo "::set-output name=auth:false"
+              fi
+
+        - name: "Wait for deployment to finish"
+          id: wait
+          shell: bash
+          run: .github/actions/platformsh/wait_for_environment.sh ${{ inputs.wait }}
+
+        - name: "Pass status"
+          id: status
+          shell: bash
+          run: |
+              COMMIT_STATUS=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA  | jq -r '.[0].state')
+              echo "::set-output name=env_status::$COMMIT_STATUS"
+
+        - name: "Pass primary environment url"
+          id: url
+          shell: bash
+          run: |
+            ENV_URL=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA  | jq -r '.[0].target_url')
+            CLEAN_URL=$(python -c '
+            import sys
+            original=sys.argv[1]
+            if "http://" in original:
+                modified = "https://{0}".format(original.split("http://")[1])
+            else:
+                modified = original
+            print(modified)
+            ' $ENV_URL)
+            echo "::set-output name=env_url::$CLEAN_URL"
+        - name: "Pass project ID"
+          id: get-project
+          shell: bash
+          run: |
+            TARGET_URL=${{ steps.url.outputs.env_url }}
+            PROJECT_ID=$(python -c '
+            import sys
+            envURL=sys.argv[1]
+            pieces=envURL.split("/")[2].split(".")
+            pieces=pieces[len(pieces)-4].split("-")
+            print(pieces[len(pieces)-1])
+            ' $TARGET_URL)
+            echo "::set-output name=id::$PROJECT_ID"
+            echo "PLATFORMSH_PROJECT=$PROJECT_ID" >> $GITHUB_ENV
+        - name: "Pass environment ID"
+          id: get-environment
+          shell: bash
+          run: |
+            TARGET_URL=${{ steps.url.outputs.env_url }}
+            ENV_ID=$(python -c '
+            import sys
+            envURL=sys.argv[1]
+            pieces=envURL.split("/")[2].split(".")
+            print("-".join(pieces[len(pieces)-4].split("-")[0:2]))
+            ' $TARGET_URL)
+            echo "::set-output name=id::$ENV_ID"
+            echo "PLATFORMSH_ENVIRONMENT=$ENV_ID" >> $GITHUB_ENV
+        - name: "Pass region"
+          id: get-region
+          shell: bash
+          run: |
+            TARGET_URL=${{ steps.url.outputs.env_url }}
+            REGION=$(python -c '
+            import sys
+            envURL=sys.argv[1]
+            pieces=envURL.split("/")[2].split(".")
+            print(pieces[len(pieces)-3])
+            ' $TARGET_URL)
+            echo "::set-output name=id::$REGION"
+            echo "PLATFORMSH_REGION=$REGION" >> $GITHUB_ENV
+
+        - name: Install the Platform.sh CLI
+          if: ${{ steps.setup-tokens.outputs.auth }} == true
+          shell: bash
+          run: |
+              curl -sS https://platform.sh/cli/installer | php
+              source ~/.bashrc
+              . ~/.bashrc
+              export PATH="$HOME/".platformsh/bin:"$PATH"
+              echo "PATH="$HOME/".platformsh/bin:"$PATH"" >> $GITHUB_ENV
+          
+        - name: Authenticate the CLI
+          if: ${{ steps.setup-tokens.outputs.auth }} == true
+          shell: bash
+          run: |
+              platform ssh-cert:load -y  
+              touch ~/.ssh/known_hosts
+              chmod 644 ~/.ssh/known_hosts
+              REGION=${{ steps.get-region.outputs.id }}
+              ssh-keyscan ssh.$REGION.platform.sh -v >> ~/.ssh/known_hosts
+              ssh-keyscan git.$REGION.platform.sh -v >> ~/.ssh/known_hosts
+        - name: Setup and verify the environment
+          shell: bash
+          if: ${{ inputs.checkout }} == true
+          run: |
+              git checkout -b ${{ steps.get-environment.outputs.id }}
+              platform project:set-remote ${{ steps.get-project.outputs.id }}
+
+              PLATFORM_BRANCH=$(platform ssh 'echo $PLATFORM_BRANCH' -q)
+              CURRENT_BRANCH=$(git branch --show-current)
+              if [ "$PLATFORM_BRANCH" != "$CURRENT_BRANCH" ]; then
+                  exit 1
+              else
+                  echo 'Authenticated.'
+              fi
+
+        - name: Setup Blackfire
+          uses: shivammathur/setup-php@v2
+          with:
+              extensions: 'blackfire, :xdebug'
+              tools: 'blackfire, blackfire-player'

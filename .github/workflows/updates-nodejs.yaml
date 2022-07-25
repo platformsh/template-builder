@@ -9,6 +9,8 @@ env:
     TB_POETRY_VERSION: "1.1.11"
     TB_PYTHON_VERSION: "3.9"
 
+    START_MESSAGE: "Node.js example auto-updates"
+
     UPDATES_BRANCH: "auto-updater"
     UPDATE_COMMIT_MSG: "scheduled updates."
     
@@ -62,6 +64,8 @@ jobs:
 
     update:
         runs-on: ubuntu-latest
+        needs: create-slack-thread
+        name: "Update"
         strategy:
             matrix:
                 include:

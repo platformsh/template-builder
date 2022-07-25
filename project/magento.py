@@ -1,16 +1,118 @@
-from .remote import RemoteProject
+import os
+from . import BaseProject
+
+# from .remote import RemoteProject
+
+    # "repositories": {
+    #     "Magento Repo Auth Required": {
+    #         "type": "composer",
+    #         "url": "https://repo.magento.com"
+    #     },
+    #     "ECE-Tools": {
+    #         "type": "git",
+    #         "url": "https://github.com/magento/ece-tools.git"
+    #     },
+    #     "Magento Cloud Components": {
+    #         "type": "git",
+    #         "url": "https://github.com/magento/magento-cloud-components.git"
+    #     },
+    #     "Magento Cloud Patches": {
+    #         "type": "git",
+    #         "url": "https://github.com/magento/magento-cloud-patches.git"
+    #     },
+    #     "Magento Quality Patches": {
+    #         "type": "git",
+    #         "url": "https://github.com/magento/quality-patches.git"
+    #     }
+    # },
+    # "extra": {
+    #     "magento-force": "override"
+    # }
+
+    #     "config": {
+    #     "preferred-install": "dist",
+    #     "sort-packages": true,
+    #     "allow-plugins": {
+    #         "composer/installers": true,
+    #         "laminas/laminas-dependency-plugin": true,
+    #         "magento/composer-dependency-version-audit-plugin": true,
+    #         "magento/inventory-composer-installer": true,
+    #         "magento/magento-composer-installer": true
+    #     }
+    # },
+    # "require": {
+    #     "magento/ece-tools": "^2002.1.6",
+    #     "magento/magento-cloud-components": "^1.0.7",
+    #     "magento/magento-cloud-patches": "^1.0.10",
+    #     "magento/product-community-edition": "^2.4",
+    #     "magento/quality-patches": "^1.0.22",
+    #     "wolfsellers/module-enabledisabletfa": "^1.0"
+    # },
+
+class Magento2ce(BaseProject):
+    # updateCommands = {
+    #     'composer.json': 'composer update -W --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick',
+    # }
+
+    @property
+    def update(self):
+
+        def magento_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer.
+            """
+
+            composer['name']= "platformsh/{0}".format(projectName)
+            composer['description']= "Magento 2 CE(Community Edition) for Platform.sh"
+
+            composer['repositories'] = {
+                "Magento Repo Auth Required": {
+                    "type": "composer",
+                    "url": "https://repo.magento.com"
+                },
+                "ECE-Tools": {
+                    "type": "git",
+                    "url": "https://github.com/magento/ece-tools.git"
+                },
+                "Magento Cloud Components": {
+                    "type": "git",
+                    "url": "https://github.com/magento/magento-cloud-components.git"
+                },
+                "Magento Cloud Patches": {
+                    "type": "git",
+                    "url": "https://github.com/magento/magento-cloud-patches.git"
+                },
+                "Magento Quality Patches": {
+                    "type": "git",
+                    "url": "https://github.com/magento/quality-patches.git"
+                }
+            }
+
+            return composer
 
 
-class Magento2ce(RemoteProject):
-    major_version = '2.4'
-    remote = 'https://github.com/magento/magento2.git'
+        ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        TEMPLATEDIR = os.path.join(ROOTDIR, 'templates/magento2ce')
+
+        # Quickstart project package name, used in the block below.
+        projectName = "magento2ce"
+
+        return super(Magento2ce, self).update + [
+            'cd {0} && composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition {1}'.format(TEMPLATEDIR, projectName),
+            
+            'rm -rf {0}/*'.format(self.builddir),
+            'cd {0} && git add . && git commit -m "Clear previous template."'.format(self.builddir),
+
+            'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
+            'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),
+            (self.modify_composer, [magento_modify_composer]) 
+        ]
 
     @property
     def platformify(self):
         return super(Magento2ce, self).platformify + [
-            'cd {0} && composer require platformsh/config-reader drush/drush:^9.1 drupal/console drupal/redis psr/cache:^1.0'.format(self.builddir)  + self.composer_defaults(),
-            'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-            'cd {0} && composer config allow-plugins.drupal/magento/magento-composer-installer true --no-plugins'.format(self.builddir),
-            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
-        ]
+                'cd {0} && composer require magento/ece-tools magento/magento-cloud-components magento/quality-patches'.format(self.builddir)  + self.composer_defaults(),
+                'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+                'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
+                'cd {0} && composer update -W'.format(self.builddir),
+                ]

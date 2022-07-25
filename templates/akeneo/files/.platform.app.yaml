@@ -1,7 +1,7 @@
 # This file describes an application.
 
 # The name of this app. Must be unique within a project.
-name: app
+name: akeneo
 
 # The language and version to use to run the application.
 type: php:8.0
@@ -9,8 +9,6 @@ type: php:8.0
 dependencies:
     php:
         composer/composer: '^2'
-    nodejs:
-        yarn: "*"
 
 # Enable non-default extensions required by Akeneo
 runtime:
@@ -19,9 +17,91 @@ runtime:
         - imagick
         - memcached
         - intl
-        - amqp
+        # - amqp
         - redis
         - sodium
+
+variables:
+    env:
+        APP_ENV: 'prod'
+        APP_DEBUG: 0
+        APP_DEFAULT_LOCALE: 'en_US'
+        APP_PRODUCT_AND_PRODUCT_MODEL_INDEX_NAME: 'akeneo_pim_product_and_product_model'
+        AKENEO_STARTER: minimal
+        # AKENEO_STARTER: icecat_demo_dev
+        # Update these for your desired Node version.
+        NODE_VERSION: v14.19.0
+    php:
+        apc.enable_cli: 1
+
+build:
+    flavor: none
+
+hooks:
+    # We run the build hook before your application has been packaged.
+    build: |
+        set -e
+
+        # Install composer dependencies.
+        composer install
+
+        # Install n to use newer version of node.
+        export N_PREFIX=$HOME/.n
+        export PATH=$N_PREFIX/bin:$PATH
+        curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v $NODE_VERSION -y; } 3<&0
+
+        echo "Installing Node dependencies"
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 corepack yarn install
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 corepack yarn packages:build
+
+        echo "Installing assets"
+        php bin/console pim:installer:assets --symlink --clean -vvv
+        corepack yarn run less
+        corepack yarn update-extensions
+
+        echo "Running webpack"
+        corepack yarn run webpack
+
+    # We run the deploy hook after your application has been deployed and started.
+    deploy: |
+        set -e
+
+        echo "Warming cache"
+        rm -rf var/cache/*
+        php bin/console cache:warmup
+
+        STARTER_TRACKING=installer/$AKENEO_STARTER.installed
+        CATALOG_PATH=vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures
+
+        # run installer if no lockfile exists
+        if [ ! -f $STARTER_TRACKING ]; then
+
+            # Clear previous tracking files in case trying multiple.
+            rm -rf installer/*
+
+            # minimal catalog + fixtures.
+            if [ "$AKENEO_STARTER" = minimal ]; then
+                echo "Running the installer: $AKENEO_STARTER catalog + fixtures."
+                php bin/console pim:installer:db --env=$APP_ENV --catalog=$CATALOG_PATH/$AKENEO_STARTER
+                # Create the admin user (admin/admin). Change immediately.
+                php bin/console pim:user:create -n --admin admin admin admin@example.com Admin Istrator $APP_DEFAULT_LOCALE
+                php bin/console cache:clear
+                touch $STARTER_TRACKING
+            
+            # icecat_demo_dev catalog + fixtures.
+            elif [ "$AKENEO_STARTER" = icecat_demo_dev ]; then
+                echo "Running the installer: $AKENEO_STARTER catalog + fixtures."
+                php bin/console pim:installer:db --env=$APP_ENV --catalog=$CATALOG_PATH/$AKENEO_STARTER
+                # Note: no admin user is created, since `icecat_demo_dev` creates on automatically (admin/admin). Change immediately.
+                php bin/console cache:clear
+                touch $STARTER_TRACKING
+
+            else
+                echo "No profile given. Skipping installation."
+            fi
+        else
+            echo "Akeneo already installed. Skipping."
+        fi
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -41,18 +121,6 @@ web:
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-variables:
-    env:
-        APP_ENV: 'prod'
-        APP_DEBUG: 0
-        APP_DEFAULT_LOCALE: 'en'
-        APP_PRODUCT_AND_PRODUCT_MODEL_INDEX_NAME: 'akeneo_pim_product_and_product_model'
-        # Update these for your desired NVM and Node versions.
-        NVM_VERSION: v0.36.0
-        NODE_VERSION: v14.19.0
-    php:
-        apc.enable_cli: 1
-
 # The mounts that will be performed when the package is deployed.
 mounts:
     "var":
@@ -68,11 +136,6 @@ mounts:
     "config/secrets":
         source: local
         source_path: "config/secrets"
-    # This mount is not listed in the Akeneo documentation, but is required for the
-    # Doctrine portion of the installer.
-    "upgrades":
-        source: local
-        source_path: "upgrades"
     # For media files
     "public/media":
         source: local
@@ -86,59 +149,6 @@ mounts:
         source: service
         service: jobs
         source_path: "var/file_storage/jobs"
-
-hooks:
-    # We run the build hook before your application has been packaged.
-    build: |
-        set -e
-
-        # Install nvm to use newer version of node.
-        unset NPM_CONFIG_PREFIX
-        export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
-        # install.sh will automatically install NodeJS based on the presence of $NODE_VERSION
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-        echo "Installing Node dependencies"
-        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
-
-        # Needed for Lando to play nice.
-        mkdir -p .nvm
-
-        # The PHP parts of the installer require booting Akeneo, which requires all
-        # of these be set even though they're never used. This is an Akeneo bug but
-        # one that is easy enough to work around.
-        export APP_DATABASE_HOST='database.local'
-        export APP_DATABASE_PORT=3600
-        export APP_DATABASE_NAME=main
-        export APP_DATABASE_USER=main
-        export APP_DATABASE_PASSWORD=''
-        export APP_INDEX_HOSTS='essearch.local'
-        export APP_SECRET=$PLATFORM_PROJECT_ENTROPY
-
-        echo "Installing assets"
-        php bin/console pim:installer:assets --symlink --clean
-
-        echo "Running webpack"
-        rm -rf public/dist/*
-        yarn run webpack
-
-    # We run the deploy hook after your application has been deployed and started.
-    deploy: |
-        set -e
-
-        echo "Warming cache"
-        rm -rf var/cache/*
-        php bin/console cache:warmup
-
-        # run installer if no lockfile exists
-        if [ ! -f installer/.platform.installed ]; then
-            echo "Running command line installer..."
-            bin/console pim:installer:db --env=prod --catalog vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures/minimal
-            # Change the user and password immediately after creating the site!
-            bin/console pim:user:create -n --admin admin admin admin@example.com Admin Istrator en_US
-            touch installer/.platform.installed
-        fi
 
 crons:
     refresh:
@@ -169,4 +179,3 @@ source:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    

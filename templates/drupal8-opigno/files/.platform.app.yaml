@@ -21,7 +21,6 @@ runtime:
         - blackfire
         - apcu
 
-
 # The relationships of the application with services or other applications.
 #
 # The left-hand side is the name of the relationship as it will be exposed
@@ -37,7 +36,7 @@ disk: 2048
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
     # The default Drupal files directory.
-    '/docroot/sites/default/files':
+    '/web/sites/default/files':
         source: local
         source_path: 'files'
     # Drupal gets its own dedicated tmp directory. The settings.platformsh.php
@@ -64,6 +63,9 @@ mounts:
     '/.console':
         source: local
         source_path: 'console'
+    '/install':
+        source: local
+        source_path: 'install'
 
 # Configuration of the build of this application.
 build:
@@ -82,14 +84,24 @@ hooks:
     # fast.
     deploy: |
         set -e
+
         php ./drush/platformsh_generate_drush_yml.php
-        if [ -f docroot/sites/default/files/platform.installed ]; then
-            cd docroot
-            drush -y cache-rebuild
-            drush -y updatedb
+
+        if [ ! -f install/platform.installed ]; then
+            drush si opigno_lms --account-pass=$PLATFORM_PROJECT_ENTROPY -y
+            touch install/platform.installed
+        else
+            echo "Opigno already installed. Skipping."
+        fi
+
+        cd web
+        drush -y cache-rebuild
+        drush -y updatedb
+
+        if [ -n "$(ls $(drush php:eval "echo realpath(Drupal\Core\Site\Settings::get('config_sync_directory'));")/*.{yml,yaml} 2>/dev/null)" ]; then
             drush -y config-import
         else
-            touch docroot/sites/default/files/platform.installed
+            echo "No config to import. Skipping."
         fi
 
 # The configuration of app when it is exposed to the web.
@@ -100,7 +112,7 @@ web:
             # The folder from which to serve static assets, for this location.
             #
             # This is a filesystem path, relative to the application root.
-            root: 'docroot'
+            root: 'web'
 
             # How long to allow static assets from this location to be cached.
             #
@@ -138,7 +150,7 @@ web:
             allow: true
             expires: 5m
             passthru: '/index.php'
-            root: 'docroot/sites/default/files'
+            root: 'web/sites/default/files'
 
             # Do not execute PHP scripts from the writeable mount.
             scripts: false
@@ -152,11 +164,10 @@ crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        cmd: 'cd docroot ; drush core-cron'
+        cmd: 'cd web ; drush core-cron'
 
 source:
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    

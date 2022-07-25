@@ -146,6 +146,23 @@ hooks:
             rm public/FIRST_INSTALL
         fi;
 
+        # initial activation of Introduction package will fail if it is unable to write to this images directory.
+        # if it exists, we'll move its contents out to a temp space, remove the original, and symlink to a writable mount
+        if [ -d public/typo3conf/ext/introduction/Initialisation/Files/images/ ]; then
+            if [ ! -d imagestemp ]; then
+                # create our temp images directory
+                mkdir -p imagestemp
+                # copy the image files out of the real location into our temp space
+                cp -r public/typo3conf/ext/introduction/Initialisation/Files/images/. imagestemp/
+            fi
+
+            #now create the symlink for the images
+            #remove the original directory
+            rm -rf public/typo3conf/ext/introduction/Initialisation/Files/images/
+            # now create a symlink
+            ln -sf "$PLATFORM_APP_DIR/var/images" public/typo3conf/ext/introduction/Initialisation/Files/images
+        fi
+
     # The deploy hook runs after your application has been deployed and started.
     # Code cannot be modified at this point but the database is available.
     # The site is not accepting requests while this script runs so keep it
@@ -153,6 +170,19 @@ hooks:
     deploy: |
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
+
+        # if the images location existed in the build hook, it was converted to a symlink. we now to need to make sure
+        # the target of the symlink exists, and then rsync any new files to the writable location 
+        if [ -L public/typo3conf/ext/introduction/Initialisation/Files/images ]; then
+            #make sure our images directory exists in var mount
+            if [ ! -d var/images ]; then
+                mkdir -p var/images
+                echo "This directory is symlinked to public/typo3conf/ext/introduction/Initialisation/Files/images/. Do not delete." >> var/images/readme.txt
+            fi
+
+            #rsync any new files from imagestemp into var/images
+            rsync -a --ignore-existing imagestemp/ var/images
+        fi
 
         # Set TYPO3 site defaults on first deploy.
         if [ ! -f var/platformsh.installed ]; then

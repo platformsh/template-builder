@@ -36,7 +36,6 @@
 <img src="https://img.shields.io/static/v1?label=License&message=MIT&style=for-the-badge&labelColor=f4f2f3&color=ffd9d9" alt="License" />
 </a>&nbsp&nbsp
 <br /><br />
-https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal9/.platform.template.yaml
 <a href="https://console.platform.sh/projects/create-project/?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal8-opigno/.platform.template.yaml&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://raw.githubusercontent.com/platformsh-templates/drupal8-opigno/updates/.platform.template.yaml" target="_blank" title="Deploy with Platform.sh"><img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" width="175px"></a>
 </p>
 </p>
@@ -93,7 +92,7 @@ This will automatically create a new project and initialize the repository for y
 You can also quickly recreate this project locally with the following command:
 
 ```bash
-composer create-project platformsh/drupal8-opigno -s dev
+composer create-project platformsh/opigno-composer -s dev
 ```
 
 
@@ -280,7 +279,13 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 ### Post-install
 
-Run through the Opigno installer as normal.  You will not be asked for database credentials as those are already provided.
+This template installs the Opigno LMS profile automatically on the first deployment. An initial admin user is created with the username `admin`. The password is pulled from the built-in environment variable `PLATFORM_PROJECT_ENTROPY`, which you can find using the command below. Note, if you have not already cloned a local copy of the project (`platform get`), be sure to pass the project flag (`-p PROJECT_ID`) as well.
+
+```bash
+platform ssh 'echo $PLATFORM_PROJECT_ENTROPY' -q
+```
+
+After you have logged in for the first time, be sure to update your email and password.
 
 ### Local development
 

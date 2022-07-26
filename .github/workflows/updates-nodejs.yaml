@@ -70,10 +70,10 @@ jobs:
                 include:
                     - repo: koa
                       org: platformsh-templates
-                      node-version: 10
+                      app-config-path: .platform.app.yaml
                     - repo: directus
                       org: platformsh-templates
-                      node-version: 12
+                      app-config-path: .platform.app.yaml
                     # - repo: probot
                     #   org: platformsh-templates
                     #   node-version: 12
@@ -121,7 +121,7 @@ jobs:
               run: |
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)
                   # runtimeVersion=$(echo $appConfig | jq -r '.content' | base64 --decode | yq -r '.type | split(":") | .[1]')
-                  runtimeVersion=$(echo $appConfig | jq -r '.content' | base64 --decode | yq)
+                  appConfigContent=$(echo $appConfig | jq -r '.content' | base64 --decode)
                   echo $runtimeVersion
                   # echo "::set-output name=version::${runtimeVersion}"
             # - name: Setup the example's runtime (nodejs)

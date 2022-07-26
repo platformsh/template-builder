@@ -115,14 +115,16 @@ jobs:
             - name: Pre-Start h. Install dependencies
               run: |
                   python -m poetry install
-            - uses: chrisdickinson/setup-yq@latest
+            - uses: mikefarah/yq@master
             - name: Retrieve Runtime version
               id: runtime
               run: |
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)
                   # runtimeVersion=$(echo $appConfig | jq -r '.content' | base64 --decode | yq -r '.type | split(":") | .[1]')
-                  appConfigContent=$(echo $appConfig | jq -r '.content' | base64 --decode)
-                  echo $appConfigContent
+                  echo $appConfig | jq -r '.content' | base64 --decode > app.yaml
+                  yq '.type | split(":") | .[1]' < app.yaml
+                  # echo $appConfigContent
+
                   # echo "::set-output name=version::${runtimeVersion}"
             # - name: Setup the example's runtime (nodejs)
             #   uses: actions/setup-node@v3

@@ -115,8 +115,8 @@ jobs:
             - name: Pre-Start h. Install dependencies
               run: |
                   python -m poetry install
+            - uses: chrisdickinson/setup-yq@latest
             - name: Retrieve Runtime version
-              uses: chrisdickinson/setup-yq@latest
               id: runtime
               run: |
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)

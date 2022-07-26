@@ -54,12 +54,12 @@ jobs:
             - name: Install dependencies
               run: |
                   python -m poetry install
-            - name: "Start notification on Slack"
-              id: startslack
-              run: |
-                  RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
-                  THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
-                  echo "::set-output name=threadts::$THREAD_ID"
+            # - name: "Start notification on Slack"
+            #   id: startslack
+            #   run: |
+            #       RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
+            #       THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
+            #       echo "::set-output name=threadts::$THREAD_ID"
 
     update:
         runs-on: ubuntu-latest
@@ -122,7 +122,7 @@ jobs:
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)
                   # runtimeVersion=$(echo $appConfig | jq -r '.content' | base64 --decode | yq -r '.type | split(":") | .[1]')
                   appConfigContent=$(echo $appConfig | jq -r '.content' | base64 --decode)
-                  echo $runtimeVersion
+                  echo $appConfigContent
                   # echo "::set-output name=version::${runtimeVersion}"
             # - name: Setup the example's runtime (nodejs)
             #   uses: actions/setup-node@v3

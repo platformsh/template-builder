@@ -164,13 +164,13 @@ jobs:
               run: |
                   autoMREnabled=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }}) --jq '.allow_auto_merge')
                   if [[ "${autoMREnabled}" != "true" ]]; then
-                    gh api -X PATCH /repos/${{ matrix.org }})/${{ matrix.repo }}) --field allow_auto_merge=true
+                    gh api -X PATCH /repos/${{ matrix.org }})/${{ matrix.repo }} --field allow_auto_merge=true
                   fi
             - name: '2c. Get template default branch'
               id: defaultbranch
               run: |
                   # Get the default branch.
-                  DEFAULT_BRANCH=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }}) --jq '.default_branch')
+                  DEFAULT_BRANCH=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }} --jq '.default_branch')
                   echo "The default branch for the target repo (${{ matrix.repo }}) is ${DEFAULT_BRANCH}"
                   echo "::set-output name=branch::$DEFAULT_BRANCH"
             - name: '2d. Verify correct branch protection rules on default branch.'

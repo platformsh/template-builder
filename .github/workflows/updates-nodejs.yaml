@@ -59,12 +59,12 @@ jobs:
             - name: Install dependencies
               run: |
                   python -m poetry install
-            - name: "Start notification on Slack"
-              id: startslack
-              run: |
-                  RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
-                  THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
-                  echo "::set-output name=threadts::$THREAD_ID"
+            # - name: "Start notification thread on Slack"
+            #   id: startslack
+            #   run: |
+            #       RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
+            #       THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
+            #       echo "::set-output name=threadts::$THREAD_ID"
 ########################################################################################################
 # Job #2: Run the update.
     update:
@@ -99,48 +99,264 @@ jobs:
                     # - repo: probot - the only demo, the rest are templates
                     #   org: platformsh-templates
         steps: 
-            # 0. Install tools and dependencies for running template-builder.
-            - uses: actions/checkout@v2
-            - name: Setup Python to run template-builder
+            # 0. Pre-start: Install tools and dependencies for running template-builder.
+            - name: '0a. Access to template-builder repo.'
+              uses: actions/checkout@v2
+            - name: '0b. Python version/setup for template-builder.'
               uses: actions/setup-python@v2
               with:
                   python-version: 3.8
-            - name: Pre-Start e. Install Poetry
+            - name: '0c. Install Poetry for template-builder.'
               run: |
                   python -m pip install poetry==$TB_POETRY_VERSION
-            - name: Pre-Start f. Configure Poetry
+            - name: '0d. Configure Poetry for template-builder.'
               run: |
                   python -m poetry config virtualenvs.in-project true
-            - name: Pre-Start g. Cache the virtualenv
+            - name: '0e. Cache the virtual env for Poetry.'
               uses: actions/cache@v2
               with:
                   path: ./.venv
                   key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-            - name: Pre-Start h. Install dependencies
+            - name: '0f. Install dependencies.'
               run: |
                   python -m poetry install
+            
+            # # 1. Slack init: Create the update Slack thread to track the current example. 
+            # - name: '1a. Create the current example Slack message.'
+            #   run: |
+            #       TEMPLATE=${{ matrix.repo }}
+            #       THREAD_ID=${{ needs.build.outputs.threadts }}
+            #       RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
 
-            # 1. Dynamically set up the runtime version from the repo's application config file.
+            #       PR_URL="<example.com|View the pull request>"
+            #       MESSAGE='All good.'
+            #       RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
+            #       echo $RESULT
+
+            # 2. Setup workflow: Verify update is possible for the current workflow and get ready to update.
+            #   a. The repo exists.
+            #   b. Repo is set to auto-merge.
+            #   c. Get the default branch
+            #   d. Verify correct branch protection rules on default branch.
+            #   e. Verify that an update branch does not already exist (under investigation).
+            #   f. Retrieve the runtime and version.
+            #   g. Replicate runtime and version in workflow.
+            - name: '2a. Verify the target repo exists'
+              id: template-repo-exists
+              run: |
+                  repoData=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }})/${{ matrix.repo }})
+                  repoID=$(echo "$repoData" | jq '.id')
+                  repoNodeID=$(echo "$repoData" | jq '.node_id')
+                  repoFound=$(echo "$repoData" | jq '.message')
+                  echo "::notice::Repo Found status - ${repoFound}"
+
+                  if [[ -z ${repoID} || "${repoFound}" == '"Not Found"'  ]]; then
+                    message="The template repo for ${{ matrix.repo }} doesn't exist and will need to be created before I can help you."
+                    echo "::error::${message}"
+                    echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+                    echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+                    echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+                    exit 11;
+                  else
+                    echo "::set-output name=repoNodeID::${repoNodeID}"
+                  fi
+            - name: '2b. Check if auto-merge is enabled for repository'
+              run: |
+                  autoMREnabled=$(gh api /repos/${{ matrix.org }})/${{ matrix.repo }}) --jq '.allow_auto_merge')
+                  if [[ "${autoMREnabled}" != "true" ]]; then
+                    gh api -X PATCH /repos/${{ matrix.org }})/${{ matrix.repo }}) --field allow_auto_merge=true
+                  fi
+            - name: '2c. Get template default branch'
+              id: defaultbranch
+              run: |
+                  # Get the default branch.
+                  DEFAULT_BRANCH=$(gh api /repos/${{ matrix.org }})/${{ matrix.repo }}) --jq '.default_branch')
+                  echo "The default branch for the target repo (${{ matrix.repo }}) is ${DEFAULT_BRANCH}"
+                  echo "::set-output name=branch::$DEFAULT_BRANCH"
+            - name: '2d. Verify correct branch protection rules on default branch.'
+              id: prepare-repo
+              uses: platformsh/prep-for-autopr@main
+              with:
+                  github-token: ${{ secrets.DEVREL_TOKEN }}
+                  repo-owner: ${{ matrix.org }}
+                  repo-name: ${{ matrix.repo }}
+                  status-checks: ""
+
+            # - name: '2e. Verify that an update branch does not already exist (under investigation).'
+            #   id: branchstatus
+            #   run: |
+            #       STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }})/${{ matrix.repo }}/branches/$UPDATES_BRANCH)
+            #       branchStatus=$( echo $STATUS | jq -r '.message' )
+
+            #       if [[ 'Branch not found' != "$branchStatus" ]]; then
+            #         # make sure our local repository is up-to-date
+            #         git -C templates/${{ matrix.template }}/build fetch origin
+            #         # our auto-updater branch exists, but has it already been merged and just not deleted?
+            #         defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+            #         mergeBase=$(git -C templates/${{ matrix.template }}/build merge-base "origin/${defaultBranch}" "origin/${UPDATES_BRANCH}")
+            #         # git rev-parse origin/auto-updater
+            #         updateBranchHash=$(git -C templates/${{ matrix.template }}/build rev-parse "origin/${UPDATES_BRANCH}")
+
+            #         if [[ "${mergeBase}" != "${updateBranchHash}" ]]; then
+            #             message="Update branch already exists and does not appear to have been merged, or merged and then advanced. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
+            #             echo "::error::${message}"
+            #             echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+            #             echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+            #             echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+            #             exit 12; # should fail the remaining steps
+            #         fi
+            #       fi
+
+            #       echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+
             - uses: mikefarah/yq@master
-            - name: Retrieve Runtime version
+            - name: '2f. Retrieve the runtime and version from the target repo.'
               id: runtime
               run: |
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)
                   echo $appConfig | jq -r '.content' | base64 --decode > app.yaml
                   runtimeVersion=$(yq '.type | split(":") | .[1]' < app.yaml)
                   echo "::set-output name=version::${runtimeVersion}"
-            - name: Setup the example's runtime (nodejs)
+            - name: '2g. Replicate runtime and version in workflow.'
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ steps.runtime.outputs.version }}
 
-            # 2. Create the individual update thread. 
-            - run: |
-                  TEMPLATE=${{ matrix.repo }}
-                  THREAD_ID=${{ needs.build.outputs.threadts }}
-                  RUN_URL=https://github.com/${REPOOWNER}/template-builder/actions/runs/$GITHUB_RUN_ID
+            # 3. Run the update for the target repo.
+            #   a. Cleanup the target repo build area.
+            #   b. Initialize a build for the target repo.
+            #   c. 
 
-                  PR_URL="<example.com|View the pull request>"
-                  MESSAGE='All good.'
-                  RESULT=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID THREAD_ID=$THREAD_ID poetry run python utils/slack_notifier.py up $TEMPLATE "$RUN_URL" "$PR_URL" "$MESSAGE")
-                  echo $RESULT
+            #             # 5. Run the update tasks through template-builder.
+            # - name: "Step 5. Cleanup template build area"
+            #   run: |
+            #       python -m poetry run doit cleanup:${{ matrix.template }}
+            # # 6. Initialize template build.
+            # - name: "Step 6. Initialize template build"
+            #   uses: actions/checkout@v2
+            #   with:
+            #       token: ${{ secrets.DEVREL_TOKEN }}
+            #       repository: ${{ env.TEMPLATEOWNER }}/${{ matrix.template }}
+            #       path: templates/${{ matrix.template }}/build
+
+
+            # # Checking out the update branch?
+            #             - name: '2e. Verify that an update branch does not already exist (under investigation).'
+            #   id: branchstatus
+            #   run: |
+            #       STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }})/${{ matrix.repo }}/branches/$UPDATES_BRANCH)
+            #       branchStatus=$( echo $STATUS | jq -r '.message' )
+
+            #       if [[ 'Branch not found' != "$branchStatus" ]]; then
+            #         # make sure our local repository is up-to-date
+            #         git -C templates/${{ matrix.template }}/build fetch origin
+            #         # our auto-updater branch exists, but has it already been merged and just not deleted?
+            #         defaultBranch=${{ steps.defaultbranch.outputs.branch }}
+            #         mergeBase=$(git -C templates/${{ matrix.template }}/build merge-base "origin/${defaultBranch}" "origin/${UPDATES_BRANCH}")
+            #         # git rev-parse origin/auto-updater
+            #         updateBranchHash=$(git -C templates/${{ matrix.template }}/build rev-parse "origin/${UPDATES_BRANCH}")
+
+            #         if [[ "${mergeBase}" != "${updateBranchHash}" ]]; then
+            #             message="Update branch already exists and does not appear to have been merged, or merged and then advanced. Skipping template until investigation on open branch (https://github.com/${TEMPLATEOWNER}/${{ matrix.template }}/tree/$UPDATES_BRANCH) is closed."
+            #             echo "::error::${message}"
+            #             echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+            #             echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+            #             echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+            #             exit 12; # should fail the remaining steps
+            #         fi
+            #       fi
+
+            #       echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+
+            # - name: "Step 8. Initialize remote"
+            #   run: |
+            #       # Get the remote
+            #       export TEMPLATE=${{ matrix.template }}
+
+            #       REMOTE_UPSTREAM=$(poetry run python -c '
+            #       import os
+            #       import dodo
+            #       try:
+            #           print(dodo.project_factory(os.environ["TEMPLATE"]).remote)
+            #       except:
+            #           print("no remote")
+            #       ')
+
+            #       # Set up Git.
+            #       cd templates/${{ matrix.template }}/build
+            #       git config --global user.email "$GIT_EMAIL"
+            #       git config --global user.name "$GIT_USER"
+
+            #       if [ "$REMOTE_UPSTREAM" == "no remote" ]; then
+            #           echo "$TEMPLATE is type Basic. Skipping remote clone."
+            #       else
+            #           echo "Upstream found: $REMOTE_UPSTREAM"
+            #           git remote add project $REMOTE_UPSTREAM
+            #       fi
+            # - name: "Step 9. Update template"
+            #   run: |
+            #       # For some reason, in the template-builder app, on first run, python needs a second update before it actually updates
+            #       UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit update:${{ matrix.template }}
+            #       if [[ ${PYTHON_TEMPLATES} =~ ${{ matrix.template }} ]]; then
+            #         UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit update:${{ matrix.template }}
+            #       fi
+            # - name: "Step 10. Platformify template"
+            #   run: |
+            #       UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit platformify:${{ matrix.template }}
+            # - name: "Step 11. Branch template"
+            #   run: |
+            #       UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit branch:${{ matrix.template }}
+            # - name: "Step 12. Push template"
+            #   run: |
+            #       UPDATES_BRANCH=$UPDATES_BRANCH UPDATE_COMMIT_MSG=$UPDATE_COMMIT_MSG python -m poetry run doit push:${{ matrix.template }}
+
+            # # 13. Check to see updates have been pushed to a branch.
+            # - name: Step 13. Check if updates have been pushed
+            #   id: pushstatus
+            #   run: |
+            #       STATUS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${TEMPLATEOWNER}/${{ matrix.template }}/branches/$UPDATES_BRANCH)
+            #       step11=$( echo $STATUS | jq -r '.message' )
+            #       echo "pushed branch status is ${step11}"
+
+            #       if [[ "${step11}" = "Branch not found" ]]; then
+            #         message="The update branch ${UPDATES_BRANCH} for the template ${{ matrix.template }} was not found. Can't create a PR without it."
+            #         message="${message} Possibly the template had no updates."
+            #         echo "::error::${message}"
+            #         echo "SLACK_MSG=${message}" >> $GITHUB_ENV
+            #         echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
+            #         echo "SLACK_STATUS=skip" >> $GITHUB_ENV
+            #         echo "PR_STATUS=skip" >> $GITHUB_ENV
+            #         echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+            #         # exit 110; // we dont want to exit as it causes this job to be marked as "failed"
+            #       else
+            #         echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+            #         echo "PR_STATUS=continue" >> $GITHUB_ENV
+            #       fi
+
+            # - name: "Step 14. Open pull request"
+            #   id: open-pull-request
+            #   if: env.PR_STATUS != 'skip'
+            #   run: |
+            #       TITLE="Scheduled updates."
+            #       BODY="Scheduled updates from template-builder ($(date))."
+
+            #       # If successful, the cli will return the URL to the created PR.
+            #       response=$(gh pr create --head "$UPDATES_BRANCH" --base "${{ steps.defaultbranch.outputs.branch }}" --title "$TITLE" --body "$BODY" --repo ${TEMPLATEOWNER}/${{ matrix.template }})
+            #       # If the CLI returns 1, the step will fail.
+            #       boolPRCreated=$?
+            #       prRegex="([0-9]+$)"
+            #       if [[ -n "${response}" && $response =~ $prRegex ]]; then
+            #         PR=${BASH_REMATCH[1]}
+            #         echo "::set-output name=pull-request-link::$response"
+            #         echo "::set-output name=pull-request-number::$PR"
+            #       else
+            #         echo "cli didn't fail but response is empty or didnt match the regex?"
+            #         echo "${response}"
+            #       fi
+
+            # # 15. Set the pull request to automerge when checks have passed.
+            # - name: Step 15. Automatically merge only after necessary requirements are met
+            #   if: env.PR_STATUS != 'skip'
+            #   run: |
+            #       gh pr merge ${{ steps.open-pull-request.outputs.pull-request-number }} --auto --merge --delete-branch --repo=${TEMPLATEOWNER}/${{ matrix.template }}
+            #       lastcommand=$?

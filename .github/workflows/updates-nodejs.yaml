@@ -120,14 +120,11 @@ jobs:
               id: runtime
               run: |
                   appConfig=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }}/contents/.platform.app.yaml)
-                  # runtimeVersion=$(echo $appConfig | jq -r '.content' | base64 --decode | yq -r '.type | split(":") | .[1]')
                   echo $appConfig | jq -r '.content' | base64 --decode > app.yaml
-                  yq '.type | split(":") | .[1]' < app.yaml
-                  # echo $appConfigContent
-
-                  # echo "::set-output name=version::${runtimeVersion}"
-            # - name: Setup the example's runtime (nodejs)
-            #   uses: actions/setup-node@v3
-            #   with:
-            #       node-version: ${{ steps.runtime.outputs.version }}
+                  runtimeVersion=$(yq '.type | split(":") | .[1]' < app.yaml)
+                  echo "::set-output name=version::${runtimeVersion}"
+            - name: Setup the example's runtime (nodejs)
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ steps.runtime.outputs.version }}
 

@@ -162,7 +162,7 @@ jobs:
                   fi
             - name: '2b. Check if auto-merge is enabled for repository'
               run: |
-                  autoMREnabled=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }}) --jq '.allow_auto_merge')
+                  autoMREnabled=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }} --jq '.allow_auto_merge')
                   if [[ "${autoMREnabled}" != "true" ]]; then
                     gh api -X PATCH /repos/${{ matrix.org }})/${{ matrix.repo }} --field allow_auto_merge=true
                   fi

@@ -100,7 +100,7 @@ jobs:
                     #   org: platformsh-templates
         steps: 
             # 0. Pre-start: Install tools and dependencies for running template-builder.
-            - name: '0a. Access to template-builder repo.'
+            - name: '0a. Checkout the template-builder repo so we can use it.'
               uses: actions/checkout@v2
             - name: '0b. Python version/setup for template-builder.'
               uses: actions/setup-python@v2
@@ -144,7 +144,7 @@ jobs:
             - name: '2a. Verify the target repo exists'
               id: template-repo-exists
               run: |
-                  repoData=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }})/${{ matrix.repo }})
+                  repoData=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ matrix.org }}/${{ matrix.repo }})
                   repoID=$(echo "$repoData" | jq '.id')
                   repoNodeID=$(echo "$repoData" | jq '.node_id')
                   repoFound=$(echo "$repoData" | jq '.message')
@@ -162,7 +162,7 @@ jobs:
                   fi
             - name: '2b. Check if auto-merge is enabled for repository'
               run: |
-                  autoMREnabled=$(gh api /repos/${{ matrix.org }})/${{ matrix.repo }}) --jq '.allow_auto_merge')
+                  autoMREnabled=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }}) --jq '.allow_auto_merge')
                   if [[ "${autoMREnabled}" != "true" ]]; then
                     gh api -X PATCH /repos/${{ matrix.org }})/${{ matrix.repo }}) --field allow_auto_merge=true
                   fi
@@ -170,7 +170,7 @@ jobs:
               id: defaultbranch
               run: |
                   # Get the default branch.
-                  DEFAULT_BRANCH=$(gh api /repos/${{ matrix.org }})/${{ matrix.repo }}) --jq '.default_branch')
+                  DEFAULT_BRANCH=$(gh api /repos/${{ matrix.org }}/${{ matrix.repo }}) --jq '.default_branch')
                   echo "The default branch for the target repo (${{ matrix.repo }}) is ${DEFAULT_BRANCH}"
                   echo "::set-output name=branch::$DEFAULT_BRANCH"
             - name: '2d. Verify correct branch protection rules on default branch.'

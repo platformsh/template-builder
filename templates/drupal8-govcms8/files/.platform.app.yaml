@@ -142,16 +142,16 @@ web:
                 # Provide a longer TTL (2 weeks) for aggregated CSS and JS files.
                 '^/sites/default/files/(css|js)':
                     expires: 2w
-                    
+
 crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        cmd: 'cd docroot ; drush core-cron'
+        commands: 'cd docroot ; drush core-cron'
 
 source:
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    
+

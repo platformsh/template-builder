@@ -97,10 +97,10 @@ web:
 cron:
     mautic-segments:
         spec: '*/7 * * * *'
-        cmd: php app/console mautic:segments:update
+        commands: php app/console mautic:segments:update
     mautic-campaign-update:
         spec: '*/11 * * * *'
-        cmd: php app/console mautic:campaigns:update
+        commands: php app/console mautic:campaigns:update
     mautic-campaign-actions:
         spec: '*/5 * * * *'
-        cmd: php app/console mautic:campaigns:trigger
+        commands: php app/console mautic:campaigns:trigger

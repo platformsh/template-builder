@@ -81,7 +81,6 @@ hooks:
     deploy: |
         set -e
         php ./drush/platformsh_generate_drush_yml.php
-        cd web
         # if drupal is installed, will call the following drush commands:
         #   - `cache-rebuild`
         #   - `updatedb`
@@ -148,7 +147,8 @@ crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        commands: 'cd web ; drush core-cron'
+        commands:
+            start: 'cd web ; drush core-cron'
 
 source:
   operations:

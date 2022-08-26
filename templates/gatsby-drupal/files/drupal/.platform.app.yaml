@@ -128,4 +128,5 @@ web:
 crons:
     drupal:
         spec: '*/20 * * * *'
-        commands: 'cd web ; drush core-cron'
+        commands:
+          start: 'cd web ; drush core-cron'

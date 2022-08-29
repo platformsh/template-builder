@@ -54,6 +54,15 @@ class Magento2ce(BaseProject):
     #     'composer.json': 'composer update -W --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick',
     # }
 
+    def package_update_actions(self):
+        actions = super(Magento2ce, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+               ] + actions
+
     @property
     def update(self):
 
@@ -98,21 +107,25 @@ class Magento2ce(BaseProject):
         projectName = "magento2ce"
 
         return super(Magento2ce, self).update + [
-            'cd {0} && composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition {1}'.format(TEMPLATEDIR, projectName),
-            
+            'cd {0} && composer create-project --repository-url=https://repo.magento.com/ '
+            'magento/project-community-edition {1} --ignore-platform-req=ext-iconv --ignore-platform-req=ext-soap '
+            '--ignore-platform-req=ext-pdo_mysql {2}'.format(TEMPLATEDIR, projectName, self.composer_defaults()),
+
             'rm -rf {0}/*'.format(self.builddir),
             'cd {0} && git add . && git commit -m "Clear previous template."'.format(self.builddir),
 
             'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
             'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),
-            (self.modify_composer, [magento_modify_composer]) 
+            (self.modify_composer, [magento_modify_composer])
         ]
 
     @property
     def platformify(self):
+        extraIgnores = '--ignore-platform-req=ext-iconv --ignore-platform-req=ext-soap ' \
+                       '--ignore-platform-req=ext-pdo_mysql '
+
         return super(Magento2ce, self).platformify + [
-                'cd {0} && composer require magento/ece-tools magento/magento-cloud-components magento/quality-patches'.format(self.builddir)  + self.composer_defaults(),
-                'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-                'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-                'cd {0} && composer update -W'.format(self.builddir),
+                'cd {0} && composer require magento/ece-tools magento/magento-cloud-components '
+                'magento/quality-patches -W '.format(self.builddir)  + self.composer_defaults() + extraIgnores,
+                'cd {0} && composer update -W {1}'.format(self.builddir, self.composer_defaults() + extraIgnores),
                 ]

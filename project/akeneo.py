@@ -13,6 +13,16 @@ class Akeneo(BaseProject):
         'composer.json': 'composer update -W --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick',
     }
 
+    def package_update_actions(self):
+        actions = super(Akeneo, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.symfony/flex true --no-plugins'.format(self.builddir),
+               ] + actions
+
     @property
     def update(self):
 
@@ -32,20 +42,19 @@ class Akeneo(BaseProject):
 
         # Quickstart project package name, used in the block below.
         projectName = "pim-community-standard"
+        composerIgnore=self.composer_defaults()
 
         return super(Akeneo, self).update + [
-            'cd {0} && composer create-project akeneo/pim-community-standard {1} "6.0.*@stable" --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick'.format(TEMPLATEDIR, projectName),
+            'cd {0} && composer create-project akeneo/pim-community-standard {1} "6.0.*@stable" {2}'.format(TEMPLATEDIR, projectName, composerIgnore),
             'cd {0} && cp -r {1}/{2}/* .'.format(self.builddir, TEMPLATEDIR, projectName),
             'rm -rf {0}/{1}'.format(TEMPLATEDIR, projectName),
-            (self.modify_composer, [akeneo_modify_composer]) 
+            (self.modify_composer, [akeneo_modify_composer])
         ]
 
     @property
     def platformify(self):
+        composerIgnore = self.composer_defaults()
         return super(Akeneo, self).platformify + [
                 'cd {0} && composer require platformsh/config-reader'.format(self.builddir) + self.composer_defaults(),
-                'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-                'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(self.builddir),
-                'cd {0} && composer config allow-plugins.symfony/flex true --no-plugins'.format(self.builddir),
-                'cd {0} && composer update -W --ignore-platform-req=ext-apcu --ignore-platform-req=ext-imagick'.format(self.builddir),
+                'cd {0} && composer update -W {1}'.format(self.builddir, composerIgnore),
                 ]

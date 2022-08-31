@@ -13,7 +13,7 @@ jobs:
   run_dm_update:
     name: Trigger Source Op
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'gilzow' }}
+    if: ${{ github.repository_owner == 'platformsh-templates' }}
     steps:
       - name: 'Setup Python'
         uses: actions/setup-python@v2

@@ -4,7 +4,7 @@ info:
   id: platformsh/rails
   name: Ruby on Rails
   description: |
-      <p>This template builds Ruby on Rails 5 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services, and ships with PostgreSQL out of the box.  Otherwise it is the same as the result of running "rails new".</p>
+      <p>This template builds Ruby on Rails 6 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services, and ships with PostgreSQL out of the box.  Otherwise it is the same as the result of running "rails new".</p>
       <p>Rails is an opinionated rapid application development framework written in Ruby.</p>
   tags:
   - Ruby
@@ -13,8 +13,8 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Ruby 2.6<br />
-          PostgreSQL 11<br />
+          Ruby 2.7<br />
+          PostgreSQL 13<br />
           Automatic TLS certificates<br />
           Bundler-based build<br />
 

@@ -6,14 +6,14 @@
 </a>
 </p>
 
-This template builds Ruby on Rails 5 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services, and ships with PostgreSQL out of the box.  Otherwise it is the same as the result of running "rails new".
+This template builds Ruby on Rails 6 on Platform.sh.  It includes a bridge library that will auto-configure most databases and services, and ships with PostgreSQL out of the box.  Otherwise it is the same as the result of running "rails new".
 
 Rails is an opinionated rapid application development framework written in Ruby.
 
 ## Features
 
-* Ruby 2.6
-* PostgreSQL 11
+* Ruby 2.7
+* PostgreSQL 13
 * Automatic TLS certificates
 * Bundler-based build
 

@@ -36,7 +36,7 @@ info:
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
     - heading: "Features"
-      content: "Python 3.9<br/>PostgreSQL 12"
+      content: "Python 3.10<br/>PostgreSQL 12"
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which

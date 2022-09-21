@@ -14,7 +14,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          PHP 7.3<br />
+          PHP 7.4<br />
           MariaDB 10.4<br />
           Drush included<br />
           Automatic TLS certificates<br />

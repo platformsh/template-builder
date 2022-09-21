@@ -12,7 +12,7 @@ Backdrop is a PHP-based CMS, originally forked from Drupal 7.
 
 ## Features
 
-* PHP 7.3
+* PHP 7.4
 * MariaDB 10.4
 * Drush included
 * Automatic TLS certificates

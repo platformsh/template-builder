@@ -1,0 +1,21 @@
+parameters:
+    default_title: Hello API Platform.sh
+
+api_platform:
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+
+    title: '%env(string:default:default_title:API_SITE_NAME)%'
+    version: 1.0.0
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    # Mercure integration, remove if unwanted
+#    mercure: ~
+
+    # Good cache defaults for REST APIs
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']

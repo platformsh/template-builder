@@ -29,7 +29,7 @@
 </a>&nbsp&nbsp
 </p>
 <p align="center">
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh-templates/API-Platform-v2/main/.platform/metadata/api-platform-3-php8.1.template.yaml&utm_content=platformsh-templates&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-2/.platform.template.yaml&utm_content=wordpress-vanilla&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
     <img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" alt="Deploy on Platform.sh" width="175px">
 </a>
 </p>
@@ -61,7 +61,7 @@
 - Composer-based build
 - Yarn v1.22.15
 - NodeJS v16
-- a sample Greeting Entity 
+- a sample Greeting Entity
 
 ## Getting started
 
@@ -70,7 +70,7 @@
 ### Quickstart
 
 <p>
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh-templates/API-Platform-v2/main/.platform/metadata/api-platform-3-php8.1.template.yaml&utm_content=platformsh-template&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-2/.platform.template.yaml&utm_content=wordpress-vanilla&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
     <img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" alt="Deploy on Platform.sh" width="175px">
 </a>
 </p>
@@ -293,7 +293,7 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 
 
- 
+
 
 
 ### Local development

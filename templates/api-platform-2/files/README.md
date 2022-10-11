@@ -345,7 +345,7 @@ In general, the steps are as follows:
 > **Note:**
 > if symfony server does not start your app using default port 8000, please change `REACT_APP_PUBLIC_URL` from `./admin/.env` file accordingly
 
-3. Start the admin component with those steps
+4. Start the admin component with those steps
 
    1. `cd ../admin` (assuming that you're in the `./api` folder)
 

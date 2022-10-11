@@ -29,7 +29,7 @@
 </a>&nbsp&nbsp
 </p>
 <p align="center">
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-3/.platform.template.yaml&utm_content=wordpress-vanilla&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-3/.platform.template.yaml&utm_content=api-platform-3&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
     <img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" alt="Deploy on Platform.sh" width="175px">
 </a>
 </p>
@@ -70,7 +70,7 @@
 ### Quickstart
 
 <p>
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-3/.platform.template.yaml&utm_content=wordpress-vanilla&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/api-platform-3/.platform.template.yaml&utm_content=api-platform-3&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform" target="_blank">
     <img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg" alt="Deploy on Platform.sh" width="175px">
 </a>
 </p>

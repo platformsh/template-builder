@@ -322,3 +322,69 @@ class Contentacms(BaseProject):
                 self.builddir) + self.composer_defaults(),
             'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
         ]
+
+
+class Drupal9_govcms9(RemoteProject):
+    major_version = '2.24'
+    remote = 'https://github.com/govCMS/GovCMS.git'
+
+    def package_update_actions(self):
+        actions = super(Drupal9_govcms9, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(
+                       self.builddir),
+               ] + actions
+
+    @property
+    def update(self):
+        projectName = "govcms9"
+
+        def drupal9_govcms9_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name'] = "platformsh/{0}".format(projectName)
+            composer[
+                'description'] = "This template builds the Australian government's GovCMS Drupal 9 distribution using the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal9_govcms9, self).update + [
+            (self.modify_composer, [drupal9_govcms9_modify_composer])
+        ]
+
+
+    @property
+    def update(self):
+        return super(Drupal9_govcms9, self).update + [
+            'cd {0} && rm -rf .circleci'.format(self.builddir),
+            'cd {0} && rm -rf .github'.format(self.builddir),
+            'cd {0} && rm -rf .tugboat'.format(self.builddir),
+            'cd {0} && composer remove php {1}'.format(self.builddir,
+                                                       self.composer_defaults().replace('--prefer-dist', '')),
+            # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+        ]
+
+    @property
+    def platformify(self):
+        return super(Drupal9_govcms9, self).platformify + [
+            # GovCMS comes with a pre-made lock file that pins symfony/filesystem at v4, but
+            # drupal/console only works with the 3.x version, and therefore will fail.
+            # It should work to remove the lock file first, but for some reason that is still failing.
+            # For now, just skip installing console on GovCMS. I don't know if anyone uses it anyway.
+            #    'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && composer require platformsh/config-reader drush/drush:^10 drupal/redis'.format(
+                self.builddir) + self.composer_defaults(),
+            'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+            'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+            'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR, 'common/drupal9/'), self.builddir),
+        ]

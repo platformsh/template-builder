@@ -1,0 +1,15 @@
+diff --git govcms.info.yml govcms.info.yml
+index cd64926..2f080d1 100644
+--- govcms.info.yml
++++ govcms.info.yml
+@@ -5,10 +5,6 @@ project: govcms
+ core_version_requirement: ^9
+ version: '2.23.0'
+
+-distribution:
+-  name: GovCMS
+-  langcode: en
+-
+ install:
+   - big_pipe
+   - ckeditor

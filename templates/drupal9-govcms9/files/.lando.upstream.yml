@@ -7,7 +7,7 @@
 
 # These both allow you to test this template without needing a site on Platform.sh
 # However you will want to replace them in your .lando.yml
-name: platformsh-drupal9
+name: platformsh-govcms9
 recipe: platformsh
 
 config:

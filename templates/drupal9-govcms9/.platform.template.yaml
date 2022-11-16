@@ -26,4 +26,4 @@ initialize:
   repository: https://github.com/platformsh-templates/drupal9-govcms9.git@master
   config: null
   files: []
-  profile: Drupal 8
+  profile: GovCMS 9

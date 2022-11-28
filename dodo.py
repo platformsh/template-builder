@@ -6,6 +6,7 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 '''
 
 import os
+import sys
 
 from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo

@@ -6,6 +6,7 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 '''
 
 import os
+import sys
 
 from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
@@ -63,11 +64,13 @@ def task_cleanup():
 
     Usage: doit cleanup:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.cleanup,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'actions': project.cleanup,
+            }
 
 
 def task_init():
@@ -76,12 +79,14 @@ def task_init():
 
     Usage: doit init:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'task_dep': ['cleanup:{0}'.format(project.name)],
-            'actions': project.init,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'task_dep': ['cleanup:{0}'.format(project.name)],
+                'actions': project.init,
+            }
 
 
 def task_update():
@@ -90,11 +95,13 @@ def task_update():
 
     Usage: doit update:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.update,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'actions': project.update,
+            }
 
 
 def task_platformify():
@@ -104,11 +111,13 @@ def task_platformify():
 
     Usage: doit platformify:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.platformify,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'actions': project.platformify,
+            }
 
 
 def task_branch():
@@ -117,11 +126,13 @@ def task_branch():
 
     Usage: doit branch:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.branch,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'actions': project.branch,
+            }
 
 
 def task_push():
@@ -130,11 +141,13 @@ def task_push():
 
     Usage: doit push:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'actions': project.push,
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'actions': project.push,
+            }
 
 
 def task_rebuild():
@@ -143,14 +156,16 @@ def task_rebuild():
 
     Usage: doit rebuild:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'task_dep': ["{0}:{1}".format(action, project.name)
-                         for action in ['update', 'platformify', 'branch']
-                         ],
-            'actions': [],
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'task_dep': ["{0}:{1}".format(action, project.name)
+                            for action in ['update', 'platformify', 'branch']
+                            ],
+                'actions': [],
+            }
 
 
 def task_full():
@@ -159,11 +174,13 @@ def task_full():
 
     Usage: doit full:<project>
     """
+    template_name=sys.argv[1].split(':')[1]
     for project in ALL_PROJECTS:
-        yield {
-            'name': project.name,
-            'task_dep': ["{0}:{1}".format(action, project.name)
-                         for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push']
-                         ],
-            'actions': [],
-        }
+        if project.name == template_name:
+            yield {
+                'name': project.name,
+                'task_dep': ["{0}:{1}".format(action, project.name)
+                            for action in ['cleanup', 'init', 'update', 'platformify', 'branch', 'push']
+                            ],
+                'actions': [],
+            }

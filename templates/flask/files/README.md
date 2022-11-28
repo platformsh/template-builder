@@ -109,20 +109,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX (using [Homebrew](https://brew.sh/))
-
-   ```bash
-   $ brew install platformsh/tap/platformsh-cli
-   ```
-
-   #### Windows (using [Scoop](https://scoop.sh/))
-
-   ```bash
-    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
-    $ scoop install platform
-   ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Set the project remote
 
@@ -193,20 +181,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX (using [Homebrew](https://brew.sh/))
-
-   ```bash
-   $ brew install platformsh/tap/platformsh-cli
-   ```
-
-   #### Windows (using [Scoop](https://scoop.sh/))
-
-   ```bash
-    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
-    $ scoop install platform
-   ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Create the repository
 

@@ -126,17 +126,17 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -176,17 +176,17 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -210,17 +210,17 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -248,17 +248,17 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -445,17 +445,17 @@ Your repository now has all of the code it needs in order to deploy to Platform.
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -495,17 +495,17 @@ Your repository now has all of the code it needs in order to deploy to Platform.
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -529,17 +529,17 @@ Your repository now has all of the code it needs in order to deploy to Platform.
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
@@ -567,17 +567,17 @@ Your repository now has all of the code it needs in order to deploy to Platform.
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
+   #### Linux/OSX (using [Homebrew](https://brew.sh/))
 
    ```bash
-   curl -sS https://platform.sh/cli/installer | php
+   $ brew install platformsh/tap/platformsh-cli
    ```
 
-   #### Windows
+   #### Windows (using [Scoop](https://scoop.sh/))
 
    ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
+    $ scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git
+    $ scoop install platform
    ```
 
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).

@@ -5,14 +5,14 @@ steps:
       subtitle: "Download the Platform.sh CLI"
       required: true
       bodyText: "<p>To install the CLI, use the command for either macOS and Windows as shown.</p>\n<p>For more info about our CLI check out our <a href='https://docs.platform.sh/development/cli.html#cli-command-line-interface'>documentation</a> or take a look at our <a href='https://github.com/platformsh/platformsh-cli'>CLI source code</a>.</p>"
-      copyCode:
-          - label: "macOS and Linux Installer"
-            code:
-                - "curl -sS https://platform.sh/cli/installer | php"
-          - label: "Windows Installer"
-            code:
-                - "curl https://platform.sh/cli/installer -o cli-installer.php"
-                - "php cli-installer.php"
+    copyCode:
+      - label: "macOS and Linux Installer (using Homebrew)"
+        code:
+          - "brew install platformsh/tap/platformsh-cli"
+      - label: "Windows Installer (using Scoop)"
+        code:
+          - "scoop bucket add platformsh https://github.com/platformsh/homebrew-tap.git"
+          - "scoop install platform"
     - id: "download_project"
       label: "Download your project"
       title: "Download your project to start using it"

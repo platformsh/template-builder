@@ -6,6 +6,7 @@ In case the actions of some tasks need to be customized, the new BaseProject sub
 '''
 
 import os
+import sys
 
 from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
@@ -54,8 +55,13 @@ def project_factory(name):
     except KeyError:
         return BaseProject(name)
 
-ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
-                if f.is_dir() and f.name not in IGNORED]
+
+if ':' in sys.argv[1]:
+    ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
+                    if f.is_dir() and f.name not in IGNORED and f.name == sys.argv[1].split(':')[1]]
+else:
+    ALL_PROJECTS = [project_factory(f.name) for f in os.scandir(TEMPLATEDIR)
+                    if f.is_dir() and f.name not in IGNORED]
 
 def task_cleanup():
     """

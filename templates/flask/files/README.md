@@ -109,20 +109,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-    #### Linux/OSX
-
-    ```bash
-    curl -sS https://platform.sh/cli/installer | php
-    ```
-
-    #### Windows
-
-    ```bash
-    curl -f https://platform.sh/cli/installer -o cli-installer.php
-    php cli-installer.php
-    ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Set the project remote
 
@@ -159,20 +147,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-    #### Linux/OSX
-
-    ```bash
-    curl -sS https://platform.sh/cli/installer | php
-    ```
-
-    #### Windows
-
-    ```bash
-    curl -f https://platform.sh/cli/installer -o cli-installer.php
-    php cli-installer.php
-    ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Setup the integration:
 
@@ -193,20 +169,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-    #### Linux/OSX
-
-    ```bash
-    curl -sS https://platform.sh/cli/installer | php
-    ```
-
-    #### Windows
-
-    ```bash
-    curl -f https://platform.sh/cli/installer -o cli-installer.php
-    php cli-installer.php
-    ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Create the repository
 
@@ -231,20 +195,8 @@ Then you can clone a copy of it locally with `git clone git@github.com:YOUR_NAME
 
 1. Install the Platform.sh CLI
 
-    #### Linux/OSX
-
-    ```bash
-    curl -sS https://platform.sh/cli/installer | php
-    ```
-
-    #### Windows
-
-    ```bash
-    curl -f https://platform.sh/cli/installer -o cli-installer.php
-    php cli-installer.php
-    ```
-
-    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
+   You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Create the repository
 

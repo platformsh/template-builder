@@ -22,6 +22,7 @@ class BaseProject(object):
     '''
 
     default_branch = "master"
+    template_org = "platformsh-templates"
 
     # A dictionary of conditional commands to run for package updaters.
     # The key is a file name. If that file exists, then its value will be run in the
@@ -113,8 +114,8 @@ class BaseProject(object):
             name = self.github_name
         else:
             name = self.name.replace('_', '-')
-        return ['git clone git@github.com:platformsh-templates/{0}.git {1}'.format(
-            name, self.builddir)
+        return ['git clone git@github.com:{2}/{0}.git {1}'.format(
+            name, self.builddir, self.template_org)
         ]
 
     @property

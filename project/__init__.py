@@ -21,6 +21,8 @@ class BaseProject(object):
     to override.
     '''
 
+    default_branch = "master"
+
     # A dictionary of conditional commands to run for package updaters.
     # The key is a file name. If that file exists, then its value will be run in the
     # project build directory to update the corresponding lock file.
@@ -118,7 +120,7 @@ class BaseProject(object):
     @property
     def update(self):
         actions = [
-            'cd {0} && git checkout master && git pull --prune'.format(self.builddir)
+            'cd {0} && git checkout {1} && git pull --prune'.format(self.builddir, self.default_branch)
         ]
 
         actions.extend(self.package_update_actions())
@@ -166,8 +168,8 @@ class BaseProject(object):
     @property
     def branch(self):
         return [
-            'cd {0} && if git rev-parse --verify --quiet {1}; then git checkout master && git branch -D {1}; fi;'.format(
-                self.builddir, self.updateBranch),
+            'cd {0} && if git rev-parse --verify --quiet {1}; then git checkout {2} && git branch -D {1}; fi;'.format(
+                self.builddir, self.updateBranch, self.default_branch),
             'cd {0} && git checkout -b {1}'.format(self.builddir, self.updateBranch),
             # git commit exits with 1 if there's nothing to update, so the diff-index check will
             # short circuit the command if there's nothing to update with an exit code of 0.
@@ -178,8 +180,8 @@ class BaseProject(object):
     @property
     def push(self):
         return [
-            'cd {0} && if [ `git rev-parse {1}` != `git rev-parse master` ] ; then git checkout {1} && git push --force -u origin {1}; fi'.format(
-                self.builddir, self.updateBranch)
+            'cd {0} && if [ `git rev-parse {1}` != `git rev-parse {2}` ] ; then git checkout {1} && git push --force -u origin {1}; fi'.format(
+                self.builddir, self.updateBranch, self.default_branch)
         ]
 
     def package_update_actions(self):

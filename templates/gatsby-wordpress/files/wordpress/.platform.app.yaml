@@ -9,7 +9,7 @@ type: "php:7.4"
 
 # Configuration of the build of the application.
 build:
-    flavor: composer
+    flavor: none
 
 dependencies:
     php:
@@ -65,3 +65,11 @@ mounts:
     "wordpress/wp-content/uploads":
         source: local
         source_path: "uploads"
+
+hooks:
+    build: |
+        # Exit hook immediately if a command exits with a non-zero status.
+        set -e
+
+        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader

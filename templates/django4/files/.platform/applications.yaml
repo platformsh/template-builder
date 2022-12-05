@@ -1,0 +1,18 @@
+##################################
+# Django 4 application variations
+#
+# NOTICE
+#
+# Normally, application configuration on Platform.sh takes place in a single .platform.app.yaml file
+#   located in the root of your project. This applications.yaml file is used instead, to provide a clear
+#   and simple way to choose between the use of pip, pipenv, and Poetry when deploy Django. It contains
+#   effectively an array of configurations that would normally be contained in .platform.app.yaml for
+#   you to choose from and experiment with.
+#
+#   If you are instead looking to migrate your own Django project, it's sufficient to copy the contents
+#     of one of the below files into .platform.app.yaml in your repository root. See the README for more
+#     details.
+##################################
+- !include pip.app.yaml
+# - !include pipenv.app.yaml
+# - !include poetry.app.yaml

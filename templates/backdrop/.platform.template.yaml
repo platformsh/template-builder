@@ -9,12 +9,13 @@ info:
   tags:
   - PHP
   - CMS
+  - Drupal
   image: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCiA8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiB3aWR0aD0iNDcwIiBoZWlnaHQ9IjQ3MCI+DQo8cmVjdCBmaWxsPSJibGFjayIgd2lkdGg9IjQ3MCIgaGVpZ2h0PSI0NzAiLz4NCjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtIDIzNSw0NzAgMCwtMjM1IDIzNSwwIHoiLz4NCjwvc3ZnPg0K
 
   notes:
     - heading: "Features"
       content: |
-          PHP 7.3<br />
+          PHP 7.4<br />
           MariaDB 10.4<br />
           Drush included<br />
           Automatic TLS certificates<br />

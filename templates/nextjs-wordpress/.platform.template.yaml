@@ -1,0 +1,62 @@
+# Platform.sh Project Initialization Template
+#
+# This file defines settings and workflow modifications that allow a git
+# repository to be deployed to Platform.sh and its white-label partners. A
+# project template can be a fully functioning ready-made application or a
+# quick-start point for custom development work.
+#
+# It contains elements that affect the behaviour upon the initialisation of
+# a new project (for example minimal plan sizes) as well as elements that
+# allow Platform.sh to present it in a user interface (such as the description
+# of the project, tags, an icon etc.).
+
+# The schema is versioned so that we can establish code paths differently in the future if we need to change this.
+version: 1
+
+# Templates are a small amount of information supporting a template URL.
+# Each template is selectable at the project-creation step.
+info:
+    # Unique machine name, prefaced by a vendor or organization identifier.
+    # The vendor should be the lowercase name of your company, organization, or project, and the project name
+    # the lowercase name of the template. This may be the same as the vendor in a single-product case.
+    id: platformsh/nextjs-wordpress
+    # The human-readable name of the template.  This is how the template will be named in the user interface.
+    name: 'Next.js WordPress'
+    # Human-readable descriptive text for the template. Supports limited HTML.
+    # This field should be 1-3 sentences describing how the project is setup, assuming the reader already knows what
+    # the application is.
+    description: |
+      <p>This template demonstrates a multi-app deployment on Platform.sh, in this case, a Next.js frontend consuming data from a WordPress backend running on the same environment. It is based largely on the instructions provided by NextJS for a WordPress Demo site.</p>
+      <p>Next.js is an open-source web framework written for Javascript, and WordPress is a flexible and extensible PHP-based CMS framework.</p>
+    # A list of tags associated with the template.  These should be highly generic terms like "CMS", "Framework", and
+    # the language in which the application is written.
+    tags:
+        - PHP
+        - CMS
+        - Node.js
+        - Decoupled
+        - Multi-app
+        - Next.js
+        - WordPress
+    # An image URI (either base64-encoded or a URL) representing the template.  Base64-encoded SVG strongly preferred.
+    image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzY1MTZfMTQwMzcpIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4wMjU5IDAuOTk5NDQ0QzE0Ljg2NTIgMC45OTk0NDQgMTcuNTEwOSAyLjA5NjQ1IDE5LjQ0NjggMy45MDMyOUMxOC40Nzg5IDMuOTAzMjkgMTcuNTEwOSA0LjQxOTUzIDE3LjUxMDkgNS43NzQ2NkMxNy40NDY0IDguNDIwMzkgMjAuNjcyOSA5LjAwMTE3IDE4LjkzMDYgMTQuMjkyNkwxNy41MTA5IDE4LjY4MDdMMTMuNTc0NiA3LjEyOTc5QzEzLjUxMDEgNi45MzYyIDEzLjU3NDYgNi44NzE2NyAxMy44MzI3IDYuODcxNjdIMTQuOTI5N0MxNC45OTQzIDYuODcxNjcgMTUuMDU4OCA2LjgwNzE0IDE1LjA1ODggNi43NDI2MVY2LjA5NzMxQzE1LjA1ODggNi4wMzI3OCAxNC45OTQzIDUuOTY4MjUgMTQuOTI5NyA1Ljk2ODI1QzEyLjgwMDMgNi4wMzI3OCAxMC43MzUzIDYuMDMyNzggOC42NzAzNCA1Ljk2ODI1QzguNjA1ODEgNS45NjgyNSA4LjU0MTI4IDYuMDMyNzggOC41NDEyOCA2LjA5NzMxVjYuNzQyNjFDOC41NDEyOCA2LjgwNzE0IDguNjA1ODEgNi44NzE2NyA4LjY3MDM0IDYuODcxNjdIOS43NjczNEMxMC4wMjU1IDYuODcxNjcgMTAuMDkgNi45MzYyIDEwLjE1NDUgNy4xMjk3OUwxMS43Njc4IDExLjUxNzhMOS4zMTU2MyAxOC44MDk3TDUuMzE0NzggNy4wNjUyNkM1LjI1MDI1IDYuOTM2MiA1LjMxNDc4IDYuODA3MTQgNS40NDM4MyA2LjgwNzE0SDYuNzM0NDNDNi43OTg5NiA2LjgwNzE0IDYuODYzNDkgNi43NDI2MSA2Ljg2MzQ5IDYuNjc4MDhWNi4wMzI3OEM2Ljg2MzQ5IDUuOTY4MjUgNi43OTg5NiA1LjkwMzcyIDYuNzM0NDMgNS45MDM3MkM1LjM3OTMgNS45NjgyNSA0LjA4ODcxIDUuOTY4MjUgMi43OTgxMSA2LjAzMjc4QzQuNzM0MDEgMi45OTk4NyA4LjE1NDEgMC45OTk0NDQgMTIuMDI1OSAwLjk5OTQ0NFpNMjEuNjQwOSA2LjgwNzE0QzIyLjQ3OTggOC4zNTU4NiAyMi45MzE1IDEwLjE2MjcgMjIuOTMxNSAxMi4wMzQxQzIyLjkzMTUgMTYuMTY0IDIwLjYwODQgMTkuNzc3NyAxNy4yNTI4IDIxLjY0OUwyMC42NzI5IDExLjk2OTVDMjEuMTg5MiAxMC40MjA4IDIxLjcwNTQgOC40MjAzOSAyMS42NDA5IDYuODA3MTRaTTE1LjcwNDEgMjIuMzU4OUMxNC41NDI2IDIyLjc0NjEgMTMuMzE2NSAyMy4wMDQyIDEyLjAyNTkgMjMuMDA0MkMxMC45Mjg5IDIzLjAwNDIgOS44MzE4NyAyMi44MTA2IDguODYzOTIgMjIuNTUyNUwxMi4yMTk1IDEyLjg3M0wxNS43MDQxIDIyLjM1ODlaTTcuMzE1MjEgMjEuOTA3MkMzLjYzNyAyMC4xNjQ5IDEuMDU1OCAxNi4zNTc2IDEuMDU1OCAxMS45Njk1QzEuMDU1OCAxMC4zNTYzIDEuMzc4NDUgOC44MDc1NyAyLjAyMzc1IDcuMzg3OTFMNy4zMTUyMSAyMS45MDcyWk0xMi4wMjU5IDAuMDMxNDk0MUMxOC42NzI1IDAuMDMxNDk0MSAyNC4wMjg1IDUuMzg3NDggMjQuMDI4NSAxMi4wMzQxQzI0LjAyODUgMTguNjgwNyAxOC42NzI1IDI0LjAzNjcgMTIuMDI1OSAyNC4wMzY3QzUuMzc5MzEgMjQuMDM2NyAwLjAyMzMxNTQgMTguNjE2MSAwLjAyMzMxNTQgMTEuOTY5NUMwLjAyMzMxNTQgNS4zMjI5NSA1LjM3OTMxIDAuMDMxNDk0MSAxMi4wMjU5IDAuMDMxNDk0MVoiIGZpbGw9IiM0NjQzNDIiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF82NTE2XzE0MDM3Ij4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=
+    # Additional notes displayed in the template's detail view.
+    # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+    # The most important is a section that lists the "Apps and Services" (container images) that the project uses.
+    # These are the name/version of the Platform.sh containers, not including the Nginx router.
+    notes:
+        - heading: "Apps & Services"
+          content: "PHP 7.4<br/>Node.js 16<br/>MariaDB 10.4<br/>Network Storage<br/>Automatic TLS certificates<br/>Multi-app configuration<br/>yarn-based builds<br/>Delayed SSG build (post deploy hook)"
+
+
+# This key describes the initialization call made to the master environment at
+# project creation time. This is part of the full v2 UI operation mode, which
+# places project schema/options selection early in the creation process, rather
+# than later as it exits now. To allow this schema to be backwards-compatible,
+# this key also gets mapped to the appropriate location in project.settings so
+# that the current UI can have its own workflow overridden as well.
+initialize:
+    repository: https://github.com/platformsh-templates/nextjs-wordpress.git@main
+    config: null
+    files: []
+    profile: 'Next.js WordPress'

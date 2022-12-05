@@ -1,5 +1,5 @@
 name: app
-type: php:8.0
+type: php:8.1
 build:
     flavor: composer
 
@@ -8,10 +8,15 @@ variables:
         # Tell Symfony to always install in production-mode.
         APP_ENV: 'prod'
         APP_DEBUG: 0
+        N_PREFIX: /app/.global
 
 hooks:
     build: |
         set -e
+        # Install the node version specified in the .nvmrc file
+        n auto
+        # Reset the location hash to recognize the newly installed version
+        hash -r
         yarn install
         GULP_ENV=prod yarn build
     deploy: |
@@ -32,8 +37,11 @@ relationships:
 
 dependencies:
     nodejs:
+        n: "*"
         yarn: "*"
         gulp-cli: "*"
+    php:
+        composer/composer: '^2'
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048

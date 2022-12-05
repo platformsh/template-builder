@@ -4,7 +4,7 @@
 
 "https://{default}/":
     type: upstream
-    upstream: "app:http"
+    upstream: "akeneo:http"
     cache:
         enabled: false
 

@@ -7,8 +7,10 @@ import yaml
 from glob import glob
 from collections import OrderedDict
 
+
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
+
 
 class BaseProject(object):
     '''
@@ -56,7 +58,7 @@ class BaseProject(object):
     def __init__(self, name):
         self.name = name
         self.builddir = os.path.join(TEMPLATEDIR, self.name, 'build/')
-        
+
         if os.environ.get("UPDATES_BRANCH"):
             self.updateBranch = os.environ.get("UPDATES_BRANCH")
         else:
@@ -72,12 +74,13 @@ class BaseProject(object):
             self.updateCommands['composer.json'] += self.composer_defaults()
 
         # @todo what about multiapps?
-        if exists(os.path.join(TEMPLATEDIR, self.name, 'files/','.platform.app.yaml')):
+        if exists(os.path.join(TEMPLATEDIR, self.name, 'files/', '.platform.app.yaml')):
             """
             prevents pyyaml from complaining about !include tags in our platform.app.yaml
             Please note that it will NOT follow and load those include files.
             Blatantly ~stolen~ borrowed from https://stackoverflow.com/a/52241794/17151558
             """
+
             def any_constructor(loader, tag_suffix, node):
                 if isinstance(node, yaml.MappingNode):
                     return loader.construct_mapping(node)
@@ -88,12 +91,13 @@ class BaseProject(object):
             yaml.add_multi_constructor('', any_constructor, Loader=yaml.SafeLoader)
 
             # @todo should we define the file name and location elsewhere?
-            with open(os.path.join(TEMPLATEDIR, self.name, 'files/','.platform.app.yaml'), "r") as stream:
+            with open(os.path.join(TEMPLATEDIR, self.name, 'files/', '.platform.app.yaml'), "r") as stream:
                 try:
                     platformAppYaml = yaml.safe_load(stream)
                     # @todo should we check to make sure we have a type key before using it?
                     # @todo is there ever a situation where we might end up with more than two parts?
                     self.type, self.typeVersion = platformAppYaml['type'].split(':')
+                    self.sourceOpUpdate = self.source_operations(platformAppYaml)
                 except yaml.YAMLError as exc:
                     print(exc)
 
@@ -133,12 +137,19 @@ class BaseProject(object):
         Individual projects may expand on these tasks as needed.
         """
         actions = ['rsync -aP {0} {1}'.format(
-            os.path.join(ROOTDIR,'common/all/'),  self.builddir
+            os.path.join(ROOTDIR, 'common/all/'), self.builddir
         ),
-        'rsync -aP {0} {1}'.format(
-            os.path.join(TEMPLATEDIR, self.name, 'files/'),  self.builddir
-        )
+            'rsync -aP {0} {1}'.format(
+                os.path.join(TEMPLATEDIR, self.name, 'files/'), self.builddir
+            )
         ]
+
+        if hasattr(self, 'sourceOpUpdate') and self.sourceOpUpdate:
+            actions.append('echo "adding source operations github workflow files to {}"'.format(self.name))
+            actions.append('rsync -aP {0} {1}'.format(
+                os.path.join(ROOTDIR, 'common/sourceop-auto-update/'), self.builddir
+            ))
+
         patches = glob(os.path.join(TEMPLATEDIR, self.name, "*.patch"))
         for patch in patches:
             actions.append('cd {0} && patch -p1 < {1}'.format(
@@ -166,8 +177,9 @@ class BaseProject(object):
 
     @property
     def push(self):
-        return ['cd {0} && if [ `git rev-parse {1}` != `git rev-parse master` ] ; then git checkout {1} && git push --force -u origin {1}; fi'.format(
-            self.builddir, self.updateBranch)
+        return [
+            'cd {0} && if [ `git rev-parse {1}` != `git rev-parse master` ] ; then git checkout {1} && git push --force -u origin {1}; fi'.format(
+                self.builddir, self.updateBranch)
         ]
 
     def package_update_actions(self):
@@ -180,7 +192,9 @@ class BaseProject(object):
         for directory in os.walk(self.builddir):
             if '.platform.app.yaml' in directory[2]:
                 for file, command in self.updateCommands.items():
-                    actions.append('cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file, command))
+                    actions.append(
+                        'cd {0} && [ -f {1} ] && {2} || echo "No {1} file found, skipping."'.format(directory[0], file,
+                                                                                                    command))
 
         return actions
 
@@ -192,10 +206,17 @@ class BaseProject(object):
         """
 
         with open('{0}/composer.json'.format(self.builddir), 'r') as f:
-        # The OrderedDict means that the property orders in composer.json will be preserved.
+            # The OrderedDict means that the property orders in composer.json will be preserved.
             composer = json.load(f, object_pairs_hook=OrderedDict)
 
         composer = mod_function(composer)
 
         with open('{0}/composer.json'.format(self.builddir), 'w') as out:
             json.dump(composer, out, indent=2)
+
+    def source_operations(self, platformAppYaml):
+        try:
+            doSourceOp = platformAppYaml['source']['operations']['auto-update']
+            return True
+        except KeyError:
+            return False

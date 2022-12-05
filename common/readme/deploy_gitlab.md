@@ -9,24 +9,12 @@
 
 1. Install the Platform.sh CLI
 
-   #### Linux/OSX
-
-   ```bash
-   curl -sS https://platform.sh/cli/installer | php
-   ```
-
-   #### Windows
-
-   ```bash
-   curl -f https://platform.sh/cli/installer -o cli-installer.php
-   php cli-installer.php
-   ```
-
+   Follow the instructions to [install the Platform.sh CLI](https://docs.platform.sh/administration/cli.html) for your operating system.
    You can verify the installation by logging in (`platformsh login`) and listing your projects (`platform project:list`).
 
 1. Create the repository
 
-   Create a new repository on GitLab, set it as a new remote for your local copy, and push to the default branch. 
+   Create a new repository on GitLab, set it as a new remote for your local copy, and push to the default branch.
 
 1. Setup the integration:
 

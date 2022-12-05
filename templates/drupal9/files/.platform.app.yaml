@@ -82,9 +82,11 @@ hooks:
         set -e
         php ./drush/platformsh_generate_drush_yml.php
         cd web
-        drush -y cache-rebuild
-        drush -y updatedb
-        drush -y config-import
+        # if drupal is installed, will call the following drush commands:
+        #   - `cache-rebuild`
+        #   - `updatedb`
+        #   - and if config files are present, `config-import`
+        ./drush/platformsh_deploy_drupal.sh
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -146,11 +148,12 @@ crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        cmd: 'cd web ; drush core-cron'
+        commands: 
+            start: 'cd web ; drush core-cron'
 
 source:
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    
+

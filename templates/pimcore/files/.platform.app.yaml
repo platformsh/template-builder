@@ -104,11 +104,11 @@ hooks:
 crons:
     pimcore_cron:
         spec: "*/5 * * * *"
-        cmd: "bin/console maintenance"
+        commands: "bin/console maintenance"
 
 source:
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    
+

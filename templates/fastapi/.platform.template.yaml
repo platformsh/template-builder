@@ -29,13 +29,14 @@ info:
   tags:
   - Python
   - Framework
+  - FastAPI
   # An image URI (either base64-encoded or a URL) representing the template.
   image: data:image/svg+xml,%3Csvg xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns%23' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' id='svg8' viewBox='0 0 346.36511 63.977134' height='63.977139mm' width='346.36511mm'%3E%3Cdefs id='defs2' /%3E%3Cmetadata id='metadata5'%3E%3Crdf:RDF%3E%3Ccc:Work rdf:about=''%3E%3Cdc:format%3Eimage/svg+xml%3C/dc:format%3E%3Cdc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage' /%3E%3Cdc:title%3E%3C/dc:title%3E%3C/cc:Work%3E%3C/rdf:RDF%3E%3C/metadata%3E%3Cg transform='translate(30.552089,-55.50154)' id='layer1'%3E%3Cpath style='opacity:0.98000004;fill:%23009688;fill-opacity:1;stroke-width:3.20526505' id='path817' d='m 1.4365174,55.50154 c -17.6610514,0 -31.9886064,14.327532 -31.9886064,31.988554 0,17.661036 14.327555,31.988586 31.9886064,31.988586 17.6609756,0 31.9885196,-14.32755 31.9885196,-31.988586 0,-17.661022 -14.327544,-31.988554 -31.9885196,-31.988554 z m -1.66678692,57.63069 V 93.067264 H -11.384533 L 4.6417437,61.847974 V 81.912929 H 15.379405 Z' /%3E%3Ctext id='text979' y='114.91215' x='52.115433' style='font-style:normal;font-weight:normal;font-size:79.71511078px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:%23009688;fill-opacity:1;stroke:none;stroke-width:1.99287772;' xml:space='preserve'%3E%3Ctspan style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:%23009688;fill-opacity:1;stroke-width:1.99287772;' y='114.91215' x='52.115433' id='tspan977'%3EFastAPI%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/svg%3E
 
   # Additional notes displayed in the template's detail view.
   # Each note object is displayed as a small section heading with content below. Supports limited HTML.
   notes:
-    - heading: "Apps & Services"
+    - heading: "Features"
       content: "Python 3.9<br/>MariaDB 10.4<br/>Redis 5.0"
 
 # This key describes the initialization call made to the master environment at

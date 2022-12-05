@@ -66,7 +66,7 @@ mounts:
 
 # Configuration of the build of this application.
 build:
-    flavor: composer
+    flavor: none
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
@@ -80,6 +80,8 @@ hooks:
     # fast.
     deploy: |
         set -e
+        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
         php ./drush/platformsh_generate_drush_yml.php
         cd web
         # if drupal is installed, will call the following drush commands:
@@ -148,7 +150,7 @@ crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        commands: 
+        commands:
             start: 'cd web ; drush core-cron'
 
 source:

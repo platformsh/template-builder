@@ -49,7 +49,7 @@ mounts:
 
 # Configuration of the build of this application.
 build:
-    flavor: composer
+    flavor: none
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
@@ -58,6 +58,8 @@ hooks:
         set -e
         bash install-redis.sh 4.3.0
     # The deploy hook runs after your application has been deployed and started.
+        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
     deploy: |
         set -e
         php ./drush/platformsh_generate_drush_yml.php

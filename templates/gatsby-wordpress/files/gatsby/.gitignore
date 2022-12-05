@@ -1,5 +1,4 @@
-test.txt
-
+.wordpress-cache
 
 # Logs
 logs
@@ -56,6 +55,7 @@ typings/
 
 # dotenv environment variable files
 .env*
+!.environment
 
 # gatsby files
 .cache/
@@ -70,7 +70,3 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
-
-# Ignore mounts
-.cache
-public

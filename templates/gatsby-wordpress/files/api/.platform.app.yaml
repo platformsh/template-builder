@@ -65,3 +65,10 @@ mounts:
     "wordpress/wp-content/uploads":
         source: local
         source_path: "uploads"
+
+hooks:
+    build: |
+        set -e
+        # Copy manually-provided plugins into the plugins directory.
+        # This allows manually-provided and composer-provided plugins to coexist.
+        rsync -a plugins/* wordpress/wp-content/plugins/

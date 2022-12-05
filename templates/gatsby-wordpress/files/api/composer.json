@@ -38,10 +38,10 @@
     }
   },
   "scripts": {
-    "copywpconfig": [
-      "cp wp-config.php wordpress/"
+    "subdirComposer": [
+      "cp wp-config.php wordpress/ && rm -rf wordpress/wp-content/wp-content"
     ],
-    "post-install-cmd": "@copywpconfig"
+    "post-install-cmd": "@subdirComposer"
   },
   "extra": {
     "installer-paths": {
@@ -61,11 +61,5 @@
       "type": "composer",
       "url": "https://wpackagist.org"
     }
-  ],
-  "config": {
-    "allow-plugins": {
-      "johnpbloch/wordpress-core-installer": true,
-      "composer/installers": true
-    }
-  }
+  ]
 }

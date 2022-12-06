@@ -74,14 +74,15 @@ hooks:
     # No services are available but the disk is writeable.
     build: |
         set -e
+        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
+
     # The deploy hook runs after your application has been deployed and started.
     # Code cannot be modified at this point but the database is available.
     # The site is not accepting requests while this script runs so keep it
     # fast.
     deploy: |
         set -e
-        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
-        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
         php ./drush/platformsh_generate_drush_yml.php
         cd web
         # if drupal is installed, will call the following drush commands:

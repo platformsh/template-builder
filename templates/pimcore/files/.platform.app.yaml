@@ -104,7 +104,8 @@ hooks:
 crons:
     pimcore_cron:
         spec: "*/5 * * * *"
-        commands: "bin/console maintenance"
+        commands:
+            start: "bin/console maintenance"
 
 source:
   operations:

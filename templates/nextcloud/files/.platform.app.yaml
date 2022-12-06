@@ -109,8 +109,10 @@ crons:
     # Run NextClouds's cron tasks every 5 minutes.
     cron:
         spec: '*/5 * * * *'
-        commands: 'cd src ; php cron.php'
+        commands:
+            start: 'cd src ; php cron.php'
     preview:
         spec: '*/10 * * * *'
-        commands: './occ preview:pre-generate'
+        commands:
+            start: './occ preview:pre-generate'
 

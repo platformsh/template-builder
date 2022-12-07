@@ -29,10 +29,10 @@ hooks:
     build: |
         set -e
         # Install Drush integration for Backdrop
-        VERSION=1.0.0
+        VERSION=1.x-1.x
         mkdir -p .drush/commands
         cd .drush/commands
-        wget https://github.com/backdrop-contrib/drush/archive/$VERSION.zip
+        wget https://github.com/backdrop-contrib/backdrop-drush-extension/archive/refs/heads/$VERSION.zip
         unzip $VERSION.zip -d backdrop
         rm $VERSION.zip
 

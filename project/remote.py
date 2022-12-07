@@ -28,7 +28,7 @@ class RemoteProject(BaseProject):
     @property
     def update(self):
         actions = [
-            'cd {0} && git checkout master'.format(self.builddir),
+            'cd {0} && git checkout {1}'.format(self.builddir, self.default_branch),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
             # Remove working directory files when updating from upstream, so that deletions get picked up.

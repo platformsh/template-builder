@@ -12,7 +12,7 @@ from project import BaseProject, TEMPLATEDIR
 from project.akeneo import Akeneo
 from project.backdrop import Backdrop
 from project.drupal import Drupal7_vanilla, Drupal8, Drupal8_multisite, Drupal8_opigno, Drupal8_govcms8, Drupal9
-from project.drupal import Drupal9_multisite, Contentacms
+from project.drupal import Drupal9_multisite, Contentacms, Drupal10
 from project.elasticapm import Elastic_apm
 from project.gatsby import Gatsby
 from project.hugo import Hugo

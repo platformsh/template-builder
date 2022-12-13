@@ -1,0 +1,72 @@
+{
+    "project": {
+        "production": {
+            "installed": false
+        },
+        "modules": [
+            "gatsby",
+            "gatsby_fastbuilds",
+            "gatsby_instantpreview",
+            "pathauto"
+        ],
+        "consumer": {
+            "role": {
+                "id": "oauth_consumer_role",
+                "label": "OAuth Consumer Role",
+                "permissions": [
+                    "sync gatsby fastbuild log entities",
+                    "sync gatsby fastbuild preview log entities"
+                ]
+            },
+            "user": {
+                "id": "oauth_consumer_user",
+                "uid": null
+            }
+        },
+        "nodes": {
+            "pathauto": {
+                "type": "node",
+                "bundle": "article",
+                "label": "Article",
+                "pattern": "/blog/[node:title]"
+            },
+            "demo": {
+                "data": "04-dummy-nodes.json",
+                "num_nodes": 15
+            }
+        }
+    },
+    "environment": {
+        "branch": null,
+        "key_path": "/app/private",
+        "consumer": {
+            "id": "oauth_consumer_env",
+            "uid": null,
+            "secret": null,
+            "label": "Next.js OAuth Env Consumer",
+            "description": "This is the Next.js OAuth consumer. It was created programmatically by Platform.sh during this environment's first deploy to configure multi-app. Please do not delete.",
+            "site": "Next.js OAuth Env Consumer Site"
+        },
+        "site": {
+            "id": "nextjs_site",
+            "label": "Next.js Site",
+            "front_page": "/node",
+            "resolver": {
+                "id": "node.article",
+                "type": "site_selector"
+            },
+            "preview_secret": null,
+            "url": {
+                "base": null,
+                "preview": null,
+                "image_domain": null
+            }
+        },
+        "client": {
+            "url": {
+                "base": null,
+                "preview": null
+            }
+        }
+    }
+}

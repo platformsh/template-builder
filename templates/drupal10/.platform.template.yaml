@@ -26,7 +26,7 @@ info:
           Composer-based build<br />
 
 initialize:
-  repository: https://github.com/platformsh-templates/drupal10.git@updatesLocal
+  repository: https://github.com/platformsh-templates/drupal10.git@master
   config: null
   files: []
   profile: Drupal 10

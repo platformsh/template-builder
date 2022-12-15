@@ -74,7 +74,7 @@ class Drupal8(RemoteProject):
 
 class Drupal9(RemoteProject):
     # This can have a common base with Drupal 8 eventually, once modules are updated.
-    major_version = "9.3"
+    major_version = "9.5"
     remote = 'https://github.com/drupal/recommended-project.git'
 
     def package_update_actions(self):
@@ -391,14 +391,8 @@ class Drupal9_govcms9(RemoteProject):
 
 
 class Drupal10(RemoteProject):
-    major_version = "10.0.0-rc1"
+    major_version = "10.0"
     remote = 'https://github.com/drupal/recommended-project.git'
-
-    default_branch = "main"
-
-    # Example for pushing to a fork
-    # default_branch = "master"
-    # template_org = "Mupsi"
 
     def package_update_actions(self):
         actions = super(Drupal10, self).package_update_actions()

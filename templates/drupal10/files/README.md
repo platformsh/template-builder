@@ -81,7 +81,7 @@ The quickest way to deploy this template on Platform.sh is by clicking the butto
 This will automatically create a new project and initialize the repository for you.
 
 <p align="center">
-    <a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/feature/add-drupal-10/templates/drupal10/.platform.template.yaml">
+    <a href="https://console.platform.sh/projects/create-project/?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/drupal10/.platform.template.yaml">
         <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="170px" />
     </a>
 </p>

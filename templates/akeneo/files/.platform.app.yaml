@@ -153,19 +153,24 @@ mounts:
 crons:
     refresh:
         spec: '30 1 * * *'
-        commands: 'php bin/console pim:versioning:refresh'
+        commands: 
+            start: 'php bin/console pim:versioning:refresh'
     purge_versioning:
         spec: '30 2 * * *'
-        commands: 'php bin/console pim:versioning:purge –more-than-days 90'
+        commands: 
+            start: 'php bin/console pim:versioning:purge –more-than-days 90'
     update_data:
         spec: '1 * * * *'
-        commands: 'php bin/console akeneo:connectivity-audit:update-data'
+        commands: 
+            start: 'php bin/console akeneo:connectivity-audit:update-data'
     purge_jobs:
         spec: '20 0 1 * *'
-        commands: 'php bin/console akeneo:batch:purge-job-execution'
+        commands: 
+            start: 'php bin/console akeneo:batch:purge-job-execution'
     aggregate:
         spec: '30 4 * * *'
-        commands: 'php bin/console pim:volume:aggregate'
+        commands: 
+            start: 'php bin/console pim:volume:aggregate'
 
 workers:
     queue:

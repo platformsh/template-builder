@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # This is a simple script for handling committed files and mounts on Platform.sh. Some application require write access to certain locations
-# at runtime, and must be defined with mounts (https://docs.platform.sh/configuration/app/storage.html#mounts). One consequence of defining a 
+# at runtime, and must be defined with mounts (https://docs.platform.sh/configuration/app/storage.html#mounts). One consequence of defining a
 # location as a mount, however, is that when the location is mounted during the deploy hook, any files that may have been committed or modified
-# during the build hook there will be overwritten by whatever exists in persistent storage for that environment. 
-# 
+# during the build hook there will be overwritten by whatever exists in persistent storage for that environment.
+#
 # This script stages those files in a tmp directory (MOUNT_TMP) during the build hook, and then recopies them to their final location during the
-# deploy hook to get around this. Call this script as the last line and first line in your build and deploy hooks, respectively. 
-# 
+# deploy hook to get around this. Call this script as the last line and first line in your build and deploy hooks, respectively.
+#
 # Limitations:
 #   - Does not yet handles nested mounts well (i.e. `/.next/cache`), so best to use its parent directory in your mount definition (`/.next`).
 
@@ -27,31 +27,34 @@ stage_files() {
     # Create the tmp directory (MOUNT_TMP) on the first pass only. (/app/platformsh-mounts on Platform.sh)
     if [ -d $PLATFORM_APP_DIR/$MOUNT_TMP ]; then
         mkdir $PLATFORM_APP_DIR/$MOUNT_TMP
-    fi 
-    # Duplicate the mount directory in MOUNT_TMP. 
+    fi
+    # Duplicate the mount directory in MOUNT_TMP.
     mkdir -p $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp
     # Move its files.
     mv $PLATFORM_APP_DIR/$MOUNT/* $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp
 }
 
+rm -rf $PLATFORM_APP_DIR/node_modules
+mv $PLATFORM_APP_DIR/.next/standalone/* $PLATFORM_APP_DIR
+
 # During the deploy hook, this function moves files committed to the same directory as one defined in `.platform.app.yaml`
-#   away from the tmp directory MOUNT_TMP back into their original location, which is now a mount with write-access at 
+#   away from the tmp directory MOUNT_TMP back into their original location, which is now a mount with write-access at
 #   deploy time.
 restore_files() {
     MOUNT=`clean_mount_defn $1`
-    if [ -d $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp ]; then 
-        # Clean up files in mount so it's up to date with what we're moving over. 
+    if [ -d $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp ]; then
+        # Clean up files in mount so it's up to date with what we're moving over.
         rm -r $PLATFORM_APP_DIR/$MOUNT/*
         # Restore the directory's files.
         cp -r $PLATFORM_APP_DIR/$MOUNT_TMP/$MOUNT-tmp/* $PLATFORM_APP_DIR/$MOUNT
-    fi 
+    fi
 }
 
 # Main function
 run() {
     # Use PLATFORM_APPLICATION environment variable and jq to find all user-defined mounts.
     MOUNTS=$(echo $PLATFORM_APPLICATION | base64 --decode | jq '.mounts | keys')
-    for mount in $(echo "${MOUNTS}" | jq -r '.[]'); do 
+    for mount in $(echo "${MOUNTS}" | jq -r '.[]'); do
         _jq() {
             # Build hook. The $PLATFORM_BRANCH environment variable is not available in build containers.
             if [ -z "${PLATFORM_BRANCH}" ]; then

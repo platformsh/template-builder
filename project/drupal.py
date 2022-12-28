@@ -10,7 +10,7 @@ TEMPLATEDIR = os.path.join(ROOTDIR, 'templates')
 
 class Drupal9(RemoteProject):
     # This can have a common base with Drupal 8 eventually, once modules are updated.
-    major_version = "9.3"
+    major_version = "9.5"
     remote = 'https://github.com/drupal/recommended-project.git'
 
     def package_update_actions(self):
@@ -183,3 +183,49 @@ class Drupal9_govcms9(RemoteProject):
             'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
             'rsync -aP {0} {1}'.format(os.path.join(ROOTDIR, 'common/drupal9/'), self.builddir),
         ]
+
+
+class Drupal10(RemoteProject):
+    major_version = "10.0"
+    remote = 'https://github.com/drupal/recommended-project.git'
+
+    def package_update_actions(self):
+        actions = super(Drupal10, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(
+                       self.builddir),
+               ] + actions
+
+    @property
+    def update(self):
+        projectName = "drupal10"
+
+        def drupal10_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name'] = "platformsh/{0}".format(projectName)
+            composer['description'] = "This template builds Drupal 10 for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal10, self).update + [
+            (self.modify_composer, [drupal10_modify_composer])
+        ]
+
+    @property
+    def platformify(self):
+        return super(Drupal10, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(
+                self.builddir) + self.composer_defaults(),
+        ]
+

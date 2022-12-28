@@ -1,7 +1,7 @@
 name: app
 type: php:8.1
 build:
-    flavor: composer
+    flavor: none
 
 variables:
     env:
@@ -13,6 +13,8 @@ variables:
 hooks:
     build: |
         set -e
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
         # Install the node version specified in the .nvmrc file
         n auto
         # Reset the location hash to recognize the newly installed version

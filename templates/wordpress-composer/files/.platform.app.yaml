@@ -9,7 +9,7 @@ type: 'php:8.1'
 
 # Configuration of the build of the application.
 build:
-    flavor: composer
+    flavor: none
 
 dependencies:
     php:
@@ -19,6 +19,9 @@ dependencies:
 hooks:
     build: |
         set -e
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
+
         # Copy manually-provided plugins into the plugins directory.
         # This allows manually-provided and composer-provided plugins to coexist.
         rsync -a plugins/* wordpress/wp-content/plugins/

@@ -22,7 +22,7 @@ runtime:
 # composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader
 # if composer.json is detected.
 build:
-    flavor: composer
+    flavor: none
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -122,6 +122,8 @@ hooks:
     build: |
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
 
         # Start the installation with no interaction or extension setup, using `SetupConfiguration.yaml`.
         if [ ! -f var/platformsh.installed ]; then

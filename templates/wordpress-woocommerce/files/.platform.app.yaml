@@ -14,7 +14,7 @@ dependencies:
 
 # Configuration of the build of the application.
 build:
-    flavor: composer
+    flavor: none
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -73,6 +73,14 @@ mounts:
     "web/wp/wp-content/uploads":
         source: local
         source_path: "uploads"
+
+hooks:
+    build: |
+        # Exit hook immediately if a command exits with a non-zero status.
+        set -e
+
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
+        composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
 
 source:
   operations:

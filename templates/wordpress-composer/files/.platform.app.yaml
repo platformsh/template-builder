@@ -19,7 +19,7 @@ dependencies:
 hooks:
     build: |
         set -e
-        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
         composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
 
         # Copy manually-provided plugins into the plugins directory.

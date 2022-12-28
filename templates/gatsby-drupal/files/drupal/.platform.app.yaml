@@ -57,9 +57,9 @@ hooks:
     build: |
         set -e
         bash install-redis.sh 4.3.0
-        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
         composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
-      
+
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
         set -e

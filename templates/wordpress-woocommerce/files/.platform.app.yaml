@@ -79,7 +79,7 @@ hooks:
         # Exit hook immediately if a command exits with a non-zero status.
         set -e
 
-        # @see https://docs.platform.sh/languages/php.html#build-flavor adding `--no-dev`
+        # @see https://docs.platform.sh/languages/php.html#change-the-build-flavor adding `--no-dev`
         composer install --no-dev --no-progress --no-ansi --no-interaction --prefer-dist --optimize-autoloader
 
 source:

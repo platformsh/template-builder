@@ -22,7 +22,7 @@
     "@strapi/strapi": "4.0.2",
     "@strapi/utils": "^4.0.2",
     "dotenv": "^10.0.0",
-    "knex": "0.21.18",
+    "knex": "2.4.0",
     "mysql": "^2.18.1",
     "pg": "^8.7.1",
     "platformsh-config": "^2.4.1",

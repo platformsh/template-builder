@@ -97,9 +97,10 @@ class Wordpress_bedrock(WordPressComposerBase):
         def wp_modify_composer(composer):
             return super(Wordpress_bedrock, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_bedrock, self).platformify + [
-            (self.modify_composer, [wp_modify_composer]),
+        return [
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+        ] + super(Wordpress_bedrock, self).platformify + [
+            (self.modify_composer, [wp_modify_composer]),
             'cd {0} && composer require platformsh/config-reader wp-cli/wp-cli-bundle psy/psysh'.format(
                 self.builddir) + self.composer_defaults(),
             'cd {0} && composer update'.format(self.builddir),
@@ -120,7 +121,9 @@ class Wordpress_woocommerce(WordPressComposerBase):
         def wp_modify_composer(composer):
             return super(Wordpress_woocommerce, self).wp_modify_composer(composer, self.unPinDependencies)
 
-        return super(Wordpress_woocommerce, self).platformify + [
+        return [
+            'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
+        ] + super(Wordpress_woocommerce, self).platformify + [
             (self.modify_composer, [wp_modify_composer]),
             'cd {0} && rm -rf .circleci && rm -rf .github'.format(self.builddir),
             'cd {0} && composer require wpackagist-plugin/woocommerce wpackagist-plugin/jetpack'.format(

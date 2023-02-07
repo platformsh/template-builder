@@ -58,7 +58,7 @@ jobs:
                   test = {"template": dirs}
                   print(json.dumps(dirs))
                   ')
-                  echo "::set-output name=templates::$TEMPLATES"
+                  echo "templates=${TEMPLATES}" >> $GITHUB_OUTPUT
             - name: Install Poetry
               run: |
                   python -m pip install poetry==$POETRY_VERSION
@@ -78,7 +78,7 @@ jobs:
               run: |
                   RUN_URL=https://github.com/$REPOOWNER/template-builder/actions/runs/$GITHUB_RUN_ID
                   THREAD_ID=$(SLACK_BOT_TOKEN=$SLACK_TOKEN CHANNEL_ID=$SLACK_CHANNEL_ID JOB_ID="$JOB_ID" JOB_COLOR=$JOB_COLOR poetry run python utils/slack_notifier.py start $RUN_URL "$START_MESSAGE")
-                  echo "::set-output name=threadts::$THREAD_ID"
+                  echo "threadts=${THREAD_ID}" >> $GITHUB_OUTPUT
 
     # B. Run the update across the templates list.
     update:
@@ -177,7 +177,7 @@ jobs:
                     # - template: contentacms
                     # - template: gin
                     # - template: pelican
-                    
+
 
 
         steps:
@@ -250,7 +250,7 @@ jobs:
                     echo "SLACK_STATUS=skip" >> $GITHUB_ENV
                     exit 11;
                   else
-                    echo "::set-output name=repoNodeID::${repoNodeID}"
+                    echo "repoNodeID=${repoNodeID}" >> $GITHUB_OUTPUT
                   fi
             # 2. Verify the repository is set for automerge
             - name: Step 2. Check if auto-merge is enabled for repository
@@ -267,7 +267,7 @@ jobs:
                   # Get the default branch.
                   DEFAULT_BRANCH=$(gh api /repos/${TEMPLATEOWNER}/${{ matrix.template }} --jq '.default_branch')
                   echo "Our default branch for this template is ${DEFAULT_BRANCH}"
-                  echo "::set-output name=branch::$DEFAULT_BRANCH"
+                  echo "branch=${DEFAULT_BRANCH}" >> $GITHUB_OUTPUT
 
             # 4. Create branch protection if does not exist on the default branch; update to latest version.
             - name: Prepare Repo for Auto Merge
@@ -316,7 +316,7 @@ jobs:
                     fi
                   fi
 
-                  echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+                  echo "status=$( echo $STATUS | jq -r '.message' )" >> $GITHUB_OUTPUT
             - name: "Step 8. Initialize remote"
               run: |
                   # Get the remote
@@ -375,10 +375,10 @@ jobs:
                     echo "SLACK_PRURL=no-pr" >> $GITHUB_ENV
                     echo "SLACK_STATUS=skip" >> $GITHUB_ENV
                     echo "PR_STATUS=skip" >> $GITHUB_ENV
-                    echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+                    echo "status=$( echo $STATUS | jq -r '.message' )" >> >> $GITHUB_OUTPUT
                     # exit 110; // we dont want to exit as it causes this job to be marked as "failed"
                   else
-                    echo "::set-output name=status::$( echo $STATUS | jq -r '.message' )"
+                    echo "status=$( echo $STATUS | jq -r '.message' )" >> $GITHUB_OUTPUT
                     echo "PR_STATUS=continue" >> $GITHUB_ENV
                   fi
 
@@ -396,8 +396,8 @@ jobs:
                   prRegex="([0-9]+$)"
                   if [[ -n "${response}" && $response =~ $prRegex ]]; then
                     PR=${BASH_REMATCH[1]}
-                    echo "::set-output name=pull-request-link::$response"
-                    echo "::set-output name=pull-request-number::$PR"
+                    echo "pull-request-link=${response}" >> $GITHUB_OUTPUT
+                    echo "pull-request-number=${PR}" >> $GITHUB_OUTPUT
                   else
                     echo "cli didn't fail but response is empty or didnt match the regex?"
                     echo "${response}"

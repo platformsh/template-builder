@@ -21,6 +21,7 @@ info:
   id: platformsh/django4
   # The human-readable name of the template.
   name: Django 4
+  class: starter
   # Human-readable descriptive text for the template. Supports limited HTML.
   description: |
       <p>This template builds Django 4 on Platform.sh, using the gunicorn application runner.</p>

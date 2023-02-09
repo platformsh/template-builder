@@ -4,10 +4,10 @@
 # See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
 
 # The name of this app. Must be unique within a project.
-name: app
+name: fastapi
 
 # The runtime the application uses.
-type: "python:3.9"
+type: "python:3.10"
 
 # The build-time dependencies of the app.
 dependencies:

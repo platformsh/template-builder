@@ -12,7 +12,7 @@ WordPress is a blogging and lightweight CMS written in PHP.
 
 ## Features
 
-* PHP 7.4
+* PHP 8.1
 * MariaDB 10.4
 * Automatic TLS certificates
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <style>
+            html, body {
+                height: 100%;
+                font-family: 'Overpass', sans-serif;
+            }
+            .container {  display: grid;
+            grid-template-columns: 25% 1fr 25%;
+            grid-template-rows: 10% 1fr 70%;
+            gap: 0px 0px;
+            grid-auto-flow: row;
+            grid-template-areas:
+                "logo middle-top right-top"
+                "left-space main right-space"
+                "footer footer footer";
+            }
+
+            .logo { grid-area: logo; text-align: center;}
+
+            .logo > a {
+                margin: 0;
+                position: absolute;
+                bottom: 0%;
+                right: 25%;
+            }
+
+            .middle-top { grid-area: middle-top; }
+
+            .right-top { grid-area: right-top; }
+
+            .left-space { grid-area: left-space; }
+
+            .main { grid-area: main; 
+                padding: 5% 10%;
+                margin: 10em 0;
+                box-shadow: 0 6px 24px rgb(73 71 95 / 35%);
+            }
+
+            .right-space { grid-area: right-space; }
+
+            .footer { grid-area: footer; }
+
+
+            html, body , .container {
+            height: 100%;
+            margin: 0;
+            }
+
+            /* For presentation only, no need to copy the code below */
+
+            .container * {
+            /* border: 1px solid red; */
+            position: relative;
+            }
+
+            .container *:after {
+            /* content:attr(class); */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            }
+
+        </style>
+    </head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <a href="https://platform.sh">
+                <img src="https://platform.sh/logos/redesign/Platformsh_logo_black.svg" width="200px">
+            </a>
+        </div>
+        <div class="middle-top"></div>
+        <div class="right-top"></div>
+        <div class="left-space"></div>
+        <div class="main">
+            <h1 align="center">Success!</h1>
+            <h3 align="center">You've just deployed the FastAPI starter project to Platform.sh!</h3>
+            <p align="center">From here you can use the same configuration files to migrate your own project.</p>
+        </div>
+        <div class="right-space"></div>
+        <div class="footer"></div>
+      </div>
+</body>
+</html> 

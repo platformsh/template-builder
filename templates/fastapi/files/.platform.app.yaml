@@ -1,5 +1,5 @@
 #########################
-# Django 4 using pip
+# FastAPI using pip
 ##########################
 # Container configuration.
 
@@ -8,6 +8,10 @@ name: 'app'
 
 #   The runtime the application uses.
 type: 'python:3.11'
+
+dependencies:
+    python3:
+       pipenv: '2023.2.4'
 
 ##########################
 # Builds and variables
@@ -20,7 +24,7 @@ hooks:
         python3.11 -m pip install --upgrade pip
 
         # Install dependencies
-        pip install -r requirements.txt
+        pipenv install --deploy
 
 ##########################
 # Web configuration
@@ -28,7 +32,7 @@ hooks:
 # The configuration of the application when it is exposed to the web.
 web:
     commands:
-        start: "python server.py"
+        start: "pipenv run python server.py"
 
 ##########################
 # Services

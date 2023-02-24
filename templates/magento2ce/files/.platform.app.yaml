@@ -4,26 +4,37 @@
 # See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
 
 # The name of this app. Must be unique within a project.
-name: app
+name: magento
 
 # The runtime the application uses.
-type: php:8.1
+type: php:7.4
 
+dependencies:
+    php:
+        composer/composer: "^1"
+
+###
 # Specify additional PHP extensions that should be loaded.
+# To determine what you need to enable
+#   1. run locally: composer check-platform-reqs | grep "ext-\|php"
+#   2. Compare to https://docs.platform.sh/languages/php/extensions.html
+#      - "Def" = Already Enabled
+#      - "Avail" = Available, but you need to enable below.
 runtime:
     extensions:
-    - xsl
-    - sodium
-    - redis
-    - blackfire
+        - xsl
+        - sodium
+
+# Customize your PHP.ini.
+# See: https://docs.platform.sh/languages/php/ini.html
+variables:
+    php:
+        # Include Magento's out-of-the-box settings
+        include: /app/.user.ini
 
 # Configuration of the build of this application.
 build:
     flavor: composer
-
-dependencies:
-    php:
-        composer/composer: '^2'
 
 # The relationships of the application with services or other applications.
 #
@@ -31,83 +42,80 @@ dependencies:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: db:mysql
-    redis: cache:redis
-    elasticsearch: indexer:elasticsearch
-    rabbitmq: queue:rabbitmq
+    database: magento_database:mysql
+    redis: magento_redis:redis
+    search: magento_search:opensearch
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
 # The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    "/var":
-        source: local
-        source_path: "var"
-    "/app/etc":
-        source: local
-        source_path: "etc"
-    "/pub/media":
-        source: local
-        source_path: "media"
-    "/pub/static":
-        source: local
-        source_path: "static"
+    "var": "shared:files/var"
+    "generated": "shared:files/generated"
+    "app/etc": "shared:files/etc"
+    "pub/media": "shared:files/media"
+    "pub/static": "shared:files/static"
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
-  build: |
-    set -e
-    php ./vendor/bin/ece-tools build:generate
-    php ./vendor/bin/ece-tools build:transfer
-  deploy: |
-    set -e
-    php ./vendor/bin/ece-tools deploy -vvv
-  post_deploy: |
-    set -e
-    php ./vendor/bin/ece-tools post-deploy -vvv
-    php bin/magento admin:user:create --admin-user=admin --admin-password=admin --admin-email=admin@example.com --admin-firstname=Admin --admin-lastname=Istrator
-
-# The configuration of scheduled execution.
-crons:
-    magento:
-        spec: "*/5 * * * *"
-        commands: bash -c 'for group in $(grep -shoP "(?<=<group id=\")(.+)(?=\">)" {app,vendor}/*/*/etc/cron_groups.xml); do echo -n Running cron group ${group} --- && php -d memory_limit=-1 bin/magento cron:run --group=${group}; done'
-    logrotate:
-        spec: "45 1 * * *"
-        commands: shtool rotate -n10 $PLATFORM_APP_DIR/var/log/*.log
-    reportcleanup:
-        spec: "0 2 * * *"
-        commands: find $PLATFORM_APP_DIR/var/report/* -mtime +10 -delete
+    # The build hook runs on your code to prepare it for an active environment.
+    build: |
+        set -e
+        mkdir -p .versioned_backup/etc && cp app/etc/* .versioned_backup/etc/
+    # The deploy hook runs after your application has been deployed and started.
+    deploy: |
+        set -e
+        cp .versioned_backup/etc/* app/etc/
+        php deploy.php
 
 # The configuration of app when it is exposed to the web.
 web:
     locations:
-        "/":
-            # The public directory of the app, relative to its root.
+        '/':
             root: "pub"
-            # The front-controller script to send non-static requests to.
             passthru: "/index.php"
             index:
                 - index.php
-            expires: -1
             scripts: true
             allow: false
             rules:
                 \.(css|js|map|hbs|gif|jpe?g|png|tiff|wbmp|ico|jng|bmp|svgz|midi?|mp?ga|mp2|mp3|m4a|ra|weba|3gpp?|mp4|mpe?g|mpe|ogv|mov|webm|flv|mng|asx|asf|wmv|avi|ogx|swf|jar|ttf|eot|woff|otf|html?)$:
                     allow: true
-        "/media":
+                ^/sitemap(.*)\.xml$:
+                    passthru: "/media/sitemap$1.xml"
+        '/media':
             root: "pub/media"
             allow: true
             scripts: false
-            expires: 1y
             passthru: "/get.php"
-        "/static":
+            expires: 1y
+        '/static':
             root: "pub/static"
             allow: true
             scripts: false
+            passthru: "/static.php"
             expires: 1y
-            passthru: "/front-static.php"
             rules:
                 ^/static/version\d+/(?<resource>.*)$:
                     passthru: "/static/$resource"
+
+# The configuration of scheduled execution.
+crons:
+    magento:
+        spec: "*/5 * * * *"
+        cmd: "php bin/magento cron:run"
+
+workers:
+    queue:
+        size: S
+        disk: 128
+        commands:
+            start: |
+                bin/magento queue:consumers:start async.operations.all --single-thread --max-messages=10000
+
+source:
+    operations:
+        auto-update:
+            command: |
+                curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0

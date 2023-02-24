@@ -1,0 +1,89 @@
+name: 'drupal'
+
+type: 'php:8.1'
+
+variables:
+  env:
+    CREATE_DEMO_NODES: true
+    CREATE_PATHAUTO_ALIASES: true
+
+dependencies:
+  php:
+    composer/composer: '^2'
+
+runtime:
+  extensions:
+    - redis
+    - sodium
+
+build:
+  flavor: composer
+
+hooks:
+    deploy: !include
+      type: string
+      path: platformsh-scripts/hooks.deploy.sh
+
+relationships:
+  database: 'db:mysql'
+  redis: 'cache:redis'
+
+disk: 2048
+
+mounts:
+  /web/sites/default/files:
+    source: local
+    source_path: 'files'
+  /tmp:
+    source: local
+    source_path: 'tmp'
+  /private:
+    source: local
+    source_path: 'private'
+  /.drush:
+    source: local
+    source_path: 'drush'
+  /drush-backups:
+    source: local
+    source_path: 'drush-backups'
+  /.console:
+    source: local
+    source_path: 'console'
+  deploy:
+    source: service
+    service: files
+    source_path: deploy
+
+web:
+  locations:
+    /:
+      root: 'web'
+      expires: 5m
+      passthru: '/index.php'
+      allow: false
+      rules:
+        \.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$:
+          allow: true
+        ^/robots\.txt$:
+          allow: true
+        ^/sitemap\.xml$:
+          allow: true
+        ^/sites/sites\.php$:
+          scripts: false
+        ^/sites/[^/]+/settings.*?\.php$:
+          scripts: false
+    /sites/default/files:
+      allow: true
+      expires: 5m
+      passthru: '/index.php'
+      root: 'web/sites/default/files'
+      scripts: false
+      rules:
+        ^/sites/default/files/(css|js):
+          expires: 2w
+crons:
+  drupal:
+    spec: '*/19 * * * *'
+    commands:
+      start: 'cd web ; drush core-cron'
+

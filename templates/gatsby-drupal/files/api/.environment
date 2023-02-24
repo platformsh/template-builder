@@ -1,0 +1,23 @@
+# Statements in this file will be executed (sourced) by the shell in SSH
+# sessions, in deploy hooks, in cron jobs, and in the application's runtime
+# environment. This file must be placed in the root of the application, not
+# necessarily the git repository's root. In case of multiple applications,
+# each application can have its own .environment file.
+
+# Allow executable app dependencies from Composer to be run from the path.
+if [ -n "$PLATFORM_APP_DIR" -a -f "$PLATFORM_APP_DIR"/composer.json ] ; then
+  bin=$(composer config bin-dir --working-dir="$PLATFORM_APP_DIR" --no-interaction 2>/dev/null)
+  export PATH="${PLATFORM_APP_DIR}/${bin:-vendor/bin}:${PATH}"
+fi
+
+# Next.js variables.
+FRONTEND_URL=$(echo $PLATFORM_ROUTES | base64 --decode | jq -r 'to_entries[] | select (.value.id == "client") | .key')
+stringlen=${#FRONTEND_URL}
+export FRONTEND_URL=$(echo $FRONTEND_URL | awk -v var=$stringlen '{ string=substr($0, 1, var - 1); print string; }' )
+
+# Demo installation variables.
+export DRUPAL_SETUP=$PLATFORM_APP_DIR/platformsh-scripts
+export INITIAL_DEMO_SETTINGS=$DRUPAL_SETUP/settings.default.json
+export ENV_SETTINGS=$PLATFORM_APP_DIR/deploy/settings.json
+export VARS_LOCAL=$PLATFORM_APP_DIR/deploy/platformsh.env
+export VARS_PSH=$PLATFORM_APP_DIR/deploy/platformsh.environment

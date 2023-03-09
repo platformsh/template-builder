@@ -8,7 +8,7 @@
 
 <p align="center">
 <a href="https://www.govcms.gov.au/">
-<img src="govcms-logo.png" alt="GovCMS logo"  width="100px"  />
+<img src="header.svg"  />
 </a>
 </p>
 

@@ -87,7 +87,7 @@ The following files and additions make the framework work.  If using this projec
 ## References
 
 * [Demo video](https://www.youtube.com/watch?v=1RRDzi0TGRI)
-* [Gatsby for Drupal 8 CodeKarate tutorials](https://www.youtube.com/playlist?list=PLlzlpMzp4eR3EORfm3lwJ_gV5egTa2caF)
+* [Integrating the Latest Gatsby Module for Drupal, by Gatsby](https://www.youtube.com/watch?v=a2MZlAnKOYg)
 * [Gatsby](https://www.gatsbyjs.org/)
 * [gatsby-source-drupal](https://www.gatsbyjs.org/packages/gatsby-source-drupal/)
 * [Dedcoupled Drupal by Lullabot](https://www.lullabot.com/articles/decoupled-drupal-getting-started-gatsby-and-jsonapi)

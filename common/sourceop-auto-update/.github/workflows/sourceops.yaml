@@ -1,23 +1,20 @@
+########################################################################################################################
+##                                                                                                                    ##
+## This github workflow file is part of the Platform.sh process of updating and maintaining our collection of         ##
+## templates. For more information see https://github.com/platformsh-templates/ghrw-templates                         ##
+## and https://github.com/search?q=topic%3Agithub-action+org%3Aplatformsh                                             ##
+##                                                                                                                    ##
+##                                       YOU CAN SAFELY DELETE THIS FILE                                              ##
+##                                                                                                                    ##
+########################################################################################################################
 name: Trigger Source Operations on a Schedule
 on:
   schedule:
     # Run at 00:15 every day
-    - cron: '15 0 * * *'
+    - cron: '15 */19 * * *'
   workflow_dispatch:
 
-env:
-  PLATFORMSH_CLI_TOKEN: ${{ secrets.TEMPLATES_CLI_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
-
 jobs:
-  run_dm_update:
-    name: Trigger Source Op
-    runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'platformsh-templates' }}
-    steps:
-      - name: 'Run source ops'
-        id: run-source-op
-        uses: platformsh/gha-run-sourceops-update@main
-        with:
-          github_token: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
-          platformsh_token: ${{ secrets.TEMPLATES_CLI_TOKEN }}
+  run-reusable-sop-update:
+    uses: platformsh-templates/ghrw-templates/.github/workflows/sourceops.yaml@main
+    secrets: inherit

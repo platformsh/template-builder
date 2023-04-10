@@ -1,6 +1,3 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
-
 # The name of this app. Must be unique within a project.
 name: app
 
@@ -11,6 +8,9 @@ type: 'php:8.1'
 build:
     flavor: composer
 
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and 
+# are available in the PATH during the build process and in the runtime environment. They’re installed before 
+# the build hook runs using a package manager for the language.
 dependencies:
     php:
         composer/composer: '^2'
@@ -22,8 +22,15 @@ hooks:
         # Copy manually-provided plugins into the plugins directory.
         # This allows manually-provided and composer-provided plugins to coexist.
         rsync -a plugins/* wordpress/wp-content/plugins/
+    deploy: |
+        # Flushes the object cache which might have changed between current production and newly deployed changes
+        wp cache flush
+        # Runs the WordPress database update procedure in case core is being updated with the newly deployed changes
+        wp core update-db
+        # Runs all cron events that are due now and may have come due during the build+deploy procedure
+        wp cron event run --due-now
 
-# The relationships of the application with services or other applications.
+      # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
@@ -69,7 +76,7 @@ web:
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-# The mounts that will be performed when the package is deployed.
+# Mounts define directories that are writable after the build is complete
 mounts:
     "wordpress/wp-content/cache":
         source: local
@@ -78,7 +85,15 @@ mounts:
         source: local
         source_path: "uploads"
 
-
+########################################################################################################################
+##                                                                                                                    ##
+## This source operation is part of the Platform.sh process of updating and maintaining our collection of templates.  ##
+## For more information see https://docs.platform.sh/create-apps/source-operations.html and                           ##
+## https://github.com/platformsh/source-operations                                                                    ##
+##                                                                                                                    ##
+##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                       ##
+##                                                                                                                    ##
+########################################################################################################################
 source:
   operations:
     auto-update:

@@ -7,7 +7,7 @@
 ##                                       YOU CAN SAFELY DELETE THIS FILE                                              ##
 ##                                                                                                                    ##
 ########################################################################################################################
-name: Update last.updated
+name: Runs post merge-acceptance workflows
 on:
   push:
     branches:
@@ -15,6 +15,6 @@ on:
       - master
 
 jobs:
-  run-reusable-last-update:
-    uses: platformsh-templates/ghrw-templates/.github/workflows/last-updated.yaml@main
+  run-reusable-post-pr-acceptance:
+    uses: platformsh-templates/ghrw-templates/.github/workflows/post-pr-acceptance.yaml@main
     secrets: inherit

@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template builds the TYPO3 CMS for Platform.sh.  It comes pre-configured with MariaDB for storage and Redis for caching.  A command line installer will automatically initialize the site on first deploy.</p>
       <p>TYPO3 is a PHP-based Content Management System</p>
+  class: experimental
   tags:
   - PHP
   - CMS

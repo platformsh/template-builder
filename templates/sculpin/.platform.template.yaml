@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template provides a basic Sculpin skeleton.  All files are generated at build time, so at runtime only static files need to be served.</p>
       <p>Sculpin is a static site generator written in PHP and using the Twig templating engine.</p>
+  class: experimental
   tags:
   - PHP
   - Framework

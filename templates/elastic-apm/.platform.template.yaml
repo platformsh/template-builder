@@ -28,6 +28,7 @@ info:
       It is intended as a complete self-contained monitoring solution, although authentication needs to be
         configured for your specific application.</p>
 
+  class: experimental
   # A list of tags associated with the template.
   tags:
   - Elasticsearch

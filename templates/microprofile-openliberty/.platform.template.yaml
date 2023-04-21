@@ -6,6 +6,7 @@ info:
   description: |
      <p>This project provides a starter kit for Open Liberty Eclipse MicroProfile projects hosted on Platform.sh.  It includes a minimalist application skeleton that is intended for you to use as a starting point and modify for your own needs, along with the Platform.sh Config Reader to simplify accessing Platform.sh environment variables.</p>
      <p>Open Liberty is a highly composable, fast to start, dynamic application server runtime environment.</p>
+  class: experimental
   tags:
   - Java
   - MicroProfile

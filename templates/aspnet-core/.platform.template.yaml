@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template deploys the ASP.NET Core framework. It includes a minimalist application skeleton for demonstration, but you are free to alter it as needed.  It includes demonstration-level connections for MariaDB and a Redis cache server.</p>
       <p>ASP.NET Core is an open-source and cross-platform .NET framework for building modern cloud-based web applications.</p>
+  class: experimental
   tags:
   - .NET
   - ASP.NET Core

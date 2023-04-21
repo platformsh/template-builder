@@ -6,6 +6,7 @@ info:
   description: |
      <p>This project provides a starter kit for Jenkins projects hosted on Platform.sh.  The Jenkins `.war` file is downloaded during the build hook and not included in the repository.</p>
      <p>Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery.</p>
+  class: experimental
   tags:
   - Java
   - Automation

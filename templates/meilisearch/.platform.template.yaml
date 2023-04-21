@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template provides a demo Meilisearch search engine on Platform.sh. The Meilisearch executable itself is downloaded during the build hook, and the example `movies` index provided in the Meilisearch documentation is added to the engine using the `meilisearch-python` library and Poetry during the deploy hook. You can specifiy the version of Meilisearch by updating the `.platform.app.yaml` file.</p>
       <p>Meilisearch is an open source RESTful search API providing a fast and relevant search engine from a downloaded binary written in Rust.</p>
+  class: experimental
   tags:
   - Python
   - Search engine

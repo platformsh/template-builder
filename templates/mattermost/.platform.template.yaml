@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template builds Mattermost on Platform.sh, configuring the deployment through user-defined environment variables.  The Mattermost binary is downloaded on the fly during the build step.  It includes a PostgreSQL database and Elasticsearch for indexing, both of which come pre-configured.</p>
       <p>Mattermost is an open-source messaging framework written in Go and React.</p>
+  class: experimental
   tags:
   - Go
   - Framework

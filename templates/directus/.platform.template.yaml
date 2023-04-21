@@ -5,6 +5,7 @@ info:
   description: |
       <p>This template demonstrates building Directus for Platform.sh. It includes a quickstart application configured to run with PostgreSQL. It is intended for you to use as a starting point and modify for your own needs.</p>
       <p>Directus is an open-source platform that allows you to create and manage an API from data stored in a database.</p>
+  class: starter
   tags:
   - Node.js
   - Headless CMS

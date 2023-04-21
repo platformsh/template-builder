@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template deploys the Django 3 application framework on Platform.sh, using the gunicorn application runner.  It also includes a PostgreSQL database connection pre-configured.</p>
       <p>Django is a Python-based web application framework with a built-in ORM.</p>
+  class: starter
   tags:
   - Python
   - Framework

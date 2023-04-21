@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template demonstrates building the Echo framework for Platform.sh using Go modules.  It includes a minimalist application skeleton that demonstrates how to connect to a MariaDB server.  It is intended for you to use as a starting point and modify for your own needs.</p>
       <p>Echo is a lightweight, minimalist web framework written in Go.</p>
+  class: starter
   tags:
   - Go
   - Framework

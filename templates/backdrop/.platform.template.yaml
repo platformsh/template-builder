@@ -6,6 +6,7 @@ info:
   description: |
     <p>This template deploys a Backdrop CMS site, with the entire site committed to Git.  It comes configured for MariaDB, the most popular database used with Backdrop.  It supports a quick web installation to configure the site.</p>
     <p>Backdrop is a PHP-based CMS, originally forked from Drupal 7.</p>
+  class: starter
   tags:
   - PHP
   - CMS

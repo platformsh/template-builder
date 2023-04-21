@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template builds a Sylius application for Platform.sh, which can be used as a starting point for developing complex e-commerce applications.</p>
       <p>Sylius is a modern e-commerce solution for PHP, based on Symfony Framework.</p>
+  class: starter
   tags:
   - PHP
   - Commerce

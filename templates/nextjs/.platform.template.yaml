@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template builds a simple application using the Next.js web framework. It includes a minimal application skeleton that demonstrates how to set up an optimized build using Next.js and Yarn, as well as how to begin defining individual pages (such as the <code>/api/hello</code>) endpoint that comes pre-defined with this template.</p>
       <p>Next.js is an open-source web framework written for Javascript.</p>
+  class: starter
   tags:
   - Node.js
   - Next.js

@@ -6,6 +6,7 @@ info:
   description: |
       <p>This template builds a simple application using the NuxtJS web framework that can be used as a starting point.</p>
       <p>NuxtJS is an open-source web framework based on Vue.js.</p>
+  class: starter
   tags:
   - Node.js
   - Framework

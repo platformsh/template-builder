@@ -6,6 +6,7 @@ info:
   description: |
     <p>This template builds the Australian government's GovCMS Drupal 9 distribution using the Drupal Composer project for better flexibility.  It is pre-configured to use MariaDB and Redis for caching.  The Drupal installer will skip asking for database credentials as they are already provided.</p>
     <p>GovCMS is a Drupal distribution built for the Australian government, and includes configuration optimized for managing government websites.</p>
+  class: starter
   tags:
   - PHP
   - Drupal

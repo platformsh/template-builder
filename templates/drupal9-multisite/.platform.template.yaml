@@ -8,6 +8,7 @@ info:
     <p>It also includes instructions and a script to help with setting up additional multisite instances, although depending on your particular needs it may require some customization.</p>
     <p>Drupal is a flexible and extensible PHP-based CMS framework capable of hosting multiple sites on a single code base.</p>
 
+  class: demo
   tags:
   - PHP
   - Drupal

@@ -28,6 +28,7 @@ info:
     description: |
       <p>This template demonstrates a multi-app deployment on Platform.sh, in this case, a Next.js frontend consuming data from a Drupal 9 backend running on the same environment. It is based largely on the configuration instructions provided by the Next-Drupal project by Chapter Three.</p>
       <p>Next.js is an open-source web framework written for Javascript, and Drupal is a flexible and extensible PHP-based CMS framework.</p>
+    class: demo
     # A list of tags associated with the template.  These should be highly generic terms like "CMS", "Framework", and
     # the language in which the application is written.
     tags:

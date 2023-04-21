@@ -8,6 +8,7 @@ info:
       <p>Note that there are several setup steps required after the first deploy. An <code>article</code> content type has already been committed, but you will still need to follow the post deploy instructions to add content and define permissions for Eleventy to consume it.</p>
       <p>Eleventy is a static site generator written in Node.js, and Strapi is a headless CMS framework also written in Node.js.</p>
 
+  class: demo
   tags:
   - Node.js
   - CMS

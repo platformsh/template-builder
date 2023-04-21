@@ -28,6 +28,7 @@ info:
      <p>Note that after you have completed the Drupal installation and included a few articles, the project will require a redeploy to build and deploy Gatsby for the first time. See the included README's post-install section for details.</p>
      <p>Gatsby is a free and open source framework based on React that helps developers build statically-generated websites and apps, and Drupal is a flexible and extensible PHP-based CMS framework.</p>
   # A list of tags associated with the template.
+  class: demo
   tags:
   - Node.js
   - PHP

@@ -27,6 +27,7 @@ info:
       <p>Django is a Python-based web application framework with a built-in ORM.</p>
   # A list of tags associated with the template.
   class: starter
+  featured: true
   tags:
   - Python
   - Framework

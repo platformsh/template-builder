@@ -8,6 +8,7 @@ info:
     <p>Drupal is a flexible and extensible PHP-based CMS framework.</p>
 
   class: starter
+  featured: true
   tags:
   - PHP
   - Drupal

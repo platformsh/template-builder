@@ -151,7 +151,7 @@ jobs:
                     # - template: beego
                     # - template: nodejs
                     - template: django4
-                    # - template: nuxtjs
+                    - template: nuxtjs
                     # - template: drupal8-opigno
                     # - template: nextcloud
                     # - template: drupal9-multisite

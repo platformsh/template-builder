@@ -17,7 +17,7 @@ info:
   notes:
     - heading: "Features"
       content: |
-          Node.js 14<br />
+          Node.js 18<br />
           Automatic TLS certificates<br />
           yarn-based build<br />
 

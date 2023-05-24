@@ -2,6 +2,7 @@ from . import BaseProject
 import subprocess
 import packaging.version
 
+
 class RemoteProject(BaseProject):
     '''
     Base class for projects that need to synchronize code with an upstream source.
@@ -18,6 +19,11 @@ class RemoteProject(BaseProject):
         from which to pull. (If both are defined, `major_version` take precedence.)
     '''
 
+    readMeFileName = "README"
+    readMeFileExt = "md"
+    readMeUpstreamFile = "_UPSTREAM"
+    readMePSHFile = "_PSH"
+
     @property
     def init(self):
         return super(RemoteProject, self).init + [
@@ -28,12 +34,15 @@ class RemoteProject(BaseProject):
     @property
     def update(self):
         actions = [
+            # If we have a readme file from the template repository, rename it so we can bring it back later
+            'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "Moving {1}.{2} to {1}{3}.{2}"; mv "{1}.{2}" "{1}{3}.{2}"; fi;'
+            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile),
             'cd {0} && git checkout {1}'.format(self.builddir, self.default_branch),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
             # Remove working directory files when updating from upstream, so that deletions get picked up.
             # Disabled, because it was breaking Magento updates. Even though it was added to avoid breaking Magento updates.
-            #'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
+            # 'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
         ]
 
         if hasattr(self, 'major_version'):
@@ -41,7 +50,8 @@ class RemoteProject(BaseProject):
                 latest_tag = self.latest_tag()
                 print("Merging from upstream tag: {0}".format(latest_tag))
                 subprocess.check_output('cd {0} && git merge --allow-unrelated-histories -X theirs --squash {1}'.format(
-                self.builddir, latest_tag), shell=True)
+                    self.builddir, latest_tag), shell=True)
+
             actions.append(merge_from_upstream_tag)
         elif hasattr(self, 'upstream_branch'):
             print("Merging from upstream branch: {0}".format(self.upstream_branch))
@@ -52,6 +62,19 @@ class RemoteProject(BaseProject):
             raise AttributeError(
                 'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
 
+        # now we need to deal with the upstream README
+        actions.append(
+            'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "moving upstream {1}.{2} to {1}{3}.{2}";mv "{1}.{2}" "{1}'
+            '{3}.{2}"; git add "{1}{3}.{2}";git commit -m "renamed {1} to {1}{3}";fi;'
+            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMeUpstreamFile)
+        )
+
+        # and now our README
+        actions.append(
+            'cd {0} && if [[ -f "{1}{3}.{2}" ]]; then echo "Moving our {1}{3}.{2} back to {1}.{2}";mv "{1}{3}.{2}" "'
+            '{1}.{2}";git add {1}.{2};git commit -m "Commiting our {1}.{2}";fi;'
+            .format(self.builddir,self.readMeFileName,self.readMeFileExt,self.readMePSHFile)
+        )
         # Do this last so it picks up all changes from above.
         actions.extend(self.package_update_actions())
 
@@ -64,7 +87,8 @@ class RemoteProject(BaseProject):
         all_tags = subprocess.check_output('cd {0} && git tag'.format(self.builddir), shell=True).decode(
             'utf-8').splitlines()
 
-        tags = [tag for tag in all_tags if tag.startswith(self.major_version) and 'beta' not in tag and 'alpha' not in tag]
+        tags = [tag for tag in all_tags if
+                tag.startswith(self.major_version) and 'beta' not in tag and 'alpha' not in tag]
         # If there are no proper releases, search again but allow pre-release versions this time.
         # @todo If the project is hosted on GitHub, a better approach would be to check the GitHub API to see what
         # is marked as the latest release.

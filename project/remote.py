@@ -85,7 +85,7 @@ class RemoteProject(BaseProject):
         actions.append(
             # remove a .github directory that might have been brought in from upstream
             # @todo should we loop through all possible directories/files that may need to be removed?
-            'cd {0} && [ -d {1} ] && rm -rf {1} && [ -d {2} ] && mv {2} {1}'.format(self.builddir, '.github', 'tmp'
+            'cd {0}; if [ -d {1} ]; then rm -rf {1};fi; if [ -d {2} ]; then mv {2} {1};fi;'.format(self.builddir, '.github', 'tmp'
                                                                                                               '.github')
         )
         # Do this last so it picks up all changes from above.

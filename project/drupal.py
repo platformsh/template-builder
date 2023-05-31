@@ -162,7 +162,6 @@ class Drupal9_govcms9(RemoteProject):
     def update(self):
         return super(Drupal9_govcms9, self).update + [
             'cd {0} && rm -rf .circleci'.format(self.builddir),
-            'cd {0} && rm -rf .github'.format(self.builddir),
             'cd {0} && rm -rf .tugboat'.format(self.builddir),
             'cd {0} && composer remove php {1}'.format(self.builddir,
                                                        self.composer_defaults().replace('--prefer-dist', '')),

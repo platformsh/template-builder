@@ -1,10 +1,12 @@
-from . import BaseProject
 import subprocess
+
 import packaging.version
+
+from . import BaseProject
 
 
 class RemoteProject(BaseProject):
-    '''
+    """
     Base class for projects that need to synchronize code with an upstream source.
 
     Projects that are based on a remote source that we then modify should use this
@@ -17,7 +19,7 @@ class RemoteProject(BaseProject):
         "v.3.4.z" tag, etc.
     - OR `upstream_branch`, which specifies the tag or branch in the `remote` repository
         from which to pull. (If both are defined, `major_version` take precedence.)
-    '''
+    """
 
     readMeFileName = "README"
     readMeFileExt = "md"
@@ -40,6 +42,8 @@ class RemoteProject(BaseProject):
             'cd {0} && git checkout {1}'.format(self.builddir, self.default_branch),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
+            # now we need to handle our .github directory and files
+            'cd {0} && [ -d {1} ] && mv {1} {2}'.format(self.builddir,'.github','tmp.github')
             # Remove working directory files when updating from upstream, so that deletions get picked up.
             # Disabled, because it was breaking Magento updates. Even though it was added to avoid breaking Magento updates.
             # 'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
@@ -73,7 +77,16 @@ class RemoteProject(BaseProject):
         actions.append(
             'cd {0} && if [[ -f "{1}{3}.{2}" ]]; then echo "Moving our {1}{3}.{2} back to {1}.{2}";mv "{1}{3}.{2}" "'
             '{1}.{2}";git add {1}.{2};git commit -m "Commiting our {1}.{2}";fi;'
-            .format(self.builddir,self.readMeFileName,self.readMeFileExt,self.readMePSHFile)
+            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile)
+        )
+
+        # now if a .github directory was reintroduced from the upstream, delete it, and then if ours is present, rename
+        # it back to .github
+        actions.append(
+            # remove a .github directory that might have been brought in from upstream
+            # @todo should we loop through all possible directories/files that may need to be removed?
+            'cd {0} && [ -d {1} ] && rm -rf {1} && [ -d {2} ] && mv {2} {1}'.format(self.builddir, '.github', 'tmp'
+                                                                                                              '.github')
         )
         # Do this last so it picks up all changes from above.
         actions.extend(self.package_update_actions())

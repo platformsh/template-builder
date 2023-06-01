@@ -7,7 +7,7 @@
 name: 'drupal'
 
 # The runtime the application uses.
-type: 'php:8.0'
+type: 'php:8.1'
 
 dependencies:
     php:

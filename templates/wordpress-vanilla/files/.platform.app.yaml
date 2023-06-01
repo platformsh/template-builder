@@ -1,33 +1,39 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
 
-# The name of this app. Must be unique within a project.
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
 name: app
 
 # The runtime the application uses.
-type: "php:8.1"
-
-dependencies:
-    php:
-        wp-cli/wp-cli-bundle: "^2.4"
-        psy/psysh: "^0.10.4"
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
+type: 'php:8.1'
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
     database: "db:mysql"
 
-variables:
-    php:
-        session.gc_maxlifetime: '200000'
-        session.cookie_lifetime: '2000000'
-        pcre.backtrack_limit: '200000'
-        pcre.recursion_limit: '200000'
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
+disk: 2048
 
-# The configuration of app when it is exposed to the web.
+# Mounts define directories that are writable after the build is complete. If set as a local source, disk property is required.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#mounts
+mounts:
+    "wordpress/wp-content/cache":
+        source: local
+        source_path: "cache"
+    "wordpress/wp-content/uploads":
+        source: local
+        source_path: "uploads"
+
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
 web:
+    # Each key in locations is a path on your site with a leading /.
+    # More information: https://docs.platform.sh/create-apps/app-reference.html#locations
     locations:
         "/":
             # The public directory of the app, relative to its root.
@@ -41,6 +47,10 @@ web:
             expires: 600
             scripts: true
             allow: true
+            # The key of each item in rules is a regular expression to match paths exactly. If an incoming request
+            # matches the rule, it’s handled by the properties under the rule, overriding any conflicting rules from the
+            # rest of the locations properties.
+            # More information: https://docs.platform.sh/create-apps/app-reference.html#rules
             rules:
                 ^/composer\.json:
                     allow: false
@@ -62,24 +72,53 @@ web:
                     allow: true
                     expires: 1w
 
-# The size of the persistent disk of the application (in MB).
-disk: 2048
+# Platform.sh provides a number of ways to set variables. Variables set in your app configuration have the lowest
+# precedence, meaning they’re overridden by any conflicting values provided elsewhere.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+    # PHP specific variables: https://docs.platform.sh/development/variables.html#php-specific-variables
+    php:
+        session.gc_maxlifetime: '200000'
+        session.cookie_lifetime: '2000000'
+        pcre.backtrack_limit: '200000'
+        pcre.recursion_limit: '200000'
 
-# The mounts that will be performed when the package is deployed.
-mounts:
-    "wordpress/wp-content/cache":
-        source: local
-        source_path: "cache"
-    "wordpress/wp-content/uploads":
-        source: local
-        source_path: "uploads"
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
+# are available in the PATH during the build process and in the runtime environment. They’re installed before
+# the build hook runs using a package manager for the language.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
+dependencies:
+    php:
+        wp-cli/wp-cli-bundle: "^2.4"
+        psy/psysh: "^0.10.4"
 
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More info:
 hooks:
+    # The build hook is run after any build flavor.
+    # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
+    build: |
+        set -e
+
+    # The deploy hook is run after the app container has been started, but before it has started accepting requests.
+    # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
     deploy: |
+        # Flushes the object cache which might have changed between current production and newly deployed changes
         wp cache flush
+        # Runs the WordPress database update procedure in case core is being updated with the newly deployed changes
         wp core update-db
+        # Runs all cron events that are due now and may have come due during the build+deploy procedure
         wp cron event run --due-now
 
+########################################################################################################################
+##                                                                                                                    ##
+## This source operation is part of the Platform.sh process of updating and maintaining our collection of templates.  ##
+## For more information see https://docs.platform.sh/create-apps/source-operations.html and                           ##
+## https://github.com/platformsh/source-operations                                                                    ##
+##                                                                                                                    ##
+##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                       ##
+##                                                                                                                    ##
+########################################################################################################################
 source:
     operations:
         auto-update:

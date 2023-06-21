@@ -6,7 +6,7 @@ name: 'drupal'
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: 'php:8.0'
+type: 'php:8.1'
 
 # size: <-- not needed for this template
 

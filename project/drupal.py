@@ -166,6 +166,10 @@ class Drupal9_govcms9(RemoteProject):
             'cd {0} && composer remove php {1}'.format(self.builddir,
                                                        self.composer_defaults().replace('--prefer-dist', '')),
             # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+            # for some reason, lcobucci/clock decided to bump the min php version to 8.2 between version 3.0.0 and 3.1.0
+            # https://github.com/lcobucci/clock/releases/tag/3.1.0
+            # @todo for now locking to 3.0.0 until we upgrade this project to php 8.2
+            'cd {0} && composer require lcobucci/clock:3.0.0 {1}'.format(self.builddir, self.composer_defaults()),
         ]
 
     @property

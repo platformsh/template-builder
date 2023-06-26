@@ -6,7 +6,7 @@ info:
   description: |
       <p>This template builds the Akeneo PIM system for Platform.sh.  By default it uses the "minimal" install profile.  It requires at least a Medium plan as it uses a Worker instance for queue processing.</p>
       <p>Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.</p>
-  class: starter
+  class: experimental
   tags:
   - PHP
   - Symfony

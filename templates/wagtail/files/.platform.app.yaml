@@ -6,7 +6,7 @@ name: 'app'
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: 'python:3.9'
+type: 'python:3.11'
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -14,7 +14,7 @@ type: 'python:3.9'
 # side is in the form `<service name>:<endpoint name>`.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
-  database: "db:postgresql"
+  database: "dbpostgres:postgresql"
 
 # The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 512
@@ -33,7 +33,7 @@ web:
   # Commands are run once after deployment to start the application process.
   # More information: https://docs.platform.sh/create-apps/app-reference.html#web-commands
   commands:
-    start: "gunicorn -w 4 -b unix:$SOCKET myapp.wsgi:application"
+    start: "pipenv run gunicorn -w 4 -b unix:$SOCKET myapp.wsgi:application"
 
   # More information: https://docs.platform.sh/configuration/app-containers.html#upstream
   upstream:
@@ -56,13 +56,18 @@ web:
       # Whether to allow serving files which don’t match a rule.
       allow: true
 
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+  env:
+    DJANGO_SETTINGS_MODULE: "myapp.settings.production"
+
 # Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
 # are available in the PATH during the build process and in the runtime environment. They’re installed before
 # the build hook runs using a package manager for the language.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
 dependencies:
   python3:
-    pipenv: '2022.1.8'
+    pipenv: '*'
 
 # Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
 # More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
@@ -70,14 +75,21 @@ hooks:
   # The build hook is run after any build flavor.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
   build: |
-    pipenv install --system --deploy
-    mkdir logs
-    python manage.py collectstatic
-    rm -rf logs
+    # Setup the virtualenv
+    pipenv --python 3.11
+
+    # Download the latest version of pip
+    pipenv run python -m pip install --upgrade pip
+
+    # Install dependencies
+    pipenv install --deploy
+
+    # Collect static assets
+    pipenv run python manage.py collectstatic
   # The deploy hook is run after the app container has been started, but before it has started accepting requests.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
   deploy: |
-    python manage.py migrate
+    pipenv run python manage.py migrate
 
 # Information on the app's source code and operations that can be run on it.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#source

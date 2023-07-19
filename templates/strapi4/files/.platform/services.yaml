@@ -2,10 +2,11 @@
 #
 # Each service listed will be deployed
 # to power your Platform.sh project.
-
+# More information: https://docs.platform.sh/add-services.html
+# Full list of available services: https://docs.platform.sh/add-services.html#available-services
 dbpostgres:
-    type: postgresql:12
-    disk: 256
+  type: postgresql:12
+  disk: 256
 
 # Uncomment the line below if you would like to use a mysql database
 # dbmysql:

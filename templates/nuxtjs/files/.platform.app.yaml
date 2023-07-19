@@ -1,33 +1,21 @@
-# The name of this app. Must be unique within a project.
 name: app
 
-# The runtime the application uses. The 'type' key defines the base container
-# image that will be used to run the application. There is a separate base
-# container image for each primary language for the application,
-# in multiple versions. Check the Node.js documentation
-# (https://docs.platform.sh/languages/nodejs.html#supported-versions)
-# to find the supported versions for the 'nodejs' type.
-type: 'nodejs:14'
+type: 'nodejs:18'
 
 build:
-  flavor: none
-
-dependencies:
-  nodejs:
-    yarn: "*"
+    flavor: none
 
 hooks:
-  build: |
-    set -e
-    yarn
-    yarn build
+    build: |
+        corepack yarn install
+        corepack yarn build
 
 web:
-  commands:
-    start: "yarn start"
+    commands:
+        start: "node .output/server/index.mjs"
 
 source:
-  operations:
-    auto-update:
-      command: |
-        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
+    operations:
+        auto-update:
+            command: |
+                curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0

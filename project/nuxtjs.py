@@ -25,6 +25,7 @@ class Nuxtjs(BaseProject):
             "language": "js",
             "pm": "yarn",
             "ui": "none",
+            "template": "html",
             "features": [],
             "linter": [],
             "test": "none",

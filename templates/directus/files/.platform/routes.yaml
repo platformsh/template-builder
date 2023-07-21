@@ -1,12 +1,12 @@
-# The routes of the project.
-#
-# Each route describes how an incoming URL is going
-# to be processed by Platform.sh.
+"https://{default}/":
+    type: upstream
+    upstream: "directus:http"
+    cache:
+        enabled: true
+        default_ttl: 0
+        cookies: ['*']
+        headers: ['Accept', 'Accept-Language']
 
 "https://www.{default}/":
-    type: upstream
-    upstream: "app:http"
-
-"https://{default}/":
     type: redirect
-    to: "https://www.{default}/"
+    to: "https://{default}/"

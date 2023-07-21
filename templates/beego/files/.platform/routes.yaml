@@ -1,13 +1,15 @@
-
-# The routes of the project.
+# The services of the project.
 #
-# Each route describes how an incoming URL is going
-# to be processed by Platform.sh.
-
+# Each service listed will be deployed
+# to power your Platform.sh project.
+# More information: https://docs.platform.sh/add-services.html
+# Full list of available services: https://docs.platform.sh/add-services.html#available-services
 "https://{default}/":
-    type: upstream
-    upstream: "app:http"
+  type: upstream
+  upstream: "app:http"
 
+# A basic redirect definition
+# More information: https://docs.platform.sh/define-routes.html#basic-redirect-definition
 "https://www.{default}/":
-    type: redirect
-    to: "https://{default}/"
+  type: redirect
+  to: "https://{default}/"

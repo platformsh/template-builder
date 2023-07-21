@@ -1,47 +1,77 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
-#
-# See https://docs.platform.sh/user_guide/reference/platform-app-yaml.html
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
 
-# The name of this app. Must be unique within a project.
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
 name: app
 
 # The runtime the application uses.
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
 type: golang:1.16
 
-# The hooks executed at various points in the lifecycle of the application.
-hooks:
-    build: |
-        # Modify this line if you want to build differently or use an alternate name for your executable.
-        go build -o bin/app
-
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
-    database: "db:mysql"
+  database: "db:mysql"
 
-# The configuration of app when it is exposed to the web.
-web:
-    upstream:
-        socket_family: tcp
-        protocol: http
-
-    commands:
-        # If you change the build output in the build hook above, update this line as well.
-        start: ./bin/app
-
-    locations:
-        /:
-            # Route all requests to the Go app, unconditionally.
-            # If you want some files served directly by the web server without hitting Go, see
-            # https://docs.platform.sh/configuration/app/web.html
-            allow: false
-            passthru: true
-
-# The size of the persistent disk of the application (in MB).
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 1024
 
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
+web:
+  # More information: https://docs.platform.sh/configuration/app-containers.html#upstream
+  upstream:
+    # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
+    # More information: https://docs.platform.sh/create-apps/app-reference.html#where-to-listen
+    socket_family: tcp
+    protocol: http
+
+  # Commands are run once after deployment to start the application process.
+  # More information: https://docs.platform.sh/create-apps/app-reference.html#web-commands
+  commands:
+    # The command to launch your app. If it terminates, it’s restarted immediately.
+    # If you change the build output in the build hook update this line as well.
+    start: ./bin/app
+
+  # Each key in locations is a path on your site with a leading /.
+  # More information: https://docs.platform.sh/create-apps/app-reference.html#locations
+  locations:
+    /:
+      # Whether to allow serving files which don’t match a rule.
+      # Route all requests to the Go app, unconditionally.
+      # If you want some files served directly by the web server without hitting Go, see
+      # https://docs.platform.sh/configuration/app/web.html
+      allow: false
+      # Whether to forward disallowed and missing resources from this location to the app. A string is a path
+      # with a leading / to the controller, such as /index.php.
+      passthru: true
+
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
+hooks:
+  # The build hook is run after any build flavor.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
+  build: |
+    # Modify this line if you want to build differently or use an alternate name for your executable.
+    go build -o bin/app
+
+# Information on the app's source code and operations that can be run on it.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#source
 source:
+  ######################################################################################################################
+  ##                                                                                                                  ##
+  ## This source operation is part of the Platform.sh process of updating and maintaining our collection of           ##
+  ## templates. For more information see https://docs.platform.sh/create-apps/source-operations.html and              ##
+  ## https://github.com/platformsh/source-operations                                                                  ##
+  ##                                                                                                                  ##
+  ##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                     ##
+  ##                                                                                                                  ##
+  ######################################################################################################################
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    
+

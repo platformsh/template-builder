@@ -6,7 +6,7 @@ authors = ["chadcarlson <chad.carlson@platform.sh>"]
 license = "BSD-3"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 Flask = "^2.1.2"
 redis = "^4.2.2"
 PyMySQL = "^1.0.2"

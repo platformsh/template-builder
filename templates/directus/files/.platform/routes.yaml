@@ -1,12 +1,24 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+# More information: https://docs.platform.sh/add-services.html
+# Full list of available services: https://docs.platform.sh/add-services.html#available-services
 "https://{default}/":
-    type: upstream
-    upstream: "directus:http"
-    cache:
-        enabled: true
-        default_ttl: 0
-        cookies: ['*']
-        headers: ['Accept', 'Accept-Language']
+  type: upstream
+  upstream: "directus:http"
+  # Platform.sh supports HTTP caching at the server level. Caching is enabled by default, but is only applied to
+  # GET and HEAD requests.
+  # More information: https://docs.platform.sh/define-routes/cache.html
+  cache:
+    # All possible cache configuration options: https://docs.platform.sh/define-routes/cache.html#cache-configuration-properties
+    enabled: true
+    default_ttl: 0
+    cookies: [ '*' ]
+    headers: [ 'Accept', 'Accept-Language' ]
 
+# A basic redirect definition
+# More information: https://docs.platform.sh/define-routes.html#basic-redirect-definition
 "https://www.{default}/":
-    type: redirect
-    to: "https://{default}/"
+  type: redirect
+  to: "https://{default}/"

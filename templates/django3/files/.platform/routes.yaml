@@ -1,9 +1,8 @@
-# The services of the project.
+# The routes of the project.
 #
-# Each service listed will be deployed
-# to power your Platform.sh project.
-# More information: https://docs.platform.sh/add-services.html
-# Full list of available services: https://docs.platform.sh/add-services.html#available-services
+# Each route describes how an incoming URL is going
+# to be processed by Platform.sh.
+# More information: https://docs.platform.sh/define-routes.html
 "https://{default}/":
   type: upstream
   upstream: "app:http"

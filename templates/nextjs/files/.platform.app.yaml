@@ -6,7 +6,7 @@ name: app
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: 'nodejs:14'
+type: 'nodejs:18'
 
 # The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 512

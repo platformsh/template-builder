@@ -6,7 +6,7 @@ name: directus
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: nodejs:12
+type: nodejs:18
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -78,16 +78,19 @@ hooks:
     set -e
     # Installs the database and sets up the initial admin user. Only run on first deploy.
     if [ ! -f var/platformsh.installed ]; then
-        echo 'Bootstrapping Directus on first deploy...'
+      echo 'Bootstrapping Directus on first deploy...'
 
-        export PROJECT_NAME='Directus on Platform.sh'
-        export ADMIN_EMAIL='admin@example.com'
-        export ADMIN_PASSWORD='password'
+      export PROJECT_NAME='Directus on Platform.sh'
+      export ADMIN_EMAIL='admin@example.com'
+      export ADMIN_PASSWORD='password'
 
-        npx directus bootstrap
+      npx directus bootstrap
 
-        # Create file that indicates first deploy and installation has been completed.
-        touch var/platformsh.installed
+      # Create file that indicates first deploy and installation has been completed.
+      touch var/platformsh.installed
+    else
+      # Update the database in case directus updated in the most recent push
+      npx directus database migrate:latest
     fi;
 
 # Scheduled tasks for the app.

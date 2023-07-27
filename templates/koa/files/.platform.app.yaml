@@ -5,7 +5,7 @@ name: app
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: nodejs:10
+type: nodejs:18
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed

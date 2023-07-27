@@ -6,7 +6,7 @@ name: 'app'
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: 'python:3.8'
+type: 'python:3.10'
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -33,7 +33,7 @@ web:
   # More information: https://docs.platform.sh/create-apps/app-reference.html#web-commands
   commands:
     # The command to launch your app. If it terminates, it’s restarted immediately.
-    start: "gunicorn -w 4 -b unix:$SOCKET myapp.wsgi:application"
+    start: "pipenv run gunicorn -w 4 -b unix:$SOCKET myapp.wsgi:application"
 
   # More information: https://docs.platform.sh/configuration/app-containers.html#upstream
   upstream:
@@ -62,7 +62,7 @@ web:
 # More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
 dependencies:
   python3:
-    pipenv: '2018.10.13'
+    pipenv: '2023.7.23'
 
 # Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
 # More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
@@ -70,15 +70,15 @@ hooks:
   # The build hook is run after any build flavor.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
   build: |
-    pipenv install --system --deploy
+    pipenv install --deploy
 
     mkdir logs
-    python manage.py collectstatic
+    pipenv run python manage.py collectstatic
     rm -rf logs
   # The deploy hook is run after the app container has been started, but before it has started accepting requests.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
   deploy: |
-    python manage.py migrate
+    pipenv run python manage.py migrate
 
 # Information on the app's source code and operations that can be run on it.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#source
@@ -96,4 +96,3 @@ source:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-

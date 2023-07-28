@@ -20,7 +20,9 @@ class Wordpress_vanilla(BaseProject):
             # Release the tar and cleanup.
             'cd {0} && tar -xvf {1}.tar.gz && rm {1}.tar.gz'.format(self.builddir, self.install_dir),
             # Move Platform.sh files into `wordpress`.
-            'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
+            # No longer needed as our wp-config and wp-cli.yml files are already in the wordpress directory from the
+            # template repository
+            # 'cd {0} && mv wp-config.php {1} && mv wp-cli.yml {1}'.format(self.builddir, self.install_dir),
         ]
 
 

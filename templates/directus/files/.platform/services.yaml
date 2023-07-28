@@ -2,13 +2,19 @@
 #
 # Each service listed will be deployed
 # to power your Platform.sh project.
-
-dbpostgres:
+# More information: https://docs.platform.sh/add-services.html
+# Full list of available services: https://docs.platform.sh/add-services.html#available-services
+db:
     type: postgresql:12
     disk: 256
-
+# Alternative database options
+# MySQL/MariaDB database service.
+# db:
+#     type: mariadb:10.5
+#     disk: 256
+# Redis caching service.
 cacheredis:
     type: redis:6.0
-
+# Redis rate-limiting service.
 ratelimitredis:
     type: redis:6.0

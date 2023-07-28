@@ -119,13 +119,13 @@ class Magento2ce(BaseProject):
             (self.modify_composer, [magento_modify_composer])
         ]
 
-    @property
-    def platformify(self):
-        extraIgnores = '--ignore-platform-req=ext-iconv --ignore-platform-req=ext-soap ' \
-                       '--ignore-platform-req=ext-pdo_mysql '
-
-        return super(Magento2ce, self).platformify + [
-                'cd {0} && composer require magento/ece-tools magento/magento-cloud-components '
-                'magento/quality-patches -W '.format(self.builddir)  + self.composer_defaults() + extraIgnores,
-                'cd {0} && composer update -W {1}'.format(self.builddir, self.composer_defaults() + extraIgnores),
-                ]
+    # @property
+    # def platformify(self):
+    #     extraIgnores = '--ignore-platform-req=ext-iconv --ignore-platform-req=ext-soap ' \
+    #                    '--ignore-platform-req=ext-pdo_mysql '
+    #
+    #     return super(Magento2ce, self).platformify + [
+    #             'cd {0} && composer require magento/ece-tools magento/magento-cloud-components '
+    #             'magento/quality-patches -W '.format(self.builddir)  + self.composer_defaults() + extraIgnores,
+    #             'cd {0} && composer update -W {1}'.format(self.builddir, self.composer_defaults() + extraIgnores),
+    #             ]

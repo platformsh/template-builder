@@ -1,96 +1,152 @@
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
+
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
 name: app
+
+# The runtime the application uses.
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
 type: php:8.1
-build:
-    flavor: composer
-
-variables:
-    env:
-        # Tell Symfony to always install in production-mode.
-        APP_ENV: 'prod'
-        APP_DEBUG: 0
-        N_PREFIX: /app/.global
-
-hooks:
-    build: |
-        set -e
-        # Install the node version specified in the .nvmrc file
-        n auto
-        # Reset the location hash to recognize the newly installed version
-        hash -r
-        yarn install
-        GULP_ENV=prod yarn build
-    deploy: |
-        set -e
-        rm -rf var/cache/*
-        mkdir -p public/media/image
-        bin/console sylius:install -n
-        bin/console sylius:fixtures:load -n
-        bin/console assets:install --symlink --relative public
-        bin/console cache:clear
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
-    database: "db:mysql"
+  database: "db:mysql"
 
-dependencies:
-    nodejs:
-        n: "*"
-        yarn: "*"
-        gulp-cli: "*"
-    php:
-        composer/composer: '^2'
-
-# The size of the persistent disk of the application (in MB).
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 2048
 
-# The mounts that will be performed when the package is deployed.
+# Mounts define directories that are writable after the build is complete. If set as a local source, disk property is required.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#mounts
 mounts:
-    "/var/cache": "shared:files/cache"
-    "/var/log": "shared:files/log"
-    "/var/sessions": "shared:files/sessions"
-    "/public/uploads": "shared:files/uploads"
-    "/public/media": "shared:files/media"
+  "/var/cache": "shared:files/cache"
+  "/var/log": "shared:files/log"
+  "/var/sessions": "shared:files/sessions"
+  "/public/uploads": "shared:files/uploads"
+  "/public/media": "shared:files/media"
 
-# The configuration of app when it is exposed to the web.
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
 web:
-    locations:
-        "/":
-            # The public directory of the app, relative to its root.
-            root: "public"
-            # The front-controller script to send non-static requests to.
-            passthru: "/index.php"
-            allow: true
-            expires: -1
-            scripts: true
-        '/assets/shop':
-            expires: 2w
-            passthru: true
-            allow: false
-            rules:
-                # Only allow static files from the assets directories.
-                '\.(css|js|jpe?g|png|gif|svgz?|ico|bmp|tiff?|wbmp|ico|jng|bmp|html|pdf|otf|woff2|woff|eot|ttf|jar|swf|ogx|avi|wmv|asf|asx|mng|flv|webm|mov|ogv|mpe|mpe?g|mp4|3gpp|weba|ra|m4a|mp3|mp2|mpe?ga|midi?)$':
-                    allow: true
-        '/media/image':
-            expires: 2w
-            passthru: true
-            allow: false
-            rules:
-                # Only allow static files from the assets directories.
-                '\.(jpe?g|png|gif|svgz?)$':
-                    allow: true
-        '/media/cache/resolve':
-            passthru: "/index.php"
-            expires: -1
-            allow: true
-            scripts: true
-        '/media/cache':
-            expires: 2w
-            passthru: true
-            allow: false
-            rules:
-                # Only allow static files from the assets directories.
-                '\.(jpe?g|png|gif|svgz?)$':
-                    allow: true
+  # Each key in locations is a path on your site with a leading /.
+  # More information: https://docs.platform.sh/create-apps/app-reference.html#locations
+  locations:
+    "/":
+      # The directory to serve static assets for this location relative to the app’s root directory. Must be an
+      # actual directory inside the root directory.
+      root: "public"
+      # Whether to forward disallowed and missing resources from this location to the app. A string is a path
+      # with a leading / to the controller, such as /index.php.
+      passthru: "/index.php"
+      # Whether to allow serving files which don’t match a rule.
+      allow: true
+      # The number of seconds whitelisted (static) content should be cached.
+      expires: -1
+      # Whether to allow scripts to run. Doesn’t apply to paths specified in passthru. Meaningful only on PHP containers.
+      scripts: true
+    '/assets/shop':
+      expires: 2w
+      passthru: true
+      allow: false
+      # The key of each item in rules is a regular expression to match paths exactly. If an incoming request
+      # matches the rule, it’s handled by the properties under the rule, overriding any conflicting rules from the
+      # rest of the locations properties.
+      # More information: https://docs.platform.sh/create-apps/app-reference.html#rules
+      rules:
+        # Only allow static files from the assets directories.
+        '\.(css|js|jpe?g|png|gif|svgz?|ico|bmp|tiff?|wbmp|ico|jng|bmp|html|pdf|otf|woff2|woff|eot|ttf|jar|swf|ogx|avi|wmv|asf|asx|mng|flv|webm|mov|ogv|mpe|mpe?g|mp4|3gpp|weba|ra|m4a|mp3|mp2|mpe?ga|midi?)$':
+          allow: true
+    '/media/image':
+      expires: 2w
+      passthru: true
+      allow: false
+      rules:
+        # Only allow static files from the assets directories.
+        '\.(jpe?g|png|gif|svgz?)$':
+          allow: true
+    '/media/cache/resolve':
+      passthru: "/index.php"
+      expires: -1
+      allow: true
+      scripts: true
+    '/media/cache':
+      expires: 2w
+      passthru: true
+      allow: false
+      rules:
+        # Only allow static files from the assets directories.
+        '\.(jpe?g|png|gif|svgz?)$':
+          allow: true
+
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+  env:
+    # Tell Symfony to always install in production-mode.
+    APP_ENV: 'prod'
+    APP_DEBUG: 0
+    N_PREFIX: /app/.global
+
+# Specifies a default set of build tasks to run. Flavors are language-specific.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#build
+build:
+  flavor: composer
+
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
+# are available in the PATH during the build process and in the runtime environment. They’re installed before
+# the build hook runs using a package manager for the language.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
+dependencies:
+  nodejs:
+    n: "*"
+    yarn: "*"
+    gulp-cli: "*"
+  php:
+    composer/composer: '^2'
+
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
+hooks:
+  # The build hook is run after any build flavor.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
+  build: |
+    set -e
+    # Install the node version specified in the .nvmrc file
+    n auto
+    # Reset the location hash to recognize the newly installed version
+    hash -r
+    yarn install
+    GULP_ENV=prod yarn build
+
+  # The deploy hook is run after the app container has been started, but before it has started accepting requests.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
+  deploy: |
+    set -e
+    rm -rf var/cache/*
+    mkdir -p public/media/image
+    bin/console sylius:install -n
+    bin/console sylius:fixtures:load -n
+    bin/console assets:install --symlink --relative public
+    bin/console cache:clear
+
+# Information on the app's source code and operations that can be run on it.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#source
+source:
+  # The path where the app code lives. Defaults to the directory of the .platform.app.yaml file. Useful for multi-app setups.
+  root:
+
+  ######################################################################################################################
+  ##                                                                                                                  ##
+  ## This source operation is part of the Platform.sh process of updating and maintaining our collection of           ##
+  ## templates. For more information see https://docs.platform.sh/create-apps/source-operations.html and              ##
+  ## https://github.com/platformsh/source-operations                                                                  ##
+  ##                                                                                                                  ##
+  ##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                     ##
+  ##                                                                                                                  ##
+  ######################################################################################################################
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0

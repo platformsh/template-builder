@@ -1,87 +1,123 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
-#
-# See https://docs.platform.sh/configuration/app.html
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
 
-# The name of this app. Must be unique within a project.
-name: app
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
+name: directus
 
 # The runtime the application uses.
-type: nodejs:12
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
+type: nodejs:18
 
 # The relationships of the application with services or other applications.
-#
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
-    database: "dbpostgres:postgresql"
-    rediscache: "cacheredis:redis"
-    redisratelimit: "ratelimitredis:redis"
+  database: "db:postgresql"
+  rediscache: "cacheredis:redis"
+  redisratelimit: "ratelimitredis:redis"
 
-# The hooks that will be triggered when the package is deployed.
-hooks:
-    build: |
-        set -e
-        # Copy committed extensions and uploads to tmp directories so not overwritten by mount.
-        if [ -d extensions ]; then
-            mkdir extensions-tmp && mv extensions/* extensions-tmp
-        fi
-        if [ -d uploads ]; then
-            mkdir uploads-tmp && mv uploads/* uploads-tmp
-        fi
-    deploy: |
-        set -e
-        # Installs the database and sets up the initial admin user. Only run on first deploy.
-        if [ ! -f var/platformsh.installed ]; then
-            # Install the database
-            echo 'Installing the database...'
-            npx directus database install
-
-            # Create the admin user role
-            echo 'Setting up the initial admin role...'
-            ROLE_UUID=$(npx directus roles create --name admin --admin)
-
-            # Pipe output of above command into this one, adding an initial admin user
-            echo 'Creating the initial admin user...'
-            npx directus users create --email $INIT_ADMINUSER --password $INIT_ADMINPW --role $ROLE_UUID
-
-            # Create file that indicates first deploy and installation has been completed.
-            touch var/platformsh.installed
-        fi;
-        # Copy committed extensions and uploads back onto writable mounts.
-        if [ -d extensions-tmp ]
-        then
-            cp -r extensions-tmp/* extensions
-        fi
-        if [ -d uploads-tmp ]
-        then
-            cp -r uploads-tmp/* uploads
-        fi
-
-# Start the Directus server. 
-web:
-    commands:
-        start: npx directus start    
-
-# The size of the persistent disk of the application (in MB).
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 1024
 
-# Platform.sh write access at runtime.
+# Mounts define directories that are writable after the build is complete. If set as a local source, disk property is required.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#mounts
 mounts:
-    'extensions':
-        source: local
-        source_path: extensions
-    'uploads':
-        source: local
-        source_path: uploads
-    'var':
-        source: local
-        source_path: var
+  # Directory to track first deploy.
+  'var':
+    source: local
+    source_path: var
+  # Allow for file uploads.
+  'uploads':
+    source: local
+    source_path: uploads
 
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
+web:
+  # Commands are run once after deployment to start the application process.
+  # More information: https://docs.platform.sh/create-apps/app-reference.html#web-commands
+  commands:
+    # The command to launch your app. If it terminates, it’s restarted immediately.
+    start: npx directus start
+
+#
+timezone: "America/New_York"
+
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+  env:
+    UPDATE_ENVIRONMENT: update
+    TEMPLATE_PROFILE: directus
+
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
+# are available in the PATH during the build process and in the runtime environment. They’re installed before
+# the build hook runs using a package manager for the language.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
+dependencies:
+  python3:
+    pipenv: '*'
+
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
+hooks:
+  # The build hook is run after any build flavor.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
+  build: |
+    set -e
+    # Rebuild argon2 to fix upstream issue (See https://docs.directus.io/guides/installation/plesk/#bootstrap-directus).
+    npm run argon2-rebuild
+
+    # Template maintenance tasks.
+    .platform-scripts/template/update_tools.sh
+
+  # The deploy hook is run after the app container has been started, but before it has started accepting requests.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
+  deploy: |
+    set -e
+    # Installs the database and sets up the initial admin user. Only run on first deploy.
+    if [ ! -f var/platformsh.installed ]; then
+      echo 'Bootstrapping Directus on first deploy...'
+
+      export PROJECT_NAME='Directus on Platform.sh'
+      export ADMIN_EMAIL='admin@example.com'
+      export ADMIN_PASSWORD='password'
+
+      npx directus bootstrap
+
+      # Create file that indicates first deploy and installation has been completed.
+      touch var/platformsh.installed
+    else
+      # Update the database in case directus updated in the most recent push
+      npx directus database migrate:latest
+    fi;
+
+# Scheduled tasks for the app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#crons
+crons:
+  # Auto-update environment verification.
+  verify_envs:
+    spec: '45 2 * * *' # Create environment just before update.
+    cmd: .platform-scripts/template/crons.verify_envs.sh
+  # Auto-update cron job.
+  update:
+    spec: '0 3 * * *' # Update template.
+    cmd: .platform-scripts/template/crons.update.sh
+
+# Information on the app's source code and operations that can be run on it.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#source
 source:
+  ######################################################################################################################
+  ##                                                                                                                  ##
+  ## This source operation is part of the Platform.sh process of updating and maintaining our collection of           ##
+  ## templates. For more information see https://docs.platform.sh/create-apps/source-operations.html and              ##
+  ## https://github.com/platformsh/source-operations                                                                  ##
+  ##                                                                                                                  ##
+  ##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                     ##
+  ##                                                                                                                  ##
+  ######################################################################################################################
   operations:
     auto-update:
       command: |
         curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
-    

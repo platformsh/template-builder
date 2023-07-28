@@ -2,11 +2,22 @@
 #
 # Each route describes how an incoming URL is going
 # to be processed by Platform.sh.
-
-"https://www.{default}/":
-    type: upstream
-    upstream: "app:http"
-
+# More information: https://docs.platform.sh/define-routes.html
 "https://{default}/":
-    type: redirect
-    to: "https://www.{default}/"
+  type: upstream
+  upstream: "directus:http"
+  # Platform.sh supports HTTP caching at the server level. Caching is enabled by default, but is only applied to
+  # GET and HEAD requests.
+  # More information: https://docs.platform.sh/define-routes/cache.html
+  cache:
+    # All possible cache configuration options: https://docs.platform.sh/define-routes/cache.html#cache-configuration-properties
+    enabled: true
+    default_ttl: 0
+    cookies: [ '*' ]
+    headers: [ 'Accept', 'Accept-Language' ]
+
+# A basic redirect definition
+# More information: https://docs.platform.sh/define-routes.html#basic-redirect-definition
+"https://www.{default}/":
+  type: redirect
+  to: "https://{default}/"

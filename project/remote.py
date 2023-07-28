@@ -1,11 +1,10 @@
 import subprocess
-
 import packaging.version
-
 from . import BaseProject
+from project.ReadmeMixin import ReadmeMixin
 
 
-class RemoteProject(BaseProject):
+class RemoteProject(BaseProject, ReadmeMixin):
     """
     Base class for projects that need to synchronize code with an upstream source.
 
@@ -21,11 +20,6 @@ class RemoteProject(BaseProject):
         from which to pull. (If both are defined, `major_version` take precedence.)
     """
 
-    readMeFileName = "README"
-    readMeFileExt = "md"
-    readMeUpstreamFile = "_UPSTREAM"
-    readMePSHFile = "_PSH"
-
     @property
     def init(self):
         return super(RemoteProject, self).init + [
@@ -37,13 +31,14 @@ class RemoteProject(BaseProject):
     def update(self):
         actions = [
             # If we have a readme file from the template repository, rename it so we can bring it back later
-            'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "Moving {1}.{2} to {1}{3}.{2}"; mv "{1}.{2}" "{1}{3}.{2}"; fi;'
-            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile),
+            # 'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "Moving {1}.{2} to {1}{3}.{2}"; mv "{1}.{2}" "{1}{3}.{2}"; fi;'
+            # .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile),
+            super(RemoteProject, self).rename_psh_readme(),
             'cd {0} && git checkout {1}'.format(self.builddir, self.default_branch),
             'cd {0} && git fetch --all --depth=2'.format(self.builddir),
             'cd {0} && git fetch --all --tags'.format(self.builddir),
             # now we need to handle our .github directory and files
-            'cd {0} && [ -d {1} ] && mv {1} {2}'.format(self.builddir,'.github','tmp.github')
+            'cd {0} &&  if [ -d {1} ]; then mv {1} {2};fi;'.format(self.builddir, '.github', 'tmp.github')
             # Remove working directory files when updating from upstream, so that deletions get picked up.
             # Disabled, because it was breaking Magento updates. Even though it was added to avoid breaking Magento updates.
             # 'cd {0} &&  (find . -maxdepth 1 -not \( -path ./.git -o -path . \) -exec rm -rf {{}} \;)'.format(self.builddir),
@@ -68,16 +63,18 @@ class RemoteProject(BaseProject):
 
         # now we need to deal with the upstream README
         actions.append(
-            'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "moving upstream {1}.{2} to {1}{3}.{2}";mv "{1}.{2}" "{1}'
-            '{3}.{2}"; git add "{1}{3}.{2}";git commit -m "renamed {1} to {1}{3}";fi;'
-            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMeUpstreamFile)
+            super(RemoteProject, self).rename_upstream_readme()
+            # 'cd {0} && if [[ -f "{1}.{2}" ]]; then echo "moving upstream {1}.{2} to {1}{3}.{2}";mv "{1}.{2}" "{1}'
+            # '{3}.{2}"; git add "{1}{3}.{2}";git commit -m "renamed {1} to {1}{3}";fi;'
+            # .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMeUpstreamFile)
         )
 
         # and now our README
         actions.append(
-            'cd {0} && if [[ -f "{1}{3}.{2}" ]]; then echo "Moving our {1}{3}.{2} back to {1}.{2}";mv "{1}{3}.{2}" "'
-            '{1}.{2}";git add {1}.{2};git commit -m "Commiting our {1}.{2}";fi;'
-            .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile)
+            super(RemoteProject, self).rename_psh_readme_back()
+            # 'cd {0} && if [[ -f "{1}{3}.{2}" ]]; then echo "Moving our {1}{3}.{2} back to {1}.{2}";mv "{1}{3}.{2}" "'
+            # '{1}.{2}";git add {1}.{2};git commit -m "Commiting our {1}.{2}";fi;'
+            # .format(self.builddir, self.readMeFileName, self.readMeFileExt, self.readMePSHFile)
         )
 
         # now if a .github directory was reintroduced from the upstream, delete it, and then if ours is present, rename
@@ -85,7 +82,8 @@ class RemoteProject(BaseProject):
         actions.append(
             # remove a .github directory that might have been brought in from upstream
             # @todo should we loop through all possible directories/files that may need to be removed?
-            'cd {0}; if [ -d {1} ]; then rm -rf {1};fi; if [ -d {2} ]; then mv {2} {1};fi;'.format(self.builddir, '.github', 'tmp'
+            'cd {0}; if [ -d {1} ]; then rm -rf {1};fi; if [ -d {2} ]; then mv {2} {1};fi;'.format(self.builddir,
+                                                                                                   '.github', 'tmp'
                                                                                                               '.github')
         )
         # Do this last so it picks up all changes from above.

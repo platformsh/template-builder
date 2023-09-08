@@ -41,7 +41,7 @@ hooks:
   # The build hook is run after any build flavor.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
   build: |
-    corepack yarn install
+    corepack yarn install --frozen-lockfile
     corepack yarn build
 
 # Information on the app's source code and operations that can be run on it.

@@ -55,8 +55,12 @@ web:
   commands:
     # The command to launch your app. If it terminates, it’s restarted immediately.
     start: |
-      # Production start on all environments
-        NODE_ENV=production yarn start
+      yarn start
+
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+  env:
+    NODE_ENV: 'production'
 
 # Specifies a default set of build tasks to run. Flavors are language-specific.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#build

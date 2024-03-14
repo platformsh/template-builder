@@ -159,15 +159,12 @@ jobs:
                     # - template: gatsby
                     # - template: hugo
                     # - template: drupal8-multisite
-                    # - template: php
                     - template: django3
                     # - template: lisp
                     # - template: wordpress-woocommerce
                     # - template: golang
                     # - template: express
                     # - template: strapi4
-                    # - template: python3-uwsgi
-                    # - template: python3
                     # - template: nextjs
                     # - template: meilisearch
                     # - template: drupal9

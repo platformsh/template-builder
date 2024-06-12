@@ -63,7 +63,7 @@ Flask is a lightweight web microframework for Python.
 
 ## Features
 
--   Python 3.7
+-   Python 3.9
 -   Flask 2
 -   MariaDB 10.4
 -   Redis 5.0

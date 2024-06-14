@@ -1,0 +1,19 @@
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
+
+# Set databases environment variables for API Platform
+export DATABASE_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
+export DATABASE_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
+export DATABASE_NAME=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].path")
+export DATABASE_USER=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].username")
+export DATABASE_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].password")
+
+# Set dynamic CORS_ALLOW_ORIGIN for NelmioBundle
+export CORS_ALLOW_ORIGIN=^https://.*$(echo $PLATFORM_PROJECT)..*.platformsh.site
+export TRUSTED_HOSTS=^\(https://\)?.*$(echo $PLATFORM_PROJECT)..*.platformsh.site
+export TRUSTED_PROXIES=^\(https://\)?.*$(echo $PLATFORM_PROJECT)..*.platformsh.site
+
+# Admin Site Name
+export API_SITE_NAME="API Platform.sh"
+
+export APP_SECRET=$(echo $PLATFORM_PROJECT_ENTROPY)

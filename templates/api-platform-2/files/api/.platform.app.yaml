@@ -1,0 +1,61 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: api
+
+variables:
+    env:
+        APP_ENV: 'prod'
+
+# The type of the application to build.
+type: php:8.1
+build:
+    flavor: composer
+
+runtime:
+    extensions:
+        - apcu
+        - pdo_pgsql
+        - sodium
+
+dependencies:
+    php:
+        composer/composer: "^2"
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "database:postgresql"
+
+# The configuration of app when it is exposed to the web .
+web:
+    locations:
+        "/api":
+            passthru: "/api/index.php"
+            root: "public"
+            index:
+                - index.php
+            scripts: true
+            allow: true
+            headers:
+                Access-Control-Allow-Origin: "*"
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+    "/var/cache": "shared:files/cache"
+    "/var/log": "shared:files/log"
+    "/var/sessions": "shared:files/sessions"
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+    build: |
+        bin/console --env=prod assets:install --no-debug
+    deploy: |
+        bin/console --env=prod doctrine:schema:update --dump-sql
+        bin/console --env=prod doctrine:schema:update --force
+        bin/console --env=prod cache:clear

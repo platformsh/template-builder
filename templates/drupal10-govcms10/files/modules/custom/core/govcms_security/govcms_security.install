@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function govcms_security_install($is_syncing) {
+  \Drupal::keyValueExpirable('update_available_releases')->deleteAll();
+  \Drupal::keyValueExpirable('update_available_releases')->setMultiple([]);
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function govcms_security_update_last_removed() {
+  return 9005;
+}

@@ -1,0 +1,93 @@
+{
+  "name": "govcms/drupal10",
+  "description": "This template builds the GovCMS Drupal Distribution for Drupal 10 for Platform.sh based on the govCMS/govcms-project Composer project.",
+  "keywords": ["GovCMS"],
+  "type": "drupal-profile",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.govcms.gov.au",
+  "support": {
+    "docs": "https://docs.platform.sh/"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "dropzone/dropzone",
+        "version": "v5.7.2",
+        "type": "drupal-library",
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/dropzone/dropzone/archive/refs/tags/v5.7.2.zip"
+        }
+      }
+    }
+  ],
+  "require": {
+    "govcms/govcms": "^3.14",
+    "drupal/redis": "^1.5",
+    "drush/drush": "^12",
+    "platformsh/config-reader": "^2.4"
+  },
+  "require-dev": {
+    "drupal/core-dev": "^10.2"
+  },
+  "conflict": {
+    "drupal/drupal": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "cweagans/composer-patches": true,
+      "drupal/core-composer-scaffold": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "oomphinc/composer-installers-extender": true,
+      "drupal/core-vendor-hardening": true,
+      "phpstan/extension-installer": true,
+      "php-http/discovery": true,
+      "simplesamlphp/composer-module-installer": true
+    },
+    "bin-dir": "bin/",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "extra": {
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web/"
+      },
+      "initial": {
+        "sites/default/default.services.yml": "sites/default/services.yml",
+        "sites/default/default.settings.php": "sites/default/settings.php"
+      },
+      "excludes": [
+        "sites/development.services.yml"
+      ]
+    },
+    "installer-paths": {
+      "web/core": ["type:drupal-core"],
+      "web/modules/contrib/{$name}": ["type:drupal-module"],
+      "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+      "web/profiles/{$name}": ["type:drupal-profile"],
+      "web/themes/contrib/{$name}": ["type:drupal-theme"],
+      "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
+      "web/libraries/{$name}": ["type:drupal-library"],
+      "drush/contrib/{$name}": ["type:drupal-drush"]
+    },
+    "enable-patching": true,
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+      "govcms/govcms": {
+        "Prevent immediate installation without confirmation": "patches/govcms-prevent-autoinstall.patch"
+      }
+    }
+  },
+  "scripts": {
+    "nuke": "rm -r -f bin vendor composer.lock web"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

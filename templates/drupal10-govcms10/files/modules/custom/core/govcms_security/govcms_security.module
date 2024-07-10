@@ -1,0 +1,255 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Site\Settings;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Extension\Extension;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+use Drupal\webform\Plugin\WebformElement\ManagedFile;
+
+/**
+ * Implements hook_js_settings_alter().
+ */
+function govcms_security_js_settings_alter(array &$settings, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+  if (isset($settings['password'])) {
+    $settings['password']['tooShort'] = t('Make it at least 14 characters');
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function govcms_security_form_contact_message_contact_form_alter(&$form, FormStateInterface $form_state) {
+  $form['actions']['preview']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function govcms_security_form_user_login_form_alter(&$form, &$form_state) {
+  $form['#attributes']['autocomplete'] = 'off';
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter()
+ */
+function govcms_security_form_user_admin_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['admin_role']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function govcms_security_form_securitytxt_configure_alter(&$form, &$form_state) {
+  // Security.txt must be enabled.
+  $form['enabled']['#default_value'] = 1;
+  // Hide the 'enable' check box, so that no one can change it,
+  // via the form.
+  $form['enabled']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function govcms_security_form_user_admin_permissions_alter(&$form, FormStateInterface $form_state) {
+  $banned_permissions = govcms_security_hide_permissions_default();
+  $permissions = \Drupal::service('user.permissions')->getPermissions();
+  $permissions_by_provider = [];
+  foreach ($permissions as $permission_name => $permission) {
+    $permissions_by_provider[$permission['provider']][$permission_name] = $permission;
+  }
+  $has_hidden = FALSE;
+  foreach ($permissions_by_provider as $provider => $provider_permissions) {
+    $hidden_count = 0;
+    foreach ($provider_permissions as $permission_name => $permission) {
+      // If the permission is banned, remove it.
+      if (in_array($permission_name, $banned_permissions)) {
+        unset($form['permissions'][$permission_name]);
+        $hidden_count++;
+        $has_hidden = TRUE;
+      }
+      // If the permission is restricted, lock it down for anonymous and
+      // authenticated.
+      elseif (!empty($permission['restrict access'])) {
+        foreach ([
+                   RoleInterface::ANONYMOUS_ID,
+                   RoleInterface::AUTHENTICATED_ID,
+                 ] as $rid) {
+          $form['permissions'][$permission_name][$rid]['#disabled'] = TRUE;
+          $form['permissions'][$permission_name][$rid]['#default_value'] = FALSE;
+        }
+      }
+    }
+    // If all permissions for a provider were hidden, remove the provider name.
+    if ($hidden_count == count($provider_permissions)) {
+      unset($form['permissions'][$provider]);
+    }
+  }
+  if ($has_hidden) {
+    \Drupal::messenger()
+      ->addMessage(t('To make this site more secure, some permissions have been removed from this form.'));
+  }
+  $form['#submit'][] = 'govcms_security_permissions_submit';
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter()
+ */
+function govcms_security_form_tfa_settings_form_alter(&$form, FormStateInterface $form_state) {
+  // Remove site admin's ability to disable TFA from the Drupal UI and change the roles required to set up TFA.
+  if (\Drupal::currentUser()->id() != 1) {
+    $form['tfa_enabled']['#access'] = FALSE;
+    $form['tfa_required_roles']['#access'] = FALSE;
+  }
+  // Limit the max validation skip to 10.
+  $form['users_without_tfa']['validation_skip']['#max'] = 10;
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter()
+ *
+ * Disable the Import all button for all users from User Interface.
+ * Display a message around disabled config synchronization.
+ *
+ */
+function govcms_security_form_config_admin_import_form_alter(&$form, FormStateInterface $form_state) {
+  $form['actions']['submit']['#access'] = FALSE;
+  \Drupal::messenger()->addMessage("Configuration import is blocked via govcms_security module.");
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function govcms_security_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Author information shouldn't be displayed by default for new content types.
+  // If desired, it can be enabled however ISM states individual employees
+  // shouldn't have their names or details present on the website.
+  if ($form_id === "node_type_add_form") {
+    $form['display']['display_submitted']['#default_value'] = 0;
+  }
+}
+
+/**
+ * Implements hook_webform_element_configuration_form_alter().
+ */
+function govcms_security_webform_element_configuration_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  $element_plugin = $form_object->getWebformElementPlugin();
+  $element_type = $element_plugin->getTypeName();
+
+  if ($element_type == 'webform_signature') {
+    $scheme_options = $form['signature']['uri_scheme']['#options'];
+    if (isset($scheme_options['private'])) {
+      unset($scheme_options['public']);
+      $form['signature']['uri_scheme']['#options'] = $scheme_options;
+    }
+  }
+}
+
+/**
+ * Implements hook_webform_element_default_properties_alter().
+ */
+function govcms_security_webform_element_default_properties_alter(array &$properties, array &$definition) {
+  $scheme_options = ManagedFile::getVisibleStreamWrappers();
+  if (isset($scheme_options['private'])) {
+    $properties['uri_scheme'] = 'private';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function govcms_security_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($entity->id() == 1 && !Settings::get('govcms_security_super_ui')) {
+    return AccessResult::forbidden();
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_system_info_alter().
+ *
+ * Hide designated modules.
+ */
+function govcms_security_system_info_alter(array &$info, Extension $file, $type) {
+  $hidden_modules = govcms_security_hide_modules_default();
+  if ($type == 'module' && in_array($file->getName(), $hidden_modules)) {
+    $info['hidden'] = TRUE;
+  }
+}
+
+/**
+ * Default modules to be hidden.
+ */
+function govcms_security_hide_modules_default() {
+  return [
+    'module_permissions_ui',
+  ];
+}
+
+/**
+ * Remove risky permissions from any role.
+ */
+function govcms_security_permissions_submit($form, FormStateInterface $form_state) {
+  $banned_permissions = govcms_security_hide_permissions_default();
+  $roles = Role::loadMultiple();
+  foreach ($roles as $role) {
+    foreach ($banned_permissions as $permission) {
+      $role->revokePermission($permission);
+    }
+    $role->save();
+  }
+}
+
+/**
+ * Default risky permissions.
+ */
+function govcms_security_hide_permissions_default() {
+  return [
+    'administer module_permissions',
+  ];
+}
+
+/**
+ * Implements hook_update_projects_alter().
+ * Disables updates from all modules
+ */
+function govcms_security_update_projects_alter(&$projects) {
+  \Drupal::keyValueExpirable('update_available_releases')->deleteAll();
+  \Drupal::keyValueExpirable('update_available_releases')->setMultiple([]);
+  $projects = [];
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Make sure that when cron runs, available data is not fetched.
+ */
+function govcms_security_cron() {
+  \Drupal::keyValueExpirable('update_available_releases')->deleteAll();
+  \Drupal::keyValueExpirable('update_available_releases')->setMultiple([]);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for tfa_base_overview form.
+ */
+function govcms_security_form_tfa_base_overview_alter(&$form, FormStateInterface $form_state, $form_id) : void {
+  // Ensure that the Reset TFA skip count button is only available to privileged
+  // users with the 'reset TFA skip count' permission.
+  if (\Drupal::currentUser()->hasPermission('reset TFA skip count')) {
+    return;
+  }
+  if (isset($form['actions']['reset_skip_attempts'])) {
+    $form['actions']['reset_skip_attempts']['#access'] = FALSE;
+  }
+}

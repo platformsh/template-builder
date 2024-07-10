@@ -1,0 +1,15 @@
+diff --git a/govcms.info.yml b/govcms.info.yml
+index 7044fcc..2115e32 100644
+--- a/govcms.info.yml
++++ b/govcms.info.yml
+@@ -4,10 +4,6 @@ description: 'A GovCMS Drupal Distribution for government and the public sector
+ core_version_requirement: ^10
+ project: 'govcms'
+
+-distribution:
+-  name: GovCMS
+-  langcode: en
+-
+ install:
+   - drupal:big_pipe
+   - drupal:block

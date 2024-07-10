@@ -228,3 +228,59 @@ class Drupal10(RemoteProject):
                 self.builddir) + self.composer_defaults(),
         ]
 
+
+class Drupal10_govcms10(RemoteProject):
+    major_version = "3"
+    remote = 'https://github.com/govCMS/GovCMS.git'
+
+    def package_update_actions(self):
+        actions = super(Drupal10_govcms10, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(
+                       self.builddir),
+               ] + actions
+
+    @property
+    def update(self):
+        projectName = "govcms10"
+
+        def drupal10_govcms10_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name'] = "platformsh/{0}".format(projectName)
+            composer[
+                'description'] = "This template builds the Australian government's GovCMS Drupal 10 distribution using the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal10_govcms10, self).update + [
+            (self.modify_composer, [drupal10_govcms10_modify_composer])
+        ]
+
+    @property
+    def update(self):
+        return super(Drupal10_govcms10, self).update + [
+            'cd {0} && rm -rf .circleci'.format(self.builddir),
+            'cd {0} && rm -rf .tugboat'.format(self.builddir),
+            'cd {0} && composer remove php {1}'.format(self.builddir,
+                                                       self.composer_defaults().replace('--prefer-dist', '')),
+        ]
+
+    @property
+    def platformify(self):
+        return super(Drupal10_govcms10, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush drupal/redis'.format(
+                self.builddir) + self.composer_defaults(),
+            # 'cd {0} && composer update -W'.format(self.builddir) + self.composer_defaults(),
+            # 'cd {0} && rm -rf web/profiles/govcms'.format(self.builddir),
+        ]

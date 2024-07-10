@@ -1,0 +1,31 @@
+name: GovCMS Security Kit
+type: module
+description: Enhance security of GovCMS websites.
+package: GovCMS
+core_version_requirement: ^9 || ^10
+dependencies:
+  - encrypt:encrypt
+  - event_log_track:event_log_track
+  - event_log_track:event_log_track_auth
+  - event_log_track:event_log_track_config
+  - event_log_track:event_log_track_menu
+  - event_log_track:event_log_track_node
+  - event_log_track:event_log_track_syslog
+  - event_log_track:event_log_track_tfa
+  - event_log_track:event_log_track_ui
+  - event_log_track:event_log_track_user
+  - event_log_track:event_log_track_file
+  - honeypot:honeypot
+  - key:key
+  - login_security:login_security
+  - password_policy:password_policy
+  - password_policy:password_policy_characters
+  - password_policy:password_policy_character_types
+  - password_policy:password_policy_history
+  - password_policy:password_policy_length
+  - password_policy:password_policy_username
+  - real_aes:real_aes
+  - seckit:seckit
+  - securitytxt:securitytxt
+  - tfa:tfa
+  - username_enumeration_prevention:username_enumeration_prevention

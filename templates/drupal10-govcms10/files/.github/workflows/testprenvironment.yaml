@@ -1,0 +1,26 @@
+name: "TestPrEnvironment"
+on:
+  workflow_run:
+    workflows: [ "platformsh" ]
+    types:
+      - completed
+  pull_request:
+    branches:
+      - master
+      - main
+env:
+  BASELINE_URL: ${{ vars.BASELINE_URL }}
+  GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+jobs:
+  test-pr-env:
+    name: TestPrEnvironment
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'platformsh-templates' }}
+    steps:
+      - name: 'Run Pull Request Tests'
+        id: get-target-url
+        uses: platformsh/gha-template-pr-tests@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          baseline-url: ${{ vars.BASELINE_URL }}
+          delay-start: 5

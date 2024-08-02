@@ -1,0 +1,20 @@
+########################################################################################################################
+##                                                                                                                    ##
+## This github workflow file is part of the Platform.sh process of updating and maintaining our collection of         ##
+## templates. For more information see https://github.com/platformsh-templates/ghrw-templates                         ##
+## and https://github.com/search?q=topic%3Agithub-action+org%3Aplatformsh                                             ##
+##                                                                                                                    ##
+##                                       YOU CAN SAFELY DELETE THIS FILE                                              ##
+##                                                                                                                    ##
+########################################################################################################################
+name: Runs post merge-acceptance workflows
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  run-reusable-post-pr-acceptance:
+    uses: platformsh-templates/ghrw-templates/.github/workflows/post-pr-acceptance.yaml@main
+    secrets: inherit

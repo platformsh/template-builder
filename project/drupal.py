@@ -228,3 +228,46 @@ class Drupal10(RemoteProject):
                 self.builddir) + self.composer_defaults(),
         ]
 
+class Drupal11(RemoteProject):
+    major_version = "11.0"
+    remote = 'https://github.com/drupal/recommended-project.git'
+
+    def package_update_actions(self):
+        actions = super(Drupal11, self).package_update_actions()
+        return [
+                   'cd {0} && composer config -g allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.composer/installers true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-composer-scaffold true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.drupal/core-project-message true --no-plugins'.format(
+                       self.builddir),
+                   'cd {0} && composer config allow-plugins.cweagans/composer-patches true --no-plugins '.format(
+                       self.builddir),
+               ] + actions
+
+    @property
+    def update(self):
+        projectName = "drupal11"
+
+        def drupal11_modify_composer(composer):
+            """
+            This change makes the template loadable via Composer (see https://github.com/platformsh-templates/drupal9/pull/33).
+            """
+
+            composer['name'] = "platformsh/{0}".format(projectName)
+            composer['description'] = "This template builds Drupal 11 for Platform.sh based the \"Drupal Recommended\" Composer project."
+
+            return composer
+
+        return super(Drupal11, self).update + [
+            (self.modify_composer, [drupal11_modify_composer])
+        ]
+
+    @property
+    def platformify(self):
+        return super(Drupal11, self).platformify + [
+            'cd {0} && composer require platformsh/config-reader drush/drush'.format(
+                self.builddir) + self.composer_defaults(),
+        ]

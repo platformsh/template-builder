@@ -46,18 +46,10 @@ hooks:
 
     # Download the latest version of pip
     python3.11 -m pip install --upgrade pip
-    echo "showing currently installed packages via pip (should be empty):"
-    pip list
     pipenv --python 3.11
-    pipenv --venv
-    pipenv --where
-    pipenv --envs
-    pipenv graph
 
     # Install dependencies
     pipenv install --deploy
-    echo "pipenv install should be completed. now checking graph:"
-    pipenv graph
 
 # Information on the app's source code and operations that can be run on it.
 # More information: https://docs.platform.sh/create-apps/app-reference.html#source

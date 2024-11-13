@@ -1,0 +1,93 @@
+title: "Deploy Drupal 11 on Platform.sh"
+id: platformsh/drupal11
+profile: Drupal 11
+name: Drupal 11
+default_branch: master
+tags:
+  - PHP
+  - Drupal
+  - CMS
+  - Symfony
+related_blog_tags:
+  - Drupal
+license:
+  type: "MIT"
+  location: "LICENSE"
+features:
+  - PHP 8.3
+  - MariaDB 10.6
+  - Redis 7.2
+  - Drush included
+  - Automatic TLS certificates
+  - Composer-based build
+# Use Markdown for links and formatting. They will be converted to HTML automatically when the .platform.template.yaml file is generated.
+description:
+  - This template builds Drupal 11 using the "Drupal Recommended" Composer project. It is pre-configured to use MariaDB and Redis for caching. The Drupal installer will skip asking for database credentials as they are already provided.
+  - Drupal is a flexible and extensible PHP-based CMS framework.
+logo:
+    link: "https://www.drupal.org/"
+    images:
+      - "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNi4yIDMuOUMxNi4yIDMuOSAxNC44MiAzLjMgMTQuMDQgMi44MkMxNC4wNCAyLjgyIDEzLjAyIDIuMjIgMTEuMzQgMEMxMS4zNCAwIDExLjQgMi41MiA4LjcgMy44NEM0LjQ0IDUuNTIgMS44IDkuMDYgMS44IDEzLjU2QzEuOCAxOS4yNiA2LjQ4IDIzLjk0IDEyLjE4IDIzLjk0QzE3Ljk0IDIzLjk0IDIyLjU2IDE5LjI2IDIyLjU2IDEzLjU2QzIyLjYyIDYuNiAxNi4yIDMuOSAxNi4yIDMuOVpNNC42OCA5LjZDMy4wNiA5Ljk2IDMuMTggOS4xMiAzLjQ4IDguNEMzLjYgNy45OCA0LjAyIDcuNSA0LjAyIDcuNUM1LjEgNS43NiA3LjUgNC41IDcuNSA0LjVDNy44IDQuMzggOC4zNCA0LjA4IDguODIgMy44NEM5Ljc4IDMuMyAxMC4wMiAzIDEwLjAyIDNDMTEuNCAxLjY4IDExLjI4IDAuMDYgMTEuMjggMEMxMi40OCAyLjQgMTEuMDQgMy40OCAxMS4wNCAzLjQ4QzExLjQgMy44NCAxMS4yOCA0LjIgMTEuMjggNC4yQzkuNDIgOC4yMiA0LjY4IDkuNiA0LjY4IDkuNlpNMTcuMjIgMjIuMkMxNy4xIDIyLjI2IDE1LjYgMjIuOTggMTMuODYgMjIuOThDMTIuOSAyMi45OCAxMS44OCAyMi43NCAxMC45OCAyMi4xNEMxMC42OCAyMS45IDEwLjU2IDIxLjQ4IDEwLjc0IDIxLjE4QzEwLjggMjEuMDYgMTEuMTYgMjAuNjQgMTIgMjEuMThDMTIuMDYgMjEuMjQgMTQuMDQgMjIuNTYgMTcuMSAyMC44OEMxNy4zNCAyMC43NiAxNy42NCAyMC44MiAxNy43NiAyMS4wNkMxNy45NCAyMS4zIDE4IDIxLjc4IDE3LjIyIDIyLjJaTTEzLjAyIDE5LjY4TDEzLjA4IDE5LjYyQzEzLjE0IDE5LjU2IDE0LjE2IDE4LjI0IDE1LjY2IDE4LjQyQzE1LjkgMTguNDIgMTYuNzQgMTguNDggMTcuMjggMTkuNUMxNy4zNCAxOS42MiAxNy40NiAyMC4wNCAxNy4yMiAyMC4zNEMxNy4xIDIwLjQ2IDE2LjkyIDIwLjU4IDE2LjU2IDIwLjQ2QzE2LjMyIDIwLjQgMTYuMiAyMC4xNiAxNi4yIDIwLjA0QzE2LjE0IDE5Ljg2IDE2LjA4IDE5Ljc0IDE1LjQ4IDE5LjY4QzE1IDE5LjYyIDE0LjcgMTkuODYgMTQuMzQgMjAuMTZDMTQuMTYgMjAuMzQgMTMuOTIgMjAuNTIgMTMuNjggMjAuNThDMTMuNjIgMjAuNjQgMTMuNTYgMjAuNjQgMTMuNDQgMjAuNjRDMTMuMzIgMjAuNjQgMTMuMiAyMC41OCAxMy4wOCAyMC41MkMxMi45IDIwLjM0IDEyLjg0IDIwLjEgMTMuMDIgMTkuNjhaTTE5Ljg2IDE5LjhDMTkuODYgMTkuOCAxOS4zMiAxOS45OCAxOC43OCAxOS4zOEMxOC43OCAxOS4zOCAxNy4xNiAxNy41MiAxNi4zOCAxNy4yMkMxNi4zOCAxNy4yMiAxNS45IDE3LjA0IDE1LjMgMTcuMjhDMTUuMyAxNy4yOCAxNC44OCAxNy4zNCAxMy4yNiAxOC40MkMxMy4yNiAxOC40MiAxMC41IDIwLjE2IDkuMTIgMTkuOTJDOS4xMiAxOS45MiA2IDE5Ljk4IDYuNDIgMTYuNjhDNi40MiAxNi42OCA3LjA4IDEyLjk2IDExLjQgMTMuOEMxMS40IDEzLjggMTIuMzYgMTMuOTggMTQuMSAxNS4zNkMxNC4xIDE1LjM2IDE1LjMgMTYuMjYgMTUuOSAxNi4yNkMxNS45IDE2LjI2IDE2LjM4IDE2LjMyIDE3LjQ2IDE1LjY2QzE3LjQ2IDE1LjY2IDE5LjU2IDE0LjA0IDIwLjM0IDE0LjFDMjAuNDYgMTQuMSAyMS44NCAxNC4wNCAyMS44NCAxNi4zMkMyMS43OCAxNi4yNiAyMS44NCAxOC45IDE5Ljg2IDE5LjhaIiBmaWxsPSIjMDA4RUNFIi8+Cjwvc3ZnPgo="
+sections:
+    "create-project": "composer create-project platformsh/drupal11 -s dev"
+    metrics: false
+    blackfire: true
+    postinstall: "templates/drupal11/info/post_install.md"
+    local:
+      - "common/readme/drupal/local_ddev.md"
+      - "common/readme/drupal/local_lando.md"
+    resources:
+      - "[Drupal](https://www.drupal.org/)"
+      - "[Drupal on Platform.sh](https://docs.platform.sh/guides/drupal/deploy.html)"
+      - "[Platform.sh PHP documentation](https://docs.platform.sh/languages/php.html)"
+    migration:
+      mounts:
+        - "web/sites/default/files"
+        - "private"
+      files:
+        "web/sites/default/settings.platformsh.php":
+            - "**Added:**<br><br>"
+            - "Contains Platform.sh-specific configuration, namely setting up the database connection to the MariaDB service and caching via Redis."
+        "config/sync/.gitkeep":
+            - "**Added**"
+        "web/sites/default/settings.php":
+            - "**Updated:**<br><br>"
+            - "The Drupal settings file has been updated to import and use `web/sites/default/settings.platformsh.php`."
+        ".environment":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.environment.md"
+            - "Here, the Composer config and `PATH` are updated to allow executable app dependencies from Composer to be run from the path (i.e. `drush`)."
+        ".blackfire.yml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.blackfire.yml.md"
+        ".gitignore":
+            - "**Added:**<br><br>"
+            - "A `.gitignore` file is not included in the upstream, so one has been added."
+        ".lando.upstream.yml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.lando.upstream.yml.md"
+        ".platform.app.yaml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.platform.app.yaml.md"
+            - "This template uses Composer 2 to install dependencies using the default `composer` [build flavor](https://docs.platform.sh/languages/php.html#build-flavor) prior to the `build` hook."
+            - "Drush tasks are run during the `deploy` hook, and referenced again during the defined `cron` job."
+        "drush/platformsh_generate_drush_yml.php":
+            - "**Added:**<br><br>"
+            - "This file has been included to generate the drush yaml configuration on every deployment."
+        ".ddev/providers/platform.yaml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.ddev.providers.platform.yaml.md"
+        "php.ini":
+            - "**Added:**<br><br>"
+            - file: "common/readme/drupal/php.ini.md"
+        ".platform/services.yaml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.platform.services.yaml.md"
+            - "In this template, MariaDB and Redis have been configured."
+        ".platform/routes.yaml":
+            - "**Added:**<br><br>"
+            - file: "common/readme/file_descriptions/.platform.routes.yaml.md"
+    troubleshoot:
+      - file: "common/readme/troubleshoot_ssh.md"
+      - file: "common/readme/drupal/troubleshoot_cache.md"
+      - file: "common/readme/drupal/troubleshoot_hashsalt.md"

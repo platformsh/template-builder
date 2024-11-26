@@ -12,7 +12,7 @@ FastAPI is a modern, fast (high-performance), web framework for building APIs wi
 
 ## Features
 
-* Python 3.9
+* Python 3.11
 * MariaDB 10.4
 * Redis 5.0
 * Automatic TLS certificates
@@ -23,7 +23,6 @@ FastAPI is a modern, fast (high-performance), web framework for building APIs wi
 The following files have been added to a basic FastAPI configuration.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
-* An additional Pip library, [`platformshconfig`](https://github.com/platformsh/config-reader-python), has been added.  It provides convenience wrappers for accessing the Platform.sh environment variables.
 * A rudimentary application is included in `server.py` for demonstration purposes.  It shows the basic process of starting the server and connecting to the MariaDB database.  Modify and replace it as desired.
 
 ## References

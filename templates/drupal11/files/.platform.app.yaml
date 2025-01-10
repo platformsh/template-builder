@@ -1,0 +1,203 @@
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
+
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
+name: 'drupal'
+
+# The runtime the application uses.
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
+type: "php:8.3"
+
+# How many resources to devote to the app. Defaults to AUTO in production environments.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#sizes
+# size:
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
+relationships:
+    database: 'db:mysql'
+    redis: 'cache:redis'
+
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
+disk: 2048
+
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
+mounts:
+    # The default Drupal files directory.
+    '/web/sites/default/files':
+        source: local
+        source_path: 'files'
+    # Drupal gets its own dedicated tmp directory. The settings.platformsh.php
+    # file will automatically configure Drupal to use this directory.
+    '/tmp':
+        source: local
+        source_path: 'tmp'
+    # Private file uploads are stored outside the web root. The settings.platformsh.php
+    # file will automatically configure Drupal to use this directory.
+    '/private':
+        source: local
+        source_path: 'private'
+    # Drush needs a scratch space for its own caches.
+    '/.drush':
+        source: local
+        source_path: 'drush'
+    # Drush will try to save backups to this directory, so it must be
+    # writeable even though you will almost never need to use it.
+    '/drush-backups':
+        source: local
+        source_path: 'drush-backups'
+
+# Configuration of the build of this application.
+build:
+    flavor: composer
+
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
+web:
+    # Commands are run once after deployment to start the application process.
+    # More information: https://docs.platform.sh/create-apps/app-reference.html#web-commands
+    # commands:
+    # The command to launch your app. If it terminates, it’s restarted immediately.
+    #   You can use the $PORT or the $SOCKET environment variable depending on the socket family of your upstream
+    #   PHP applications run PHP-fpm by default
+    #   Read about alternative commands here: https://docs.platform.sh/languages/php.html#alternate-start-commands
+    #   start: echo 'Put your start command here'
+    # You can listen to a UNIX socket (unix) or a TCP port (tcp, default).
+    # For PHP, the defaults are configured for PHP-FPM and shouldn't need adjustment.
+    # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
+    # More information: https://docs.platform.sh/create-apps/app-reference.html#where-to-listen
+    # upstream:
+    #  socket_family: unix
+    # Each key in locations is a path on your site with a leading /.
+    # More information: https://docs.platform.sh/create-apps/app-reference.html#locations
+    locations:
+        # All requests not otherwise specified follow these rules.
+        '/':
+            # The folder from which to serve static assets, for this location.
+            #
+            # This is a filesystem path, relative to the application root.
+            root: 'web'
+
+            # How long to allow static assets from this location to be cached.
+            #
+            # Can be a time in seconds, or -1 for no caching. Times can be
+            # suffixed with "s" (seconds), "m" (minutes), "h" (hours), "d"
+            # (days), "w" (weeks), "M" (months, as 30 days) or "y" (years, as
+            # 365 days).
+            expires: 5m
+
+            # Redirect any incoming request to Drupal's front controller.
+            passthru: '/index.php'
+
+            # Deny access to all static files, except those specifically allowed below.
+            allow: false
+
+            # Rules for specific URI patterns.
+            rules:
+                # Allow access to common static files.
+                '\.(avif|webp|jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
+                    allow: true
+                '^/robots\.txt$':
+                    allow: true
+                '^/sitemap\.xml$':
+                    allow: true
+
+                # Deny direct access to configuration files.
+                '^/sites/sites\.php$':
+                    scripts: false
+                '^/sites/[^/]+/settings.*?\.php$':
+                    scripts: false
+
+        # The files directory has its own special configuration rules.
+        '/sites/default/files':
+            # Allow access to all files in the public files directory.
+            allow: true
+            expires: 5m
+            passthru: '/index.php'
+            root: 'web/sites/default/files'
+
+            # Do not execute PHP scripts from the writeable mount.
+            scripts: false
+
+            rules:
+                # Provide a longer TTL (2 weeks) for aggregated CSS and JS files.
+                '^/sites/default/files/(css|js)':
+                    expires: 2w
+
+# Alternate copies of the application to run as background processes.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#workers
+# workers:
+
+# The timezone for crons to run. Format: a TZ database name. Defaults to UTC, which is the timezone used for all logs
+# no matter the value here. More information: https://docs.platform.sh/create-apps/timezone.html
+# timezone: <time-zone>
+
+# Access control for roles accessing app environments.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#access
+# access:
+
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+#variables:
+
+# Outbound firewall rules for the application. More information: https://docs.platform.sh/create-apps/app-reference.html#firewall
+# firewall:
+
+# Specifies a default set of build tasks to run. Flavors are language-specific.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#build
+
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
+# are available in the PATH during the build process and in the runtime environment. They’re installed before
+# the build hook runs using a package manager for the language.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
+dependencies:
+    php:
+        composer/composer: "^2.7"
+
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
+hooks:
+    # The build hook runs after Composer to finish preparing up your code.
+    # No services are available but the disk is writeable.
+    build: |
+        set -e
+    # The deploy hook runs after your application has been deployed and started.
+    # Code cannot be modified at this point but the database is available.
+    # The site is not accepting requests while this script runs so keep it
+    # fast.
+    deploy: |
+        set -e
+        php ./drush/platformsh_generate_drush_yml.php
+        # if drupal is installed, will call the following drush commands:
+        #   - `cache-rebuild`
+        #   - `updatedb`
+        #   - and if config files are present, `config-import`
+        cd web
+        bash $PLATFORM_APP_DIR/drush/platformsh_deploy_drupal.sh
+
+    # The post_deploy hook is run after the app container has been started and after it has started accepting requests.
+    # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
+    # post_deploy: |
+
+# Scheduled tasks for the app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#crons
+crons:
+    # Run Drupal's cron tasks every 19 minutes.
+    drupal:
+        spec: '*/19 * * * *'
+        commands:
+            start: 'cd web ; drush core-cron'
+
+# Customizations to your PHP or Lisp runtime. More information: https://docs.platform.sh/create-apps/app-reference.html#runtime
+runtime:
+    # Enable the redis extension so Drupal can communicate with the Redis cache.
+    extensions:
+        - redis
+        - sodium
+        - apcu
+        - blackfire
+
+# More information: https://docs.platform.sh/create-apps/app-reference.html#additional-hosts
+# additional_hosts:

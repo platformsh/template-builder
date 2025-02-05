@@ -1,0 +1,38 @@
+version: 1
+
+info:
+  id: platformsh/magentoce24
+  name: Magento v2.4 Community Edition
+  description: |
+      <p>This template builds Magento 2.4 CE on Platform.sh and Upsun. It includes the Magento ECE-Tools to run effectively in a build-and-deploy environment. A MariaDB Database, Elasticsearch Indexer, RabbitMQ Message Queue and Redis Cache server come pre-configured and work out of the box.</p>
+      <p>Magento is a fully integrated ecommerce system and web store written in PHP.  This is the Open Source version.</p>
+  class: starter
+  featured: true
+  tags:
+  - PHP
+  - Magento
+  - CMS
+  - Commerce
+  related_blog_tags:
+  - Magento
+  image: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc5OTk5IDYuMDA0NTZMMTIuMjAyNSAwTDIyLjU4NDEgNS45OTQxVjE3Ljk5OEwxOS42MTQ1IDE5LjcwOTVWNy43MTg3TDEyLjE4MTUgMy40MjgyTDQuNzQ4NTUgNy43MTg3TDQuNzY5NTIgMTkuNzE0N0wxLjc5OTk5IDE3Ljk5OFY2LjAwNDU2Wk0xMi4xOTIgMjAuNTc0NEwxMy42NzU1IDE5LjcxMjFWNy43MTg2N0wxNi42NDUgOS40MzI3NVYyMS40Mjg5TDEyLjE4OTQgMjRMNy43MzkwMiAyMS40Mjg5TDcuNzMzNzggOS40MzI3NUwxMC43MDA3IDcuNzE4NjdWMTkuNzJMMTIuMTkyIDIwLjU3NDRaIiBmaWxsPSIjRjI2MzIyIi8+Cjwvc3ZnPgo=
+  notes:
+    - heading: "Features"
+      content: |
+          PHP 8.3<br />
+          MariaDB 10.6<br />
+          Redis 7.2<br />
+          Opensearch 2<br />
+          RabbitMQ 3.13<br />
+          Automatic TLS certificates<br />
+          Composer-based build<br />
+
+plans:
+    exclude:
+        - small
+
+initialize:
+  repository: https://github.com/platformsh-templates/magentoce24.git@main
+  config: null
+  files: []
+  profile: Magento 2.4 Community Edition

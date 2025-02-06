@@ -1,0 +1,127 @@
+{
+    "name": "magento/project-community-edition",
+    "description": "Adobe Commerce 2.4.X (Community Edition)",
+    "type": "project",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "laminas/laminas-dependency-plugin": true,
+            "magento/*": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "require": {
+        "magento/ece-tools": "^2002",
+        "magento/product-community-edition": "^2.4",
+        "fastly/magento2": "*",
+        "magento/composer-root-update-plugin": "*",
+        "markshust/magento2-module-disabletwofactorauth": "*",
+        "n98/magerun2-dist": "*"
+    },
+    "autoload": {
+        "exclude-from-classmap": [
+            "**/dev/**",
+            "**/update/**",
+            "**/Test/**"
+        ],
+        "files": [
+            "app/etc/NonComposerComponentRegistration.php"
+        ],
+        "psr-0": {
+            "": [
+                "app/code/",
+                "generated/code/"
+            ]
+        },
+        "psr-4": {
+            "Magento\\": "app/code/Magento/",
+            "Magento\\Framework\\": "lib/internal/Magento/Framework/",
+            "Magento\\Setup\\": "setup/src/Magento/Setup/"
+        }
+    },
+    "conflict": {
+        "gene/bluefoot": "*"
+    },
+    "suggest": {
+        "ext-pcntl": "Need for run processes in parallel mode"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Magento\\PhpStan\\": "dev/tests/static/framework/Magento/PhpStan/",
+            "Magento\\Sniffs\\": "dev/tests/static/framework/Magento/Sniffs/",
+            "Magento\\TestFramework\\Inspection\\": "dev/tests/static/framework/Magento/TestFramework/Inspection/",
+            "Magento\\TestFramework\\Utility\\": "dev/tests/static/framework/Magento/TestFramework/Utility/",
+            "Magento\\Tools\\": "dev/tools/Magento/Tools/",
+            "Magento\\Tools\\Sanity\\": "dev/build/publication/sanity/Magento/Tools/Sanity/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://mirror.mage-os.org/"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento/ece-tools"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento/magento-cloud-components"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento/magento-cloud-docker"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento/magento-cloud-patches"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento/quality-patches"
+        }
+    ],
+    "extra": {
+        "component_paths": {
+            "trentrichardson/jquery-timepicker-addon": "lib/web/jquery/jquery-ui-timepicker-addon.js",
+            "components/jquery": [
+                "lib/web/jquery.js",
+                "lib/web/jquery/jquery.min.js",
+                "lib/web/jquery/jquery-migrate.js"
+            ],
+            "blueimp/jquery-file-upload": "lib/web/jquery/fileUploader",
+            "components/jqueryui": [
+                "lib/web/jquery/jquery-ui.js"
+            ],
+            "twbs/bootstrap": [
+                "lib/web/jquery/jquery.tabs.js"
+            ],
+            "tinymce/tinymce": "lib/web/tiny_mce_5"
+        },
+        "magento-force": true,
+        "magento-deploystrategy": "copy",
+        "magento-deploy-ignore": {
+            "*": [
+                "/.gitignore"
+            ]
+        }
+    },
+    "scripts": {
+        "generate-schema": [
+            "php ./vendor/bin/ece-tools schema:generate || true"
+        ],
+        "post-install-cmd": [
+            "@generate-schema"
+        ],
+        "post-update-cmd": [
+            "@generate-schema"
+        ]
+    }
+}

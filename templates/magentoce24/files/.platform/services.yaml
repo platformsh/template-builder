@@ -1,0 +1,37 @@
+db:
+    type: mariadb:10.6
+    disk: 1500
+    configuration:
+      schemas:
+        - main
+      endpoints:
+        write:
+          default_schema: main
+          privileges:
+            main: admin
+        read:
+          default_schema: main
+          privileges:
+            main: ro
+
+cache:
+    type: redis:7.2
+    configuration:
+        maxmemory_policy: allkeys-lru
+
+session:
+    type: redis-persistent:7.2
+    disk: 512
+    configuration:
+        maxmemory_policy: allkeys-lru
+
+indexer:
+    type: opensearch:2
+    disk: 512
+    configuration:
+        plugins:
+            - analysis-phonetic
+            - analysis-icu
+queue:
+    type: rabbitmq:3.13
+    disk: 1024

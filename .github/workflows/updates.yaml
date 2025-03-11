@@ -2,10 +2,10 @@
 name: "Updates"
 
 on:
-    schedule:
-        - cron: "0 1 */3 * *" # At 01:00 on every 3rd day-of-month.
-    # push:
-    #   branches: 'drupals'
+#     schedule:
+#         - cron: "0 1 */3 * *" # At 01:00 on every 3rd day-of-month.
+    push:
+      branches: 'hold-off-for-so-changes'
 
 env:
     # Update vars.

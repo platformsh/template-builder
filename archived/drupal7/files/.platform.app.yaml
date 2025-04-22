@@ -108,4 +108,5 @@ hooks:
 crons:
     drupal:
         spec: '*/20 * * * *'
-        commands: 'cd public ; drush core-cron'
+        commands:
+            start: 'cd public ; drush core-cron'

@@ -1,0 +1,7 @@
+{
+    "name": "platformsh/api-platform-3",
+    "description": "API-Platform v3 template for Platform.sh",
+    "type": "project",
+    "license": "MIT",
+    "require": {}
+}

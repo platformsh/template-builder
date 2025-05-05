@@ -1,0 +1,57 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: admin
+
+# The toolstack used to build the application.
+type: nodejs:16
+build:
+    flavor: none
+
+variables:
+  env:
+    NODE_OPTIONS: '--max-old-space-size=1536'
+
+size: L
+resources:
+  base_memory: 1024
+  memory_ratio: 1024
+
+# The configuration of app when it is exposed to the web.
+web:
+    locations:
+        "/":
+            root: "build"
+            index:
+                - "index.html"
+            expires: 300s
+            scripts: true
+            allow: false
+            rules:
+                \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
+                    allow: true
+                ^/robots\.txt$:
+                    allow: true
+            headers:
+                Access-Control-Allow-Origin: "*"
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+  '/build_platform': 'shared:files/build_platform'
+  '/.tmp_platformsh': 'shared:files/tmp_platformsh'
+  '/build': 'shared:files/build'
+  '/.cache': 'shared:files/.cache'
+  '/node_modules/.cache': 'shared:files/node_modules/.cache'
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+    build: |
+      set -eu
+      corepack yarn install --immutable --force
+    post_deploy: |
+      corepack yarn run buildenvvar
+      corepack yarn run build --force

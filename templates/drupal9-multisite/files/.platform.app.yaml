@@ -7,11 +7,11 @@
 name: 'drupal'
 
 # The runtime the application uses.
-type: 'php:8.0'
+type: 'php:8.2'
 
 dependencies:
-    php:
-        composer/composer: '^2'
+  php:
+    composer/composer: '>=2.0 <2.9'
 
 runtime:
     # Enable the redis extension so Drupal can communicate with the Redis cache.
@@ -86,9 +86,17 @@ hooks:
         set -e
         php ./drush/platformsh_generate_drush_yml.php
         cd web
-        drush -y cache-rebuild
-        drush -y updatedb
-        drush -y config-import
+        if [ -n "$(drush status --field=bootstrap)" ]; then
+          drush -y cache-rebuild
+          drush -y updatedb
+          if [ -n "$(ls $(drush php:eval "echo realpath(Drupal\Core\Site\Settings::get('config_sync_directory'));")/*.yml 2>/dev/null)" ]; then
+            drush -y config-import
+          else
+            echo "No config to import. Skipping."
+          fi
+        else
+          echo "Drupal not installed. Skipping standard Drupal deploy steps"
+        fi
 
 # The configuration of app when it is exposed to the web.
 web:
@@ -150,7 +158,8 @@ crons:
     # Run Drupal's cron tasks every 19 minutes.
     drupal:
         spec: '*/19 * * * *'
-        commands: 'cd web ; drush core-cron'
+        commands:
+            start: 'cd web ; drush core-cron'
 
 source:
   operations:

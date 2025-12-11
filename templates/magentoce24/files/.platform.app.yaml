@@ -46,7 +46,7 @@ build:
 
 dependencies:
     php:
-        composer/composer: '^2'
+        composer/composer: '>=2.0 <2.9'
 
 # The relationships of the application with services or other applications.
 #
@@ -164,3 +164,9 @@ web:
             rules:
                 ^/static/version\d+/(?<resource>.*)$:
                     passthru: "/static/$resource"
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
